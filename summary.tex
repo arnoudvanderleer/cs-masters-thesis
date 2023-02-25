@@ -30,6 +30,39 @@
   and identity
   \[ \theta \circ (1_{a_1}, \dots, 1_{a_n}) = \theta = 1_a \circ \theta. \]
 
+  A \textbf{map of multicategories} is a function $ f_0: C_0 \to C_0^\prime $ and maps $ C(a_1, \dots, a_n; a) \to C(f_0(a_1), \dots, f_0(a_n); f_0(a)) $, preserving composition and identities.
+
+  For $ C $ a multicategory, a \textbf{$ C $-algebra} is a map from $ C $ into the multicategory $ \mathbf{Set} $ (with objects $ \mathrm{Set}_0 $ and maps $ \mathrm{Set}(a_1, \dots, a_n; a) = \mathrm{Set}(a_1 \times \dots \times a_n ; a) $). I.e., for each $ a \in C_0 $, a set $ X(a) $, and for each map $ \theta: a_1, \dots, a_n \to a $, a function $ X(\theta): X(a_1) \times X(a_n) \to X(a) $. An example is, for a multicategory $ C $, to take $ X(a) = C(; a) $ (maps from the empty sequence into $ a $).
+
   \subsection{Operads}
-  An \textbf{operad} is a multicategory with only one object. More explicitly, an operad has a set $ P(k) $ for every $ k \in \mathbb N $, whose elements can be thought of as $ k $-ary operations. For example, for any vector space $ V $, there is an operad with $ P(k) = V^{\otimes k} \to V $.
+  \subsubsection{Definitions}
+  An \textbf{operad} is a multicategory with only one object. More explicitly, an operad has a set $ P(k) $ for every $ k \in \mathbb N $, whose elements can be thought of as $ k $-ary operations. It also has, for all $ n, k_1, \dots, k_n \in \mathbb N $, a \textit{composition} function
+  \[ P(n) \times P(k_1) \times \dots \times P(k_n) \to P(k_1 + \dots + k_n) \]
+  and an element $ 1 = 1_P \in P(1) $ called the \textbf{identity}, satisfying
+  \[ \theta \circ (1, 1, \dots, 1) = \theta = \theta \circ 1 \]
+  for all $ \theta $, and
+  \[ \theta \circ(\theta_1 \circ(\theta_{1, 1}, \dots, \theta_{1, k_1}), \dots, \theta_n \circ (\theta_{n, 1}, \dots, \theta_{n, k_n})) = (\theta \circ (\theta_1, \dots, \theta_n)) \circ (\theta_{1, 1}, \dots, \theta_{n, k_n}) \]
+  for all $ \theta \in P(n) $, $ \theta_1 \in P(k_1) $, \dots, $ \theta_n \in P(k_n) $ and all $ \theta_{1, 1} \dots \theta_{n, k_n} $.
+
+  A \textbf{morphism of operads} is a family
+  \[ f_n : (P(n) \to Q(n))_{n \in \mathbb N} \]
+  of functions, preserving composition and identities.
+
+  A \textbf{$ P $-algebra} for $ P $ an operad, is a set $ X $ and, for each $ n $, and $ \theta \in P(n) $, a function $ \overline{\theta}: X^n \to X $, satisfying the evident axioms (identity is the identity function, the function of a composition is the composition of the functions?).
+  
+  \subsubsection{Examples}
+  For any vector space $ V $, there is an operad with $ P(k) = V^{\otimes k} \to V $.
+
+  The terminal operad $ 1 $ has $ P(n) = \{ \star_1 \} $ for all $ n $. An algebra for $ 1 $ is a set $ X $ together with a function $ X^n \to X $, denoted as $ (x_1, \dots, x_n) \mapsto (x_1 \cdot \dots \cdot x_n) $, satisfying
+  \[ ((x_{1, 1} \cdot \dots x_{1, k_1}) \cdot \dots \cdot (x_{n, 1} \cdot \dots \cdot x_{n, k_n})) = (x_{1, 1} \cdot \dots \cdot x_{n, k_n}) \]
+  and
+  \[ x = (x). \]
+  The category of $ 1 $-algebras is the category of monoids.
+
+  There exist various sub-operads of $ 1 $. For example, the smallest one has $ P(1) = \{ \star \} $ and $ P(n) = \emptyset $ for $ n \not = 1 $.
+
+  Or the operad with $ P(0) = \emptyset $ and $ P(n) = \{ \star_n \} $ for $ n > 0 $, which has semigroups as its algebras (sets with associative binary operations).
+
+  The suboperad with $ P(n) = \{ \star_n \} $ exactly when $ n \leq 1 $ has as its algebras the pointed sets.
+
 \end{document}
