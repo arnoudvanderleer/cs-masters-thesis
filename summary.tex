@@ -1,0 +1,35 @@
+\documentclass{amsart}
+
+\title{Summary of the things that I learned}
+\author{Arnoud van der Leer}
+
+\begin{document}
+  \maketitle
+
+  \section{Week 08}
+  \subsection{Univalent Categories}
+  A univalent category is a category in which the univalence axiom holds. I.e., a category $ \mathcal C $ in which, for all $ A, B \in \mathcal C_0 $, the canonical map $ (A =_{\mathcal C} B) \to (A \cong B) $ is an equivalence.
+
+  \subsection{Categories}
+  An \textbf{$ n $-category} is a category with $ 0 $-cells (objects), $ 1 $-cells (morphisms), $ 2 $-cells (morphisms between morphisms), up to $ n $-cells and various compositions: $ A \to B \to C $. $ A \xrightarrow{f, g, h} B $, $ f \Rightarrow g \Rightarrow h $. $ A \xrightarrow{f, g} B \xrightarrow{f^\prime, g^\prime} C $, $ \alpha: f \Rightarrow g $, and identities $ \alpha^\prime: f^\prime \Rightarrow g^\prime $ gives $ \alpha^\prime * \alpha: f^\prime \circ f \Rightarrow g^\prime \circ g $. These all need to work together `nicely'. An $ \omega $-category is the same, but all the way up.
+
+  A topological space gives a (weak) $ \omega $-category. $ 0 $-cells are points, $ 1 $-cells are paths, $ 2 $-cells are homotopies etc. Composition is by glueing. It is a `groupoid', in the sense that all homotopies of dimension $ \geq 1 $ are invertible. However, glueing is not associative, so it is a `weak' $ \omega $-category.
+
+  A category with only one object $ \star $ is equivalent to a monoid (with elements being the set $ \mathcal C(\star, \star) $). A $ 2 $-category with only one $ 0 $-cell is the same thing as a monoidal category (objects: the $ 1 $-cells. Morphisms: the $ 2 $-cells). A monoidal category with just one object gives $ 2 $ monoid structures on its set of morphisms. These are the same, and commutative.
+
+  A \textbf{monoid} is a set with a multiplication and a unit. A \textbf{monad} on a category $ \mathcal A $ is a functor $ \mathcal A \to \mathcal A $, together with natural transformations $ \mu : T \circ T \to T $ (satisfying associativity) and $ \eta : 1_{\mathcal A} \to T $ (acting as a two-sided unit).
+
+  A \textbf{presheaf} on a category $ \mathcal A $ is a functor $ \mathcal A^{\mathop{opp}} \to \mathbf{Set} $.
+
+  Given a category $ \mathcal E $ and an object $ E \in \mathcal E_0 $, the \textbf{slice category} $ \mathcal E / E $ with objects being the maps $ D \xrightarrow{p} E $ and morphisms being commutative triangles.
+
+  A \textbf{multicategory}, not necessarily the same as an $ n $-category, is a category in which arrows go from multiple objects to one, instead of from one object to one. I.e. it is a category with a class $ C_0 $ of objects, for all $ n $, and all $ a, a_1, \dots, a_n \in C_0 $, a class $ C(a_1, \dots, a_n; a) $ of `morphisms', and a composition 
+  \[ C(a_1, \dots, a_n; a) \times C(a_{1, 1}, \dots, a_{1, k_1}; a_1) \times \dots \times C(a_{n, 1}, \dots, a_{n, k_n}; a_n) \to C(a_{1, 1}, \dots, a_{n, k_n}; a), \]
+  written $ (\theta, \theta_1, \dots, \theta_n) \mapsto \theta (\theta_1, \dots, \theta_n) $ and for each $ a \in C_0 $ an identity $ 1_a \in C(a; a) $. It must satisfy associativity
+  \[ \theta \circ(\theta_1 \circ(\theta_{1, 1}, \dots, \theta_{1, k_1}), \dots, \theta_n \circ (\theta_{n, 1}, \dots, \theta_{n, k_n})) = (\theta \circ (\theta_1, \dots, \theta_n)) \circ (\theta_{1, 1}, \dots, \theta_{n, k_n}) \]
+  and identity
+  \[ \theta \circ (1_{a_1}, \dots, 1_{a_n}) = \theta = 1_a \circ \theta. \]
+
+  \subsection{Operads}
+  An \textbf{operad} is a multicategory with only one object. More explicitly, an operad has a set $ P(k) $ for every $ k \in \mathbb N $, whose elements can be thought of as $ k $-ary operations. For example, for any vector space $ V $, there is an operad with $ P(k) = V^{\otimes k} \to V $.
+\end{document}
