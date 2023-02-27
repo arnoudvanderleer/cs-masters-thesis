@@ -1,5 +1,8 @@
 \documentclass{amsart}
 
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+
 \title{Summary of the things that I learned}
 \author{Arnoud van der Leer}
 
@@ -34,6 +37,12 @@
 
   For $ C $ a multicategory, a \textbf{$ C $-algebra} is a map from $ C $ into the multicategory $ \mathbf{Set} $ (with objects $ \mathrm{Set}_0 $ and maps $ \mathrm{Set}(a_1, \dots, a_n; a) = \mathrm{Set}(a_1 \times \dots \times a_n ; a) $). I.e., for each $ a \in C_0 $, a set $ X(a) $, and for each map $ \theta: a_1, \dots, a_n \to a $, a function $ X(\theta): X(a_1) \times X(a_n) \to X(a) $. An example is, for a multicategory $ C $, to take $ X(a) = C(; a) $ (maps from the empty sequence into $ a $).
 
+  Of course, there is a concept of \textbf{free multicategory}: Given a set $ X $, and for all $ n \in N $, and $ x, x_1, \dots, x_n \in X $, a set $ X(x_1, \dots, x_n ; x) $, we get a multicategory $ X^\prime $ with $ X^\prime_0 = X_0 $, and $ X^\prime(x_1, \dots, x_n; x) $ given by formal compositions of elements of the $ X(y_1, \dots, y_m; y) $.
+
+  A \textbf{bicategory} consists of a class $ \mathcal B_0 $ of $ 0 $-cells, or objects; For each $ A, B \in \mathcal B_0 $, a category $ \mathcal B(A, B) $ of $ 1 $-cells (objects) and $ 2 $-cells (morphisms); for each $ A, B, C \in \mathcal B_0 $, a functor $ \mathcal B(B, C) \times \mathcal B(A, B) \to \mathcal B(A, C) $ written $ (g, f) \mapsto g \circ f $ on $ 1 $-cells and $ (\delta, \gamma) \mapsto \delta * \gamma $ on $ 2 $-cells; For each $ A \in \mathcal B_0 $ an object $ 1_A \in \mathcal B(A, A) $; isomorphisms representing associativity and identity axioms (e.g. $ f \circ 1_A \cong f \in \mathcal B(A, B) $), natural in their arguments, satisfying pentagon and triangle axioms.
+
+  The collection of categories $ \mathrm{Cat} $ forms a bicategory. In analogy, we define a monad in a bicategory to be an object $ A $, together with a $ 1 $-cell $ t: A \to A $ and $ 2 $-cells $ \mu: t \circ t \to t $ and $ \eta: 1_A \to t $ satisfying a couple of commutativity axioms (those of 1.1.3 in \cite{higher-operads-higher-categories}).
+
   \subsection{Operads}
   \subsubsection{Definitions}
   An \textbf{operad} is a multicategory with only one object. More explicitly, an operad has a set $ P(k) $ for every $ k \in \mathbb N $, whose elements can be thought of as $ k $-ary operations. It also has, for all $ n, k_1, \dots, k_n \in \mathbb N $, a \textit{composition} function
@@ -64,5 +73,50 @@
   Or the operad with $ P(0) = \emptyset $ and $ P(n) = \{ \star_n \} $ for $ n > 0 $, which has semigroups as its algebras (sets with associative binary operations).
 
   The suboperad with $ P(n) = \{ \star_n \} $ exactly when $ n \leq 1 $ has as its algebras the pointed sets.
+
+  The \textbf{operad of curves} has $ P(n) = \{ \text{smooth maps}\ \mathbb R \to \mathbb R^n \} $.
+
+  Given a monad on $ \mathrm{Set} $, we get a natural operad structure $ T(n)_{n \in \mathbb N} $, with $ T(n) $ the set of words in $ n $ variables and composition given by `substitution'.
+
+  Given a monoid $ M $ (a category with one object), there is a operad given by $ P(n) = M^n $ and composition
+  \[ (\alpha_1, \dots, \alpha_n) \circ ((\alpha_{1, 1}, \dots, \alpha_{1, k_1}), \dots, (\alpha_{n, 1}, \dots, \alpha_{n, k_n})). \]
+
+  The \textbf{Little $ 2 $-disks} operad $ D $ has 
+  \[ D(n) = \{ \text{set of non-overlapping disks contained within the unit disk} \}, \]
+  with composition being geometric "substitution". I.e.: scale and move a unit disk and its contained disks to match one of the smaller disks, and replace the smaller disk with the transformed contents of our original unit disk. See also: \href{https://upload.wikimedia.org/wikipedia/en/thumb/0/0b/Composition_in_the_little_discs_operad.svg/1920px-Composition_in_the_little_discs_operad.svg.png}{this image that explains a lot}
+
+  Given sets $ X(n) $ for all $ n \in \mathbb N $, the \textbf{free operad} $ X^\prime $ on these is defined exactly by $ X(n) \subseteq X^\prime(n) $, $ 1 \in X^\prime(1) $ and for all $ m, n_1, \dots, n_m \in \mathbb N $ and $ f \in X(m) $ and $ f_i \in X^\prime(n_i) $, we have $ f \circ (f_1, \dots, f_m) \in X^\prime(n_1 + \dots + n_m) $.
+
+  \subsection{\texorpdfstring{$ T $}{T}-operads}
+  \subsubsection{Definitions}
+  A category is \textbf{cartesian} if it has all pullbacks. A functor is cartesian if it preserves pullbacks. A natural transformation $ \alpha: S \to T $ is cartesian if for all $ f: A \to B $, the naturality diagram 
+  \begin{center}
+    \begin{tikzcd}
+      SA \arrow[r, "S f"] \arrow[d, "\alpha_A"] & SB \arrow[d, "\alpha_B"]\\
+      TA \arrow[r, "T f"] & TB
+    \end{tikzcd}
+  \end{center}
+  is a pullback. A monad $ (T, \mu, \eta) $ on a category $ \mathcal E $ is cartesian if the category $ \mathcal E $, the functor $ T $ and the natural transformations $ \mu $ and $ \eta $ are cartesian.
+
+  We can represent (the morphism structure of) an ordinary category using diagrams $ C_0 \xleftarrow{\text{domain}} C_1 \xrightarrow{\text{codomain}} C_0 $, $ C_1 \times_{C_0} C_1 \xrightarrow{\text{composition}} C_1 $ and $ C_0 \xrightarrow{\text{id}} C_1 $ together with some axioms. For a multicategory, we need to slightly modify this, using a functor $ T: \mathrm{Set} \to \mathrm{Set} $, $ A \mapsto \bigsqcup A^n $, to $ T C_0 \xleftarrow{d} C_1 \xrightarrow{c} C_0 $ and $ C_1 \times_{T C_0} T C_1 \xrightarrow{\circ} C_1 $.
+
+  Given a cartesian monad $ (T, \mu, \eta) $ on a category $ \mathcal E $, we can define a bicategory $ \mathcal E_{(T)} $, with the class of $ 0 $-cells being $ \mathcal E_0 $, the $ 1 $-cells $ E \to E^\prime $ being diagrams $ TE \xleftarrow{d} M \xrightarrow{c} E^\prime $, $ 2 $-cells $ (M, d, c) \to (N, q, p) $ are maps $ M \to N $ such that the diagram with $ E, E^\prime, M, N $ commutes. The composite of $ 1 $-cells $ TE \xleftarrow{d} M \xrightarrow{c} E^\prime $ and $ TE \xleftarrow{d^\prime} M^\prime \xrightarrow{c^\prime} E^{\prime\prime} $ is given by
+  \[ T E \xleftarrow{\mu_E} T^2 E \xleftarrow{T d} TM \xleftarrow{} T M \times_{T E^\prime} M^\prime \xrightarrow{} M^\prime \xrightarrow{c^\prime} E^{\prime\prime} \]
+  in which the coproduct in the middle is formed using $ T c $ and $ d $.
+  We can define a $ T $-multicategory to be a monad on $ \mathcal E_{(T)} $. Equivalently, we can define it as an object $ C_0 \in \mathcal E $, together with a diagram $ t: T C_0 \xleftarrow{d} C_1 \xrightarrow{c} C_0 $ and maps $ C_1 \circ C_1 := T C_1 \times_{T C_0} C_1 \xrightarrow{\circ} C_1 $ and $ C_0 \xrightarrow{id} C_1 $ satisfying associativity and identity axioms.
+
+  A $ T $-operad is a $ T $-multicategory such that $ C_0 $ is the terminal object of $ \mathcal E $. Equivalently, it is an object over $ T 1 $, (so we have a morphism $ P \to T 1 $), together with maps $ P \times_{T 1} T P \to P $ and $ 1 \xrightarrow{id} P $, both over $ T 1 $, satisfying associativity and identity axioms.
+
+  \subsubsection{Examples}
+  For $ T $ the identity monad on $ \mathrm{Set} $, a $ T $-operad is exactly a monoid (or an operad with only unary functions) (since there is always a unique map to $ \{ 1 \} $).
+
+  If $ \mathcal E $ is $ \mathrm{Set} $, the terminal object $ 1 $ will always be $ \{ 1 \} $.
+
+  For the free monoid monad $ T A = \bigsqcup A^n $, the $ T $-operads are precisely the operads that we defined before.
+
+  For the monad $ T A = 1 + A $, we can view $ T A $ as a subset of the free monoid on $ A $, and this gives an operad with $ 0 $-ary and $ 1 $-ary functions.
+
+  \bibliographystyle{alpha}
+  \bibliography{citations}
 
 \end{document}
