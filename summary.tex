@@ -3,6 +3,17 @@
 \usepackage{hyperref}
 \usepackage{tikz-cd}
 
+\newcommand{\Catc}[1]{\mathcal{#1}}
+\newcommand{\BB}{\Catc{B}}
+\newcommand{\CC}{\Catc{C}}
+\newcommand{\EE}{\Catc{E}}
+\newcommand{\Catb}[1]{\mathbf{#1}}
+\newcommand{\SET}{\Catb{Set}}
+\newcommand{\FIN}{\Catb{Fin}}
+\newcommand{\Ob}[1]{{#1}_0}
+\newcommand{\Hom}[3]{{#1}(#2,#3)}
+\newcommand{\op}[1]{\ensuremath{{#1}^\text{op}}}
+
 \title{Summary of the things that I learned}
 \author{Arnoud van der Leer}
 
@@ -11,20 +22,20 @@
 
   \section{Week 08}
   \subsection{Univalent Categories}
-  A univalent category is a category in which the univalence axiom holds. I.e., a category $ \mathcal C $ in which, for all $ A, B \in \mathcal C_0 $, the canonical map $ (A =_{\mathcal C} B) \to (A \cong B) $ is an equivalence.
+  A univalent category is a category in which the univalence axiom holds. I.e., a category $ \mathcal C $ in which, for all $ A, B \in \Ob \CC $, the canonical map $ (A =_{\mathcal C} B) \to (A \cong B) $ is an equivalence.
 
   \subsection{Categories}
   An \textbf{$ n $-category} is a category with $ 0 $-cells (objects), $ 1 $-cells (morphisms), $ 2 $-cells (morphisms between morphisms), up to $ n $-cells and various compositions: $ A \to B \to C $. $ A \xrightarrow{f, g, h} B $, $ f \Rightarrow g \Rightarrow h $. $ A \xrightarrow{f, g} B \xrightarrow{f^\prime, g^\prime} C $, $ \alpha: f \Rightarrow g $, and identities $ \alpha^\prime: f^\prime \Rightarrow g^\prime $ gives $ \alpha^\prime * \alpha: f^\prime \circ f \Rightarrow g^\prime \circ g $. These all need to work together `nicely'. An $ \omega $-category is the same, but all the way up.
 
   A topological space gives a (weak) $ \omega $-category. $ 0 $-cells are points, $ 1 $-cells are paths, $ 2 $-cells are homotopies etc. Composition is by glueing. It is a `groupoid', in the sense that all homotopies of dimension $ \geq 1 $ are invertible. However, glueing is not associative, so it is a `weak' $ \omega $-category.
 
-  A category with only one object $ \star $ is equivalent to a monoid (with elements being the set $ \mathcal C(\star, \star) $). A $ 2 $-category with only one $ 0 $-cell is the same thing as a monoidal category (objects: the $ 1 $-cells. Morphisms: the $ 2 $-cells). A monoidal category with just one object gives $ 2 $ monoid structures on its set of morphisms. These are the same, and commutative.
+  A category with only one object $ \star $ is equivalent to a monoid (with elements being the set $ \Hom{\CC}{\star}{\star} $). A $ 2 $-category with only one $ 0 $-cell is the same thing as a monoidal category (objects: the $ 1 $-cells. Morphisms: the $ 2 $-cells). A monoidal category with just one object gives $ 2 $ monoid structures on its set of morphisms. These are the same, and commutative.
 
-  A \textbf{monoid} is a set with a multiplication and a unit. A \textbf{monad} on a category $ \mathcal A $ is a functor $ \mathcal A \to \mathcal A $, together with natural transformations $ \mu : T \circ T \to T $ (satisfying associativity) and $ \eta : 1_{\mathcal A} \to T $ (acting as a two-sided unit).
+  A \textbf{monoid} is a set with a multiplication and a unit. A \textbf{monad} on a category $ \CC $ is a functor $ T: \CC \to \CC $, together with natural transformations $ \mu : T \circ T \to T $ (satisfying associativity) and $ \eta : 1_{\mathcal A} \to T $ (acting as a two-sided unit).
 
   A \textbf{presheaf} on a category $ \mathcal A $ is a functor $ \mathcal A^{\mathop{opp}} \to \mathbf{Set} $.
 
-  Given a category $ \mathcal E $ and an object $ E \in \mathcal E_0 $, the \textbf{slice category} $ \mathcal E / E $ with objects being the maps $ D \xrightarrow{p} E $ and morphisms being commutative triangles.
+  Given a category $ \mathcal E $ and an object $ E \in \Ob \EE $, the \textbf{slice category} $ \mathcal E / E $ with objects being the maps $ D \xrightarrow{p} E $ and morphisms being commutative triangles.
 
   A \textbf{multicategory}, not necessarily the same as an $ n $-category, is a category in which arrows go from multiple objects to one, instead of from one object to one. I.e. it is a category with a class $ C_0 $ of objects, for all $ n $, and all $ a, a_1, \dots, a_n \in C_0 $, a class $ C(a_1, \dots, a_n; a) $ of `morphisms', and a composition 
   \[ C(a_1, \dots, a_n; a) \times C(a_{1, 1}, \dots, a_{1, k_1}; a_1) \times \dots \times C(a_{n, 1}, \dots, a_{n, k_n}; a_n) \to C(a_{1, 1}, \dots, a_{n, k_n}; a), \]
@@ -35,7 +46,7 @@
 
   A \textbf{map of multicategories} is a function $ f_0: C_0 \to C_0^\prime $ and maps $ C(a_1, \dots, a_n; a) \to C(f_0(a_1), \dots, f_0(a_n); f_0(a)) $, preserving composition and identities.
 
-  For $ C $ a multicategory, a \textbf{$ C $-algebra} is a map from $ C $ into the multicategory $ \mathbf{Set} $ (with objects $ \mathrm{Set}_0 $ and maps $ \mathrm{Set}(a_1, \dots, a_n; a) = \mathrm{Set}(a_1 \times \dots \times a_n ; a) $). I.e., for each $ a \in C_0 $, a set $ X(a) $, and for each map $ \theta: a_1, \dots, a_n \to a $, a function $ X(\theta): X(a_1) \times X(a_n) \to X(a) $. An example is, for a multicategory $ C $, to take $ X(a) = C(; a) $ (maps from the empty sequence into $ a $).
+  For $ C $ a multicategory, a \textbf{$ C $-algebra} is a map from $ C $ into the multicategory $ \mathbf{Set} $ (with objects $ \SET_0 $ and maps $ \SET(a_1, \dots, a_n; a) = \SET(a_1 \times \dots \times a_n ; a) $). I.e., for each $ a \in C_0 $, a set $ X(a) $, and for each map $ \theta: a_1, \dots, a_n \to a $, a function $ X(\theta): X(a_1) \times X(a_n) \to X(a) $. An example is, for a multicategory $ C $, to take $ X(a) = C(; a) $ (maps from the empty sequence into $ a $).
 
   Of course, there is a concept of \textbf{free multicategory}: Given a set $ X $, and for all $ n \in N $, and $ x, x_1, \dots, x_n \in X $, a set $ X(x_1, \dots, x_n ; x) $, we get a multicategory $ X^\prime $ with $ X^\prime_0 = X_0 $, and $ X^\prime(x_1, \dots, x_n; x) $ given by formal compositions of elements of the $ X(y_1, \dots, y_m; y) $.
 
@@ -76,7 +87,7 @@
 
   The \textbf{operad of curves} has $ P(n) = \{ \text{smooth maps}\ \mathbb R \to \mathbb R^n \} $.
 
-  Given a monad on $ \mathrm{Set} $, we get a natural operad structure $ T(n)_{n \in \mathbb N} $, with $ T(n) $ the set of words in $ n $ variables and composition given by `substitution'.
+  Given a monad on $ \SET $, we get a natural operad structure $ T(n)_{n \in \mathbb N} $, with $ T(n) $ the set of words in $ n $ variables and composition given by `substitution'.
 
   Given a monoid $ M $ (a category with one object), there is a operad given by $ P(n) = M^n $ and composition
   \[ (\alpha_1, \dots, \alpha_n) \circ ((\alpha_{1, 1}, \dots, \alpha_{1, k_1}), \dots, (\alpha_{n, 1}, \dots, \alpha_{n, k_n})). \]
@@ -98,7 +109,7 @@
   \end{center}
   is a pullback. A monad $ (T, \mu, \eta) $ on a category $ \mathcal E $ is cartesian if the category $ \mathcal E $, the functor $ T $ and the natural transformations $ \mu $ and $ \eta $ are cartesian.
 
-  We can represent (the morphism structure of) an ordinary category using diagrams $ C_0 \xleftarrow{\text{domain}} C_1 \xrightarrow{\text{codomain}} C_0 $, $ C_1 \times_{C_0} C_1 \xrightarrow{\text{composition}} C_1 $ and $ C_0 \xrightarrow{\text{id}} C_1 $ together with some axioms. For a multicategory, we need to slightly modify this, using a functor $ T: \mathrm{Set} \to \mathrm{Set} $, $ A \mapsto \bigsqcup A^n $, to $ T C_0 \xleftarrow{d} C_1 \xrightarrow{c} C_0 $ and $ C_1 \times_{T C_0} T C_1 \xrightarrow{\circ} C_1 $.
+  We can represent (the morphism structure of) an ordinary category using diagrams $ C_0 \xleftarrow{\text{domain}} C_1 \xrightarrow{\text{codomain}} C_0 $, $ C_1 \times_{C_0} C_1 \xrightarrow{\text{composition}} C_1 $ and $ C_0 \xrightarrow{\text{id}} C_1 $ together with some axioms. For a multicategory, we need to slightly modify this, using a functor $ T: \SET \to \SET $, $ A \mapsto \bigsqcup A^n $, to $ T C_0 \xleftarrow{d} C_1 \xrightarrow{c} C_0 $ and $ C_1 \times_{T C_0} T C_1 \xrightarrow{\circ} C_1 $.
 
   Given a cartesian monad $ (T, \mu, \eta) $ on a category $ \mathcal E $, we can define a bicategory $ \mathcal E_{(T)} $, with the class of $ 0 $-cells being $ \mathcal E_0 $, the $ 1 $-cells $ E \to E^\prime $ being diagrams $ TE \xleftarrow{d} M \xrightarrow{c} E^\prime $, $ 2 $-cells $ (M, d, c) \to (N, q, p) $ are maps $ M \to N $ such that the diagram with $ E, E^\prime, M, N $ commutes. The composite of $ 1 $-cells $ TE \xleftarrow{d} M \xrightarrow{c} E^\prime $ and $ TE \xleftarrow{d^\prime} M^\prime \xrightarrow{c^\prime} E^{\prime\prime} $ is given by
   \[ T E \xleftarrow{\mu_E} T^2 E \xleftarrow{T d} TM \xleftarrow{} T M \times_{T E^\prime} M^\prime \xrightarrow{} M^\prime \xrightarrow{c^\prime} E^{\prime\prime} \]
@@ -108,13 +119,80 @@
   A $ T $-operad is a $ T $-multicategory such that $ C_0 $ is the terminal object of $ \mathcal E $. Equivalently, it is an object over $ T 1 $, (so we have a morphism $ P \to T 1 $), together with maps $ P \times_{T 1} T P \to P $ and $ 1 \xrightarrow{id} P $, both over $ T 1 $, satisfying associativity and identity axioms.
 
   \subsubsection{Examples}
-  For $ T $ the identity monad on $ \mathrm{Set} $, a $ T $-operad is exactly a monoid (or an operad with only unary functions) (since there is always a unique map to $ \{ 1 \} $).
+  For $ T $ the identity monad on $ \SET $, a $ T $-operad is exactly a monoid (or an operad with only unary functions) (since there is always a unique map to $ \{ 1 \} $).
 
-  If $ \mathcal E $ is $ \mathrm{Set} $, the terminal object $ 1 $ will always be $ \{ 1 \} $.
+  If $ \mathcal E $ is $ \SET $, the terminal object $ 1 $ will always be $ \{ 1 \} $.
 
   For the free monoid monad $ T A = \bigsqcup A^n $, the $ T $-operads are precisely the operads that we defined before.
 
-  For the monad $ T A = 1 + A $, we can view $ T A $ as a subset of the free monoid on $ A $, and this gives an operad with $ 0 $-ary and $ 1 $-ary functions.
+  For the monad $ T A = 1 + A $, we can view $ T A $ as a subset of the free monoid on $ A $, and this gives an operad with $ 0 $-ary and $ 1 $-ary functions. The $ 1 $-ary arrows form a monoid, and the $ 0 $-ary arrows are a set, with an action of the monoid.
+
+  \subsection{Cartesian Operads}
+  \subsubsection{Theory}
+  Using \href{https://ncatlab.org/toddtrimble/published/Towards+a+doctrine+of+operads}{Towards a doctrine of operads}.
+
+  NLab uses notation: $ \FIN $ for what we would call a standard skeleton of finite sets (i.e. the category of finite sets $ \{ 0, \dots, n - 1 \} $ and maps between them). $ A^B $ denotes all morphisms/functors $ B \to A $. I.e., the class of functors $ \FIN \to \SET $ is denoted $ \SET^\FIN $.
+
+  Take $ I = \Hom{\FIN}{1}{-}: \SET^\FIN = \FIN \to \SET $.
+  
+  Let $ [\SET^\FIN, \SET^\FIN] $ be the category of finite-product-preserving, cocontinuous endofunctors on $ \SET^\FIN $. The map $ \mathop{Ev}_I: [\SET^\FIN, \SET^\FIN] \to \SET^\FIN $, given by $ F \mapsto F(I) $ is an equivalence. $ [\SET^\FIN, \SET^\FIN] $ has a monoidal product $ \odot $ given by endofunctor composition, and we can transfer this to $ \SET^\FIN $.
+
+  Concretely, we have $ F \odot G = \int^{n \in \FIN} F(n) G^n $.
+  
+  \subsubsection{Cartesian operads}
+  A \textbf{cartesian operad} is a monoid in this monoidal category $ (\SET^{\FIN}, \odot, I) $. I.e., it is a triple $ (M, \mu, \eta) $, with $ M \in \SET^\FIN $, $ \mu: M \odot M \to M $ and $ \eta: I \to M $.
+
+  More concretely, this is a functor $ M : \FIN \to \SET $, together with maps
+  \[ m_{n, k}: M(n) \times M(k)^n \to M(k), \]
+  natural in $ k $ and dinatural in $ n $, and an element $ e \in M(1) $.
+  
+  Dinaturality in $ n $ means the following. Fix $ k \in \FIN $. We have the functors $ \op \FIN \times \FIN \to \SET $ given by 
+  \[ F: (n, n^\prime) \mapsto M(n^\prime) \times M(k)^{n} \quad \text{and} \quad G: (n, n^\prime) \mapsto M(k). \]
+  For all $ n \in \Ob \FIN $, we have a morphism
+  \[ \bullet: F(n, n) = M(n) \times M(k)^n \to M(k) = G(n, n). \]
+  Naturality means that for all $ a: n \to n^\prime $,
+  \[ G(n, a) \circ \bullet \circ F(a, n) = F(a, n^\prime) \circ \bullet \circ G(n^\prime, a). \]
+  i.e., for all $ f \in M(n) $, $ g_1, \dots, g_{n^\prime} \in M(k) $,
+  \[ f \bullet (g_{a(1)}, \dots, g_{a(n)}) = M(a)(f) \bullet (g_1, \dots, g_{n^\prime}). \]
+
+  Now, if we have, in $ \FIN $, a decomposition $ k = k_1 + \dots + k_n $, and we have inclusion maps $ i_j: k_j \hookrightarrow k $, then we have
+  \[ M(n) \times M(k_1) \times \dots \times M(k_n) \xrightarrow{1 \times M(i_1) \times \dots \times M(i_n)} M(n) \times M(k)^n \xrightarrow{m_{n, k}} M(k), \]
+  which gives an operad structure.
+
+  \subsubsection{Clones}
+  In other parts of mathematics, a cartesian operad is called a \textbf{clone}. An abstract clone consists of sets $ M(n) $ for all $ n \in \mathbb N $, for all $ n, k \in \mathbb N $ a function $ \bullet: M(n) \times M(k)^n \to M(k) $ and for each $ 1 \leq i \leq n \in \mathbb N $, an element $ \pi_{i, n} \in M(n) $ such that for $ f \in M(i) $, $ g_1, \dots, g_i \in M(j) $ and $ h_1, \dots, h_j \in M(k) $,
+  \[ f \bullet (g_1 \bullet (h_1, \dots, h_j), \dots, g_i \bullet (h_1 \dots, h_j)) = (f \bullet (g_1, \dots, g_i)) \bullet (h_1, \dots, h_j), \]
+  for $ f_1, \dots, f_n \in M(k) $,
+  \[ \pi_{i, n} \bullet (f_1, \dots, f_n) = f_i, \]
+  and for $ f \in M(n) $,
+  \[ f \bullet (\pi_{1, n}, \dots, \pi_{n, n}) = f. \]
+  (It is claimed that this automatically gives naturality)
+
+  Naturality means for all $ a \in \Hom{\FIN}{n}{n^\prime} $, for all $ f \in M(n) $, $ g_1, \dots, g_{n^\prime} \in M(k) $,
+  \[ f \bullet (g_{a(1)}, \dots, g_{a(n)}) = (f \bullet (\pi_{a(1), n^\prime}, \dots, \pi_{a(n), n^\prime})) \bullet (g_1, \dots, g_{n^\prime}). \]
+  However, by associativity and since $ \pi_{i, n} \bullet (f_1, \dots, f_n) $, we have
+  \begin{align*}
+    & (f \bullet (\pi_{a(1), n^\prime}, \dots, \pi_{a(n), n^\prime})) \bullet (g_1, \dots, g_{n^\prime})\\
+    &= (f \bullet (\pi_{a(1), n^\prime} \bullet (g_1, \dots, g_{n^\prime}), \dots, \pi_{a(n), n^\prime} \bullet (g_1, \dots, g_{n^\prime})))\\
+    &= f \bullet (g_{a(1)}, \dots, g_{a(n)}).
+  \end{align*}
+
+  Naturality in $ k $ is as follows. Fix $ n \in \Ob \FIN $. We have functors $ F, G: \FIN \to \SET $, given by
+  \[ F: k \mapsto M(n) \times M(k)^n \quad \text{and} \quad G: k \mapsto M(k). \]
+  For $ a: k \to k^\prime $, we must have
+  \[ G(a) \circ \bullet = \bullet \circ F(a). \]
+  That is, for all $ f \in M(n) $, $ g_1, \dots, g_n \in M(k) $,
+  \[ M(a) (f \bullet (g_1, \dots, g_n)) = f \bullet (M(a)(g_1), \dots, M(a)(g_n)). \]
+  Now, $ M(a) $ is given by 
+  \[ M(a)(f) = f \bullet (\pi_{a(1), k^\prime}, \dots, \pi_{a(k), k^\prime}). \]
+  Therefore, we have
+  \begin{align*}
+    & M(a) (f \bullet (g_1, \dots, g_n))\\
+    &= (f \bullet (g_1, \dots, g_n)) \bullet (\pi_{a(1), k^\prime}, \dots, \pi_{a(k), k^\prime})\\
+    &= f \bullet (g_1 \bullet (\pi_{a(1), k^\prime}, \dots, \pi_{a(k), k^\prime}), \dots, g_n \bullet (\pi_{a(1), k^\prime}, \dots, \pi_{a(k), k^\prime}))\\
+    &= f \bullet (M(a)(g_1), \dots, M(a)(g_n)).
+  \end{align*}
+  So the associativity and projection axioms ensure naturality.
 
   \bibliographystyle{alpha}
   \bibliography{citations}
