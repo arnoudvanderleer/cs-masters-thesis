@@ -1,4 +1,4 @@
-\documentclass{amsart}
+\documentclass{amsbook}
 
 \usepackage{hyperref}
 \usepackage{tikz-cd}
@@ -6,6 +6,7 @@
 \newcommand{\Catc}[1]{\mathcal{#1}}
 \newcommand{\BB}{\Catc{B}}
 \newcommand{\CC}{\Catc{C}}
+\newcommand{\DD}{\Catc{D}}
 \newcommand{\EE}{\Catc{E}}
 \newcommand{\Catb}[1]{\mathbf{#1}}
 \newcommand{\SET}{\Catb{Set}}
@@ -20,11 +21,11 @@
 \begin{document}
   \maketitle
 
-  \section{Week 08}
-  \subsection{Univalent Categories}
+  \chapter{Week 08}
+  \section{Univalent Categories}
   A univalent category is a category in which the univalence axiom holds. I.e., a category $ \mathcal C $ in which, for all $ A, B \in \Ob \CC $, the canonical map $ (A =_{\mathcal C} B) \to (A \cong B) $ is an equivalence.
 
-  \subsection{Categories}
+  \section{Categories}
   An \textbf{$ n $-category} is a category with $ 0 $-cells (objects), $ 1 $-cells (morphisms), $ 2 $-cells (morphisms between morphisms), up to $ n $-cells and various compositions: $ A \to B \to C $. $ A \xrightarrow{f, g, h} B $, $ f \Rightarrow g \Rightarrow h $. $ A \xrightarrow{f, g} B \xrightarrow{f^\prime, g^\prime} C $, $ \alpha: f \Rightarrow g $, and identities $ \alpha^\prime: f^\prime \Rightarrow g^\prime $ gives $ \alpha^\prime * \alpha: f^\prime \circ f \Rightarrow g^\prime \circ g $. These all need to work together `nicely'. An $ \omega $-category is the same, but all the way up.
 
   A topological space gives a (weak) $ \omega $-category. $ 0 $-cells are points, $ 1 $-cells are paths, $ 2 $-cells are homotopies etc. Composition is by glueing. It is a `groupoid', in the sense that all homotopies of dimension $ \geq 1 $ are invertible. However, glueing is not associative, so it is a `weak' $ \omega $-category.
@@ -54,8 +55,8 @@
 
   The collection of categories $ \mathrm{Cat} $ forms a bicategory. In analogy, we define a monad in a bicategory to be an object $ A $, together with a $ 1 $-cell $ t: A \to A $ and $ 2 $-cells $ \mu: t \circ t \to t $ and $ \eta: 1_A \to t $ satisfying a couple of commutativity axioms (those of 1.1.3 in \cite{higher-operads-higher-categories}).
 
-  \subsection{Operads}
-  \subsubsection{Definitions}
+  \section{Operads}
+  \subsection{Definitions}
   An \textbf{operad} is a multicategory with only one object. More explicitly, an operad has a set $ P(k) $ for every $ k \in \mathbb N $, whose elements can be thought of as $ k $-ary operations. It also has, for all $ n, k_1, \dots, k_n \in \mathbb N $, a \textit{composition} function
   \[ P(n) \times P(k_1) \times \dots \times P(k_n) \to P(k_1 + \dots + k_n) \]
   and an element $ 1 = 1_P \in P(1) $ called the \textbf{identity}, satisfying
@@ -70,7 +71,7 @@
 
   A \textbf{$ P $-algebra} for $ P $ an operad, is a set $ X $ and, for each $ n $, and $ \theta \in P(n) $, a function $ \overline{\theta}: X^n \to X $, satisfying the evident axioms (identity is the identity function, the function of a composition is the composition of the functions?).
   
-  \subsubsection{Examples}
+  \subsection{Examples}
   For any vector space $ V $, there is an operad with $ P(k) = V^{\otimes k} \to V $.
 
   The terminal operad $ 1 $ has $ P(n) = \{ \star_1 \} $ for all $ n $. An algebra for $ 1 $ is a set $ X $ together with a function $ X^n \to X $, denoted as $ (x_1, \dots, x_n) \mapsto (x_1 \cdot \dots \cdot x_n) $, satisfying
@@ -98,8 +99,8 @@
 
   Given sets $ X(n) $ for all $ n \in \mathbb N $, the \textbf{free operad} $ X^\prime $ on these is defined exactly by $ X(n) \subseteq X^\prime(n) $, $ 1 \in X^\prime(1) $ and for all $ m, n_1, \dots, n_m \in \mathbb N $ and $ f \in X(m) $ and $ f_i \in X^\prime(n_i) $, we have $ f \circ (f_1, \dots, f_m) \in X^\prime(n_1 + \dots + n_m) $.
 
-  \subsection{\texorpdfstring{$ T $}{T}-operads}
-  \subsubsection{Definitions}
+  \section{\texorpdfstring{$ T $}{T}-operads}
+  \subsection{Definitions}
   A category is \textbf{cartesian} if it has all pullbacks. A functor is cartesian if it preserves pullbacks. A natural transformation $ \alpha: S \to T $ is cartesian if for all $ f: A \to B $, the naturality diagram 
   \begin{center}
     \begin{tikzcd}
@@ -118,7 +119,7 @@
 
   A $ T $-operad is a $ T $-multicategory such that $ C_0 $ is the terminal object of $ \mathcal E $. Equivalently, it is an object over $ T 1 $, (so we have a morphism $ P \to T 1 $), together with maps $ P \times_{T 1} T P \to P $ and $ 1 \xrightarrow{id} P $, both over $ T 1 $, satisfying associativity and identity axioms.
 
-  \subsubsection{Examples}
+  \subsection{Examples}
   For $ T $ the identity monad on $ \SET $, a $ T $-operad is exactly a monoid (or an operad with only unary functions) (since there is always a unique map to $ \{ 1 \} $).
 
   If $ \mathcal E $ is $ \SET $, the terminal object $ 1 $ will always be $ \{ 1 \} $.
@@ -127,8 +128,8 @@
 
   For the monad $ T A = 1 + A $, we can view $ T A $ as a subset of the free monoid on $ A $, and this gives an operad with $ 0 $-ary and $ 1 $-ary functions. The $ 1 $-ary arrows form a monoid, and the $ 0 $-ary arrows are a set, with an action of the monoid.
 
-  \subsection{Cartesian Operads}
-  \subsubsection{Theory}
+  \section{Cartesian Operads}
+  \subsection{Theory}
   Using \href{https://ncatlab.org/toddtrimble/published/Towards+a+doctrine+of+operads}{Towards a doctrine of operads}.
 
   NLab uses notation: $ \FIN $ for what we would call a standard skeleton of finite sets (i.e. the category of finite sets $ \{ 0, \dots, n - 1 \} $ and maps between them). $ A^B $ denotes all morphisms/functors $ B \to A $. I.e., the class of functors $ \FIN \to \SET $ is denoted $ \SET^\FIN $.
@@ -139,7 +140,7 @@
 
   Concretely, we have $ F \odot G = \int^{n \in \FIN} F(n) G^n $.
   
-  \subsubsection{Cartesian operads}
+  \subsection{Cartesian operads}
   A \textbf{cartesian operad} is a monoid in this monoidal category $ (\SET^{\FIN}, \odot, I) $. I.e., it is a triple $ (M, \mu, \eta) $, with $ M \in \SET^\FIN $, $ \mu: M \odot M \to M $ and $ \eta: I \to M $.
 
   More concretely, this is a functor $ M : \FIN \to \SET $, together with maps
@@ -159,7 +160,7 @@
   \[ M(n) \times M(k_1) \times \dots \times M(k_n) \xrightarrow{1 \times M(i_1) \times \dots \times M(i_n)} M(n) \times M(k)^n \xrightarrow{m_{n, k}} M(k), \]
   which gives an operad structure.
 
-  \subsubsection{Clones}
+  \subsection{Clones}
   In other parts of mathematics, a cartesian operad is called a \textbf{clone}. An abstract clone consists of sets $ M(n) $ for all $ n \in \mathbb N $, for all $ n, k \in \mathbb N $ a function $ \bullet: M(n) \times M(k)^n \to M(k) $ and for each $ 1 \leq i \leq n \in \mathbb N $, an element $ \pi_{i, n} \in M(n) $ such that for $ f \in M(i) $, $ g_1, \dots, g_i \in M(j) $ and $ h_1, \dots, h_j \in M(k) $,
   \[ f \bullet (g_1 \bullet (h_1, \dots, h_j), \dots, g_i \bullet (h_1 \dots, h_j)) = (f \bullet (g_1, \dots, g_i)) \bullet (h_1, \dots, h_j), \]
   for $ f_1, \dots, f_n \in M(k) $,
@@ -193,6 +194,91 @@
     &= f \bullet (M(a)(g_1), \dots, M(a)(g_n)).
   \end{align*}
   So the associativity and projection axioms ensure naturality.
+
+  \chapter{Week 09}
+
+  \section{Adjunctions}
+  For three sets $ X, Y, Z $, we have a bijection
+  \[ \Hom \SET {X \times Y} Z \cong \Hom \SET X {Y \to Z} \]
+  that is natural in $ X $ and $ Z $. This is an example of a general notion:
+  
+  For functors $ F: \CC \to \DD $ and $ G: \DD \to \CC $, $ F $ is a \textbf{left adjoint} for $ G $ if there is an isomorphism $ \Hom \CC {F X} Y \cong \Hom \DD X {G Y} $ that is dinatural in $ X $ and $ Y $.
+
+  \subsection{Examples}
+  A special case is for $ G: \CC \to \SET $ the forgetful functor: if we have a left adjoint $ F: \SET \to \CC $ to $ G $, we call $ F(X) $ the \textbf{free $ \CC $} of $ X $ (for example: free group, free monoid, free category, etc.). That means that $ \Hom \CC {F(X)} Y \cong \Hom \SET X {G(Y)} $, or in other words:
+
+  Adjunctions can be composed: If $ F $ and $ G $ both forget part of the structure of an object, then we can construct the free object `piecewise' using the composition of the left adjoints.
+
+  Let $ G: \Catb{Group} \to \SET $ be the forgetful functor and $ F: \SET \to \Catb{Group} $ be the free group functor. For any set $ S $, we have an inclusion $ i: S \hookrightarrow F S $. Now, given any group $ Y $ and any morphism of sets from $ S $ to $ Y $ (formally: $ f \in \Hom \SET S {G Y} $). Then the fact that $ \Hom \SET {FS} Y \cong \Hom \SET S {G Y} $ is expressed in the fact that $ f $ factors uniquely as $ g \circ i $.
+  \begin{center}
+    \begin{tikzcd}
+      S \arrow[r, "i"] \arrow[rd, "f"] & F(S) \arrow[d, "\exists! g"]\\
+      & Y
+    \end{tikzcd}
+  \end{center}
+
+  In topology, the forgetful functor from topological spaces to sets has a left adjoint that turns a set $ S $ into a space $ F(S) $ with the discrete topology, since it has the smallest topology on $ S $ that still can factor all morphisms $ S \to [0, 1] $ for example.
+
+  In algebra, the inclusion functor from the category of monoids (sets with an associative operation and a unit) to the category of semigroups (sets with an associative operation) has a left adjoint that sends the semigroup $ S $ to the monoid $ S \sqcup \{ \star \} $ and gives it operations such that $ \star $ is the unit.
+
+  In algebra, the inclusion functor from the category of rings to the category of rngs (rings but without an identity) has a left adjoint that sends the rng $ R $ to $ R \times \mathbb Z $ and defines $ (r, x) (s, y) = (rs + xs + ry, xy) $.
+
+  For $ \Catb{Dom_m} $ the category of integral domains with injective morphisms. Then the forgetful functor $ \Catb{Fields} \to \Catb{Dom_m} $ has a left adjoint that sends a domain to its field of fractions.
+
+  For $ \rho: R \to S $ a morphism of rings, we can view every $ S $-module as an $ R $-module: we have a functor $ S\Catb{-Mod} \to R\Catb{-Mod} $. This has a left adjoint, $ M \mapsto M \otimes_R S $.
+
+  \section{Operads and cartesian operads}
+  \subsection{Recap operads and cartesian operads}
+  In this section, we will represent a cartesian operad $ C $ by a clone:
+  \begin{itemize}
+    \item For all $ n \in \mathbb N $, a set $ C(n) $;
+    \item For all $ 1 \leq i \leq n $ projections $ \pi_{n, i} \in P(n) $;
+    \item For all $ m, n $, a function $ \rho_{m, n}: C(m) \times C(n)^m \to C(n) $.
+  \end{itemize}
+  such that
+  \begin{itemize}
+    \item For $ f \in C(l) $, $ g_1, \dots, g_l \in C(m) $ and $ h_1, \dots, h_m \in C(n) $,
+      \[ \rho(f, (\rho(g_1, (h_1, \dots, h_m)), \dots, \rho(g_l, (h_1, \dots, h_m)))) = \rho(\rho(f, (g_1, \dots, g_l)), (h_1, \dots, h_l)). \]
+    \item for $ f_1, \dots, f_n \in M(n) $ and $ 1 \leq i \leq n $, $ \rho(\pi_{i, n}, (f_1, \dots, f_n)) = f_i $;
+    \item For $ f \in M(n) $, $ \rho(f, (\pi_{1, n}, \dots, \pi_{n, n})) = f $.
+  \end{itemize}
+  and a morphism of cartesian operads $ \varphi: C \to C^\prime $ by componentwise functions $ \varphi_n: C(n) \to C^\prime(n) $ such that
+  \begin{itemize}
+    \item For all $ 1 \leq i \leq n $, $ \varphi_n(\pi_{n, i}) = \pi^\prime_{n, i} $;
+    \item For all $ m, n $, $ f \in C(m) $, $ g_1, \dots, g_m \in C(n) $
+      \[ \rho(\varphi(f), (\varphi(g_1), \dots, \varphi(g_m))) = \varphi(\rho(f, (g_1, \dots, g_m))). \]
+  \end{itemize}
+
+  We will represent an operad $ P $ by
+  \begin{itemize}
+    \item For all $ n \in \mathbb N $, a set $ P(n) $;
+    \item An element $ e \in P(1) $;
+    \item For all $ m, n_1, \dots, n_m \in \mathbb N $, a function
+      \[ \gamma_{m, n_1, \dots, n_m}: C(m) \times C(n_1) \times \dots \times C(n_m) \to C(n_1 + \dots + n_m) \]
+      (we will usually just call this $ \gamma $).
+  \end{itemize}
+  such that
+  \begin{itemize}
+    \item For all $ f \in P(n) $,
+      \[ \gamma(f, (1, \dots, 1)) = f = \gamma(1, f); \]
+    \item For all $ f \in P(l) $, $ g_1 \in P(m_1) $, \dots, $ g_l \in P(m_l) $ and all $ h_{1, 1} \in P(n_{1, 1}) $, \dots, $ h_{l, m_l} \in P(n_{l, m_l}) $,
+      \[ f \circ(g_1 \circ(h_{1, 1}, \dots, h_{1, m_1}), \dots, g_l \circ (h_{l, 1}, \dots, h_{l, m_l})) = (f \circ (g_1, \dots, g_l)) \circ (h_{1, 1}, \dots, h_{l, m_l}). \]
+  \end{itemize}
+  and a morphism of operads $ \psi: P \to P^\prime $ by componentwise functions $ \psi_n: P(n) \to P^\prime(n) $ such that
+  \begin{itemize}
+    \item $ \psi_1(e) = e^\prime $;
+    \item For all $ f \in P(m) $, $ g_1 \in P(n_1) $, \dots, $ g_m \in P(n_m) $,
+      \[ \gamma(\psi(f), (\psi(g_1), \dots, \psi(g_m)))  \psi(\gamma(f, (g_1, \dots, g_m))). \]
+  \end{itemize}
+
+  \subsection{Free operad?}
+  Now, for all $ 1 \leq i \leq m $, we have an injection $ j_i: C(n_i) \to C(n_1 + \dots + n_m) $. Intuitively, it maps terms in a context with $ n_i $ variables to terms in a context with $ n_1 + \dots + n_m $ variables, by mapping variable $ 1 \leq k \leq n_1 $ to variable $ n_1 + \dots + n_{i - 1} + k $. This gives a morphism
+  \[ \gamma: C(m) \times C(n_1) \times \dots \times C(n_m) \xrightarrow{\mathop{id} \times j_1 \times \dots \times j_m} C(m) \times C(n_1 + \dots + n_m)^m \xrightarrow{\rho} C(n_1 + \dots + n_m), \]
+  which gives an operad structure on the same sets. This gives a functor from cartesian operads to operads.
+
+  Then, the question arises whether this functor has a left adjoint.
+
+  \textbf{Still open}
 
   \bibliographystyle{alpha}
   \bibliography{citations}
