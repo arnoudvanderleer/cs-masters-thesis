@@ -306,6 +306,23 @@
     \item The Fundamental Theorem of the $ \lambda $-calculus: there is an adjoint equivalence between $ \lambda $-theories and $ \Lambda $-algebras.
     \item A remark that this is much harder without the category theoretic framework.
   \end{enumerate}
+  
+  \chapter{Week 11}
+
+  \section{A Formalization of Operads in Coq}
+  A paper was uploaded to the arXiv (see \cite{arxiv-operads}). Unfortunately, this paper did not contain any code, which makes it harder to compare their technique to mine. The paper is about the formalization of a symmetric multicategory (kind of. They do not require $ (\tau \sigma) f = \tau (\sigma f) $ for $ \sigma, \tau \in S_n $ and $ f \in \Hom{\CC}{a_1}{\dots, a_n;a} $)
+  
+  The operad data presented in this paper is a bit different (but equivalent) from the data that I have seen so far. Notably: the composition is on one element at a time:
+  \[ \Hom{\CC}{a_1}{\dots, a_n;a} \times \Hom{\CC}{b_1}{\dots, b_m; a_i} \to \Hom{\CC}{a_1}{\dots a_{i-1}, b_1, \dots, b_m, a_{i+1}, \dots, a_n; a}, \]
+  in which $ a_1, \dots a_{i-1}, b_1, \dots, b_m, a_{i+1}, \dots, a_n $ is denoted $ \underline{a} \bullet_{i} \underline{b} $.
+
+  I expect the axioms to become a bit more complicated this way. For example, now there are two associativity axioms, and even to state them we need a proof that $ (\underline c \bullet_i \underline a) \bullet_{l - 1 + j} \underline b = (\underline c \bullet_j \underline b) \bullet_i \underline a $.
+
+  Also, their signature of $ \ensuremath{Hom} $ is $ \TYPE \to \mathbf{List}\ \TYPE \to \TYPE $. The advantage of using $ \mathbf{List}\ \TYPE $ instead of $ \sum_{n \in \mathbb N} (\mathtt{stn}\ n \to \TYPE) $ is that it sounds simpler. The disadvantage is that, for example, to say something about $ c_i $, one needs a function to fetch the $ i $th element of $ \underline c $ and a proof that $ i $ is less than the length of $ \underline{c} $.
+
+  To get elements in the right space, they add a lot of typecasting functions. For example, the function $ \mathcal C_{assoc}: \mathcal O((\underline c \bullet_i \underline a) \bullet_{l - 1 + j} \underline b; d) \to \mathcal O((\underline c \bullet_j \underline b) \bullet_i \underline a; d) $ I believe we call such a function a `transport function`. The paper claims that if $ A = B $, a typecast function will be the identity. The way that it is currently stated, it is not compatible with univalence, I believe.
+
+  I feel like the paper lacks a section explaining the choices that were made and evaluating their results.
 
   \bibliographystyle{alpha}
   \bibliography{citations}
