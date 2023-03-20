@@ -10,6 +10,7 @@
 \newcommand{\EE}{\Catc{E}}
 \newcommand{\Catb}[1]{\mathbf{#1}}
 \newcommand{\SET}{\Catb{Set}}
+\newcommand{\TYPE}{\Catb{Type}}
 \newcommand{\FIN}{\Catb{Fin}}
 \newcommand{\Ob}[1]{{#1}_0}
 \newcommand{\Hom}[3]{{#1}(#2,#3)}
@@ -20,6 +21,38 @@
 
 \begin{document}
   \maketitle
+
+  \chapter{Lessons about coq and unimath}
+  When writing coq code, make sure you understand why a proof should work, instead of blindly unfolding and applying Lemmas. That improves the overall quality of the proofs.
+
+  A proof closed with \texttt{Qed} is opaque, whereas a proof that closes with \texttt{Defined} is transparent (i.e. is remembered can be unfolded). Which one is the right one requires some thought.
+
+  Only use \texttt{destruct} in opaque proofs.
+
+  Path induction (or induction on proofs of equality) helps a lot when proving something about a \texttt{transportf}.
+
+  \section{Default API for any \texttt{object}}
+  \begin{itemize}
+    \item \texttt{object\_data}: A definition for the data of the object;
+    \item \texttt{make\_object\_data}: A function to compose the object data out of its parts;
+    \item (Coercions from \texttt{object\_data} to some of its parts;)
+    \item (Explicit functions to access the constituents;)
+    \item \texttt{is\_object}: A definition for the properties of the object;
+    \item \texttt{make\_is\_object}: A function to compose the properties part of the object;
+    \item \texttt{make\_object}: A function to make the object out of its data and property components;
+    \item (A coercion from the object to its data;)
+    \item \texttt{object\_eq}: A lemma about sufficient (and necessary) conditions for two terms of type \texttt{object} to be equal (usually some conditions on the constituents of \texttt{object\_data});
+  \end{itemize}
+
+  \section{Cleaning up code}
+  It is okay to simplify proofs as much as possible. When one wants to step through a proof, they can add \texttt{simpl}s to their own liking.
+
+  \texttt{cbn} is stronger than \texttt{simpl}, so it can be good to try and replace \texttt{cbn}s with \texttt{simpl}s when cleaning up code.
+
+  \section{Things I was not able to find on my own}
+  \texttt{isweq\_iso}
+
+  \texttt{weqdnicoprod}
 
   \chapter{Week 08}
   \section{Univalent Categories}
