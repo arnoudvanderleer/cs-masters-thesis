@@ -34,13 +34,14 @@
   \section{Default API for any \texttt{object}}
   \begin{itemize}
     \item \texttt{object\_data}: A definition for the data of the object;
-    \item \texttt{make\_object\_data}: A function to compose the object data out of its parts;
+    \item \texttt{make\_object\_data}: A function to make the object data out of its parts;
     \item (Coercions from \texttt{object\_data} to some of its parts;)
     \item (Explicit functions to access the constituents;)
     \item \texttt{is\_object}: A definition for the properties of the object;
-    \item \texttt{make\_is\_object}: A function to compose the properties part of the object;
+    \item \texttt{make\_is\_object}: A function to make the properties part of the object;
     \item \texttt{make\_object}: A function to make the object out of its data and property components;
     \item (A coercion from the object to its data;)
+    \item A lemma that the properties form a proposition.
     \item \texttt{object\_eq}: A lemma about sufficient (and necessary) conditions for two terms of type \texttt{object} to be equal (usually some conditions on the constituents of \texttt{object\_data});
   \end{itemize}
 
