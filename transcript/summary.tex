@@ -40,8 +40,10 @@
     \item \texttt{is\_object}: A definition for the properties of the object;
     \item \texttt{make\_is\_object}: A function to make the properties part of the object;
     \item \texttt{make\_object}: A function to make the object out of its data and property components;
+    \item \texttt{object}:
     \item (A coercion from the object to its data;)
-    \item A lemma that the properties form a proposition.
+    \item (\texttt{object\_has\_property}: Explicit functions to access the properties;)
+    \item \texttt{is\_object\_isaprop}: A lemma that the properties form a proposition;
     \item \texttt{object\_eq}: A lemma about sufficient (and necessary) conditions for two terms of type \texttt{object} to be equal (usually some conditions on the constituents of \texttt{object\_data});
   \end{itemize}
 
@@ -54,6 +56,24 @@
   \texttt{isweq\_iso}
 
   \texttt{weqdnicoprod}
+
+  \section{Things I would have liked to know at the start}
+  The fact that if a rewrite does not succeed because a lemma has a slightly different (folded or unfolded) description, we can just force its form like \texttt{rewrite (lemma : form1 = form2)}.
+
+  Setting just one implicit argument like \texttt{action (n := 5)}.
+
+  The fact that instead of finishing a (sub)proof with \texttt{[tactic]. apply idpath.}, one can finish it with \texttt{now [tactic].}.
+
+  \section{Things that I would like to have a standard for}
+  \begin{itemize}
+    \item Naming (of folders, files, terms): what abbreviations are allowed? In what order do words appear? How are words separated? How are names capitalized?
+    \item Documentation headers in files.
+    \item In which cases do we want to use unicode?
+    \item In which cases do we want definitions to be (fully) typed?
+    \item In which cases do we want accessor functions for all data and properties?
+  \end{itemize}
+
+  No lines should have trailing whitespace and all files should have a trailing newline.
 
   \chapter{Week 08}
   \section{Univalent Categories}
@@ -72,7 +92,7 @@
 
   Given a category $ \mathcal E $ and an object $ E \in \Ob \EE $, the \textbf{slice category} $ \mathcal E / E $ with objects being the maps $ D \xrightarrow{p} E $ and morphisms being commutative triangles.
 
-  A \textbf{multicategory}, not necessarily the same as an $ n $-category, is a category in which arrows go from multiple objects to one, instead of from one object to one. I.e. it is a category with a class $ C_0 $ of objects, for all $ n $, and all $ a, a_1, \dots, a_n \in C_0 $, a class $ C(a_1, \dots, a_n; a) $ of `morphisms', and a composition 
+  A \textbf{multicategory}, not necessarily the same as an $ n $-category, is a category in which arrows go from multiple objects to one, instead of from one object to one. I.e. it is a category with a class $ C_0 $ of objects, for all $ n $, and all $ a, a_1, \dots, a_n \in C_0 $, a class $ C(a_1, \dots, a_n; a) $ of `morphisms', and a composition
   \[ C(a_1, \dots, a_n; a) \times C(a_{1, 1}, \dots, a_{1, k_1}; a_1) \times \dots \times C(a_{n, 1}, \dots, a_{n, k_n}; a_n) \to C(a_{1, 1}, \dots, a_{n, k_n}; a), \]
   written $ (\theta, \theta_1, \dots, \theta_n) \mapsto \theta (\theta_1, \dots, \theta_n) $ and for each $ a \in C_0 $ an identity $ 1_a \in C(a; a) $. It must satisfy associativity
   \[ \theta \circ(\theta_1 \circ(\theta_{1, 1}, \dots, \theta_{1, k_1}), \dots, \theta_n \circ (\theta_{n, 1}, \dots, \theta_{n, k_n})) = (\theta \circ (\theta_1, \dots, \theta_n)) \circ (\theta_{1, 1}, \dots, \theta_{n, k_n}) \]
@@ -104,7 +124,7 @@
   of functions, preserving composition and identities.
 
   A \textbf{$ P $-algebra} for $ P $ an operad, is a set $ X $ and, for each $ n $, and $ \theta \in P(n) $, a function $ \overline{\theta}: X^n \to X $, satisfying the evident axioms (identity is the identity function, the function of a composition is the composition of the functions?).
-  
+
   \subsection{Examples}
   For any vector space $ V $, there is an operad with $ P(k) = V^{\otimes k} \to V $.
 
@@ -127,7 +147,7 @@
   Given a monoid $ M $ (a category with one object), there is a operad given by $ P(n) = M^n $ and composition
   \[ (\alpha_1, \dots, \alpha_n) \circ ((\alpha_{1, 1}, \dots, \alpha_{1, k_1}), \dots, (\alpha_{n, 1}, \dots, \alpha_{n, k_n})). \]
 
-  The \textbf{Little $ 2 $-disks} operad $ D $ has 
+  The \textbf{Little $ 2 $-disks} operad $ D $ has
   \[ D(n) = \{ \text{set of non-overlapping disks contained within the unit disk} \}, \]
   with composition being geometric "substitution". I.e.: scale and move a unit disk and its contained disks to match one of the smaller disks, and replace the smaller disk with the transformed contents of our original unit disk. See also: \href{https://upload.wikimedia.org/wikipedia/en/thumb/0/0b/Composition_in_the_little_discs_operad.svg/1920px-Composition_in_the_little_discs_operad.svg.png}{this image that explains a lot}
 
@@ -135,7 +155,7 @@
 
   \section{\texorpdfstring{$ T $}{T}-operads}
   \subsection{Definitions}
-  A category is \textbf{cartesian} if it has all pullbacks. A functor is cartesian if it preserves pullbacks. A natural transformation $ \alpha: S \to T $ is cartesian if for all $ f: A \to B $, the naturality diagram 
+  A category is \textbf{cartesian} if it has all pullbacks. A functor is cartesian if it preserves pullbacks. A natural transformation $ \alpha: S \to T $ is cartesian if for all $ f: A \to B $, the naturality diagram
   \begin{center}
     \begin{tikzcd}
       SA \arrow[r, "S f"] \arrow[d, "\alpha_A"] & SB \arrow[d, "\alpha_B"]\\
@@ -169,19 +189,19 @@
   NLab uses notation: $ \FIN $ for what we would call a standard skeleton of finite sets (i.e. the category of finite sets $ \{ 0, \dots, n - 1 \} $ and maps between them). $ A^B $ denotes all morphisms/functors $ B \to A $. I.e., the class of functors $ \FIN \to \SET $ is denoted $ \SET^\FIN $.
 
   Take $ I = \Hom{\FIN}{1}{-}: \SET^\FIN = \FIN \to \SET $.
-  
+
   Let $ [\SET^\FIN, \SET^\FIN] $ be the category of finite-product-preserving, cocontinuous endofunctors on $ \SET^\FIN $. The map $ \mathop{Ev}_I: [\SET^\FIN, \SET^\FIN] \to \SET^\FIN $, given by $ F \mapsto F(I) $ is an equivalence. $ [\SET^\FIN, \SET^\FIN] $ has a monoidal product $ \odot $ given by endofunctor composition, and we can transfer this to $ \SET^\FIN $.
 
   Concretely, we have $ F \odot G = \int^{n \in \FIN} F(n) G^n $.
-  
+
   \subsection{Cartesian operads}
   A \textbf{cartesian operad} is a monoid in this monoidal category $ (\SET^{\FIN}, \odot, I) $. I.e., it is a triple $ (M, \mu, \eta) $, with $ M \in \SET^\FIN $, $ \mu: M \odot M \to M $ and $ \eta: I \to M $.
 
   More concretely, this is a functor $ M : \FIN \to \SET $, together with maps
   \[ m_{n, k}: M(n) \times M(k)^n \to M(k), \]
   natural in $ k $ and dinatural in $ n $, and an element $ e \in M(1) $.
-  
-  Dinaturality in $ n $ means the following. Fix $ k \in \FIN $. We have the functors $ \op \FIN \times \FIN \to \SET $ given by 
+
+  Dinaturality in $ n $ means the following. Fix $ k \in \FIN $. We have the functors $ \op \FIN \times \FIN \to \SET $ given by
   \[ F: (n, n^\prime) \mapsto M(n^\prime) \times M(k)^{n} \quad \text{and} \quad G: (n, n^\prime) \mapsto M(k). \]
   For all $ n \in \Ob \FIN $, we have a morphism
   \[ \bullet: F(n, n) = M(n) \times M(k)^n \to M(k) = G(n, n). \]
@@ -218,7 +238,7 @@
   \[ G(a) \circ \bullet = \bullet \circ F(a). \]
   That is, for all $ f \in M(n) $, $ g_1, \dots, g_n \in M(k) $,
   \[ M(a) (f \bullet (g_1, \dots, g_n)) = f \bullet (M(a)(g_1), \dots, M(a)(g_n)). \]
-  Now, $ M(a) $ is given by 
+  Now, $ M(a) $ is given by
   \[ M(a)(f) = f \bullet (\pi_{a(1), k^\prime}, \dots, \pi_{a(k), k^\prime}). \]
   Therefore, we have
   \begin{align*}
@@ -235,7 +255,7 @@
   For three sets $ X, Y, Z $, we have a bijection
   \[ \Hom \SET {X \times Y} Z \cong \Hom \SET X {Y \to Z} \]
   that is natural in $ X $ and $ Z $. This is an example of a general notion:
-  
+
   For functors $ F: \CC \to \DD $ and $ G: \DD \to \CC $, $ F $ is a \textbf{left adjoint} for $ G $ if there is an isomorphism $ \Hom \CC {F X} Y \cong \Hom \DD X {G Y} $ that is dinatural in $ X $ and $ Y $.
 
   \subsection{Examples}
@@ -340,12 +360,12 @@
     \item The Fundamental Theorem of the $ \lambda $-calculus: there is an adjoint equivalence between $ \lambda $-theories and $ \Lambda $-algebras.
     \item A remark that this is much harder without the category theoretic framework.
   \end{enumerate}
-  
+
   \chapter{Week 11}
 
   \section{A Formalization of Operads in Coq}
   A paper was uploaded to the arXiv (see \cite{arxiv-operads}). Unfortunately, this paper did not contain any code, which makes it harder to compare their technique to mine. The paper is about the formalization of a symmetric multicategory (kind of. They do not require $ (\tau \sigma) f = \tau (\sigma f) $ for $ \sigma, \tau \in S_n $ and $ f \in \Hom{\CC}{a_1}{\dots, a_n;a} $)
-  
+
   The operad data presented in this paper is a bit different (but equivalent) from the data that I have seen so far. Notably: the composition is on one element at a time:
   \[ \Hom{\CC}{a_1}{\dots, a_n;a} \times \Hom{\CC}{b_1}{\dots, b_m; a_i} \to \Hom{\CC}{a_1}{\dots a_{i-1}, b_1, \dots, b_m, a_{i+1}, \dots, a_n; a}, \]
   in which $ a_1, \dots a_{i-1}, b_1, \dots, b_m, a_{i+1}, \dots, a_n $ is denoted $ \underline{a} \bullet_{i} \underline{b} $.

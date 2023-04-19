@@ -1,0 +1,317 @@
+\documentclass[aspectratio=169]{fancyslides} % or beamer/slides
+
+\usepackage{stmaryrd}
+\usepackage{tikz-cd}
+
+% \usetheme{Madrid}
+
+\newcommand\abstractCloneDefinition{
+  \begin{definition}
+    An abstract clone is
+    \begin{itemize}
+      \item a function $ C : \mathbb N \to \mathrm{SET} $,
+      \item a composition morphism $ \bullet: C(m) \times C(n)^m \to C(n) $ for all $ m, n $,
+      \item elements (projections) $ x_{n, i} \in C(n) $ for all $ 1 \leq i \leq n $.
+    \end{itemize}
+    The composition must satisfy $ x_{n, i} \bullet (f_1, \dots, f_n) = f_i $ and $ f \bullet (\pi_{1, n}, \dots, \pi_{n, n}) = f $ and
+    \[ (f \bullet (g_1, \dots, g_m)) \bullet (h_1, \dots, h_n) = f \bullet (g_1 \bullet (h_1, \dots, h_n), \dots, g_m \bullet (h_1, \dots, h_n)). \]
+  \end{definition}
+}
+
+\newcommand\algebraDefinition{
+  \begin{definition}
+    An algebra for an abstract clone $ C $ consists of
+    \begin{enumerate}
+      \item a set $ A $,
+      \item an action $ \alpha_n: C(n) \times A^n \to A $.
+    \end{enumerate}
+    Such that $ \alpha_n $ satisfies $ \alpha_n(x_{n, i}, a) = a_i $ and $ \alpha_n(f \bullet g, a) = \alpha_m(f, (\alpha_n(g_1, a), \dots, \alpha_n(g_m, a))) $.
+  \end{definition}
+}
+
+\newcommand\lambdaCloneDefinition{
+  \begin{definition}
+    A $ \lambda $-clone consists of
+    \begin{itemize}
+      \item an abstract clone $ \mathcal L $,
+      \item functions $ \rho_n: \mathcal L(n) \to \mathcal L(n + 1) $ and $ \lambda_n: \mathcal L(n + 1) \to \mathcal L(n) $.
+    \end{itemize}
+    Such that
+    \[ \rho(f \bullet g) = \rho(f) \bullet (g_1, \dots, g_m, x_{n+1, n+1}) \]
+    and
+    \[ \lambda(f) \bullet g = \lambda(f \bullet (g_1, \dots, g_m, x_{n+1, n+1})). \]
+    Hyland also requires $ (\lambda, \rho) $ to be a section-retraction pair.
+  \end{definition}
+}
+
+\title{Classical Lambda Calculus in Modern Dress}
+
+\begin{document}
+  \maketitle
+
+  \begin{frame}
+    \frametitle{Denotational Semantics}
+
+    \texttt{expr = 1 | -<expr> | <expr> + <expr>}\\
+    \pause
+    For $ t \in \mathtt{expr} $, $ \llbracket t \rrbracket \in \mathbb Z $.
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Denotational Semantics}
+
+    \texttt{expr = 1 | x | -<expr> | <expr> + <expr>}\\
+    \pause
+    For $ t \in \mathtt{expr} $, $ \llbracket t \rrbracket \in \mathbb Z \oplus x \cdot \mathbb Z $.
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Denotational Semantics}
+
+    \texttt{expr = 1 | x * <expr> | -<expr> | <expr> + <expr>}\\
+    \pause
+    For $ t \in \mathtt{expr} $, $ \llbracket t \rrbracket \in \mathbb Z[x] $: polynomials with coefficients in $ \mathbb Z $.
+    \pause
+    Or $ \llbracket t \rrbracket \in \mathbb Z \to \mathbb Z $. Or maybe $ \llbracket t \rrbracket \in \mathbb R \to \mathbb R $.
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Denotational Semantics}
+
+    \texttt{expr = Var(<nat>) | App(<expr>, <expr>) | Abs(Var(<nat>), <expr>)}\\
+    \pause
+    For $ t \in \mathtt{expr} $, $ \llbracket t \rrbracket \in ? $.\\
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Algebraic Theory}
+
+    \begin{definition}
+      An algebraic theory consists of
+      \begin{itemize}
+        \item a functor $ \mathcal T: F \to \mathrm{SET} $,
+        \item elements (projections) $ x_{n, i} \in \mathcal T(n) $ for all $ 1 \leq i \leq n $,
+        \item a composition morphism $ \bullet: \mathcal T(m) \times \mathcal T(n)^m \to \mathcal T(n) $ for all $ m, n $.
+      \end{itemize}
+      The composition must be associative, unital, compatible with projections and dinatural in $ m $.
+    \end{definition}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Abstract Clone}
+
+    \abstractCloneDefinition
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Abstract Clone - Example}
+
+    \abstractCloneDefinition
+
+    \begin{example}
+      Take $ C(n) = \{ 1, 2, \dots, n \} $, $ x_{n, i} = i $ and $ i \bullet (f_1, \dots, f_n) = f_i $.
+    \end{example}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Abstract Clone - Example}
+
+
+    \abstractCloneDefinition
+
+    \begin{example}
+      Take $ C(n) $ the free monoid on $ n $ generators. The $ x_{n, i} $ are the generators and $ f \bullet (g_1, \dots, g_m) $ applies the mapping $ C(m) \to C(n) $ on $ f $, given by sending $ x_{m, i} $ to $ g_i $.
+    \end{example}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Abstract Clone - Example}
+
+    \abstractCloneDefinition
+
+    \begin{example}
+      Let $ X $ be an object in a category with finite products. The endomorphism clone has $ C(n) = (X^n \to X) $. Then $ x_{n, i} $ is the $ i $th projection morphism. The universal property of the product gives $ \bullet $.
+    \end{example}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Abstract Clone - Example}
+
+    \abstractCloneDefinition
+
+    \begin{example}
+      The $ \lambda $-calculus $ \Lambda $, in which $ \Lambda(n) $ consists of the terms with $ n $ free variables, $ x_{n, i} = \texttt{Var}(i) $ (with De Bruijn indices) and $ \bullet $ is substitution.
+    \end{example}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Abstract Clone Algebra}
+
+    \abstractCloneDefinition
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Abstract Clone Algebra - Example}
+
+    \abstractCloneDefinition
+
+    \begin{example}
+      For the clone $ C(n) = \{ 1, \dots, n \} $, any set $ A $ can be an algebra, setting $ \alpha_n(i, a) = a_i $.
+    \end{example}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Abstract Clone Algebra - Example}
+
+    \abstractCloneDefinition
+
+    \begin{example}
+      For the clone with $ C(n) $ the free monoid on $ n $ generators, the algebras are exactly the monoids. Setting $ a \star b := \alpha_2(x_1 \star x_2, (a, b)) $.
+    \end{example}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Abstract Clone Algebra - Properties}
+
+    \begin{example}
+      An algebra $ A $ for the lambda calculus clone $ \Lambda $ gets a lot of structure. For each term $ t \in \Lambda(n) $ and $ a \in A^n $, we have an interpretation $ t(a) \in A $.
+
+      \pause
+
+      $ A $ has function application $ a b := \alpha_2(x_1 x_2, (a, b)) $.
+
+      \pause
+
+      And lambda abstraction $ \lambda x, a x := \alpha_1((\lambda x, x_1 x), (a)) $.
+
+      \pause
+
+      It can inherit beta and eta reduction:
+      \begin{align*}
+          (\lambda x, a x)(b) &= \alpha_2(x_1 x_2, (\alpha_1((\lambda x, x_1 x), (a)), b))\\
+          &= \alpha_2(x_1 x_2, (\alpha_2((\lambda x, x_1 x), (a, b)), \alpha_2(x_2, (a, b))))\\
+          &= \alpha_2((x_1 x_2) \bullet ((\lambda x, x_1 x), x_2), (a, b))\\
+          &= \alpha_2((\lambda x, x_1 x)(x_2), (a, b))\\
+          &= \alpha_2(x_1 x_2, (a, b))\\
+          &= a b.\\
+      \end{align*}
+    \end{example}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{$ \lambda $-clone}
+
+    \lambdaCloneDefinition
+
+    Given a $ \lambda $-clone $ \mathcal L $, we can interpret a term $ t $ of the lambda calculus (that has a context $ \Gamma $ of length $ n $) as an element $ \llbracket t \rrbracket \in \mathcal L(n) $.
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{$ \lambda $-clone - Example}
+
+    \lambdaCloneDefinition
+
+    \begin{example}
+      If we have an object $ X $ in a category with products, and a retraction $ X \to (X \to X) $, the endomorphism clone of $ X $ is a $ \lambda $-clone.
+    \end{example}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{$ \lambda $-clone - Example}
+
+    \lambdaCloneDefinition
+
+    \begin{example}
+      The lambda calculus clone $ \Lambda $ is a $ \lambda $-clone, with $ \lambda_n f = \lambda x_{n + 1}, f $ and $ \rho_n(f) = f x_{n + 1} $.
+
+      It is the initial $ \lambda $-clone, so any algebra for a $ \lambda $-clone is a "$ \Lambda $-algebra".
+    \end{example}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{$ \lambda $-clone - Properties}
+
+    \lambdaCloneDefinition
+
+    Any algebra $ (A, (\alpha_i)_i) $ for a $ \lambda $-theory can be interpreted as a $ \Lambda $-algebra.
+  \end{frame}
+
+  \begin{frame}
+    work in progress
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Preliminaries to the main theorem}
+
+    For a $ \lambda $-theory $ \mathcal L $, $ \mathcal L(0) $ is a $ \mathcal L $-algebra and therefore a $ \Lambda $-algebra.
+
+    \vfill
+    \pause
+
+    Given a $ \Lambda $-algebra $ A $. Take $ \Lambda_A(n) = A + \Lambda(n) $, as a coproduct of $ \Lambda $-algebras, defined as a coend of sets
+    \[ A + B = \int^{m, n} \mathop{Alg_\Lambda}(\Lambda(m), A) \times \mathop{Alg_\Lambda}(\Lambda(n), B) \times \Lambda (m + n) \]
+
+    \vfill
+    \pause
+
+    \begin{lemma}
+      $ \Lambda_A $ is a $ \lambda $-theory.
+    \end{lemma}
+    \begin{proof}
+      We can identify $ \Lambda_A $ with $ \mathcal U_A $.
+
+      We have a retraction $ U_A \to U_A^{U_A} $. Composition with this gives a retraction $ \mathcal U_A(n) \to \mathcal U_A(n + 1) $.
+    \end{proof}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{$ \mathcal U_A $}
+    Let $ A $ be a $ \Lambda $-algebra.
+
+    \begin{definition}
+      We define a monoid $ M_A = (\{ a \in A \mid \mathbf 1 a = a \}, \circ) $ with $ \mathbf 1 := \lambda x y, x y = \alpha_0((\lambda x y, x y), ()) $ and $ a \circ b := \alpha_2((\lambda x, x_1 (x_2 x)), (a, b)) $.
+    \end{definition}
+
+    \pause
+    \vfill
+
+    \begin{definition}
+      We define $ P(A) $ to be the category of presheaves on the category $ M_A $. This has `universal objec t' $ U_A = M_A $ with the obvious right action of $ M_A $.
+    \end{definition}
+
+    \pause
+    \vfill
+
+    \begin{lemma}
+      We have a retraction $ U_A \to (U_A \to U_A) $.
+    \end{lemma}
+    \begin{proof}
+      We can identify $ U_A \to U_A $ with $ \{ a \in A \mid \mathbf 1_2 a = a \} $ with $ \mathbf 1_2 := \lambda x y_1 y_2, (x y_1) y_2 $.
+
+      Composition on the left with $ \mathbf 1 $ gives the retraction.
+    \end{proof}
+
+    \pause
+    \vfill
+
+    \begin{definition}
+      We take $ \mathcal U_A $ to be the endomorphism theory of the reflexive universal $ U_A \in P(A) $.
+    \end{definition}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{The Main Theorem of the Lambda Calculus}
+    \begin{theorem}
+      There is an adjoint equivalence $ \mathcal L \mapsto \mathcal L(0) $ and $ A \mapsto \Lambda_A $ between $ \lambda $-theories and  $ \Lambda $-algebras.
+
+      In particular, each $ \lambda $-theory $ \mathcal L $ is isomorphic to the theory of extensions of its initial algebra $ \mathcal L(0) $.
+    \end{theorem}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Conclusion}
+
+    In this framework, we can study the denotations/interpretations/models for the lambda calculus by studying the $ \lambda $-theories.
+  \end{frame}
+
+\end{document}
