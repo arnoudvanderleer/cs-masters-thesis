@@ -404,6 +404,12 @@
   \end{align*}
   However, not all algebraic objects can be expressed as algebras for some algebraic theory in this way. Consider, for example, fields. If we have some algebraic theory $ \mathcal T $ that has the fields as its algebras, we would expect some element $ x_1^{-1} = \frac{1}{x_1} \in \mathcal T(1) $ that expresses the multiplicative inverse. However, there is no good way to give a value to $ \alpha_1(x_1^{-1}, (0)) $, since $ 0 $ does not have a multiplicative inverse.
 
+  In general, given a category $ \CC $, a functor $ F : \CC \to \SET $ with a left adjoint $ G : \SET \to \CC $. Then we can set
+  \[ T(n) = F(G(\{1, \dots, n\})). \]
+  Given $ c \in \Ob{\CC} $, we have a bijection $ \varphi: \Hom{\SET}{\{1, \dots, n\}}{F(c)} \xrightarrow{\sim} \Hom{\CC}{G(\{1, \dots, n\})}{c} $. Then, for $ f \in T(m) $, $ g: \{ 1, \dots, m \} \to T(n) $, we can set $ f \bullet g := F(\varphi(g))(f) $. We also take $ \pi_{n, i} = \varphi^{-1}(\mathrm{id}_{G(\{1, \dots, n\})})(i) $. Then, given any $ A \in \Ob \CC $, we can make $ F(A) $ into an algebra by setting $ \alpha_n(f, a) = F(\varphi(a))(f) $. Also, given a morphism $ f \in \Hom{\CC}{A}{B} $, we have a function $ F(f) \in \Hom{\SET}{F(A)}{F(B)} $ (\textbf{TODO: Show that it is an algebra morphism}). Of course, $ F $ respects composition and identities, so we have a functor from objects of $ \CC $ to $ T $-algebras.
+
+  However, this functor is not necessarily an equivalence of categories. For example, take $ \CC := \SET \times \SET $, with $ F(A, B) = A $, $ G(A) = (A, \emptyset) $ and $ \varphi(f) = (f, \iota_\emptyset) $. Then $ T(n) = \{ 1, \dots, n\} $. Take $ (A, B) \in \Ob{\SET \times \SET} $. Then $ F(A, B) = A $. Also, for all $ n $ and all $ a: \{ 1, \dots, n \} \to A $, $ \varphi(a) = (a, \iota_\emptyset) $ and $ F(\varphi(a)) = a $ again. Therefore, $ \alpha_n(f, a) = a(f) $, regardless of $ B $, so the functor is not an equivalence of categories.
+
   \section{Using displayed categories}
   Displayed categories are a way to build categories in a layered fashion. I replaced my old definitions for the objects in my library and their categories by the displayed categories version, shaping the definitions of my objects and morphisms in such a way that they are definitionally equal to the objects and morphisms in the (total) displayed categories.
 
