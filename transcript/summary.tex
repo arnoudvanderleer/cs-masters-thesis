@@ -31,6 +31,18 @@
 
   Path induction (or induction on proofs of equality) helps a lot when proving something about a \texttt{transportf}.
 
+  \section{One time checklist}
+  \begin{itemize}
+    \item Check the vscode setting for removing trailing whitespace on save;
+    \item Check the vscode setting for making sure that there is exactly 1 trailing newline on save?
+  \end{itemize}
+
+  \section{Checklist before making a PR}
+  \begin{itemize}
+    \item Make sure that all variables in intros and induction (that are used later) are introduced by name;
+    \item Make sure that \texttt{use} is replaced by \texttt{apply} and \texttt{apply} by \texttt{exact} wherever possible;
+  \end{itemize}
+
   \section{Default API for any \texttt{object}}
   \begin{itemize}
     \item \texttt{object\_data}: A definition for the data of the object;
@@ -377,6 +389,27 @@
   To get elements in the right space, they add a lot of typecasting functions. For example, the function $ \mathcal C_{assoc}: \mathcal O((\underline c \bullet_i \underline a) \bullet_{l - 1 + j} \underline b; d) \to \mathcal O((\underline c \bullet_j \underline b) \bullet_i \underline a; d) $ I believe we call such a function a `transport function`. The paper claims that if $ A = B $, a typecast function will be the identity. The way that it is currently stated, it is not compatible with univalence, I believe.
 
   I feel like the paper lacks a section explaining the choices that were made and evaluating their results.
+
+  \chapter{Week 17}
+  \section{The applicability of algebraic theories}
+  It turns out that it is very well possible to characterize a family of algebraic constructs using algebraic theories. For example, if we take the algebraic theory $ \mathcal T $ with $ \mathcal T(n) $ the monoids on $ n $ generators, there is an equivalence (at least of types, maybe also of categories) between $ \mathcal T $-algebras and monoids. We can do the same for groups, rings, ring modules, ring algebras etc. The action of certain elements corresponds then to group operation, the ring multiplication, the ring action, etc:
+  \[ a \cdot b := \alpha_2(x_1 \cdot x_2, (a, b)). \]
+  The laws that these operations must obey can also be deduced from the action, by pulling back the equation to the free object. For example, associativity:
+  \begin{align*}
+    a \cdot (b \cdot c) &= \alpha_2(x_1 \cdot x_2, (a, \alpha_2(x_1 \cdot x_2, (b, c))))\\
+    &= \alpha_2(x_1 \cdot x_2, (\alpha_3(x_1, (a, b, c)), \alpha_2(x_1 \cdot x_2, (\alpha_3(x_2, (a, b, c)), \alpha_3(x_3, (a, b, c))))))\\
+    &= \alpha_3(x_1 \cdot (x_2 \cdot x_3), (a, b, c))\\
+    &\dots\\
+    &= (a \cdot b) \cdot c.
+  \end{align*}
+  However, not all algebraic objects can be expressed as algebras for some algebraic theory in this way. Consider, for example, fields. If we have some algebraic theory $ \mathcal T $ that has the fields as its algebras, we would expect some element $ x_1^{-1} = \frac{1}{x_1} \in \mathcal T(1) $ that expresses the multiplicative inverse. However, there is no good way to give a value to $ \alpha_1(x_1^{-1}, (0)) $, since $ 0 $ does not have a multiplicative inverse.
+
+  \section{Using displayed categories}
+  Displayed categories are a way to build categories in a layered fashion. I replaced my old definitions for the objects in my library and their categories by the displayed categories version, shaping the definitions of my objects and morphisms in such a way that they are definitionally equal to the objects and morphisms in the (total) displayed categories.
+
+  It turns out that coq has a hard time doing coercions between categories, since there are a lot of implicit coercions between a category and the type of its objects. So for a displayed category $ \mathcal C^\prime $ over $ \mathcal C $, and a displayed category $ \mathcal C^{\prime \prime} $ over $ \mathcal C^\prime $, if we have coercions $ \mathcal C^{\prime \prime} \to \mathcal C^\prime $ and $ \mathcal C^\prime \to \mathcal C $, if we have an object of type $ \mathcal C^{\prime \prime} $ (which is actually $ \Ob{\mathcal C^{\prime \prime}} $) and we need an object of type $ \mathcal C $ (actually $ \Ob{\mathcal C} $), then coq will need to make the following chain of coercions:
+  \[ \Ob{\mathcal C^{\prime \prime}} \to \mathcal C^{\prime \prime} \to \mathcal C^\prime \to \mathcal C \to \Ob{\mathcal C} \]
+  and this does not go very well. In this case, it worked very well to define separate (definitionally equal) datatypes for the objects and morphisms in each category, define coercions between those, and cast objects in our categories to these analogous datatypes in places where we need these coercions.
 
   \bibliographystyle{alpha}
   \bibliography{citations}
