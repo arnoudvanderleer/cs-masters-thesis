@@ -406,7 +406,12 @@
 
   In general, given a category $ \CC $, a functor $ F : \CC \to \SET $ with a left adjoint $ G : \SET \to \CC $. Then we can set
   \[ T(n) = F(G(\{1, \dots, n\})). \]
-  Given $ c \in \Ob{\CC} $, we have a bijection $ \varphi: \Hom{\SET}{\{1, \dots, n\}}{F(c)} \xrightarrow{\sim} \Hom{\CC}{G(\{1, \dots, n\})}{c} $. Then, for $ f \in T(m) $, $ g: \{ 1, \dots, m \} \to T(n) $, we can set $ f \bullet g := F(\varphi(g))(f) $. We also take $ \pi_{n, i} = \varphi^{-1}(\mathrm{id}_{G(\{1, \dots, n\})})(i) $. Then, given any $ A \in \Ob \CC $, we can make $ F(A) $ into an algebra by setting $ \alpha_n(f, a) = F(\varphi(a))(f) $. Also, given a morphism $ f \in \Hom{\CC}{A}{B} $, we have a function $ F(f) \in \Hom{\SET}{F(A)}{F(B)} $ (\textbf{TODO: Show that it is an algebra morphism}). Of course, $ F $ respects composition and identities, so we have a functor from objects of $ \CC $ to $ T $-algebras.
+  Given $ c \in \Ob{\CC} $, we have a natural bijection $ \varphi: \Hom{\SET}{\{1, \dots, n\}}{F(c)} \xrightarrow{\sim} \Hom{\CC}{G(\{1, \dots, n\})}{c} $. Then, for $ f \in T(m) $, $ g: \{ 1, \dots, m \} \to T(n) $, we can set $ f \bullet g := F(\varphi(g))(f) $. We also take $ \pi_{n, i} = \varphi^{-1}(\mathrm{id}_{G(\{1, \dots, n\})})(i) $. Then, given any $ A \in \Ob \CC $, we can make $ F(A) $ into an algebra by setting $ \alpha_n(f, a) = F(\varphi(a))(f) $. Also, given a morphism $ m \in \Hom{\CC}{A}{B} $, we have a function $ F(m) \in \Hom{\SET}{F(A)}{F(B)} $.
+  are equal. Naturality gives for all $ a: \{1, \dots, n\} \to F(A) $ that
+  \[ m \circ \varphi(a) = \varphi(F(m) \circ a), \]
+  so for $ f: F(G(\{1, \dots, n\})) $,
+  \[ F(m)(\alpha_2(f, a)) = F(m \circ \varphi(a))(f) = F(\varphi(F(m) \circ a))(f) = \alpha_2(f, F(m) \circ a) \]
+  and $ F(m) $ is a morphism of algebras. Of course, $ F $ respects composition and identities, so we have a functor from objects of $ \CC $ to $ T $-algebras.
 
   However, this functor is not necessarily an equivalence of categories. For example, take $ \CC := \SET \times \SET $, with $ F(A, B) = A $, $ G(A) = (A, \emptyset) $ and $ \varphi(f) = (f, \iota_\emptyset) $. Then $ T(n) = \{ 1, \dots, n\} $. Take $ (A, B) \in \Ob{\SET \times \SET} $. Then $ F(A, B) = A $. Also, for all $ n $ and all $ a: \{ 1, \dots, n \} \to A $, $ \varphi(a) = (a, \iota_\emptyset) $ and $ F(\varphi(a)) = a $ again. Therefore, $ \alpha_n(f, a) = a(f) $, regardless of $ B $, so the functor is not an equivalence of categories.
 
