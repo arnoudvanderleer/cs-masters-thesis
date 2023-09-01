@@ -2,6 +2,7 @@
 
 \usepackage{hyperref}
 \usepackage{tikz-cd}
+\usepackage{amssymb}
 
 \newcommand{\Catc}[1]{\mathcal{#1}}
 \newcommand{\BB}{\Catc{B}}
@@ -13,8 +14,13 @@
 \newcommand{\TYPE}{\Catb{Type}}
 \newcommand{\FIN}{\Catb{Fin}}
 \newcommand{\Ob}[1]{{#1}_0}
-\newcommand{\Hom}[3]{{#1}(#2,#3)}
+\newcommand{\Hom}[3]{{#1}\left(#2,#3\right)}
 \newcommand{\op}[1]{\ensuremath{{#1}^\text{op}}}
+
+\newtheorem{lemma}{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{remark}{Remark}
 
 \title{Summary of the things that I learned}
 \author{Arnoud van der Leer}
@@ -69,12 +75,16 @@
 
   \texttt{weqdnicoprod}
 
+  \texttt{transportf\_set}
+
   \section{Things I would have liked to know at the start}
   The fact that if a rewrite does not succeed because a lemma has a slightly different (folded or unfolded) description, we can just force its form like \texttt{rewrite (lemma : form1 = form2)}.
 
   Setting just one implicit argument like \texttt{action (n := 5)}.
 
   The fact that instead of finishing a (sub)proof with \texttt{[tactic]. apply idpath.}, one can finish it with \texttt{now [tactic].}.
+
+  The pushout of \texttt{exact}, \texttt{apply}, \texttt{refine} and \texttt{use}.
 
   \section{Things that I would like to have a standard for}
   \begin{itemize}
@@ -83,11 +93,12 @@
     \item In which cases do we want to use unicode?
     \item In which cases do we want definitions to be (fully) typed?
     \item In which cases do we want accessor functions for all data and properties?
+    \item What should be documented using comments, and how should they be formatted?
   \end{itemize}
 
   No lines should have trailing whitespace and all files should have a trailing newline.
 
-  \chapter{Week 08}
+  \chapter*{Week 08}
   \section{Univalent Categories}
   A univalent category is a category in which the univalence axiom holds. I.e., a category $ \mathcal C $ in which, for all $ A, B \in \Ob \CC $, the canonical map $ (A =_{\mathcal C} B) \to (A \cong B) $ is an equivalence.
 
@@ -261,7 +272,7 @@
   \end{align*}
   So the associativity and projection axioms ensure naturality.
 
-  \chapter{Week 09}
+  \chapter*{Week 09}
 
   \section{Adjunctions}
   For three sets $ X, Y, Z $, we have a bijection
@@ -373,7 +384,7 @@
     \item A remark that this is much harder without the category theoretic framework.
   \end{enumerate}
 
-  \chapter{Week 11}
+  \chapter*{Week 11}
 
   \section{A Formalization of Operads in Coq}
   A paper was uploaded to the arXiv (see \cite{arxiv-operads}). Unfortunately, this paper did not contain any code, which makes it harder to compare their technique to mine. The paper is about the formalization of a symmetric multicategory (kind of. They do not require $ (\tau \sigma) f = \tau (\sigma f) $ for $ \sigma, \tau \in S_n $ and $ f \in \Hom{\CC}{a_1}{\dots, a_n;a} $)
@@ -390,7 +401,7 @@
 
   I feel like the paper lacks a section explaining the choices that were made and evaluating their results.
 
-  \chapter{Week 17}
+  \chapter*{Week 17}
   \section{The applicability of algebraic theories}
   It turns out that it is very well possible to characterize a family of algebraic constructs using algebraic theories. For example, if we take the algebraic theory $ \mathcal T $ with $ \mathcal T(n) $ the monoids on $ n $ generators, there is an equivalence (at least of types, maybe also of categories) between $ \mathcal T $-algebras and monoids. We can do the same for groups, rings, ring modules, ring algebras etc. The action of certain elements corresponds then to group operation, the ring multiplication, the ring action, etc:
   \[ a \cdot b := \alpha_2(x_1 \cdot x_2, (a, b)). \]
@@ -421,6 +432,430 @@
   It turns out that coq has a hard time doing coercions between categories, since there are a lot of implicit coercions between a category and the type of its objects. So for a displayed category $ \mathcal C^\prime $ over $ \mathcal C $, and a displayed category $ \mathcal C^{\prime \prime} $ over $ \mathcal C^\prime $, if we have coercions $ \mathcal C^{\prime \prime} \to \mathcal C^\prime $ and $ \mathcal C^\prime \to \mathcal C $, if we have an object of type $ \mathcal C^{\prime \prime} $ (which is actually $ \Ob{\mathcal C^{\prime \prime}} $) and we need an object of type $ \mathcal C $ (actually $ \Ob{\mathcal C} $), then coq will need to make the following chain of coercions:
   \[ \Ob{\mathcal C^{\prime \prime}} \to \mathcal C^{\prime \prime} \to \mathcal C^\prime \to \mathcal C \to \Ob{\mathcal C} \]
   and this does not go very well. In this case, it worked very well to define separate (definitionally equal) datatypes for the objects and morphisms in each category, define coercions between those, and cast objects in our categories to these analogous datatypes in places where we need these coercions.
+
+  \chapter*{Week 18}
+
+  \begin{lemma}
+    The lambda calculus $ \Lambda $ is the initial $ \lambda $-theory.
+  \end{lemma}
+  \begin{proof}
+    Given a $ \lambda $-theory $ \mathcal L $, we need a unique morphism $ \varphi : \Lambda \to \mathcal L $.
+
+    Do structural induction on the lambda terms in $ \Lambda(n) $. Send \texttt{Var(i)} to $ \pi_{n, i} $, \texttt{Abs(f)} to $ \lambda(\varphi(f)) $ and \texttt{App(f, g)} to $ \rho(\varphi(f)) \bullet (\pi_1, \dots, \pi_n, g) $.
+
+    Show that it preserves $ \bullet $, $ \pi_{i} $, $ \rho $ and $ \lambda $.
+
+    Uniqueness: Again, structural induction on the lambda terms. Preservation of the $ \pi_i $ gives the image of \texttt{Var(i)}. Preservation of $ \lambda $ gives the image of \texttt{Abs(f)}. Preservation of $ \rho $ and $ \bullet $ gives the image of
+    \[ \mathtt{App(f, g)} = \rho(f) \bullet (\pi_1, \dots, \pi_n, g). \]
+  \end{proof}
+
+  Given a $ \lambda $-theory $ \mathcal L $, $ \mathcal L(0) $ is a $ \Lambda $-algebra (by extension of scalars). This gives a functor.
+
+  \begin{lemma}
+    Given a $ \Lambda $-algebra $ A $, we can form the set $ \mathcal U_A $.
+  \end{lemma}
+  \begin{proof}
+
+  \end{proof}
+  \begin{lemma}
+    $ \mathcal U_A $ is a $ \lambda $-theory.
+  \end{lemma}
+
+  \begin{lemma}
+    $ \mathcal U_A $ is functorial in $ A $.
+  \end{lemma}
+  \begin{proof}
+
+  \end{proof}
+
+  These functors form an adjoint equivalence: We have natural isomorphisms $ \mathcal U_{\mathcal L(0)} \cong \mathcal L $ and $ \mathcal U_A(0) \cong A $.
+
+  \chapter*{Week 33}
+  \section{Coends}
+  In a category $ \DD $ with equalizers and products, and given a functor $ F : \op \CC \times \CC \to \DD $, we can define the end $ \int_{c: \Ob \CC} F(c, c) $ to be the equalizer of
+  \[ \prod_{c : \Ob \CC} F(c, c) \rightrightarrows \prod_{\Hom{\CC} c {c^\prime}} F(c, c^\prime). \]
+  For $ \DD = \SET $, an element of this gives, for every element $ c : \Ob \CC $, an element $ f_c : F(c, c) $, such that for all morphisms $ \alpha : \Hom{\CC}{c}{c^\prime} $, we have
+  \[ \#F(c, \alpha)(f_c) =_{F(c, c^\prime)} \#F(\alpha, c^\prime)(f_{c^\prime}). \]
+
+  If we have two functors $ G, G^\prime: \CC \to \CC^\prime $, take $ F(c, c^\prime) = \Hom{\DD^\prime}{G(c)}{G^\prime(c^\prime)} $. An element of $ \int_c \Hom{\DD^\prime}{G(c)}{G^\prime(c^\prime)} $ gives, for all $ c: \Ob \CC $ an element $ f_c : \Hom{\SET}{G(c)}{G(c^\prime)} $ such that for all morphisms $ \alpha : \Hom{\CC}{c}{c^\prime} $, we have
+  \[ f_c \cdotp \# G^\prime(\alpha) = \#F(c, \alpha)(f_c) = \#F(\alpha, c^\prime)(f_{c^\prime}) = \#G(\alpha) \cdotp f_{c^\prime}, \]
+  so we have a commutative diagram
+  \begin{center}
+    \begin{tikzcd}
+      G(c) \arrow[r, "\#G(\alpha)"] \arrow[d, "f_c"] & G(c^\prime) \arrow[d, "f_{c^\prime}"]\\
+      G^\prime(c) \arrow[r, "\#G^\prime(\alpha)"] & G^\prime(c)
+    \end{tikzcd}
+  \end{center}
+  Which is exactly the diagram of a natural transformation.
+
+  On the other hand, if $ \DD $ has coproducts, we can define the coend $ \int^{c: \Ob \CC} F(c, c) $ to be the coequalizer of
+  \[ \coprod_{\Hom{\CC} c {c^\prime}} F(c, c^\prime) \rightrightarrows \coprod_{c : \Ob \CC} F(c, c). \]
+  For $ \DD = \SET $, an element of this is an element $ c : \Ob \CC $, together with an element of $ F(c, c) $.
+  For $ c, c^\prime : \Ob \CC $, $ f : F(c^\prime, c) $ and $ \alpha : \Hom{\CC}{c}{c^\prime} $, we identify
+  \[ (c, \#F(\alpha, c)(f)) \]
+  with
+  \[ (c^\prime, \#F(c^\prime, \alpha)(f)). \]
+
+  For $ F(c, c^\prime) = \Hom{\CC^\prime}{G(c)}{G^\prime(c)} $, an element of $ \int^{c: \Ob \CC} $ is an element $ c : \Ob \CC $ with a morphism $ f : \Hom{\CC^\prime}{G(c)}{G^\prime(c)} $ and for a morphism $ \alpha : \Hom{\CC}{c}{c^\prime} $ and morphism $ f : \Hom{\CC^\prime}{G(c^\prime)}{G^\prime(c)} $, we set
+  \[ (c, \#G(\alpha) \cdotp f) = (c, \#F(\alpha, c)(f)) = (c^\prime, \#F(c^\prime, \alpha)(f)) = (c^\prime, f \cdotp \#G^\prime(\alpha)). \]
+
+  \subsection{Wedges}
+  A wedge $ e : w \to F $ is an object $ w $ with, for every object $ c : \Ob \CC $ a morphism $ e_c : w \to F(c, c) $ and for every morphism $ \alpha: c \to c^\prime $ a commutative square
+  \begin{center}
+    \begin{tikzcd}
+      w \arrow[d, "e_c"] \arrow[r, "e_{c^\prime}"] & {F(c^\prime, c^\prime)} \arrow[d, "{\#F(\alpha, c^\prime)}"] \\
+      {F(c, c)} \arrow[r, "{\#F(c, \alpha)}"] & {F(c, c^\prime)}
+    \end{tikzcd}
+  \end{center}
+  The end $ e : \int_{c: \Ob \CC} F(c, c) \to F $ is the universal wedge. I.e., given a wedge $ e^\prime : w^\prime \to F $, $ e^\prime $ factors through $ e $ via a unique map $ w^\prime \to \int_{c: \Ob \CC} F(c, c) $.
+
+  Conversely, a cowedge $ e : F \to w $ is an object $ w $ with, for every object $ c : \Ob \CC $ a morphism $ e_c : F(c, c) \to w $ and for every morphism $ \alpha: c \to c^\prime $ a commutative square
+  \begin{center}
+    \begin{tikzcd}
+      {F(c^\prime, c)} \arrow[r, "{\#F(c^\prime, \alpha)}"] \arrow[d, "{\#F(\alpha, c)}"] & {F(c^\prime, c^\prime)} \arrow[d, "e_{c^\prime}"] \\
+      {F(c, c)} \arrow[r, "e_c"] & w
+    \end{tikzcd}
+  \end{center}
+  The coend $ e : F \to \int^{c: \Ob \CC} F(c, c) $ is the universal cowedge. I.e., given a cowedge $ e^\prime : F \to w^\prime $, $ e^\prime $ factors through $ e $ via a unique map $ \int_{c: \Ob \CC} F(c, c) \to w^\prime $.
+
+  \subsection{The coproduct of algebras}
+  Now, to the example that we are interested in
+  \[ A + B = \int^{m,n : \Ob F} \mathrm{Alg}_T(T(m), A) \times \mathrm{Alg}_T(T(n), B) \times T(m + n). \]
+  We can identify $ \mathrm{Alg}_T(T(m), A) \cong A^m $:
+  \begin{itemize}
+    \item Send $ f : \mathrm{Alg}_T(T(m), A) $ to $ (f \pi_1, \dots, f \pi_m) : A^m $;
+    \item Send $ (a_1, \dots, a_m) : A^m $ to $ x \mapsto x \bullet (a_1, \dots, a_m) : A $.
+  \end{itemize}
+  Then this becomes
+  \[ A + B = \int^{m,n : \Ob F} A^m \times B^n \times T(m + n). \]
+  An element of this set is a pair
+  \[ ((m, n), ((a_1, \dots, a_m), (b_1, \dots, b_n), f)) \]
+  with $ m, n : \Ob F $, $ a_i : A $, $ b_i : B $ and $ f : T(m + n) $.
+
+  If we have $ m, m^\prime, n, n^\prime : \Ob F $, $ \alpha : \Hom{F}{m}{m^\prime} $, $ \beta : \Hom{F}{n}{n^\prime} $, and an element
+  \[ ((a_i)_i, (b_i)_i, f) : A^{m^\prime} \times B^{n^\prime} \times T(m + n), \]
+  we identify
+  \[ ((m, n), ((a_{\alpha(i)})_i, (b_{\beta(i)})_i, f)) = ((m^\prime, n^\prime), ((a_i)_i, (b_i)_i, \#T(\alpha + \beta)(f))) \]
+
+  Now, we can define the action
+  \[ f \bullet (((m, m^\prime), ((a_{ji})_i, (b_{ji})_i, g_j))_j) := ((m, m^\prime), (f \bullet (a_{ji})_j)_i, (f \bullet (b_{ji})_j)_i, f \bullet (g_j)_j). \]
+  This is associative and projects components because the action on $ A $ and $ B $ is associative and projects components.
+
+  \subsubsection{The universal property}
+  Now, we would just need to show that for all $ C : \Ob{\mathrm{Alg}_T} $ and all $ f_A : A \to C $ and $ f_B : B \to C $, there exists a unique morphism $ g : A + B \to C $.
+
+  Since $ A + B $ is a coend, it would suffice to give $ C $ a $ A^m \times B^n \times T(m + n) $-cowedge structure. That is, we need, for all $ m, n: \Ob F $, a morphism $ A^m \times B^n \times T(m + n) \to C $. Define
+  \[ f_{A + B}((a_1, \dots, a_m), (b_1, \dots, b_n), f) := f \bullet (f_A(a_1), \dots, f_A(a_m), f_B(b_1), \dots, f_B(b_n)). \]
+  We must show that given $ x: T(l) $ and given, for all $ 1 \leq i \leq l $, $ (a_i, b_i, f_i) : A^m \times B^n \times T(m + n) $, we have
+  \[ x \bullet (f_{A + B}(a_i, b_i, f_i))_i = f_{A + B}((x \bullet (a_i, b_i, f_i))_i). \]
+  But
+  \begin{align*}
+    &x \bullet (f_i \bullet ((f_A(a_{ij}))_j, (f_B(b_{ij}))_j))_i\\
+    &=x \bullet (f_{A + B}(a_i, b_i, f_i))_i\\
+    &= f_{A + B}((x \bullet (a_i, b_i, f_i))_i)\\
+    &= f_{A + B}((x \bullet (a_{ij})_i)_j, (x \bullet (b_{ij})_i)_j, x \bullet f)\\
+    &= (x \bullet f) \bullet ((f_A(x \bullet (a_{ij})_i))_j, (f_B(x \bullet (b_{ij})_i))_j)\\
+    &= (x \bullet f) \bullet ((x \bullet (f_A(a_{ij}))_i)_j, (x \bullet (f_B(b_{ij}))_i)_j)\\
+  \end{align*}
+
+  \chapter*{Week 34}
+  \section{Algebraic Theories as categories}
+  Hyland cites \cite{p13-adamek-rosicky}, which also introduces algebraic theories. There is a correspondence between Hyland's algebraic theories, and ``one-sorted algebraic theories'' in the book.
+
+  The book defines the category $ \mathcal N $, which is the full subcategory of $ \op \SET $, with objects $ n = \{ 0, 1, \dots, n - 1 \} $ for all $ n \in \mathbb N $. This category presents $ n $ as $ 1^n $, with projections $ \pi_{n, i} : n \to 1 $.
+
+  \subsection{Algebraic Theories}
+  The book defines a one-sorted algebraic theory to be a category with finite products, whose objects are the natural numbers, together with a functor $ T : \mathcal N \to \mathcal T $ that is the identity on objects.
+
+  Given a one-sorted algebraic theory $ (\mathcal T, T) $, we make Hyland's algebraic theory $ \mathcal T^\prime $ as follows:
+  Take $ \mathcal T^\prime(n) = \mathcal T(n, 1) $. We have $ \mathcal T^\prime(n)^m = \mathcal T(n, 1)^m = \mathcal T(n, m) $. Then composition gives
+  \[ \bullet : \mathcal T^\prime(m) \times \mathcal T^\prime(n)^m = \mathcal T(m, 1) \times \mathcal T(n, m) \to \mathcal T(n, 1) = \mathcal T^\prime(n). \]
+  The projections are given by $ \pi^\prime_{n, i} = \#T(\pi_{n, i}) : \mathcal T(n, 1) = \mathcal T^\prime(n) $.
+
+  Conversely, given Hyland's algebraic theory $ \mathcal T^\prime $, we make a one-sorted algebraic theory $ \mathcal T $ as follows. Take $ \Ob{\mathcal T} = \mathbb N $ and $ \Hom{\mathcal T}{m}{n} = \mathcal T^\prime(m)^n $. Then $ T $ sends $ f = (\pi_{i_1}, \dots, \pi_{i_n}) = \mathcal N(m, 1)^n = \mathcal N(m, n) $ to $ (\pi^\prime_{i_1}, \dots, \pi^\prime_{i_n}) $. Composition is then defined as
+  \[ \mathcal T(l, m) \times \mathcal T(m, 1)^n = \mathcal T(l, m) \times \mathcal T(m, n) \ni (f, (g_1, \dots, g_n)) = (f, g) \mapsto (g_1 \bullet f, \dots, g_n \bullet f) : \mathcal T(l, 1)^n = \mathcal T(l, n). \]
+
+  \subsection{Algebraic theory algebras}
+  Given a one-sorted algebraic theory $ (\mathcal T, T) $ and the corresponding Hyland's algebraic theory $ \mathcal T^\prime $.
+
+  An algebra for $ \mathcal T $ is a finite-product-preserving functor $ A: \mathcal T \to \SET $. Given such an algebra, we get an algebra $ A^\prime $ for $ \mathcal T^\prime $ by setting $ A^\prime = A(1) $, and for $ f : \mathcal T^\prime(n) = \mathcal T(n, 1) $, we define $ f \bullet - $ to be
+  \[ \#A(f) : (A^\prime)^n = A(1)^n = A(1^n) = A(n) \to A(1) = A^\prime. \]
+  Conversely, given an algebra $ A^\prime $ for $ \mathcal T^\prime $, we define the functor $ A $ to map $ n $ to $ (A^\prime)^n $ on objects, and to send the morphism $ f : \mathcal T(m, n) = \mathcal T(m, 1)^n = (\mathcal T^\prime(m))^n $ to
+  \[ A(m) = (A^\prime)^m \ni a \mapsto (f_1 \bullet a, \dots, f_n \bullet a) (A^\prime)^n = A(n). \]
+  \subsection{Pre(- or post)liminaries}
+  \subsubsection{The Density Theorem}
+  Given an algebraic theory (can be one-sorted) $ \mathcal T $, we have a Yoneda embedding $ Y_{\mathcal T}: \op{\mathcal T} \to [\mathcal T, \SET] $, sending $ X $ to $ \Hom{\mathcal T}{X}{-} $. Also, given a $ \mathcal T $-algebra $ A $, we have the category of elements $ \mathop{El} A $, with the objects being dependent pairs $ \sum_{x : \Ob{\mathcal T}}, A x $ and morphisms $ \Hom{\mathrm{El}A}{(X, x)}{(Y, y)} $ being morphisms $ f : \Hom{\mathcal T}{Y}{X} $ with $ \#A(f)(y) = x $. Denote $ \Phi_A : \mathop{El} A \to \op{\mathcal T} $ the projection on the first coordinate. Then $ A $ is the colimit of the diagram
+  \[ \mathop{El} A \xrightarrow{\Phi_A} \op{\mathcal T} \xrightarrow{Y_{\mathcal T}} [\mathcal T, \SET]. \]
+  I.e. we have, for all $ (x, y) : \mathop{El} A $, a map of functors (i.e. natural transformation)
+  \[ Y_{\mathcal T}(\Phi_A(x, y)) = Y_{\mathcal T}(x) = \Hom{\mathcal T}{x}{-} \Rightarrow A \]
+  That is, for all $ t : \mathcal T $, a map
+  \[ \mathcal T(x, t) \to A(t), f \mapsto \#A(f)(y) \]
+  and for all morphisms $ g : \Hom{\mathcal T}{t}{t^\prime} $ and all $ f: \mathcal T(x, t) $, we have the equality
+  \[ \#A(g)(\#A(f)(y)) = \#A(g \circ f)(y) \]
+  so the map is natural.
+
+  Now, for all $ B : [\mathcal T, \SET] $, we have
+  \begin{align*}
+    \Hom{[\mathcal T, \SET]}{\mathop{colim}_{(x, y) : \mathop{El} A} Y_{\mathcal T}(\Phi_A(x, y))}{B} &\cong \lim_{(x, y) : \mathop{El} A} \Hom{[\mathcal T, \SET]}{Y_{\mathcal T}(\Phi_A(x, y))}{B}\\
+    &\cong \lim_{(x, y) : \mathop{El} A} \Hom{[\mathcal T, \SET]}{Y_{\mathcal T}(x)}{B}\\
+    &\cong \lim_{(x, y) : \mathop{El} A} B(x)\\
+    &\cong \Hom{[\mathop{El} A, \SET]}{\mathrm{pt}}{B}
+  \end{align*}
+  for $ \mathrm{pt} $ the constant functor that sends anything to $ \{ \star \} $. Now, given a natural transformation $ \alpha : \Hom{[\mathop{El} A, \SET]}{\mathrm{pt}}{B} $. For all $ x : \Ob{\mathcal T} $, we get a map
+  \[ A(x) \to B(x), \quad y \mapsto \alpha_{(x, y)}(\star). \]
+  By naturality of $ \alpha $, this is a natural transformation $ A \Rightarrow B $. This gives an isomorphism
+  \[ \Hom{[\mathop{El} A, \SET]}{\mathrm{pt}}{B} \cong \Hom{[\mathcal T, \SET]}{A}{B}. \]
+  Since this holds for all $ B $, we have
+  \begin{align*}
+    Y_{\op{[\mathcal T, \SET]}}(A)
+    &= \Hom{[\mathcal T, \SET]}{A}{-}\\
+    &\cong \Hom{[\mathcal T, \SET]}{\mathop{colim}_{(x, y) : \mathop{El} A} Y_T(\Phi_A(x, y))}{-}\\
+    &= Y_{\op{[\mathcal T, \SET]}}(\mathop{colim}_{(x, y) : \mathop{El} A} Y_T(\Phi_A(x, y))).
+  \end{align*}
+  By the Yoneda Lemma, this implies that $ \mathop{colim}_{(x, y) : \mathop{El} A} Y_T(\Phi_A(x, y)) \cong A $.
+
+  \subsection{An example}
+  First of all, we need an example. Take an algebraic theory (Hyland's kind): $ \mathcal T^\prime(n) = \{\star, 1, 2, 3, \dots, n \} $ with $ \star \bullet g = \star $ and $ i \bullet g = g_i $. Take the two-element set $ A^\prime = \{ \bot, \top \} $. We can make $ A^\prime $ into an $ \mathcal T^\prime $-algebra by setting $ i \bullet a := a_i $ and $ \star \bullet a = \top $ (or $ \bot $ for that matter, as long as we are consistent).
+
+  Translating this to a one-sorted algebraic theory, we get the category $ \mathcal T $ with $ \Ob{\mathcal T} = \{ 0, 1, 2, \dots \} $ and $ \mathcal T(m, n) = \{ \star, 1, \dots, m \}^n $. We also get the algebraic theory (i.e. functor) $ A: \mathcal T \to \SET $, given on objects by $ n \mapsto \{ \bot, \top \}^n $ and on morphisms by
+  \[ \mathcal T(m, 1) \ni f \mapsto a \mapsto \left\{ \begin{array}{cc} a_i & f = i\\ \top & f = \star \end{array} \right. \]
+  and extending linearly for $ f \in \mathcal T(m, n) = \mathcal T(m, 1)^n $. The category $ \mathrm{El} A $ consists of objects $ (n, a) $ with $ a : \{ \bot, \top \}^n $. Its morphisms $ f: \Hom{\mathrm{El} A}{(m, a)}{(n, b)} $ are morphisms $ \Hom{\mathcal T}{n}{m} = \mathcal T^\prime(n)^m $ such that $ A(f)(b) = (f_1 \bullet b, \dots, f_m \bullet b) = a $, so
+  \[ \Hom{\mathrm{El} A}{(m, a)}{(n, b)} \cong \prod_{1 \leq i \leq n} \Hom{\mathrm{El} A}{(1, a_i)}{(n, b)}, \]
+  and
+  \[ (m, a) \cong \coprod_{1 \leq i \leq n} (1, a_i). \]
+  In other words, all objects of $ \mathrm{El} A $ are generated as coproducts by $ (1, \top) $ and $ (1, \bot) $. Now, we have $ \Hom{\mathrm{El} A}{(1, a)}{(n, b)} = \{ f : \mathcal T^\prime(n) \mid f \bullet b = a. \} $. This is the set of $ i $ such that $ b_i = a $, and if $ a = \top $, it contains $ \star $. Note that $ \mathcal T(n, 1) \cong \coprod_{a : A^\prime} \Hom{\mathrm{El} A}{(n, c)}{(1, a)} $.
+
+  Now, for an object $ n : \op{\mathcal T} $, the Yoneda embedding sends it to
+  \[ m \mapsto \Hom{\mathcal T}{n}{m} = \mathcal T^\prime(n)^m \]
+  A morphism $ f: \Hom{\op{\mathcal T}}{n}{n^\prime} = \Hom{\mathcal T}{n^\prime}{n} $ is sent to a natural transformation from $ m \mapsto \Hom{\mathcal T}{n}{m} $ to $ \Hom{\mathcal T}{n^\prime}{m} $ by sending $ g : \Hom{\mathcal T}{n}{m} \cong \mathcal T^\prime(n)^m $ to
+  \[ g \circ f = (g_1 \bullet f, \dots, g_n \bullet f) : \Hom{\mathcal T}{n^\prime}{m} \cong T^\prime(n)^m. \]
+
+  We can calculate (co)limits in a functor category pointwise. That means that
+  \[ (\mathop{colim}_{j : J} \mathcal F(j))(x) = \mathop{colim}_{j : J} (\mathcal F(j)(x)) \]
+  We are first and foremost interested in
+  \begin{align*}
+    \left(\mathop{colim}_{(n, a) : \mathrm{El} A} Y_{\mathcal T}(n)\right)(1)
+    &= \mathop{colim}_{(n, a) : \mathrm{El} A} (Y_{\mathcal T}(n)(1))\\
+    &= \mathop{colim}_{(n, a) : \mathrm{El} A} (\mathcal T(n, 1))\\
+    &= \mathop{colim}_{(n, a) : \mathrm{El} A} (\mathcal T^\prime(n))
+  \end{align*}
+  which is the equalizer of
+  \[ \coprod_{f: (m, a) \to (m^\prime, a^\prime)} \mathcal T^\prime(m) \rightrightarrows \coprod_{(n, a) : \mathrm{El} A} \mathcal T^\prime(n) \]
+  for every $ f: (m, a) \to (m^\prime, a^\prime) $ (i.e. $ f: \mathcal T^\prime(m^\prime)^m $ such that for all $ i $, $ f_i \bullet a^\prime = a_i $), we identify the $ t : \mathcal T^\prime(m) $ over $ (m, a) $ with the $ t \bullet f : \mathcal T^\prime(m^\prime) $ over $ (m^\prime, a^\prime) $.
+
+  In particular, we identify $ \pi_1 : \mathcal T^\prime(1) $ over $ (1, f \bullet a) $ with $ \pi_1 \bullet f = f : \mathcal T^\prime(m) $ over $ (m, a) $.
+
+  For general $ m $ and $ m^\prime $, we identify $ t \bullet f $ over $ (m^\prime, a) $ with $ t $ over $ (m, (f_1 \bullet a, \dots, f_n \bullet a)) $. Since the action on the algebra is associative, we have
+  \[ (t \bullet f) \bullet a = t \bullet (f_1 \bullet a, \dots, f_n \bullet a) \]
+  so the identifications of the $ t $ over $ (m, a) $ with $ \pi_1 $ over $ (1, t \bullet a) $ generate the equivalence relation.
+
+  Now, for the action of $ \mathcal T $ on this colimit. In particular, given $ f: \Hom{\mathcal T}{m}{1} = \mathcal T^\prime(m) $, we want a morphism
+  \[ \Hom{\SET}{\left(\mathop{colim}_{(n, a) : \mathrm{El} A} Y_{\mathcal T}(n)\right)(m)}{\left(\mathop{colim}_{(n, a) : \mathrm{El} A} Y_{\mathcal T}(n)\right)(1)}. \]
+  We get this as
+  \[ \mathop{colim}_{(n, a) : \mathrm{El} A} (t \mapsto f \bullet t): \Hom{\SET}{\mathop{colim}_{(n, a) : \mathrm{El} A} (\mathcal T^\prime(n)^m)}{\mathop{colim}_{(n, a) : \mathrm{El} A} (\mathcal T^\prime(n))}. \]
+  Every element can be identified with $ \pi_1 $ over $ (1, a) $ for some $ a $. Now, for $ a_1, \dots, a_n: A^\prime $, $ \pi_1 $ over $ (1, a_i) $ is identified with $ \pi_i $ over $ (n, (a_1, \dots, a_n)) $. Then the action of $ f $ sends $ (\pi_1, \dots, \pi_n) $ over $ (n, a) $ to $ f \bullet (\pi_1, \dots, \pi_n) = f $ over $ (n, a) $, but this is identified with $ \pi_1 $ over $ (1, f \bullet a) $. Therefore, this recovers the action of $ \mathcal T^\prime $ on $ A^\prime $.
+
+  \chapter*{Week 35}
+  \section{The monoid}
+  \textit{Note to self: even though everything is defined by actions of $ \Lambda $, it might be good to define application and abstraction in $ A $.}
+
+  In the lambda calculus theory $ \Lambda $, define
+  \[ \mathbf 1_n := \lambda x_1 \dots x_{n + 1}, x_1 \dots x_{n + 1} : \Lambda(0). \]
+  Specifically, take $ \mathbf 1 := \mathbf 1_1 = \lambda x_1 x_2, x_1 x_2 $. Given a $ \Lambda $-algebra $ A $, we have mappings
+  \begin{align*}
+    APP&: A \times A \to A & (a_1, a_2) &\mapsto (x_1 x_2) \bullet (a_1, a_2)\\
+    ABS&: A \to A & a &\mapsto (\lambda x_2, x_1) \bullet a_1
+  \end{align*}
+  Also, given any constant $ c: \Lambda(0) $, we can inject it as $ c \bullet () : A $. We will identify such an element with $ c $. For example, we have the $ \mathbf 1_n : A $. Now, take the sets
+  \[ A(n) = \{ a: A \mid APP\ \mathbf 1_n\ a = a \}. \]
+  \begin{remark}
+    Note that
+    \begin{align*}
+      APP\ \mathbf 1_n\ a &= (x_1 x_2) \bullet (\lambda x_1 \dots x_{n + 1}, x_1 \dots x_{n + 1} \bullet (), a)\\
+      &= (x_1 x_2) \bullet (\lambda x_2 \dots x_{n + 2}, x_2 \dots x_{n + 2} \bullet a, x_1 \bullet a)\\
+      &= (x_1 x_2) \bullet (\lambda x_2 \dots x_{n + 2}, x_2 \dots x_{n + 2}, x_1) \bullet a\\
+      &= ((\lambda x_2 \dots x_{n + 2}, x_2 \dots x_{n + 2}) x_1) \bullet a\\
+      &= (\lambda x_2 \dots x_{n + 1}, x_1 \dots x_{n + 1}) \bullet a
+    \end{align*}
+    which is equal to
+    \begin{align*}
+      \mathbf 1_{n - 1} \circ a &= (\lambda x_3, x_1 (x_2 x_3)) \bullet ((\lambda x_1 \dots x_n, x_1 \dots x_n) \bullet (), a)\\
+      &= (\lambda x_3, x_1 (x_2 x_3)) \bullet ((\lambda x_2 \dots x_{n + 1}, x_2 \dots x_{n + 1}) \bullet a, x_1 \bullet a)\\
+      &= ((\lambda x_3, x_1 (x_2 x_3)) \bullet ((\lambda x_2 \dots x_{n + 1}, x_2 \dots x_{n + 1}), x_1)) \bullet a\\
+      &= (\lambda x_2, (\lambda x_3 \dots x_{n + 2}, x_3 \dots x_{n + 2}) (x_1 x_2)) \bullet a\\
+      &= (\lambda x_2, (\lambda x_3 \dots x_{n + 1}, x_1 x_2 \dots x_{n + 1})) \bullet a.
+    \end{align*}
+  \end{remark}
+
+  \begin{remark}
+    If we have $ \eta $-equality, $ A(1) = A $.
+  \end{remark}
+
+  \begin{remark}
+    Note that we have $ A(n + 1) \subseteq A(n) $, because if
+    \[ a = (\lambda x_2 \dots x_{n + 2}, x_1 \dots x_{n + 2}) \bullet a, \]
+    then
+    \begin{align*}
+      (\lambda x_2 \dots x_{n + 1}, x_1 \dots x_{n + 1}) \bullet a
+      &= (\lambda x_2 \dots x_{n + 1}, x_1 \dots x_{n + 1}) \bullet ((\lambda x_2 \dots x_{n + 2}, x_1 \dots x_{n + 2}) \bullet a)\\
+      &= ((\lambda x_2 \dots x_{n + 1}, x_1 \dots x_{n + 1}) \bullet (\lambda x_2 \dots x_{n + 2}, x_1 \dots x_{n + 2})) \bullet a\\
+      &= (\lambda x_2 \dots x_{n + 1}, (\lambda x_2 \dots x_{n + 2}, x_1 \dots x_{n + 2}) x_2 \dots x_{n + 1}) \bullet a\\
+      &= (\lambda x_2 \dots x_{n + 1}, (\lambda x_{n + 2}, x_1 \dots x_{n + 2})) \bullet a\\
+      &= (\lambda x_2 \dots x_{n + 2}, x_1 \dots x_{n + 2}) \bullet a\\
+      &= a.
+    \end{align*}
+  \end{remark}
+
+  We can then define an operation $ A(1) \times A(1) \to A(1) $, given by
+  \[ (a_1, a_2) \mapsto a_1 \circ a_2 := (\lambda x_3, x_1 (x_2 x_3)) \bullet (a_1, a_2). \]
+  This works because
+  \begin{align*}
+    (\lambda x_2, x_1 x_2) \bullet ((\lambda x_3, x_1 (x_2 x_3)) \bullet (a_1, a_2))
+    &= ((\lambda x_2, x_1 x_2) \bullet (\lambda x_3, x_1 (x_2 x_3))) \bullet (a_1, a_2)\\
+    &= (\lambda x_3, (\lambda x_4, x_1 (x_2 x_4)) x_3) \bullet (a_1, a_2)\\
+    &= (\lambda x_3, x_1 (x_2 x_3)) \bullet (a_1, a_2).
+  \end{align*}
+  This associative since
+  \begin{align*}
+    (a_1 \circ a_2) \circ a_3
+    &= (\lambda x_3, x_1 (x_2 x_3)) \bullet ((\lambda x_3, x_1 (x_2 x_3)) \bullet (a_1, a_2), a_3)\\
+    &= (\lambda x_3, x_1 (x_2 x_3)) \bullet ((\lambda x_4, x_1 (x_2 x_4)) \bullet (a_1, a_2, a_3), x_3 \bullet (a_1, a_2, a_3))\\
+    &= ((\lambda x_3, x_1 (x_2 x_3)) \bullet ((\lambda x_4, x_1 (x_2 x_4)), x_3)) \bullet (a_1, a_2, a_3)\\
+    &= (\lambda x_4, (\lambda x_5, x_1 (x_2 x_5)) (x_3 x_4)) \bullet (a_1, a_2, a_3)\\
+    &= (\lambda x_4, x_1 (x_2 (x_3 x_4))) \bullet (a_1, a_2, a_3)\\
+    &= (\lambda x_4, x_1 ((\lambda x_5, x_2 (x_3 x_5)) x_4)) \bullet (a_1, a_2, a_3)\\
+    &= ((\lambda x_3, x_1 (x_2 x_3)) \bullet (x_1, (\lambda x_4, x_2 (x_3 x_4)))) \bullet (a_1, a_2, a_3)\\
+    &= (\lambda x_3, x_1 (x_2 x_3)) \bullet (x_1 \bullet (a_1, a_2, a_3), (\lambda x_4, x_2 (x_3 x_4)) \bullet (a_1, a_2, a_3))\\
+    &= (\lambda x_3, x_1 (x_2 x_3)) \bullet (a_1, (\lambda x_3, x_1 (x_2 x_3)) \bullet (a_2, a_3))\\
+    &= a_1 \circ (a_2 \circ a_3).
+  \end{align*}
+  We also have an identity element
+  \[ I = \lambda x_1, x_1 \]
+  since
+  \begin{align*}
+    a \circ I &= \lambda x_1, a (I x_1) & I \circ a &= \lambda x_1, I (a x_1)\\
+    &= \lambda x_1, a x_1&
+    &= \lambda x_1, a x_1\\
+    &= a&
+    &= a.
+  \end{align*}
+  This makes $ A(1) $ into a monoid.
+
+  We can also view this as a one-object category $ M_A $. Consider the category $ P A := [\op{M_A}, \SET] $ of presheaves on this category. These are sets $ P $, together with a right action $ \alpha: P \times M_A \to P $. This category has an object $ U_A $ with underlying set $ A(1) $ and right action
+  \[ (p, a) \mapsto p \circ a. \]
+
+  Now, if we have a map $ f: A \to B $ of $ \Lambda $-algebras, it maps $ A(n) $ to $ B(n) $, since it preserves the image of $ \mathbf 1_n $ and $ APP $. This gives a map $ M_f $ of monoids. By restriction of scalars, we get a functor $ PB \to PA $. It has a left adjoint given by left (or right?) Kan extension.
+
+  \subsection{The function space}
+  \subsubsection{For general monoids}
+  We now study the function space $ U_A \Rightarrow U_A $.
+  In general, for any monoid $ M $, given two presheaves $ X\ Y: PM $, we have a candidate for the function space $ X \Rightarrow Y $. We take it to be the set of $ M $-equivariant maps. I.e. $ \varphi: M \times X \to Y $ such that for all $ m_1\ m_2: M $, $ x: X $,
+  \[ \varphi(m_1 . m_2, x . m_2) = \varphi(m_1, x) . m_2. \]
+  We give this set an $ M $-action:
+  \[ (\varphi . m_3)(m_1, x) = \varphi(m_3 . m_1, x) \]
+  and this is again $ M $-equivariant since
+  \[ (\varphi . m_3)(m_1 . m_2, x . m_2) = \varphi(m_3 . m_1 . m_2, x . m_2) = \varphi(m_3 . m_1, x) . m_2 = (\varphi . m_3)(m_1, x) . m_2 \]
+  This is indeed a right action, since
+  \[ ((\varphi . m_3) . m_4)(m_1, x) = (\varphi . m_3)(m_4 . m_1, x) = \varphi(m_3 . m_4 . m_1, x) = (\varphi . (m_3 . m_4))(m_1, x). \]
+  The evaluation map $ (X \Rightarrow Y) \times X \to Y $ sends $ (\varphi, x) $ to $ \varphi(I, x) $. This is universal since if we have a presheaf morphism $ e: Z \times X \to Y $, we can create a presheaf morphism $ u: Z \to (X \Rightarrow Y) $, given by
+  \[ u(z) = (m, x) \mapsto e(z . m, x) \]
+  This is an element of $ (X \Rightarrow Y) $ because
+  \[ u(z)(m_1 . m_2, x . m_2) = e(z . m_1 . m_2, x . m_2) = e(z . m_1, x) . m
+  2 = u(z)(m_1, x) . m_2 \]
+  It is a morphism of presheaves since
+  \[ u(z . m_1)(m_2, x) = e(z . m_1 . m_2, x) = u(z)(m_1 . m_2, x) = (u(z) . m_1)(m_2, x). \]
+  The map is unique since by the universal property and the fact that $ u(z) $ must be a presheaf morphism, we have for all $ z: Z $, $ m: M $ and $ x: X $,
+  \[ u(z)(m, x) = (u(z) . m)(I, x) = u(z . m)(I, x) = e(z . m, x). \]
+
+  \subsubsection{For our monoid}
+  We propose $ A(2) $ as an alternative candidate for the function space $ U_A \Rightarrow U_A $. Since $ A(2) $ is characterized by the equation $ a = APP\ \mathbf 1_2\ a $, and that the latter equals $ \mathbf 1 \circ a $, so that $ A(2) $ has a right action of $ A(1) $ (actually a right action of all of $ A $).
+
+  We can create a map from $ A(2) $ to $ U_A \Rightarrow U_A $, which sends an element $ a_1 $ to the map $ \phi(a_1) $ that sends $ (a_2, a_3) \in U_A \times U_A $ to
+  \[ (\lambda x_4, x_1 (x_2 x_4) (x_3 x_4)) \bullet (a_1, a_2, a_3). \]
+  Note that this is equivariant, since
+  \begin{align*}
+    \phi(a_1)(a_2 \circ a_4, a_3 \circ a_4)
+    &= (\lambda x_4, x_1 (x_2 x_4) (x_3 x_4)) \bullet (a_1, a_2 \circ a_4, a_3 \circ a_4)\\
+    &= (\lambda x_4, x_1 (x_2 x_4) (x_3 x_4)) \bullet (a_1, (\lambda x_3, x_1 (x_2 x_3)) \bullet (a_2, a_4), (\lambda x_3, x_1 (x_2 x_3)) \bullet (a_3, a_4))\\
+    &= (\lambda x_4, x_1 (x_2 x_4) (x_3 x_4)) \bullet (x_1, (\lambda x_5, x_2 (x_4 x_5)), (\lambda x_5, x_3 (x_4 x_5))) \bullet (a_1, a_2, a_3, a_4)\\
+    &= (\lambda x_5, x_1 ((\lambda x_6, x_2 (x_4 x_6)) x_5) ((\lambda x_6, x_3 (x_4 x_6)) x_5)) \bullet (a_1, a_2, a_3, a_4)\\
+    &= (\lambda x_5, x_1 (x_2 (x_4 x_5)) (x_3 (x_4 x_5))) \bullet (a_1, a_2, a_3, a_4)\\
+    &= (\lambda x_5, (\lambda x_6, x_1 (x_2 x_6) (x_3 x_6)) (x_4 x_5)) \bullet (a_1, a_2, a_3, a_4)\\
+    &= (\lambda x_3, x_1 (x_2 x_3)) \bullet ((\lambda x_5, x_1 (x_2 x_5) (x_3 x_5)), x_4) \bullet (a_1, a_2, a_3, a_4)\\
+    &= (\lambda x_3, x_1 (x_2 x_3)) \bullet ((\lambda x_4, x_1 (x_2 x_4) (x_3 x_4)) \bullet (a_1, a_2, a_3), a_4)\\
+    &= ((\lambda x_4, x_1 (x_2 x_4) (x_3 x_4)) \bullet (a_1, a_2, a_3)) \circ a_4\\
+    &= \phi(a_1)(a_2, a_3) \circ a_4.
+  \end{align*}
+
+  Also,
+  \[ \phi(a_1 \circ a_4) (a_2, a_3) = \lambda x_1, a_1 (a_4 (a_2 x_1)) (a_3 x_1) = u(a_1) (a_4 \circ a_2) (a_3), \]
+  so $ \phi $ is a map of presheaves.
+  \begin{lemma}
+    $ \phi $ is an isomorphism.
+  \end{lemma}
+  \begin{proof}
+    Take $ p = \lambda x_1, x_1 (\lambda x_2 x_3, x_2) $ and $ q = \lambda x_1, x_1 (\lambda x_2 x_3, x_3) $. These are elements of $ A(1) $. Note that for terms $ c_1, c_2 $
+    \begin{align*}
+      p (\lambda x_1, x_1 c_1 c_2)
+      &= (\lambda x_1, x_1 c_1 c_2) (\lambda x_2 x_3, x_2)\\
+      &= (\lambda x_1 x_3, x_2) c_1 c_2\\
+      &= c_1.
+    \end{align*}
+    In the same way, $ q \circ (\lambda x_1 x_2, x_2 c_1 c_2) = c_2 $.
+
+    An inverse is given by
+    \[ \psi: f \mapsto \lambda x_1 x_2, f(p, q)(\lambda x_3, x_3 x_1 x_2). \]
+
+    This is an inverse, because given $ f: U_A \Rightarrow U_A $ and$ (a_1, a_2): U_A \times U_A $, we have
+    \begin{align*}
+      \phi(\psi(f))(a_1, a_2) &= u(\lambda x_1 x_2, f(p, q)(\lambda x_3, x_3 x_1 x_2))(a_1, a_2)\\
+      &= \lambda x_1, (\lambda x_2 x_3, f(p, q)(\lambda x_4, x_4 x_2 x_3)) (a_1 x_1) (a_2 x_1)\\
+      &= \lambda x_1, f(p, q)(\lambda x_2, x_2 (a_1 x_1) (a_2 x_1))\\
+      &= f(p, q) \circ (\lambda x_1, (\lambda x_2, x_2 (a_1 x_1) (a_2 x_1)))\\
+      &= f(p \circ (\lambda x_1, (\lambda x_2, x_2 (a_1 x_1) (a_2 x_1))), q \circ (\lambda x_1, (\lambda x_2, x_2 (a_1 x_1) (a_2 x_1))))\\
+      &= f(\lambda x_1, p (\lambda x_2, x_2 (a_1 x_1) (a_2 x_1)), \lambda x_1, q (\lambda x_2, x_2 (a_1 x_1) (a_2 x_1)))\\
+      &= f(\lambda x_1, a_1 x_1, \lambda x_1, a_2 x_1)\\
+      &= f(a_1, a_2).
+    \end{align*}
+    The last line is because $ a_i : A(1) $ and therefore $ \lambda x_1, a_i x_1 = a_i $.
+
+    On the other hand, if we have $ a_1: A(2) $, we have
+    \begin{align*}
+      \psi(\phi(a_1)) &= \psi((a_2, a_3) \mapsto \lambda x_1, a_1 (a_2 x_1) (a_3 x_1))\\
+      &= \lambda x_1 x_2, (\lambda x_3, a_1 (p x_3) (q x_3)) (\lambda x_3, x_3 x_1 x_2)\\
+      &= \lambda x_1 x_2, a_1 (p (\lambda x_3, x_3 x_1 x_2)) (q (\lambda x_3, x_3 x_1 x_2))\\
+      &= \lambda x_1 x_2, a_1 x_1 x_2\\
+      &= a_1.
+    \end{align*}
+    The last line is because $ a_1 : A(2) $ and therefore $ \lambda x_1 x_2, a_1 x_1 x_2 = a_1 $.
+
+    Therefore, this map is a bijection and an isomorphism.
+  \end{proof}
+
+  From this identification, we get an evaluation map on $ A(2) $. First of all, an element $ a_1 : A(2) $ is sent to the map
+  \[ (a_3, a_4) \mapsto (\lambda x_1, a_1 (a_3 x_1) (a_4 x_1)) \]
+  which, together with an element $ a_2: A(1) $ is sent to
+  \[ \lambda x_1, a_1 (I x_1) (a_2 x_1) \]
+  for $ I = \lambda x_1, x_1 $ the identity element of the monoid. This results in an evaluation map
+  \[ A(2) \times A(1) \to A(1) \quad (a_1, a_2) \mapsto \lambda x_1, a_1 x_1 (a_2 x_1). \]
+
+  ``In the same way'', we have $ U^n \Rightarrow U \cong A(n + 1) $, with evaluation
+  \[ (a, (b_1, \dots, b_n)) \mapsto \lambda x_1, a x_1 (b_1 x_1) \dots (b_n x_1). \]
+  and since
+  \[ A(n + 1) = \{ a : A \mid \mathbf 1_n \circ a = a \}, \]
+  we have a right action of $ A(1) $ on this set.
+
+  Now, note that for any $ a: A(1) $, if we take $ a^\prime := \mathbf 1 \circ a $, we have
+  \begin{align*}
+    \mathbf 1 \circ a^\prime &= \mathbf 1 \circ \mathbf 1 \circ a\\
+    &= (\lambda x_1 x_2, x_1 x_2) \circ (\lambda x_1 x_2, x_1 x_2) \circ a\\
+    &= \lambda x_1, (\lambda x_2 x_3, x_2 x_3) (\lambda x_2, x_1 x_2) \circ a\\
+    &= \lambda x_1, (\lambda x_2, (\lambda x_3, x_1 x_3) x_2)  \circ a\\
+    &= (\lambda x_1 x_2, x_1 x_2) \circ a\\
+    &= \mathbf 1 \circ a\\
+    &= a^\prime,
+  \end{align*}
+  so we have a mapping $ A(1) \to A(2) $, and an injection $ A(2) \hookrightarrow A(1) $. Since for all $ a : A(2) $, $ \mathbf 1 \circ a = a $, we have that composition on the left with $ \mathbf 1 $ gives a retraction from $ A(1) $ onto $ A(2) $ and the endomorphism theory of $ A(1) $ in $ PA $ is a $ \lambda $-theory. We call this $ \mathcal U_A $.
 
   \bibliographystyle{alpha}
   \bibliography{citations}
