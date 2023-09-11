@@ -857,6 +857,126 @@
   \end{align*}
   so we have a mapping $ A(1) \to A(2) $, and an injection $ A(2) \hookrightarrow A(1) $. Since for all $ a : A(2) $, $ \mathbf 1 \circ a = a $, we have that composition on the left with $ \mathbf 1 $ gives a retraction from $ A(1) $ onto $ A(2) $ and the endomorphism theory of $ A(1) $ in $ PA $ is a $ \lambda $-theory. We call this $ \mathcal U_A $.
 
+  \chapter{Week 36}
+  \section{The Karoubi envelope}
+  Given a category $ \CC $, define a category $ \overline \CC $, with objects being pairs $ (A, e) $, with $ e: A \to A $ an idempotent. A map $ (A, e), (B, f) $ is a map $ v: A \to B $ such that $ f \circ v \circ e = v $. The identity on $ (A, e) $ is $ e $, since if $ f \circ v \circ e = v $, then $ v \circ e = f \circ v \circ e \circ e = f \circ v \circ e = v $ (and likewise for $ f \circ v = v $).
+
+  We can embed $ \CC $ into $ \overline \CC $ by sending $ A: \Ob \CC $ to $ (A, \mathop{Id}_A) $, and $ f: \Hom{\CC}{A}{B} $ to $ f $, since $ \mathop{Id}_B \circ f \circ \mathop{Id}_A = f $ is trivial.
+
+  Given an idempotent $ e: \Hom{\CC}{A}{A} $, take $ r = e: \Hom{\overline \CC}{(A, \mathop{Id}_A)}{(A, e)} $ and $ s = e: \Hom{\overline \CC}{(A, e)}{(A, \mathop{Id}_A)} $. Then $ r \circ s = e \circ e = e = \mathop{Id}_{(A, e)} $ and $ s \circ r = e \circ e = e $. Therefore, $ e $ splits in $ \overline \CC $. This also shows that any object $ (A, e) : \Ob{\overline \CC} $ is a retract of (the image of) an object in $ \CC $. That is why the paper refers to $ \overline \CC $ as ``the category of retracts''.
+
+  \section{Relatively cartesian closed}
+  Hyland gives a new proof that $ \overline(\mathcal L(1)) $ is cartesian closed (when viewing $ \mathcal L(1) $ as a monoid with operation $ \bullet $, and then as a one-object category), based on the proof in \cite{taylor}.
+
+  For a $ \Lambda $-algebra $ A $, we can take $ A(1) $, the set of functional elements of $ A $. This forms a monoid under composition: $ a; b = P a b $ for $ P = \lambda f g x, g(f x) $. The Karoubi completion of this category has as objects the terms $ a $ such that $ P a a = a $. The morphisms $ a \to b $ are elements $ f: A $ such that $ P a f = f = P f b $.
+
+  Since we view $ \overline{A(1)} $ as a category, we can try to define products and exponentials of elements $ A\ B: \overline{A(1)} $. This is done in \S\S 1.3.5 and 1.3.6.
+
+  Taylor defines a family $ (X_a)_{a: A} $ to be the \textit{display map} $ f: X \to A $ (the $ X_a $ arise as preimages/pullbacks of the $ a: A $). We have a category $ \CC^A $, consisting of families over $ A $. This is the slice category $ \CC / A $. If we have a morphism $ f: A \to B $, we get a functor $ \CC^f: \CC^B \to \CC^A $, which is the pullback along $ f $, and we will call it $ f^* $ or $ \texttt{P} f $. For a diagram
+  \begin{center}
+    \begin{tikzcd}
+      Y \arrow[d] & X \arrow[d]\\
+      A \arrow[r, "f"] & B
+    \end{tikzcd}
+  \end{center}
+  there is a natural bijection between morphisms $ Y \xrightarrow{f} X $ over $ f $, and morphisms $ Y \to f^* X $.
+
+  Pullbacks give binary products in $ \CC^A $. That is why these are also called ``fibred products''.
+
+  Now, for indexed products: In $ \SET $, given indexed sets $ (X_a)_{a : A} $, we have the product $ \prod_{a: A} X_a $. Its elements are indexed families of elements $ (x_a)_{a: A} $. If we have an element $ X: \CC^A $, the elements of $ \prod_{a : A} X_a $ correspond to maps $ \Hom{\CC^a}{A}{X} $, i.e., maps that send $ a $ to an element in $ X_a $.
+
+  The indexed product with a constant set $ \prod_{a: A} B $ is the exponential $ B^A $. Therefore, if a category has indexed products over itself, it is cartesian closed.
+
+  We can also do this in an indexed fasion. If we have a family $ B $ indexed over $ A $ (given by a morphism $ f: A \to B $), and for every $ a: A $, a family $ (X_b)_{b : B_a} $ (equivalent to a morphism $ X \to B $), then we can construct the products $ (\prod \alpha X)_a := (\prod_{b: B_a} X_b) $ for all $ a : A $. That means that we have the type $ \prod \alpha X $ over $ A $.
+
+  A morphism in $ \CC^A $ from $ C $ to $ (\prod \alpha X) $ is equivalent to a collection of morphisms $ \varphi_a: C_a \to (\prod \alpha X)_a = (\prod_{b: B_a} X_b) $.
+  This is equivalent to a collection of morphisms $ \varphi_{ab}: C_a \to X_b $ for all $ a: A $ and $ b: B_a $.
+  Note that $ a = \alpha b $, so $ C_a = C_{\alpha b} = (\alpha^* C)_b $.
+  So for all $ b: B $, we need a morphism $ (\alpha^* C)_b \to X_b $. However, this is a morphism $ \alpha^* C \to X $ over $ B $.
+  Therefore,
+  \[ \Hom{\CC^A}{C}{\prod \alpha X} \cong \Hom{\CC^B}{\alpha^* C}{X} \]
+  and the functor $ \prod \alpha: \CC^B \to \CC^A $ is a right adjoint to the functor $ \alpha^*: \CC^A \to \CC^B $.
+
+  For a morphism $ B \to A $ and a morphism $ X \to B $, we can take the indexed sums $ (\sum \alpha X)_a := (\sum_{b: B_a} X_b)_a $.
+
+  A morphism $ \sum \alpha X \to C $ in $ \CC^A $ is equivalent to a family of morphisms $ \varphi_a: \sum_{b: B_a} X_b \to C_a $.
+  This is equivalent to, for every $ a: A $ and every $ b: B_a $, a morphism $ \varphi_{ab}: X_b \to C_a = (\alpha^* C)_b $.
+  This is a morphism $ X \to \alpha^* C $ in $ \CC^B $, so $ \sum \alpha \dashv \alpha^* $.
+
+  Therefore, Taylor defines an internal product in an indexed category to be a right adjoint to substitution over a display map, and an internal sum to be a left adjoint.
+
+  \dots
+
+  Hyland's view of this matter is as follows:
+
+  Given a $ \lambda $-theory $ \mathcal L $, the category $ \mathbb R $ is the category of retracts of the idempotent elements of $ \mathcal L(0) $ (I think). That is: the objects of $ \mathbb R $ are elements $ a: \mathcal L(0) $, such that $ \lambda x, a (a x) = a $. Morphisms between idempotents $ a $ and $ b $ are elements $ f: \mathcal L(0) $ such that $ \lambda x, (b (f (a x))) = f $.
+
+  \section{The Curry Festschrift}
+  The Lambda calculus is a theory of functions. It specifies what one can do with functions (in a (concrete) cartesian closed category): One can abstract a function $ A \times B \to C $ to get a function $ A \to (B \to C) $; One can apply a function $ A \to B $ to an element of $ A $ to get an element of $ B $; And one always has the identity function $ x: A \to A $.
+
+  For the typed lambda calculus, the objects in $ \CC $ form the types, and the morphisms (elements of the exponential object) are the lambda terms.
+
+  For the untyped lambda calculus, we can say that all terms have the same domain and codomain $ U \to V $. However, since we can compose them with themselves, we must have $ U = V $. Also, given two terms $ f\ g: U \to U $, we can apply $ f $ to $ g $, so $ (U \to U) = U^U $ must be inside $ U $. Therefore, we want a section $ U^U \to U $ and a retraction $ U \to U^U $.
+
+  \section{Comparing Hyland, Taylor and Curry}
+  \subsection{Taylor}
+  Taylor defines a \textit{Combinatory prealgebra} to be a set $ \Lambda $ with a binary operation $ \bullet $ (``application'') and elements $ K $ ($ \lambda x y, x $) and $ S $ ($ \lambda x y z, x z (y z) $) such that for all $ a\ b\ c: \Lambda $, $ K a b := K \bullet a \bullet b = a $ and $ S a b c = a c (b c) $.
+
+  For $ f: \Lambda $, he defines $ f $ to be \textit{functional} if it has a representation $ f = \lambda x, a $.
+
+  He defines a \textit{Combinatory algebra} to be a prealgebra $ \Lambda $ such that if $ fx = gx $ (in $ \Lambda [x] $, i.e., $ \Lambda $ to which we adjoin an additional element $ x $), then $ f = g $.
+
+  He defines a \textit{model} to be a combinatory algebra $ \Lambda $, such that for all $ f\ g: \Lambda $, if for all $ a: \Lambda $, $ f a = g a $, then $ f = g $.
+
+  He then defines $ \mathbf{Retr}(\Lambda) $ to be the category of retracts of the monoid of functional elements in $ \Lambda $. An object is an element $ A: \Lambda $ such that $ P A A = A $, and a morphism $ A \to B $ is an element $ \alpha: \Lambda $ such that $ P A \alpha = \alpha = P \alpha B $.
+
+  % He notes that $ \mathbf{Retr}(\Lambda) $ is concrete iff $ \Lambda $ is a combinatory model (iff the monoid has enough constants).
+  He notes that we can view objects (idempotents) of $ \mathbf{Retr}(\Lambda) $ as types $ \Vert A \Vert = \{ a \mid a = A a \} \subseteq \Lambda $ and morphisms $ \alpha: \mathbf{Retr}(\Lambda)(A, B) $ as maps $ a \mapsto \alpha a: \Vert A \Vert \to \Vert B \Vert $.
+  % Take $ K = \lambda x y, x $ and $ \bot = (\lambda x, x x) (\lambda x, x x) $. Take $ T = K \bot = \lambda y, (\lambda x, x x) (\lambda x, x x) $. Then $ \Vert T \Vert = \{ \bot \} $ and every type $ A $ has a ``least'' element $ A \bot $.
+
+  At the end of chapter $ 1 $, he shows that $ \mathbf{Retr}(\Lambda) $ is cartesian closed.
+
+  In chapter 4, Taylor introduces a fibration. If $ \CC $ is a category and $ D $ is a class of morphisms, we say that $ D $ is a class of \textit{Display Maps} for $ \CC $ if $ D $ is closed under pullbacks along $ \CC $-morphisms, under composition and the maps to the terminal object are in $ D $.
+
+  Then, given any $ A: \mathcal C $, we can construct $ \CC /_{\mathcal D} A $ as a full subcategory of $ \CC / A $, containing as objects only the display maps to $ A $. The $ \CC /_{\mathcal D} A $ form a fibration over $ \CC $.
+
+  For $ \alpha: \CC(A, B) $, we have $ \alpha_*: \CC /_{\mathcal D} A \to \CC /_{\mathcal D} B $ ("the substitution functor"). It has a left adjoint, given by postcomposition, which we will call $ \sum \alpha $. If it also has a right adjoint, (which we then call $ \prod \alpha $), we call the category relatively cartesian closed.
+
+  Taylor notes that $ \CC /_{\mathcal D} 1 $, the fiber over the terminal object, consists of all of $ \CC $. He also notes that a category that is relatively cartesian closed has cartesian closed fibers.
+
+  \subsection{Hyland}
+  Hyland defines an algebraic theory to be a functor $ \mathcal T: F \rightarrow \SET $, together with variables $ \pi_i : \mathcal T(n) $ for all $ 1 \leq i \leq n $, and an operation (``substitution'') $ \bullet: \mathcal T(m) \times \mathcal T(n)^m \to \mathcal T(n) $ which is associative, unital, dinatural.
+
+  He defines a $ \lambda $-theory to be an algebraic theory $ \mathcal L $, together with retractions $ \rho: \mathcal T(n) \to \mathcal T(n + 1) $, that are compatible with $ \bullet $ (which, on $ \mathcal T(n + 1) $, leaves alone the $ n + 1 $th component).
+
+  He defines $ \Lambda $ to be the $ \lambda $-theory corresponding to the $ \lambda $-calculus, with $ \Lambda(n) $ the set of lambda terms in $ n $ indeterminates.
+
+  Finally, he defines a $ \Lambda $-algebra (one would call this a ``model'') to be a set $ A $, together with an action $ \mathcal \Lambda(n) \times A^n \to A $ for all $ n $ that is associative and unital.
+
+  \subsection{Curry}
+
+  Curry does not give a formal characterization of the $ \lambda $-calculus (he refers to `Lambek's paper'). However, he notes that there is a correspondence between cartesian closed categories, and `extensional typed $ \lambda $-calculi'.
+
+  This means that a typed $ \lambda $-calculus has at least an identity function $ x_1: A \to A $. He also notes that, given a term $ f: A \times B \to C $, we can abstract it to $ \lambda b, f: A \to (B \to C) $. Finally, given variables $ u: A \to B $ and $ v: A $, we have $ u (v): (A \to B) \times A \to B $. Therefore, we have abstraction and application.
+
+  He also notes that we need extensionality: if $ f = g $, then $ \lambda x, f = \lambda x, g $.
+
+  For the untyped $ \lambda $-calculus, he constructs the terms `in the usual way', by starting with variables $ x_1, \dots $ and then using abstraction and application.
+
+  He then constructs the category $ \mathbb R $ straightforwardly, with as objects the terms $ A $ without free variables, such that $ A = \lambda x, A (A x) $. The maps $ f: A \to B $ are terms $ f $ without free variables, for which we can prove $ f = \lambda x, B (f (A x)) $.
+
+  He also constructs products $ A \times B := \lambda u z, z(A(u(\lambda x y, x)))(B(u(\lambda x y, y))) $, with projections
+  \[ p_{AB} := \lambda u, (A \times B)(u)(\lambda xy, x) \quad \text{and} \quad q_{AB} := \lambda u, (A \times B) u (\lambda xy, y), \]
+  with the product of morphisms $ f: C \to A $ and $ g: C \to B $ being $ \langle f, g \rangle := \lambda t z, z(f t)(g t) $.
+
+  Finally, he defines the function space to be
+  \[ A \to B := \lambda f, B \circ f \circ A \]
+  with evaluation
+  \[ \varepsilon_{BC} = \lambda u, C(u(\lambda x y, x))(B(u(\lambda x y, y))) \]
+  and for $ h: A \times B \to C $,
+  \[ \Lambda_{ABC} h = \lambda x y, h (\lambda z, z x y). \]
+  He takes the reflexive object $ U := \lambda x, x $.
+
   \bibliographystyle{alpha}
   \bibliography{citations}
 
