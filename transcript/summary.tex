@@ -16,6 +16,7 @@
 \newcommand{\Ob}[1]{{#1}_0}
 \newcommand{\Hom}[3]{{#1}\left(#2,#3\right)}
 \newcommand{\op}[1]{\ensuremath{{#1}^\text{op}}}
+\newcommand{\id}[1]{\ensuremath{\text{id}_{#1}}}
 
 \newtheorem{lemma}{Lemma}
 
@@ -45,8 +46,9 @@
 
   \section{Checklist before making a PR}
   \begin{itemize}
+    \item Make sure that every file is mentioned in \texttt{.package/files} and in \texttt{UniMath/UniMath/CONTENTS.md}.
+    \item Make sure that every file has a comment at the top, explaining what it does.
     \item Make sure that all variables in intros and induction (that are used later) are introduced by name;
-    \item Make sure that \texttt{use} is replaced by \texttt{apply} and \texttt{apply} by \texttt{exact} wherever possible;
   \end{itemize}
 
   \section{Default API for any \texttt{object}}
@@ -976,6 +978,98 @@
   and for $ h: A \times B \to C $,
   \[ \Lambda_{ABC} h = \lambda x y, h (\lambda z, z x y). \]
   He takes the reflexive object $ U := \lambda x, x $.
+
+  \chapter*{Week 37}
+  \section{The Taylor fibration (continued)}
+  Hyland takes, for $ X \in P(\mathcal L) $, the category $ \mathbb R(X) $ to be the category of retracts of $ \Delta_X(U) = (U \times X \to X) $ in $ P(\mathcal L) / X $, for $ U = \mathcal L $.
+
+  Given an element $ f: \Ob{\mathbb R(X)} $. This is an idempotent $ f: \Delta_X(U) \to \Delta_X(U) $. I.e., a morphism $ f: U \times X \to U \times X $, such that $ \Delta_X(U) \circ f = \Delta_X(U) $ (so it must respect fibers over $ X $) and $ f \circ f = f $. This is equivalent to a morphism $ f: U \times X \to U $ such that $ f \circ \langle f, \pi_r \rangle = f $.
+
+  Then, given any $ \alpha: X^\prime \to X $. For our pullback, set $ \alpha^* f := f \circ (\id U \times \alpha) : U \times X^\prime \to U $. Then
+  \begin{align*}
+    \alpha^* f \circ \langle \alpha^* f, \pi_r \rangle
+    &= f \circ (\id U \times \alpha) \circ \langle f \circ (\id U \times \alpha), \pi_r \rangle\\
+    &= f \circ \langle f \circ (\id U \times \alpha), \alpha \circ \pi_r \rangle\\
+    &= f \circ \langle f \circ (\id U \times \alpha), \pi_r \circ (\id U \times \alpha) \rangle \\
+    &= f \circ \langle f, \pi_r \rangle \circ (\id U \times \alpha)\\
+    &= f \circ (\id U \times \alpha),
+  \end{align*}
+  so $ \alpha^* f $ is an idempotent.
+
+  Now, if we have subsets $ S(n) \subseteq \mathcal L(n) $, such that for all $ f \in S(m) $ and $ g: \mathcal L(n)^m $, $ f \bullet g \in S(n) $, $ S $ is an object in $ P(\mathcal L) $, with action $ \bullet: S(m) \times \mathcal L(n)^m \to S(n) $.
+
+  For example, given $ A: \mathcal L(0) $, we can view $ A $ as an element of $ P(\mathcal L) $ by taking
+  \[ \overline A(n) := \{ a: \mathcal L(n) \mid A a = a \}. \]
+  In that case, for $ a: \overline A(m) $ and $ g: \mathcal L(n)^m $, we have
+  \[ A (a \bullet g)
+    = \rho(A) \bullet a \bullet g
+    = a \bullet g, \]
+  so $ a \bullet g \in \overline A(n) $.
+
+  Hyland claims that the category $ \mathbb R $ of retracts is a subcategory of $ P(\mathcal L) $. Note that the objects in the category of retracts are the idempotents of $ \mathcal L(0) $. Therefore, they are elements of $ \mathcal L(0) $, and by the above, we can embed them into $ P(\mathcal L) $. Also, suppose that we have a morphism $ f: \Hom{\mathbb R}{A}{B} $. It is an element $ f: \mathcal L(0) $ such that $ f A = f = B f $. Then $ a \mapsto f a $ gives functions $ \overline A(n) \to \overline B(n) $. The transformation is natural, and for $ a: \overline A(m) $ and $ g: \mathcal L(n)^m $, we have
+  \[ f (a \bullet g) = \rho(f) \bullet a \bullet g = (f a) \bullet g, \]
+  so it preserves the action of $ \mathcal L $.
+
+  Conversely, given a morphism $ f: \overline A \to \overline B $, to have a full functor, we would want $ f(\rho(A)) $ to be equal to $ \rho(C) $ for some $ C: \mathcal L(0) $ with $ CA = C = BC $.
+
+  Hyland also claims that for some $ X: P(\mathcal L) $, if $ X: \mathbb R $, then $ \mathbb R(X) \subseteq \mathbb R $.
+
+  Suppose that we have an element $ Y: P(\overline A) $ for some idempotent $ A: \mathcal L(0) $. Then $ Y $ is an idempotent $ \Delta_{\overline A}(U) \to \Delta_{\overline A}(U) $, so $ Y $ consists of a morphism $ f: \mathcal L \times \overline A \to \mathcal L $, such that for all $ (l, a) $, $ f(f(l, a), a) = f(l, a) $.
+
+  Note that this is equivalent to a morphism $ f: \overline A \to \mathcal L(n + 1) $.
+
+  Note that $ f(l, a) = f(x_1 \bullet (l, a), A x_2 \bullet (l, a)) = f(x_1, A x_2) \bullet (l, a) $.
+
+  So we want to find an idempotent $ B: \mathcal L(0) $ such that $ Y = \overline B $.
+
+  \chapter*{Week 39}
+
+  \section{The coproduct}
+  The coproduct $ A + B $ is defined as the following end
+  \[ \int^{m, n} A^m \times B^n \times \mathcal T(m + n). \]
+  This consists of an algebraic theory $ C $, together with morphisms $ e_{m, n}: A^m \times B^n \times \mathcal T(m + n) \to C $, such that for all $ f: m \to m^\prime $ and $ g: n \to n^\prime $, the following diagram commutes
+  \begin{center}
+    \begin{tikzcd}[column sep=1.5in]
+      A^{m^\prime} \times B^{n^\prime} \times \mathcal T(m + n) \arrow[r, "{\id{A^{m^\prime} \times B^{n^\prime}} \times \mathcal T(f + g)}"] \arrow[d, "{A^f \times B^g \times \id{\mathcal T(n + m)}}"] & A^{m^\prime} \times B^{n^\prime} \times \mathcal T(m^\prime + n^\prime) \arrow[d, "{e_{m^\prime, n^\prime}}"]\\
+      A^m \times B^n \times \mathcal T(m + n) \arrow[r, "{e_{m, n}}"] & C,\\
+    \end{tikzcd}
+  \end{center}
+  (such a $ C $ is called a co-wedge) and such that for any cowedge $ C^\prime $, i.e., every object $ C^\prime $ with morphisms $ e^\prime_{m, n}: A^m \times B^n \times \mathcal T(m + n) \to C^\prime $ that make the diagram commute, there exists a morphism $ F : C \to C^\prime $ making the following diagram commute.
+  \begin{center}
+    \begin{tikzcd}
+      A^{m^\prime} \times B^{n^\prime} \times \mathcal T(m + n) \arrow[r] \arrow[d] & A^{m^\prime} \times B^{n^\prime} \times \mathcal T(m^\prime + n^\prime) \arrow[d] \arrow[rdd, "{e^\prime_{m^\prime, n^\prime}}", bend left] & \\
+      A^m \times B^n \times \mathcal T(m + n) \arrow[r] \arrow[rrd, "{e^\prime_{m, n}}", bend right] & C \arrow[rd, "\exists! F", dashed] & \\
+      & & C^\prime
+    \end{tikzcd}
+  \end{center}
+  If we interpret this in the category of sets, we only need an action of $ \mathcal T $ to make this into an algebra. To this end, note that $ \int^{m, n} A^m \times B^n \times \mathcal T(m + n) $ is a sifted colimit, so it commutes with finite limits:
+  \[ \left( \int^{m, n} A^m \times B^n \times \mathcal T(m + n) \right)^l = \int^{m, n} \left( A^l \right)^m \times \left( B^l \right)^n \times \mathcal T(m + n)^l. \]
+  We will call this cowedge $ e^\prime: \left( A^l \right)^m \times \left( B^l \right)^n \times \mathcal T(m + n)^l \to C^l $. Now, given an element $ s: \mathcal T(l) $, we obtain a cowedge structure for $ C^l $ on $ C $, with morphisms
+  \[ e^{\prime\prime}_{m, n}: \left( A^l \right)^m \times \left( B^l \right)^n \times \mathcal T(m + n)^l \to C \]
+  sending $ (a_1, \dots, a_m, b_1, \dots, b_n, t) $ to
+  \[ e_{ml, nl} (a_{11}, \dots, a_{1l}, \dots, a_{ml}, b_{11}, \dots, b_{nl}, s \bullet (t_i \bullet (x_i, x_{l + i}, \dots, x_{(m + n)l + i}))_i). \]
+  We need to check that this forms a cowedge.
+
+  Also, for a monoid, we need $ ((a_1, a_2), (), x_1 x_2) $ and $ ((a_1 a_2), (), x_1) $ to map to the same element in $ A + B $.
+
+
+
+  Indeed, given $ f: n \to n^\prime $, $ g: m \to m^\prime $, we have
+  \begin{center}
+    \begin{tikzcd}[column sep=1.3in]
+      \left( A^l \right)^{m^\prime} \times \left( B^l \right)^{n^\prime} \times \mathcal T(m + n)^l
+        \arrow[r, "{\id{\left( A^l \right)^{m^\prime} \times \left( B^l \right)^{n^\prime}} \times \mathcal T(f + g)^l}"]
+        \arrow[d, "{\left( A^l \right)^f \times \left( B^l \right)^g \times \id{\mathcal T(n + m)^l}}"]
+      & \left( A^l \right)^{m^\prime} \times \left( B^l \right)^{n^\prime} \times \mathcal T(m^\prime + n^\prime)^l
+        \arrow[d, "{e^{\prime \prime}_{m^\prime, n^\prime}}"]
+      \\ \left( A^l \right)^m \times \left( B^l \right)^n \times \mathcal T(m + n)^l
+        \arrow[r, "{e^{\prime \prime}_{m, n}}"]
+      & A^m \times B^n \times \mathcal T(m + n) \arrow[d, "{e_{m, n}}"]
+      \\
+      & C\\
+    \end{tikzcd}
+  \end{center}
+  so we obtain a function $ C^l \to C $.
 
   \bibliographystyle{alpha}
   \bibliography{citations}
