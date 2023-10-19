@@ -16,6 +16,8 @@
 \newtheorem{remark}{Remark}
 
 \newcommand{\id}[1]{\ensuremath{\text{id}_{#1}}}
+\newcommand{\op}[1]{\ensuremath{#1^{\text{op}}}}
+\newcommand\SET{\mathbf{SET}}
 \newcommand\TODO{\textbf{(TODO)} }
 
 \begin{document}
@@ -369,20 +371,211 @@
   \end{proof}
 
   \section{Locally cartesian closedness of the category of retracts}
+  \begin{definition}[Category of retracts]
+    The category of retracts for a $ \lambda $-theory $ L $ is the category with objects $ f: L_n $ such that $ f \bullet f = f $ and it has as morphisms $ g: f \to f^\prime $ the terms $ g: L_n $ such that $ f^\prime \bullet g \bullet f = g $. The object $ f: L_n $ has identity element $ f $, and we have composition $ g \circ g^\prime = g \bullet g^\prime $. These are morphisms \TODO
+  \end{definition}
+
+  \begin{lemma}
+    The category of retracts is indeed a category.
+  \end{lemma}
+  \begin{proof}
+    \TODO
+  \end{proof}
+
   \begin{theorem}
-    The category of retracts \TODO is locally cartesian closed \TODO.
+    The category of retracts is locally cartesian closed \TODO.
   \end{theorem}
 
   \section{The Fundamental Theorem of the \texorpdfstring{$ \lambda $-}{lambda }calculus}
+
+  \begin{definition}[$ \Lambda $]
+    There is a special $ \lambda $-theory, given by the $ \lambda $-calculus itself. $ \Lambda_n $ is the set of $ \lambda $-terms with $ n $ free variables, the $ x_i $ are the free variables, and $ \bullet $ is given by substitution. $ \lambda $ sends $ f: \Lambda_{n + 1} $ to $ \lambda x_{n + 1}, f $ and $ \rho $ sends $ f: \Lambda_n $ to $ \iota_{n, 1}(f) x_{n + 1} $ in $ \Lambda_n $.
+  \end{definition}
+
+  \begin{lemma}
+    $ \Lambda $ is indeed a $ \lambda $-theory.
+  \end{lemma}
+  \begin{proof}
+    \TODO
+  \end{proof}
+
+  \begin{lemma}
+    $ \Lambda $ is the initial $ \lambda $-theory.
+  \end{lemma}
+  \begin{proof}
+    Given a $ \lambda $-theory $ L $, we construct a morphism $ f: \Lambda \to L $ by induction on the $ \lambda $-terms. We set $ f(x_i) = x_i $, $ f(\lambda(t)) = \lambda(f(t)) $ and $ f(st) = \rho(f(s)) \bullet ((x_i)_i + (f(t))) $.
+
+    This is a $ \lambda $-theory morphism because \TODO
+
+    It is unique, since \TODO
+  \end{proof}
+
+  \begin{definition}[Pullback of algebras]
+    If we have a morphism of algebraic theories $ f: T^\prime \to T $, we have a functor $ AT \to AT^\prime $.
+
+    On objects, it sends a $ T $-algebra $ A $ to a $ T^\prime $-algebra with set $ A $ and action $ g \bullet_{T^\prime} a = f(g) \bullet_T a $. This is a $ T^\prime $-algebra because \TODO.
+
+    On morphisms, it sends $ \varphi: A \to A $ to $ \varphi: A \to A $. This is a $ T^\prime $-algebra morphism because for all $ g: T^\prime_n $ and $ a: A^n $, we have
+    \[ \varphi(g \bullet_{T^\prime} a) = \varphi(f(g) \bullet_T a) = f(g) \bullet_T \varphi(a) = g \bullet_{T^\prime} \varphi(a). \]
+  \end{definition}
+  \begin{lemma}
+    This is indeed a functor.
+  \end{lemma}
+  \begin{proof}
+    \TODO
+  \end{proof}
+
+  \begin{definition}[Term algebra]
+    Given an algebraic theory $ T $, for every $ n $, $ T_n $ together with the action operator $ \bullet: T_m \times T_n^m \to T_n $ gives a $ T $-algebra.
+  \end{definition}
+
+  \begin{lemma}
+    $ T_n $ is indeed a $ T $-algebra.
+  \end{lemma}
+  \begin{proof}
+    \TODO
+  \end{proof}
+
+  \begin{definition}
+    For all $ n $, we have a functor from lambda theories to $ \Lambda $-algebras. It sends the $ \lambda $-theory $ L $ to the $ L $-algebra $ L_n $ and then turns this into a $ \Lambda $-algebra via the morpism $ \Lambda \to L $.
+
+    It sends morphisms $ f: L \to L^\prime $ to $ f_n : L_n \to L^\prime_n $. This is a $ \Lambda $-algebra morphism because \TODO
+  \end{definition}
+
+  \begin{lemma}
+    This indeed constitutes a functor.
+  \end{lemma}
+  \begin{proof}
+    \TODO
+  \end{proof}
+
+  \begin{remark}
+    Note that for a monoid $ M $, if we view $ M $ as a category, the category $ [\op{M}, \SET] $ consists of sets with a right $ M $-action.
+  \end{remark}
+
+  \begin{definition}[The exponential object in the presheaf category]
+    Given a monoid $ M $, if we have two presheaves (sets with right $ M $-actions) $ P $ and $ P^\prime $, we have a set of $ M $-equivariant maps
+    \[ F_{P, P^\prime} = \left\{ f: M \times P \to P^\prime \mid \prod_{p : P, m, m^\prime: M} f(m, p)m^\prime = f(m m^\prime, p m^\prime) \right\} \]
+    with a right $ M $-action, given by $ f m^\prime(m, p) = f(m^\prime m, p) $. This is again $ M $-equivariant because
+    \[ fm^\prime(m, p)m^{\prime \prime} = f(m^\prime m, p)m^{\prime \prime} = f(m^\prime m m^{\prime \prime}, p m^{\prime \prime}) = f m^\prime(m m^{\prime \prime}, p m^{\prime \prime}), \]
+    so $ F_{P, P^\prime} $ is a presheaf.
+
+    Now, to show that $ F_{P, P^\prime} $ is the exponential object $ {P^\prime}^P $, we show that for any $ P $, $ F_{P, -} $ is the left adjoint of $ - \times P $. So we need for all $ P^\prime: PT $, a universal arrow $ \varphi: F_{P, P^\prime} \times P \to P^\prime $.
+
+    First of all, we have an evaluation map $ \varphi: F_{P, P^\prime} \times P \to P^\prime $ given by $ (f, p) \mapsto f(I, p) $ for $ I $ the unit of the monoid. This map is equivariant because for all $ m $,
+    \[ (f, p) m = (f m, p m) \mapsto f m(I, p m) = f(m, p m) = f(I, p) m. \]
+    Now, given any presheaf $ Q $ and any morphism $ \psi: Q \times P \to P^\prime $, take $ \tilde \psi: Q \to F_{P, P^\prime} $ given by $ \psi(q)(m, p) = \psi(q m, p) $. This is equivariant because
+    \[ \tilde \psi(q)m(m^\prime, p) = \tilde \psi(q)(m m^\prime, p) = \psi(q m m^\prime, p) = \tilde \psi(q m)(m^\prime, p) \]
+    and we have
+    \[ \varphi(\tilde \psi(q), p) = \tilde \psi(q)(I, p) = \psi(q, p). \]
+    Now, suppose that we have $ \tilde \psi^\prime: Q \to F_{P, P^\prime} $ such that $ \varphi \circ (\tilde \psi^\prime \times \id{P}) = \psi $. Then for all $ q : Q $, $ m: M $ and $ p: P $,
+    \[ \tilde \psi(q)(m, p) = \psi(q m, p) = \varphi(\tilde \psi^\prime(q m), p) = \tilde \psi^\prime(q m)(I, p) = \psi^\prime(q) m(I, p) = \psi^\prime(q)(m, p), \]
+    so $ \tilde \psi $ is unique and $ F_{P, P^\prime} $ is an exponential object.
+  \end{definition}
+
+  \begin{definition}[n-functional terms]
+    Let $ A $ be a $ \Lambda $-algebra. We define
+    \[ A(n) = \{ a : A \mid (\lambda x_2 x_3 \dots x_{n + 1}, x_1 x_2 x_3 \dots x_{n + 1}) \bullet a = a \}. \]
+  \end{definition}
+
+  \begin{definition}
+    Take $ \mathbf 1_n = (\lambda x_1 \dots x_n, x_1 \dots x_n) \bullet () : A $.
+  \end{definition}
+
+  \begin{definition}
+    We define composition as $ a \circ b = (\lambda x_3, x_1 (x_2 x_3)) \circ (a, b) $ for $ a, b : A $.
+  \end{definition}
+
+  \begin{lemma}
+    This composition is associative.
+  \end{lemma}
+  \begin{proof}
+    \TODO
+  \end{proof}
+
+  \begin{definition}[The monoid of a $ \Lambda $-algebra]
+    Now we make $ A(1) $ into a monoid with unit $ \lambda x_1, x_1 $.
+  \end{definition}
+
+  \begin{lemma}
+    This is indeed a monoid.
+  \end{lemma}
+  \begin{proof}
+    \TODO
+  \end{proof}
+
+  From here on, we will assume that $ \Lambda $ (and therefore, any $ \lambda $-theory) satisfies $ \beta $-equality.
+
+  \begin{lemma}
+    For $ a: A $, $ a $ is in $ A(n) $ iff $ \mathbf 1_n \circ a = a $.
+  \end{lemma}
+  \begin{proof}
+    \begin{align*}
+      \mathbf 1_n \circ a
+      &= (\lambda x_3, x_1 (x_2 x_3)) \bullet (((\lambda x_1 \dots x_n, x_1 \dots x_n) \bullet ()), a)\\
+      &= (\lambda x_3, x_1 (x_2 x_3)) \bullet (((\lambda x_2 \dots x_{n + 1}, x_2 \dots x_{n + 1}) \bullet a), x_1 \bullet a)\\
+      &= ((\lambda x_3, x_1 (x_2 x_3)) \bullet ((\lambda x_2 \dots x_{n + 1}, x_2 \dots x_{n + 1}), x_1)) \bullet a\\
+      &= (\lambda x_2, (\lambda x_3 \dots x_{n + 2}, x_3 \dots x_{n + 2}) (x_1 x_2)) \bullet a\\
+      &= (\lambda x_2 x_3 \dots x_{n + 1}, x_1 x_2 \dots x_{n + 1}) \bullet a.
+    \end{align*}
+  \end{proof}
+
+  \begin{definition}[The presheaf category of a $ \Lambda $-algebra]
+    Let $ A $ be a $ \Lambda $-algebra. If we view the monoid $ A(1) $ as a one-object category, we define the category $ PA $ to be the category of presheaves $ [\op{A(1)}, \SET] $.
+  \end{definition}
+
+  \begin{definition}[The objects $ A(n) $ in $ PA $]
+    Given $ a: A(n) $ and $ b: A(1) $, we have
+    \[ \mathbf 1_n \circ (a \circ b) = (\mathbf 1_n \circ a) \circ b = a \circ b, \]
+    so $ a \circ b: A(n) $ and we have a right $ A(1) $-action on $ A(n) $, which makes $ A(n) $ into an object in $ PA $.
+  \end{definition}
+
+  \begin{lemma}
+    We have $ A(1)^{A(1)} \cong A(2) $.
+  \end{lemma}
+  \begin{proof}
+    \TODO
+  \end{proof}
+
+  \begin{definition}[Endomorphism $ \lambda $-theory of a $ \Lambda $-algebra]
+    $ PA $ borrows products from $ \SET $. Therefore, the algebraic theory $ E(A(1)) $ exists. Now note that $ A(1) $ is exponentiable and $ A(1)^{A(1)} \cong A(2) $.
+    Note that $ A(2) \subseteq A(1) $ and that $ (\lambda x_2 x_3, x_1 x_2 x_3) \bullet - $ gives a function from $ A(1) $ to $ A(2) $. This gives $ E(A(1)) $ a $ \lambda $-theory structure.
+  \end{definition}
+
   \begin{theorem}
-    There exists an adjoint equivalence between the category of $ \lambda $-theories, and the category of algebras of $ \Lambda $ \TODO.
+    There exists an adjoint equivalence between the category of $ \lambda $-theories, and the category of algebras of $ \Lambda $.
   \end{theorem}
   \begin{proof}
-    In one direction, the proof sends a $ \lambda $-theory $ L $ to the $ L $-algebra $ L(0) $ \TODO. Since $ \Lambda $ is the initial $ \lambda $-theory \TODO, we can give $ L(0) $ a $ \Lambda $-algebra structure \TODO. This constitutes a functor \TODO.
+    We will show that the functor $ L \mapsto L_0 $ is an equivalence of categories.
 
-    In the other direction, it sends a $ \Lambda $-algebra $ A $ to the theory of extensions $ \Lambda_A $ \TODO. It is a $ \lambda $-theory because it is isomorphic \TODO to the endomorphism $ \lambda $-theory $ E(A(1)) $ of the object $ A(1) $ in $ PA $ \TODO.
+    It is essentially surjective, because $ L $ is isomorphic \TODO to $ E(A(1)) $.
 
-    These constitute an adjoint equivalence. \TODO
+    Now, given morphisms $ f, f^\prime: L \to L^\prime $. Suppose that $ f_0 = f^\prime_0 $. Suppose that $ L $ and $ L^\prime $ have $ \beta $-equality. Then, given $ l: L_n $, we have
+    \[ f_n(l) = \rho^n(\lambda^n(f_n(l))) = \rho^n(f_0(\lambda^n(l))) = \rho^n(f^\prime_0(\lambda^n(l))) = \rho^n(\lambda^n(f^\prime_n(l))) = f^\prime_n(l), \]
+    so the functor is faithful.
+
+    The functor is full because a $ \Lambda $-algebra morphism $ f: A \to A^\prime $ induces a morphism $ f^*: PA^\prime \to PA $ \TODO, and via left Kan extension we get a left adjoint $ f_*: PA \to PA^\prime $ with $ f_*(A(1)) \cong A^\prime(1) $ \TODO. Now, $ f_* $ preserves (finite) products \TODO, so we have maps $ PA(A(1)^n, A(1)) \to PA^\prime(A^\prime(1)^n, A^\prime(1)) $ and so a map $ E(A(1)) \to E(A^\prime(1)) $ \TODO. This map, when restricted to a map $ PA(1, A(1)) \to PA^\prime(1, A(1)) $, and transported along the isomorphism $ a \mapsto a I $ \TODO, is equal to $ f $ \TODO.
+  \end{proof}
+
+  \begin{lemma}
+    The category of $ T $-algebras has coproducts.
+  \end{lemma}
+  \begin{proof}
+    \TODO
+  \end{proof}
+
+  \begin{definition}[Theory of extensions]
+    Let $ T $ be an algebraic theory and $ A $ a $ T $-algebra. We can define an algebraic theory $ T_A $ called `the theory of extensions of $ A $' with $ (T_A)_n = T_n + A $. The left injection of the variables $ x_i : T_n $ gives the variables.
+    Now, take $ h: (T_n + A)^m $. Sending $ g: T_m $ to $ \varphi(g) := g \bullet h $ gives a $ T $-algebra morphism $ T_m \to T_n + A $ since
+    \[ \varphi(f \bullet g) = f \bullet g \bullet h = f \bullet (g_i \bullet h) = f \bullet (\varphi(g_i))_i. \]
+    This, together with the injection morphism of $ A $ into $ T_n + A $, gives us a $ T $-algebra morphism from the coproduct: $ T_m + A \to T_n + A $. We especially have a function on sets $ (T_m + A) \times (T_n + A)^m \to T_n + A $, which we will define our substitution to be.
+  \end{definition}
+
+  \begin{lemma}
+    $ T_A $ is indeed an algebraic theory.
+  \end{lemma}
+  \begin{proof}
+    \TODO
   \end{proof}
 
   \bibliographystyle{alpha}
