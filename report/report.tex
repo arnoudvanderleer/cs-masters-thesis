@@ -534,13 +534,114 @@
     We have $ A(1)^{A(1)} \cong A(2) $.
   \end{lemma}
   \begin{proof}
-    \TODO
+    We have a bijection $ \varphi: A(2) \cong F_{A(1), A(1)} $, given by
+    \[ \varphi(a)(b, b^\prime) = (\lambda x_4, x_1 (x_2 x_4) (x_3 x_4)) \bullet (a, b, b^\prime). \]
+    Note that $ \varphi(d) $ is equivariant because \TODO
+    Now, $ \varphi $ is a presheaf morphism because \TODO
+
+    Take $ p = \lambda x_1, x_1 (\lambda x_2 x_3, x_2) $ and $ q = \lambda x_1, x_1 (\lambda x_2 x_3, x_3) $. These are elements of $ A(1) $. Note that for terms $ c_1, c_2 $
+    \begin{align*}
+      p (\lambda x_1, x_1 c_1 c_2)
+      &= (\lambda x_1, x_1 c_1 c_2) (\lambda x_2 x_3, x_2)\\
+      &= (\lambda x_1 x_3, x_2) c_1 c_2\\
+      &= c_1.
+    \end{align*}
+    In the same way, $ q \circ (\lambda x_1 x_2, x_2 c_1 c_2) = c_2 $.
+
+    An inverse is given by
+    \[ \psi: f \mapsto \lambda x_1 x_2, f(p, q)(\lambda x_3, x_3 x_1 x_2). \]
+    This is a presheaf morphism because \TODO
+
+    This is an inverse, because given $ f: F_{A(1), A(1)} $ and$ (a_1, a_2): A(1) \times A(1) $, we have
+    \begin{align*}
+      \varphi(\psi(f))(a_1, a_2) &= u(\lambda x_1 x_2, f(p, q)(\lambda x_3, x_3 x_1 x_2))(a_1, a_2)\\
+      &= \lambda x_1, (\lambda x_2 x_3, f(p, q)(\lambda x_4, x_4 x_2 x_3)) (a_1 x_1) (a_2 x_1)\\
+      &= \lambda x_1, f(p, q)(\lambda x_2, x_2 (a_1 x_1) (a_2 x_1))\\
+      &= f(p, q) \circ (\lambda x_1, (\lambda x_2, x_2 (a_1 x_1) (a_2 x_1)))\\
+      &= f(p \circ (\lambda x_1, (\lambda x_2, x_2 (a_1 x_1) (a_2 x_1))), q \circ (\lambda x_1, (\lambda x_2, x_2 (a_1 x_1) (a_2 x_1))))\\
+      &= f(\lambda x_1, p (\lambda x_2, x_2 (a_1 x_1) (a_2 x_1)), \lambda x_1, q (\lambda x_2, x_2 (a_1 x_1) (a_2 x_1)))\\
+      &= f(\lambda x_1, a_1 x_1, \lambda x_1, a_2 x_1)\\
+      &= f(a_1, a_2).
+    \end{align*}
+    The last line is because $ a_i : A(1) $ and therefore $ \lambda x_1, a_i x_1 = a_i $.
+
+    On the other hand, if we have $ a_1: A(2) $, we have
+    \begin{align*}
+      \psi(\varphi(a_1)) &= \psi((a_2, a_3) \mapsto \lambda x_1, a_1 (a_2 x_1) (a_3 x_1))\\
+      &= \lambda x_1 x_2, (\lambda x_3, a_1 (p x_3) (q x_3)) (\lambda x_3, x_3 x_1 x_2)\\
+      &= \lambda x_1 x_2, a_1 (p (\lambda x_3, x_3 x_1 x_2)) (q (\lambda x_3, x_3 x_1 x_2))\\
+      &= \lambda x_1 x_2, a_1 x_1 x_2\\
+      &= a_1.
+    \end{align*}
+    The last line is because $ a_1 : A(2) $ and therefore $ \lambda x_1 x_2, a_1 x_1 x_2 = a_1 $.
+
+    Therefore, this map is a bijection and an isomorphism.
   \end{proof}
 
   \begin{definition}[Endomorphism $ \lambda $-theory of a $ \Lambda $-algebra]
     $ PA $ borrows products from $ \SET $. Therefore, the algebraic theory $ E(A(1)) $ exists. Now note that $ A(1) $ is exponentiable and $ A(1)^{A(1)} \cong A(2) $.
     Note that $ A(2) \subseteq A(1) $ and that $ (\lambda x_2 x_3, x_1 x_2 x_3) \bullet - $ gives a function from $ A(1) $ to $ A(2) $. This gives $ E(A(1)) $ a $ \lambda $-theory structure.
   \end{definition}
+
+  \begin{definition}[Pullback functor on presheaves for a $ \Lambda $-algebra]
+    Let $ f: A \to A^\prime $ be a $ \Lambda $-algebra morphism. Then for all $ a: A(n) $,
+    \[ \mathbf 1_n \circ f(a) = f(\mathbf 1_n) \circ f(a) = f(\mathbf 1_n \circ a), \]
+    so we have an induced morphism $ f: A(n) \to A^\prime(n) $.
+
+    Now, given a presheaf $ P: PA^\prime $. We can create a presheaf $ f^* P : PA $ by taking the set of $ P $, and, for $ p: P $ and $ a: A $, setting $ pa = p \circ f(a) $. This is indeed a presheaf because \TODO
+
+    Now, given a morphism $ g: P \to P^\prime $, we get a morphism by taking the function on the sets of $ P $ and $ P^\prime $. This is a morphism because \TODO
+  \end{definition}
+
+  \begin{lemma}
+    The above indeed constitutes a functor.
+  \end{lemma}
+  \begin{proof}
+    \TODO
+  \end{proof}
+
+  Left Kan extension then gives a left adjoint $ f_*: PA \to PA^\prime $.
+
+  \begin{lemma}
+    We have $ f_*(A(1)) \cong A^\prime(1) $.
+  \end{lemma}
+  \begin{proof}
+    \TODO
+  \end{proof}
+
+  \begin{lemma}
+    $ f_* $ preserves finite products.
+  \end{lemma}
+  \begin{proof}
+    \TODO
+  \end{proof}
+
+  \begin{definition}
+    Since $ f_* $ preserves finite products, given an element of $ g: E(A(1))(n) = PA(A(1)^n, A(1)) $, we get
+    \[ \# f_*(g): PA^\prime(f(A(1)^n), f(A(1))) \cong PA^\prime(A^\prime(1)^n, A^\prime(1)) = E(A^\prime(1))(n). \]
+  \end{definition}
+
+  \begin{lemma}
+    $ \# f_*: E(A(1)) \to E(A^\prime(1)) $ is a map of $ \lambda $-theories.
+  \end{lemma}
+  \begin{proof}
+    \TODO
+  \end{proof}
+
+  \begin{definition}
+    We have an isomorphism $ E(A(1))(0) \cong A $ given by $ a \mapsto a I $.
+  \end{definition}
+
+  \begin{lemma}
+    This is indeed an isomorphism of $ \Lambda $-algebras.
+  \end{lemma}
+  \begin{proof}
+    \TODO
+  \end{proof}
+
+  \begin{lemma}
+    Given $ g: A \to A^\prime $,
+  \end{lemma}
 
   \begin{theorem}
     There exists an adjoint equivalence between the category of $ \lambda $-theories, and the category of algebras of $ \Lambda $.
@@ -554,7 +655,7 @@
     \[ f_n(l) = \rho^n(\lambda^n(f_n(l))) = \rho^n(f_0(\lambda^n(l))) = \rho^n(f^\prime_0(\lambda^n(l))) = \rho^n(\lambda^n(f^\prime_n(l))) = f^\prime_n(l), \]
     so the functor is faithful.
 
-    The functor is full because a $ \Lambda $-algebra morphism $ f: A \to A^\prime $ induces a morphism $ f^*: PA^\prime \to PA $ \TODO, and via left Kan extension we get a left adjoint $ f_*: PA \to PA^\prime $ with $ f_*(A(1)) \cong A^\prime(1) $ \TODO. Now, $ f_* $ preserves (finite) products \TODO, so we have maps $ PA(A(1)^n, A(1)) \to PA^\prime(A^\prime(1)^n, A^\prime(1)) $ and so a map $ E(A(1)) \to E(A^\prime(1)) $ \TODO. This map, when restricted to a map $ PA(1, A(1)) \to PA^\prime(1, A(1)) $, and transported along the isomorphism $ a \mapsto a I $ \TODO, is equal to $ f $ \TODO.
+    The functor is full because a $ \Lambda $-algebra morphism $ f: A \to A^\prime $ induces a functor $ f^*: PA^\prime \to PA $, and via left Kan extension we get a left adjoint $ f_*: PA \to PA^\prime $ with $ f_*(A(1)) \cong A^\prime(1) $. Now, $ f_* $ preserves (finite) products, so we have maps $ PA(A(1)^n, A(1)) \to PA^\prime(A^\prime(1)^n, A^\prime(1)) $ and so a map $ E(A(1)) \to E(A^\prime(1)) $. This map, when restricted to a map $ PA(1, A(1)) \to PA^\prime(1, A(1)) $, and transported along the isomorphism $ a \mapsto a I $ \TODO, is equal to $ f $ \TODO.
   \end{proof}
 
   \begin{lemma}
