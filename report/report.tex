@@ -17,6 +17,7 @@
 
 \newcommand{\id}[1]{\ensuremath{\text{id}_{#1}}}
 \newcommand{\op}[1]{\ensuremath{#1^{\text{op}}}}
+\newcommand{\Lan}[2]{\ensuremath{\text{Lan}_{#1}#2}}
 \newcommand\SET{\mathbf{SET}}
 \newcommand\TODO{\textbf{(TODO)} }
 
@@ -76,7 +77,7 @@
   \end{definition}
 
   \begin{remark}
-    The category of algebras has all limits. The set of a limit of algebras is the limit of the underlying algebras.
+    The category of algebras has all limits. The set of a limit of algebras is the limit of the underlying sets.
   \end{remark}
 
   \begin{remark}
@@ -113,10 +114,10 @@
   \begin{definition}[$ \lambda $-theory]
     A $ \lambda $-theory is an algebraic theory $ L $, together with sequences of functions $ \lambda_n: L_{n + 1} \to L_n $ and $ \rho_n: L_n \to L_{n + 1} $, such that
     \begin{align*}
-      \lambda(f) \bullet g &= \lambda(f \bullet (g_1, \dots, g_m, x_{n + 1}))\\
-      \rho(f \bullet g) &= \rho(f) \bullet (g_1, \dots, g_m, x_{n + 1})\\
+      \lambda_m(f) \bullet h &= \lambda_n(f \bullet (h_1, \dots, h_m, x_{n + 1}))\\
+      \rho_n(g \bullet h) &= \rho_m(g) \bullet (h_1, \dots, h_m, x_{n + 1})\\
     \end{align*}
-    for all $ f: L_m $ and $ g: L_n^m $. (\TODO: Fix)
+    for all $ f: L_{m + 1} $, $ g: L_m $ and $ h: L_n^m $.
   \end{definition}
 
   \begin{definition}[$ \beta $- and $ \eta $-equality]
@@ -137,6 +138,23 @@
   \end{remark}
 
   A $ \lambda $-theory algebra or presheaf is a presheaf for the underlying algebraic theory.
+
+  \section{Alternate definitions}
+  \begin{definition}
+    Lawvere theory: \TODO
+  \end{definition}
+  \begin{definition}
+    Relative monad: \TODO
+  \end{definition}
+  \begin{definition}
+    Abstract clone: \TODO
+  \end{definition}
+  \begin{definition}
+    Cartesian Operad: \TODO
+  \end{definition}
+  (https://ncatlab.org/nlab/show/lambda+theory)
+
+  \include{chapters/category-theory}
 
   \chapter{Lemmas}
 

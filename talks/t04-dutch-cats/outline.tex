@@ -44,13 +44,33 @@
 
   Another example is a polynomial ring. It has variables, you can add and multiply polynomials together. And if you have two polynomials, you can substitute one in the place of a variable in the other to get a new polynomial.
 
-  The formal definition of an algebraic theory is
+  The formal definition of an algebraic theory is a sequence of sets $ T_n $, you can think of those as containing the terms in $ n $ free variables, with variables $ x_1, \dots, x_n $ in set $ n $, and a substitution. You can view the substitution as taking a term with $ m $ free variables, and $ m $ terms with $ n $ free variables, and substituting the $ g $'s for the free variables in $ f $.
+
+  I have seen structures like algebraic theories in a lot of literature. They are known by different names: Lawvere theories, cartesian operads, abstract clones or algebraic theories.
+
+  Now we are able to start talking formally about models for the $ \lambda $-theory, by extending the notion of algebraic theory. A $ \lambda $-theory is an algebraic theory, together with abstraction functions, that take a term with $ n + 1 $ free variables and give a term with $ n $ free variables, and application functions that go the other way around.
+
+  A somewhat important example of a $ \lambda $-theory is the pure $ \lambda $-calculus.
+
+  We can also consider models with $ \beta $- and/or $ \eta $-equality, by saying that $ \lambda $ after $ \rho $ or the other way around must be the identity.
+
+  I feel like $ \lambda $-theories are a lot less known than algebraic theories. They were not mentioned in the literature that I saw about algebraic theories, and I have only seen the term in this specific paper.
 
   \subsection{Semantics}
 
+  Now we will talk a bit about semantics, interpretations or denotations, because we want to interpret the terms in our algebraic theories as functions on some set. More specifically, we want to interpret the terms in $ n $ variables as functions that take $ n $ elements of a set and give an element of the set again.
+
+  For example, in the case of our polynomial ring, we can take as the set the rational numbers, and a polynomial in $ n $ variables then gives an $ n $-ary function.
+
+  The formal definition is \dots
+
   \section{The main theorems}
 
+  Now we get to the main theorems.
+
   \subsection{Scott's representation theorem}
+
+  The first theorem, Scott's representation theorem, states that (\dots).
 
   \subsection{The fundamental theorem of the $\lambda$-calculus}
 

@@ -1,11 +1,15 @@
 \documentclass[aspectratio=169]{fancyslides} % or beamer/slides
 
-% \usepackage{stmaryrd}
 \usepackage{tikz-cd}
 \usepackage{datetime2}
+\usepackage{stackengine}
+
+\setlength{\parskip}{.5\baselineskip}
+\setbeamertemplate{footline}[frame number]
 
 \title{Semantics for the \texorpdfstring{$ \lambda $}{lambda}-calculus}
 \author{Arnoud van der Leer\\Delft University of Technology\\\texttt{arnoudvanderleer@gmail.com}}
+
 
 \begin{document}
   \maketitle
@@ -23,11 +27,37 @@
     \end{itemize}
   \end{frame}
 
-  \frame{\tableofcontents}
+  \begin{frame}[fragile]
+    \begin{columns}
+      \begin{column}{.5\textwidth}
+        \tableofcontents
+      \end{column}
+      \begin{column}{.5\textwidth}
+        \begin{tikzcd}
+          \Lambda-algebras \arrow[d, harpoon, shift left]           &                                                   \\
+          \lambda-theories \arrow[d] \arrow[u, harpoon, shift left] & \stackanchor{Endomorphism}{theories} \arrow[l, two heads, hook] \\
+          \stackanchor{Relatively\ Cartesian}{Closed\ Categories}   &
+        \end{tikzcd}
+      \end{column}
+    \end{columns}
+  \end{frame}
 
   \section{Talking about the \texorpdfstring{$\lambda$}{lambda}-calculus}
 
-  \frame{\tableofcontents[currentsection]}
+  \begin{frame}[fragile]
+    \begin{columns}
+      \begin{column}{.5\textwidth}
+        \tableofcontents[currentsection]
+      \end{column}
+      \begin{column}{.5\textwidth}
+        \begin{tikzcd}
+          \Lambda-algebras \arrow[d, harpoon, shift left]           &                                                   \\
+          \lambda-theories \arrow[d] \arrow[u, harpoon, shift left] & \stackanchor{Endomorphism}{theories} \arrow[l, two heads, hook] \\
+          \stackanchor{Relatively\ Cartesian}{Closed\ Categories}   &
+        \end{tikzcd}
+      \end{column}
+    \end{columns}
+  \end{frame}
 
   \begin{frame}
     \frametitle{The \textbf{untyped} $ \lambda $-calculus}
@@ -107,9 +137,23 @@
 
   \section{The main theorems}
 
-  \frame{\tableofcontents[currentsection]}
-
   \subsection{Scott's representation theorem}
+
+  \begin{frame}[fragile]
+    \begin{columns}
+      \begin{column}{.5\textwidth}
+        \tableofcontents[currentsubsection]
+      \end{column}
+      \begin{column}{.5\textwidth}
+        \begin{tikzcd}
+          \Lambda-algebras \arrow[d, harpoon, shift left]           &                                                   \\
+          \lambda-theories \arrow[d] \arrow[u, harpoon, shift left] & \stackanchor{Endomorphism}{theories} \arrow[l, two heads, hook] \\
+          \stackanchor{Relatively\ Cartesian}{Closed\ Categories}   &
+        \end{tikzcd}
+      \end{column}
+    \end{columns}
+  \end{frame}
+
   \begin{frame}
     \frametitle{Scott's representation theorem (1980)}
 
@@ -121,10 +165,9 @@
 
     \pause
 
-    For $ \lambda: E(X)_{n + 1} \to E(X)_n $, postcomposing with some morphism $ \overline{abs}: (X \to X) \to X $ gives
-    \[ \lambda: E(X)_{n + 1} = (X^{n + 1} \to X) \simeq (X^n \to (X \to X)) \xrightarrow{\overline{abs}\ \circ\ -} (X^n \to X) = E(X)_n. \]
-
-    In the same way, we get $ \rho: E(X)_n \to E(X)_{n + 1} $ from a morphism $ \overline{app}: X \to (X \to X) $.
+    We obtain $ \lambda: E(X)_{n + 1} \to E(X)_n $ as
+    \[ \lambda: E(X)_{n + 1} = (X^{n + 1} \to X) \simeq (X^n \to X^X) \xrightarrow{\overline{abs}\ \circ\ -} (X^n \to X) = E(X)_n. \]
+    for some morphism $ \overline{abs}: X^X \to X $. In the same way, we get $ \rho: E(X)_n \to E(X)_{n + 1} $ from a morphism $ \overline{app}: X \to X^X $.
   \end{frame}
 
   \begin{frame}
@@ -134,10 +177,27 @@
 
     $ C $ is the category of sequences of sets $ (P_i)_i $ with a composition $ P_m \times L_n^m \to P_n $ and $ X $ is the sequence $ (L_i)_i $.
 
+    \pause
+
     With Hyland's definitions and some lemmas, the representation theorem arises before you know it \textit{(on paper)}.
   \end{frame}
 
   \subsection{The fundamental theorem of the \texorpdfstring{$\lambda$}{lambda}-calculus}
+
+  \begin{frame}[fragile]
+    \begin{columns}
+      \begin{column}{.5\textwidth}
+        \tableofcontents[currentsubsection]
+      \end{column}
+      \begin{column}{.5\textwidth}
+        \begin{tikzcd}
+          \Lambda-algebras \arrow[d, harpoon, shift left]           &                                                   \\
+          \lambda-theories \arrow[d] \arrow[u, harpoon, shift left] & \stackanchor{Endomorphism}{theories} \arrow[l, two heads, hook] \\
+          \stackanchor{Relatively\ Cartesian}{Closed\ Categories}   &
+        \end{tikzcd}
+      \end{column}
+    \end{columns}
+  \end{frame}
   \begin{frame}
     \frametitle{``The fundamental theorem of the $ \lambda $-Calculus''}
 
@@ -146,7 +206,6 @@
     \pause
 
     There is also a functor from $ \Lambda $-algebras to $ \lambda $-theories.
-
     This functor again uses the endomorphism theory $ E(X) $ for some object $ X $ to construct the $ \lambda $-theory.
 
     \pause
@@ -155,6 +214,21 @@
   \end{frame}
 
   \subsection{The category of retracts}
+
+  \begin{frame}[fragile]
+    \begin{columns}
+      \begin{column}{.5\textwidth}
+        \tableofcontents[currentsubsection]
+      \end{column}
+      \begin{column}{.5\textwidth}
+        \begin{tikzcd}
+          \Lambda-algebras \arrow[d, harpoon, shift left]           &                                                   \\
+          \lambda-theories \arrow[d] \arrow[u, harpoon, shift left] & \stackanchor{Endomorphism}{theories} \arrow[l, two heads, hook] \\
+          \stackanchor{Relatively\ Cartesian}{Closed\ Categories}   &
+        \end{tikzcd}
+      \end{column}
+    \end{columns}
+  \end{frame}
   \begin{frame}
     \frametitle{The category of retracts}
 
@@ -168,21 +242,26 @@
     This category is cartesian closed: it has products, and `exponentials'. So its morphisms constitute a simply typed $ \lambda $-calculus: we can do \textit{type theory} with the morphisms.
   \end{frame}
 
-  \begin{frame}
-    \frametitle{Locally cartesian closed}
+  \begin{frame}[fragile]
+    \frametitle{Relatively cartesian closed}
     This category is cartesian closed: it has products, and `exponentials'. So its morphisms constitute a simply typed $ \lambda $-calculus: we can do \textit{type theory} with the morphisms.
 
     \pause
 
     If we want to do \textit{dependent type theory}, we need dependent products and sums.
 
-    For a morphism $ f: A \to B $, we have a pullback functor between slice categories $ f^*: R / B \to R / A $. We have a dependent product and sum along $ f $ if $ f^* $ has a right and a left adjoint.
+    \begin{center}
+      \begin{tikzcd}
+        R / A \arrow[d, dashed] \arrow[r, "f^*" description] & R / B \arrow[d, dashed] \arrow[l, "\sum_f"', bend right] \arrow[l, "\prod_f", bend left] \\
+        A & B \arrow[l, "f"]
+      \end{tikzcd}
+    \end{center}
 
-    If the category is \textit{locally cartesian closed}, we have all dependent products, and so all pullback functors have both adjoints.
+    \textit{Locally cartesian closed}: all pullback functors have both adjoints.
 
     \pause
 
-    But this is too strong a requirement. Not all pullback functors have both adjoints, but some do. $ R $ is \textit{relatively cartesian closed}.
+    In $ R $, not all pullback functors have both adjoints, but some do: \textit{relatively cartesian closed}.
 
     \pause
 
@@ -190,7 +269,20 @@
   \end{frame}
 
   \section{My contribution}
-  \frame{\tableofcontents[currentsection]}
+  \begin{frame}[fragile]
+    \begin{columns}
+      \begin{column}{.5\textwidth}
+        \tableofcontents[currentsection]
+      \end{column}
+      \begin{column}{.5\textwidth}
+        \begin{tikzcd}
+          \Lambda-algebras \arrow[d, harpoon, shift left]           &                                                   \\
+          \lambda-theories \arrow[d] \arrow[u, harpoon, shift left] & \stackanchor{Endomorphism}{theories} \arrow[l, two heads, hook] \\
+          \stackanchor{Relatively\ Cartesian}{Closed\ Categories}   &
+        \end{tikzcd}
+      \end{column}
+    \end{columns}
+  \end{frame}
 
   \subsection{Annotating the paper}
   \begin{frame}
@@ -204,7 +296,7 @@
       \item Learn the background.
       \item Decode the definitions and theorems.
       \item Find examples.
-      \item Formalize.
+      \item Formalize (on paper).
       \item Mechanize.
     \end{itemize}
 
@@ -229,7 +321,20 @@
 
   \section{Conclusion}
 
-  \frame{\tableofcontents[currentsection]}
+  \begin{frame}[fragile]
+    \begin{columns}
+      \begin{column}{.5\textwidth}
+        \tableofcontents[currentsection]
+      \end{column}
+      \begin{column}{.5\textwidth}
+        \begin{tikzcd}
+          \Lambda-algebras \arrow[d, harpoon, shift left]           &                                                   \\
+          \lambda-theories \arrow[d] \arrow[u, harpoon, shift left] & \stackanchor{Endomorphism}{theories} \arrow[l, two heads, hook] \\
+          \stackanchor{Relatively\ Cartesian}{Closed\ Categories}   &
+        \end{tikzcd}
+      \end{column}
+    \end{columns}
+  \end{frame}
 
   \begin{frame}
     \frametitle{Conclusion}
