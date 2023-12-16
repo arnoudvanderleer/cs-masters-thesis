@@ -2,6 +2,18 @@
 
 I will assume a familiarity with the category-theoretical concepts presented in \cite{CT4P}. These include categories, functors, isomorphisms, natural transformations, adjunctions, equivalences and limits.
 
+\section{Notation}
+For an object $ c $ in a category $ C $, I will write $ c: C $.
+
+For a morphism $ f $ between objects $ c $ and $ c^\prime $ in a category $ C $, I will write $ f: C(c, c^\prime) $ or $ f: c \to c^\prime $.
+
+For composition of morphisms $ f: C(c, d) $ and $ g: C(d, e) $, I will write $ f \cdot g $.
+
+For composition of functors $ F: A \to B $ and $ G: B \to C $, I will write $ F \bullet G $.
+
+\section{Adjunctions}
+An adjoint equivalence of categories has multiple definitions. The one we will use here is the following:
+
 \tikzset{%
     symbol/.style={%
         draw=none,
@@ -10,8 +22,6 @@ I will assume a familiarity with the category-theoretical concepts presented in 
     }
 }
 
-\section{Adjunctions}
-An adjoint equivalence of categories has multiple definitions. The one we will use here is the following:
 \begin{definition}
   An adjoint equivalence between categories $ C $ and $ D $ is a pair of adjoint functors
   \begin{center}
@@ -20,7 +30,7 @@ An adjoint equivalence of categories has multiple definitions. The one we will u
       \ar[from=L, to=R, symbol=\dashv]
     \end{tikzcd}
   \end{center}
-  such that the unit $ \eta: \id{C} \Rightarrow R \circ L $ and counit $ \epsilon: L \circ R \Rightarrow \id{D} $ are isomorphisms of functors.
+  such that the unit $ \eta: \id{C} \Rightarrow L \bullet R $ and counit $ \epsilon: R \bullet L \Rightarrow \id{D} $ are isomorphisms of functors.
 \end{definition}
 
 
@@ -65,13 +75,13 @@ If a category has limits (resp. colimits), we can construct the right (resp. lef
   \end{center}
   and $ (F \downarrow b) \to A $ denotes the projection functor that sends $ f: B(F(a_1), b) $ to $ a_1 $.
 
-  Now, a morphism $ h: B(b, b^\prime) $ gives a morphism of diagrams, sending the $ F(a) $ corresponding to $ f: B(G(a), b) $ to the $ F(a) $ corresponding to $ h \circ f: B(G(a), b^\prime) $. From this, we get a morphism $ \Lan F G(h): C(\Lan F G(b), \Lan F G(b^\prime)) $.
+  Now, a morphism $ h: B(b, b^\prime) $ gives a morphism of diagrams, sending the $ F(a) $ corresponding to $ f: B(G(a), b) $ to the $ F(a) $ corresponding to $ f \cdot h: B(G(a), b^\prime) $. From this, we get a morphism $ \Lan F G(h): C(\Lan F G(b), \Lan F G(b^\prime)) $.
 
-  The unit of the adjunction is a natural transformation $ \eta: \id{[A, C]} \Rightarrow F_* \circ \Lan F {} $. We will define this pointwise, for $ G: [A, C] $ and $ a: A $. Our diagram contains the $ G(a) $ corresponding to $ \id{F(a)}: (F \downarrow F(a)) $ and the colimit cocone gives a morphism
+  The unit of the adjunction is a natural transformation $ \eta: \id{[A, C]} \Rightarrow \Lan F {} \bullet F_* $. We will define this pointwise, for $ G: [A, C] $ and $ a: A $. Our diagram contains the $ G(a) $ corresponding to $ \id{F(a)}: (F \downarrow F(a)) $ and the colimit cocone gives a morphism
   \[ \eta_G(a) : C(G(a), \Lan F G (F(a))), \]
-  the latter being equal to $ (F_* \circ \Lan F {})(G)(a) $.
+  the latter being equal to $ (\Lan F {} \bullet F_*)(G)(a) $.
 
-  The counit of the adjunction is a natural transformation $ \epsilon: \Lan F {} \circ F_* \Rightarrow \id{[B, C]} $. We will also define this pointwise, for $ G: [B, C] $ and $ b: B $. The diagram for $ \Lan F (F_* G)(b) $ consists of $ G(F(a)) $ for all $ f: B(F(a), b) $. Then, by the universal property of the colimit, the morphisms $ G(f): C(G(F(a)), G(b)) $ induce a morphism
+  The counit of the adjunction is a natural transformation $ \epsilon: F_* \bullet \Lan F {} \Rightarrow \id{[B, C]} $. We will also define this pointwise, for $ G: [B, C] $ and $ b: B $. The diagram for $ \Lan F (F_* G)(b) $ consists of $ G(F(a)) $ for all $ f: B(F(a), b) $. Then, by the universal property of the colimit, the morphisms $ G(f): C(G(F(a)), G(b)) $ induce a morphism
   \[ \epsilon_G(b) : C(\Lan F (F_* G)(b), G(b)). \]
 \end{proof}
 
@@ -107,9 +117,14 @@ If a category has limits (resp. colimits), we can construct the right (resp. lef
 
 
 \section{The Karoubi envelope}
-Let $ C $ be a category.
+Let $ C $ be a category. If we have a retraction-section pair
+\begin{tikzcd}
+  c \arrow[r, shift left, "r"] & d \arrow[l, shift left, "s"]
+\end{tikzcd}
+we have (by definition) $ s \cdot r = \id d $. On the other hand, $ s \cdot r: c \to c $ is an idempotent morphism. Conversely, we can wonder whether for any idempotent morphism $ a: c \to c $, we can find a retraction-section pair $ r: c \to d $ and $ s: d \to c $ such that $ a = r \cdot s $. If this is the case, we say that the idempotent $ a $ \textit{splits}. If $ a $ does not split, we can wonder whether we can find an embedding $ \iota_C : C \hookrightarrow \overline C $ such that the idempotent $ \iota_C(a): \iota_C(c) \to \iota_C(c) $ does split.
+
 \begin{definition}
-  We can define another category $ \overline C $. The objects of $ C $ are tuples $ (c, a) $ with $ c: C $, $ a: C(c, c) $ such that $ a \circ a = a $. The morphisms between $ (c, a) $ and $ (d, b) $ are morphisms $ f: C(a, b) $ such that $ b \circ f \circ a = f $. The identity morphism on $ (c, a) $ is given by $ a $ and $ \overline C $ inherits morphism composition from $ C $.
+  We define the category $ \overline C $. The objects of $ \overline C $ are tuples $ (c, a) $ with $ c: C $, $ a: C(c, c) $ such that $ a \cdot a = a $. The morphisms between $ (c, a) $ and $ (d, b) $ are morphisms $ f: C(a, b) $ such that $ a \cdot f \cdot b = f $. The identity morphism on $ (c, a) $ is given by $ a $ and $ \overline C $ inherits morphism composition from $ C $.
 \end{definition}
 This category is called the \textit{Karoubi Envelope}, the \textit{idempotent completion}, the \textit{category of retracts}, or the \textit{Cauchy completion} of $ C $.
 
@@ -128,22 +143,59 @@ This category is called the \textit{Karoubi Envelope}, the \textit{idempotent co
 
 \begin{remark}
   Note that for a morphism $ f: \overline C((c, a), (d, b)) $,
-  \[ f \circ a = b \circ f \circ a \circ a = b \circ f \circ a = f \]
-  and in the same way, $ b \circ f = f $.
+  \[ a \cdot f = a \cdot a \cdot f \cdot b = a \cdot f \cdot b = f \]
+  and in the same way, $ f \cdot b = f $.
 \end{remark}
 
 \begin{definition}
   We have an embedding $ \iota_C: C \to \overline C $, sending $ c: C $ to $ (c, \id{c}) $ and $ f: C(c, d) $ to $ f $.
 \end{definition}
 
+\begin{lemma}
+  Every object $ c: \overline C $ is a retract of $ \iota_C(c_0) $ for some $ c_0: C $.
+\end{lemma}
+\begin{proof}
+  Note that $ c = (c_0, a) $ for some $ c_0: C $ and an idempotent $ a: c \to c $. We have morphisms
+  \begin{tikzcd}
+    \iota_C(c) \arrow[r, shift left, "a_\rightarrow"] & (c, a) \arrow[l, shift left, "a_\leftarrow"]
+  \end{tikzcd}, both given by $ a $. We have $ a_\leftarrow \cdot a_\rightarrow = a = \id{(c, a)} $, so $ (c, a) $ is a retract of $ \iota_C(c) $.
+\end{proof}
+
+\begin{lemma}
+  Every idempotent splits in $ \overline C $.
+\end{lemma}
+\begin{proof}
+  Take an idempotent $ a: C(c, c) $. We have an object $ (c, a): \overline C $. By the previous lemma, $ (c, a) $ is a retract of $ \iota_C(c) $. We have $ \iota_C(a) = a = a_\rightarrow \cdot a_\leftarrow $, so $ a $ splits in $ \overline C $.
+\end{proof}
+
 \begin{remark}
   Note that the embedding is fully faithful, since
-  \[ \overline C((c, \id c), (d, \id d)) = \{ f: C(c, d) \mid \id d \circ f \circ \id c = f \} = C(c, d). \]
+  \[ \overline C((c, \id c), (d, \id d)) = \{ f: C(c, d) \mid \id c \cdot f \cdot \id d = f \} = C(c, d). \]
 \end{remark}
 
-Let $ D $ be a category with colimits.
+\begin{remark}
+  Let $ D $ be a category. Suppose that we have a retraction-section pair in $ D $, given by
+  \begin{tikzcd}
+    d \arrow[r, shift left, "r"] & d^\prime \arrow[l, shift left, "s"]
+  \end{tikzcd}.
+  Now, suppose that we have an object $ c: D $ and a morphism $ f $ with $ (r \cdot s) \cdot f = f $. Then we get a morphism $ s \cdot f: d^\prime \to c $ such that $ f $ factors as $ r \cdot (s \cdot f) $. Also, for any $ g $ with $ r \cdot g = f $, we have
+  \[ g = s \cdot r \cdot g = s \cdot f. \]
+  \begin{center}
+    \begin{tikzcd}
+      d \arrow[r, left, "r"] \arrow[rd, "f"'] & d^\prime \arrow[r, "s"] \arrow[d, "s \cdot f" description] & d \arrow[ld, "f"]\\
+      & c
+    \end{tikzcd}.
+  \end{center}
+  Therefore, $ d^\prime $ is the equalizer of \begin{tikzcd}
+    d \arrow[r, shift left, "\id d"] \arrow[r, shift right, "r \cdot s"'] & d
+  \end{tikzcd}. In the same way, it is also the coequalizer of this diagram.
+\end{remark}
+
+Since a functor preserves retracts, and since every object of $ \overline C $ is a retract of an object in $ C $, one can lift a functor from $ C $ (to a category with (co)equalizers) to a functor on $ \overline C $.
+
+For convenience, the lemma below works with pointwise left Kan extension using colimits, but one could also prove this using just (co)equalizers (or right Kan extension using limits).
 \begin{lemma}
-  We have an adjoint equivalence between $ [C, D] $ and $ [\overline C, D] $.
+  Let $ D $ be a category with colimits. We have an adjoint equivalence between $ [C, D] $ and $ [\overline C, D] $.
 \end{lemma}
 \begin{proof}
   We already have an adjunction $ \Lan {\iota_C} {} \dashv \iota_{C*} $. Also, since $ \iota_C $ is fully faithful, we know that $ \eta $ is a natural isomorphism. Therefore, we only have to show that $ \epsilon $ is a natural isomorphism. That is, we need to show that $ \epsilon_G(c, a): D(\Lan {\iota_C} (\iota_{C*} G) (c, a), G(c, a)) $ is an isomorphism for all $ G: [\overline C, D] $ and $ (c, a): \overline C $.
@@ -151,18 +203,8 @@ Let $ D $ be a category with colimits.
   One of the components in the diagram of $ \Lan {\iota_C} (\iota_{C*} G) (c, a) $ is the $ \iota_{C*} G(c) = G(c, \id c) $ corresponding to $ a: \iota_C(c) \to (c, a) $. This component has a morphism into our colimit
   \[ \varphi: C(G(\iota_C(c)), \Lan {\iota_C} (\iota_{C*} G) (c, a)). \]
   Note that we can view $ a $ as a morphism $ a: \overline C((c, a), \iota_C(c)) $. This gives us our inverse morphism
-  \[ \varphi \circ G(a): C(G(c, a), \Lan {\iota_C} (\iota_{C*} G) (c, a)). \]
+  \[ G(a) \cdot \varphi: C(G(c, a), \Lan {\iota_C} (\iota_{C*} G) (c, a)). \]
 \end{proof}
-
-\begin{remark}
-  Actually, one does not need the full power of colimits. If one just has coequalizers, one can lift a functor $ G: [C, D] $ to a functor $ \overline G: [\overline C, D] $ by taking $ \overline G(c, a) $ to be the coequalizer of the diagram
-  \begin{center}
-    \begin{tikzcd}
-      G(c) \arrow[r, "G(a)"', shift right] \arrow[r, "\id{G(c)}", shift left] & G(c)
-    \end{tikzcd}
-  \end{center}
-  Alternatively, one could take the equalizer of the diagram, or the right Kan extension along $ \iota_C $.
-\end{remark}
 
 \begin{lemma}
   The formation of the opposite category commutes with the formation of the Karoubi envelope.
@@ -171,8 +213,8 @@ Let $ D $ be a category with colimits.
   An object in $ \overline{\op C} $ is an object $ c: \op C $ (which is just an object $ c: C $), together with an idempotent morphism $ a: \op C(c, c) = C(c, c) $. This is the same as an object in $ \op{\overline C} $.
 
   A morphism in $ \overline{\op C}((c, a), (d, b)) $ is a morphism $ f: \op C(c, d) = C(d, c) $ such that
-  \[ a \circ_C f \circ_C b = b \circ_{\op C} f \circ_{\op C} a = f \]
-  A morphism in $ \op{\overline C}((c, a), (d, b)) = \overline C((d, b), (c, a)) $ is a morphism $ f: C(d, c) $ such that $ a \circ f \circ b = f $.
+  \[ b \cdot_C f \cdot_C a = a \cdot_{\op C} f \cdot_{\op C} b = f. \]
+  A morphism in $ \op{\overline C}((c, a), (d, b)) = \overline C((d, b), (c, a)) $ is a morphism $ f: C(d, c) $ such that $ b \cdot f \cdot a = f $.
 
   Now, in both categories, the identity morphism on $ (c, a) $ is given by $ a $.
 
@@ -183,11 +225,10 @@ Let $ D $ be a category with colimits.
   As the category $ \SET $ is cocomplete, we have an equivalence between the category of presheaves on $ C $ and the category of presheaves on $ \overline C $.
 \end{corollary}
 
-
 \section{Monoids as categories}
 Take a monoid $ M $.
 \begin{definition}
-  We can construct a category $ C_M $ with $ C_{M0} = \{ \star \} $, $ C_M(\star, \star) = M $. The identity morphism on $ \star $ is the identity $ 1: M $. The composition is given by $ f \circ g = f \cdot g $.
+  We can construct a category $ C_M $ with $ C_{M0} = \{ \star \} $, $ C_M(\star, \star) = M $. The identity morphism on $ \star $ is the identity $ 1: M $. The composition is given by multiplication $ g \cdot_{C_M} f = f \cdot_M g $.
 \end{definition}
 
 \begin{definition}
@@ -196,18 +237,31 @@ Take a monoid $ M $.
 \end{definition}
 
 \begin{definition}
-  A \textit{morphism} between sets $ X $ and $ Y $ with a right $ M $- action is an $ M $-equivariant function $ f: X \to Y $: a function such that for all $ x: X $ and $ m: M $, $ f(xm) = f(x)m $.
+  A \textit{morphism} between sets $ X $ and $ Y $ with a right $ M $- action is an $ M $-equivariant function $ f: X \to Y $: a function such that $ f(xm) = f(x)m $ for all $ x: X $ and $ m: M $.
 \end{definition}
 
 \begin{lemma}
   Presheaves on $ C_M $ are equivalent to sets with a right $ M $-action.
 \end{lemma}
 \begin{proof}
-  This correspondence sends a presheaf $ F $ to the set $ F(\star) $, and conversely, the set $ X $ to the presheaf $ F $ given by $ F(\star) := X $. The $ M $-action corresponds to the presheaf acting on morphisms as $ xm = F(m)(x) $. A natural transformation between presheaves $ F \Rightarrow G $ corresponds to a function $ F(\star) \to G(\star) $ that is $ M $-equivariant, so this is exactly a monoid action morphism.
+  This correspondence sends a presheaf $ F $ to the set $ F(\star) $, and conversely, the set $ X $ to the presheaf $ F $ given by $ F(\star) := X $. The $ M $-action corresponds to the presheaf acting on morphisms as $ xm = F(m)(x) $. A morphism (natural transformation) between presheaves $ F \Rightarrow G $ corresponds to a function $ F(\star) \to G(\star) $ that is $ M $-equivariant, which is exactly a monoid action morphism.
 \end{proof}
 
-Monoid monoid action: \TODO\\
-Limits: \TODO\\
+\begin{definition}
+  We can view $ M $ as an object $ U_M $ in $ C_M $, with action $ m n = m \cdot_M n $ for $ m: U_M $ and $ n: M $.
+\end{definition}
+
+\begin{remark}
+  Since the category of sets with an $ M $-action is equivalent to a presheaf category, it has all limits. However, we can make this concrete. The set of the product $ \prod_i X_i $ is the product of the underlying sets. The action is given pointwise by $ (x_i)_i m = (x_i m)_i $.
+\end{remark}
+
+\begin{lemma}
+  The category $ C $ of sets with an $ M $-action has exponentials.
+\end{lemma}
+\begin{proof}
+  Given sets with $ M $-action $ X $ and $ Y $. Consider the set $ C(M \times X, Y) $ with an $ M $-action given by $ \phi m^\prime(m, x) = \phi(m^\prime m, x) $.
+\end{proof}
+
 Exponentials: \TODO\\
 Global elements: \TODO\\
 Restriction of scalars: \TODO\\
