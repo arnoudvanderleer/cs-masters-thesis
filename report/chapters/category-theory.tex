@@ -165,7 +165,12 @@ This category is called the \textit{Karoubi Envelope}, the \textit{idempotent co
   Every idempotent splits in $ \overline C $.
 \end{lemma}
 \begin{proof}
-  Take an idempotent $ a: C(c, c) $. We have an object $ (c, a): \overline C $. By the previous lemma, $ (c, a) $ is a retract of $ \iota_C(c) $. We have $ \iota_C(a) = a = a_\rightarrow \cdot a_\leftarrow $, so $ a $ splits in $ \overline C $.
+  Take an idempotent $ e: \overline C(c, c) $. Note that $ c $ is given by an object $ c_0: C $ and an idempotent $ a: C(c_0, c_0) $. Also, $ e $ is given by some idempotent $ e: C(c_0, c_0) $ with $ a \cdot e \cdot a = e $.
+
+  Now, we have $ (c_0, e): \overline C $ and morphisms
+  \begin{tikzcd}
+    (c_0, a) \arrow[r, shift left, "e_\rightarrow"] & (c_0, e) \arrow[l, shift left, "e_\leftarrow"]
+  \end{tikzcd}, both given by $ e $. We have $ e_\leftarrow \cdot e_\rightarrow = e = \id{(c_0, e)} $, so $ (c_0, e) $ is a retract of $ (c_0, a) $. Also, $ e = e_\rightarrow \cdot e_\leftarrow $, so $ e $ is split.
 \end{proof}
 
 \begin{remark}
@@ -189,6 +194,15 @@ This category is called the \textit{Karoubi Envelope}, the \textit{idempotent co
   Therefore, $ d^\prime $ is the equalizer of \begin{tikzcd}
     d \arrow[r, shift left, "\id d"] \arrow[r, shift right, "r \cdot s"'] & d
   \end{tikzcd}. In the same way, it is also the coequalizer of this diagram.
+
+  Now, note that if we have a coequalizer $ c^\prime $ of $ \id c $ and $ a $, and an equalizer $ d^\prime $ of $ \id d $ and $ b $, the universal properties of these give an equivalence
+  \[ D(c^\prime, d^\prime) \cong \{ f: D(c, d^\prime) \mid a \cdot f = f \} \cong \{ f: D(c, d) \mid a \cdot f = f = f \cdot b \}. \]
+  \begin{center}
+    \begin{tikzcd}
+      c \arrow[r, shift left, "\id c"] \arrow[r, shift right, "a"'] & c \arrow[r] \arrow[d] \arrow[rd] & c^\prime \arrow[d]\\
+      d & d \arrow[l, shift right, "\id d"'] \arrow[l, shift left, "b"] & d^\prime \arrow[l]
+    \end{tikzcd}
+  \end{center}
 \end{remark}
 
 Since a functor preserves retracts, and since every object of $ \overline C $ is a retract of an object in $ C $, one can lift a functor from $ C $ (to a category with (co)equalizers) to a functor on $ \overline C $.
