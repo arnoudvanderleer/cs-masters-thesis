@@ -245,6 +245,10 @@ Take a monoid $ M $.
   We can construct a category $ C_M $ with $ C_{M0} = \{ \star \} $, $ C_M(\star, \star) = M $. The identity morphism on $ \star $ is the identity $ 1: M $. The composition is given by multiplication $ g \cdot_{C_M} f = f \cdot_M g $.
 \end{definition}
 
+\begin{remark}
+  An isomorphism of monoids gives an (adjoint) equivalence of categories.
+\end{remark}
+
 \begin{definition}
   A \textit{right monoid action} of $ M $ on a set $ X $ is a function $ X \times M \to X $ such that for all $ x: X $, $ m, m^\prime: M $,
   \[ x 1 = x \qquad \text{and} \qquad (x m) m^\prime = x (m \cdot m^\prime). \]
@@ -262,23 +266,103 @@ Take a monoid $ M $.
 \end{proof}
 
 \begin{definition}
-  We can view $ M $ as an object $ U_M $ in $ C_M $, with action $ m n = m \cdot_M n $ for $ m: U_M $ and $ n: M $.
+  We can view $ M $ as a set $ U_M $ with right $ M $-action $ m n = m \cdot_M n $ for $ m: U_M $ and $ n: M $.
 \end{definition}
 
 \begin{remark}
   Since the category of sets with an $ M $-action is equivalent to a presheaf category, it has all limits. However, we can make this concrete. The set of the product $ \prod_i X_i $ is the product of the underlying sets. The action is given pointwise by $ (x_i)_i m = (x_i m)_i $.
 \end{remark}
 
+\begin{definition}
+  Given an object $ c $ in a category $ C $ with terminal object $ t $. The global elements of $ c $ are the morphisms $ C(t, c) $.
+\end{definition}
+
+Note that the initial set with $ M $-action is $ \{ \star \} $, with action $ \star m = \star $.
+
+\begin{lemma}
+  The global elements of a set with right $ M $-action correspond to the elements that are invariant under the $ M $-action.
+\end{lemma}
+\begin{proof}
+  A global element of $ X $ is a morphism $ \varphi: \{ \star \} \to X $ such that for all $ m: M $, $ \varphi(\star)m = \varphi(\star m) = \varphi(\star) $. Therefore, it is given precisely by the element $ \varphi(\star): X $, which must be invariant under the $ M $-action.
+\end{proof}
+
 \begin{lemma}
   The category $ C $ of sets with an $ M $-action has exponentials.
 \end{lemma}
 \begin{proof}
-  Given sets with $ M $-action $ X $ and $ Y $. Consider the set $ C(M \times X, Y) $ with an $ M $-action given by $ \phi m^\prime(m, x) = \phi(m^\prime m, x) $.
+  Given sets with $ M $-action $ X $ and $ Y $. Consider the set $ C(M \times X, Y) $ with an $ M $-action given by $ \phi m^\prime(m, x) = \phi(m^\prime m, x) $. This is the exponential object $ X^Y $, with the evaluation morphism $ X \times X^Y \to Y $ given by $ (x, \phi) \mapsto \phi(1, x) $.
 \end{proof}
 
-Exponentials: \TODO\\
-Global elements: \TODO\\
-Restriction of scalars: \TODO\\
-Extension of scalars: \TODO\\
-Extension of scalars preserves the monoid action: \TODO\\
-Extension of scalars preserves limits: \TODO
+\subsection{Extension and restriction of scalars}
+
+Let $ \varphi: M \to M^\prime $ be a morphism of monoids.
+
+\begin{lemma}
+  We get a \textit{restriction of scalars} functor $ \varphi_* $ from sets with a right $ M^\prime $-action to sets with a right $ M $-action.
+\end{lemma}
+\begin{proof}
+  Given a set $ X $ with right $ M^\prime $-action, take the set $ X $ again, and give it a right $ M $-action, sending $ (x, m) $ to $ x \varphi(m) $.
+
+  On morphisms, send an $ M^\prime $-equivariant morphism $ f: X \to X^\prime $ to the $ M $-equivariant morphism $ f: X \to X^\prime $.
+\end{proof}
+
+Since $ \SET $ has colimits, and restriction of scalars corresponds to precomposition of presheaves (on $ C_{M^\prime} $), we can give it a left adjoint. This is the (pointwise) left Kan extension, which boils down to:
+
+\begin{lemma}
+  We get an \textit{extension of scalars} functor $ \varphi^* $ from sets with a right $ M $-action to sets with a right $ M^\prime $-action.
+\end{lemma}
+\begin{proof}
+  Given a set $ X $ with right $ M $-action. Take $ Y = X \times M^\prime / \sim $ with the relation $ (x m, m^\prime) \sim (x, f(m) \cdot m^\prime) $ for $ m: M $. This has a right $ M^\prime $-action given by $ (x, m^\prime)n^\prime = (x, m^\prime n^\prime) $.
+
+  On morphisms, it sends $ f: X \to X^\prime $ to the morphism $ (x, m^\prime) \mapsto (f(x), m^\prime) $.
+\end{proof}
+
+\begin{lemma}
+  For $ U_M $ the set $ M $ with right $ M $-action, we have $ \varphi^*(U_M) \cong U_{M^\prime} $.
+\end{lemma}
+\begin{proof}
+  The proof relies on the fact that for all $ m: U_M $ and $ m^\prime : M^\prime $, we have
+  \[ (m, m^\prime) \sim (1, \varphi(m) m^\prime). \]
+\end{proof}
+
+Consider the category $ D $ with $ D_0 = M^\prime $ and
+\[ D(m^\prime, \overline m^\prime) = \{ m: M \mid \varphi(m) \cdot m^\prime = \overline m^\prime \}. \]
+
+If a category has an object $ t $, such that there is a morphism to it from every other object in the category, $ t $ is said to be \textit{weakly terminal}.
+
+\begin{lemma}
+  Suppose that $ D $ has a weakly terminal element. Then for $ I_M $ the terminal set with right $ M $-action, we have $ \varphi^*(I_M) \cong I_{M^\prime} $.
+\end{lemma}
+\begin{proof}
+  If $ D $ has a weakly terminal object, there exists $ \overline m^\prime : M^\prime $ such that for all $ m^\prime: M^\prime $, there exists $ m: M $ such that $ \varphi(m) \cdot m^\prime = \overline m^\prime $.
+
+  The proof relies on the fact that every element of $ \varphi^*(I_M) $ is given by some $ (\star, m^\prime) $, but then
+  \[ (\star, m^\prime) = (\star \cdot m, m^\prime) \sim (\star, \varphi(m) \cdot m^\prime) = (\star, \overline{m^\prime}), \]
+  so $ \varphi^*(I_M) $ has exactly $ 1 $ element.
+\end{proof}
+
+\begin{remark}
+  For $ \varphi^* $ to preserve terminal objects, we actually only need $ D $ to be connected. The fact that $ \varphi^*(I_M) $ is a quotient by a symmetric and transitive relation then allows us to `walk' from any $ (\star, m^\prime_1) $ to any other $ (\star, m^\prime_2) $ in small steps.
+\end{remark}
+
+For any $ m^\prime_1, m^\prime_2: M^\prime $, consider the category $ D_{m^\prime_1, m^\prime_2} $, given by
+\[ D_{m^\prime_1, m^\prime_2, 0} = \{ (m^\prime, m_1, m_2): M^\prime \times M \times M \mid m_i^\prime = \varphi(m_i) \cdot m^\prime \} \]
+and
+\[ D_{m^\prime_1, m^\prime_2}((m^\prime, m_1, m_2), (\overline m^\prime, \overline m_1, \overline m_2)) = \{ m: M \mid \varphi(m) \cdot m^\prime = \overline m^\prime, m_i = \overline m_i \cdot m \}. \]
+
+\begin{lemma}
+  Suppose that $ D_{m^\prime_1, m^\prime_2} $ has a weakly terminal object for all $ m^\prime_1, m^\prime_2: M^\prime $. Then for sets $ A $ and $ B $ with right $ M $-action, we have $ \varphi^*(A \times B) \cong \varphi^*(A) \times \varphi^*(B) $.
+\end{lemma}
+\begin{proof}
+  Now, any element in $ \varphi^*(A) \times \varphi^*(B) = (A \times M^\prime / \sim) \times (B \times M^\prime / \sim) $ is given by some $ (a, m^\prime_1, b, m^\prime_2) $.
+
+  The fact that $ D_{m^\prime_1, m^\prime_2} $ has a weakly terminal object means that we have some $ \overline m^\prime: M^\prime $ and $ \overline m_1, \overline m_2: M $ with $ m_i^\prime = \varphi(\overline m_i) \cdot \overline m^\prime $, such that for all $ m^\prime: M^\prime $ and $ m_1, m_2: M $ with $ m_i^\prime = \varphi(m_i) \cdot m^\prime $, there exists $ m: M $ such that $ \varphi(m) \cdot m^\prime = \overline m^\prime $ and $ m_i = \overline m_i \cdot m $.
+
+  Therefore,
+  \[ (a, m^\prime_1, b, m^\prime_2) = (a, \varphi(\overline m_1) \cdot \overline m^\prime, b, \varphi(\overline m_2) \cdot \overline m^\prime) \sim (a \overline m_1, \overline m^\prime, b \overline m_2, \overline m^\prime), \]
+  so this is equivalent to some element in $ \varphi^*(A \times B) = (A \times B \times M^\prime / \sim) $.
+
+  The second part of weak terminality means that this equivalence is actually well-defined: equivalent elements in $ \varphi^*(A) \times \varphi^*(B) $ are sent to equivalent elements in $ \varphi^*(A \times B) $.
+
+  (\TODO Work this out more?)
+\end{proof}
