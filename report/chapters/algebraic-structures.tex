@@ -1,0 +1,158 @@
+\chapter{Algebraic Structures}
+
+\section{Algebraic Theories}\label{sec:algebraic-theories}
+
+\begin{definition}[algebraic theory]
+  We define an algebraic theory $ T $ to be a sequence of sets $ T_n $ indexed over $ \mathbb N $ with for all $ 1 \leq i \leq n $ elements ("variables" or "projections") $ x_{n, i}: T_n $ (we usually leave $ n $ implicit), together with a substitution operation
+  \[ \_ \bullet \_: T_m \times T_n^m \to T_n \]
+  for all $ m, n $, such that
+  \begin{align*}
+    x_j \bullet g &= g_j\\
+    f \bullet (x_{l, i})_i &= f\\
+    (f \bullet g) \bullet h &= f \bullet (g_i \bullet h)_i
+  \end{align*}
+  for all $ 1 \leq j \leq l $, $ f: T_l $, $ g: T_m^l $ and $ h: T_n^m $.
+\end{definition}
+
+\begin{definition}[algebraic theory morphism]
+  A morphism $ F $ between algebraic theories $ T $ and $ T^\prime $ is a sequence of functions $ F_n: T_n \to T^\prime_n $ (we usually leave the $ n $ implicit) such that
+  \begin{align*}
+    F_n(x_j) &= x_j\\
+    F_n(f \bullet g) &= F_m(f) \bullet (F_n(g_i))_i
+  \end{align*}
+  for all $ 1 \leq j \leq n $, $ f: T_m $ and $ g: T_n^m $.
+\end{definition}
+
+\begin{remark}
+  We can construct binary products of algebraic theories, with sets $ (T \times T^\prime)_n = T_n \times T^\prime_n $, variables $ (x_i, x_i) $ and substitution
+  \[ (f, f^\prime) \bullet (g, g^\prime) = (f \bullet g, f^\prime \bullet g^\prime). \]
+  In the same way, the category of algebraic theories has all limits.
+\end{remark}
+
+\section{Algebras}
+
+\begin{definition}[algebra]
+  An algebra $ A $ for an algebraic theory $ T $ is a set $ A $, together with an action
+  \[ \bullet: T_n \times A^n \to A \]
+  for all $ n $, such that
+  \begin{align*}
+    x_j \bullet a &= a_j\\
+    (f \bullet g) \bullet a &= f \bullet (g_i \bullet a)_i
+  \end{align*}
+  for all $ j $, $ f: T_m $, $ g: T_n^m $ and $ a: A^n $.
+\end{definition}
+
+\begin{definition}[algebra morphism]
+  For an algebraic theory $ T $, a morphism $ F $ between $ T $-algebras $ A $ and $ A^\prime $ is a function $ F: A \to A $ such that
+  \[ F(f \bullet a) = f \bullet (F(a_i))_i \]
+  for all $ f: T_n $ and $ a: A^n $.
+\end{definition}
+
+\begin{remark}
+  The category of algebras has all limits. The set of a limit of algebras is the limit of the underlying sets.
+\end{remark}
+
+\begin{remark}
+  Note that for an algebraic theory $ T $, the $ T_n $ are all algebras for $ T $, with the action given by $ \bullet $.
+\end{remark}
+
+\section{Presheaves}
+
+\begin{definition}[presheaf]
+  A presheaf $ P $ for an algebraic theory $ T $ is a sequence of sets $ P_n $ indexed over $ \mathbb N $, together with an action
+  \[ \bullet: P_m \times T_n^m \to P_n \]
+  for all $ m, n $, such that
+  \begin{align*}
+    t \bullet (x_{l, i})_i &= t\\
+    (t \bullet f) \bullet g &= t \bullet (f_i \bullet g)_i
+  \end{align*}
+  for all $ t: P_l $, $ f: T_m^l $ and $ g: T_n^m $.
+\end{definition}
+
+\begin{definition}[presheaf morphism]
+  For an algebraic theory $ T $, a morphism $ F $ between $ T $-presheaves $ P $ and $ P^\prime $ is a sequence of functions $ F_n: P_n \to P^\prime_n $ such that
+  \[ F_n(t \bullet f) = F_m(t) \bullet f \]
+  for all $ t: P_m $ and $ f: T_n^m $.
+\end{definition}
+
+We will write $ PT $ for the category of $ T $-presheaves and their morphisms.
+
+\begin{remark}
+  The category of presheaves has all limits. The $ n $th set $ \overline{P}_n $ of a limit $ \overline{P} $ of presheaves $ P_i $ is the limit of the $ n $th sets $ P_{i, n} $ of the presheaves in the limit diagram.
+\end{remark}
+
+\section{\texorpdfstring{$ \lambda $-}{lambda-}theories}
+
+\begin{definition}[$ \lambda $-theory]
+  A $ \lambda $-theory is an algebraic theory $ L $, together with sequences of functions $ \lambda_n: L_{n + 1} \to L_n $ and $ \rho_n: L_n \to L_{n + 1} $, such that
+  \begin{align*}
+    \lambda_m(f) \bullet h &= \lambda_n(f \bullet (h_1 \bullet (x_{n + 1, 1}, \dots, x_{n + 1, n}), \dots, h_m \bullet (x_{n + 1, 1}, \dots, x_{n + 1, n}), x_{n + 1, n + 1}))\\
+    \rho_n(g \bullet h) &= \rho_m(g) \bullet (h_1 \bullet (x_{n + 1, 1}, \dots, x_{n + 1, n}), \dots, h_m \bullet (x_{n + 1, 1}, \dots, x_{n + 1, n}), x_{n + 1, n + 1})
+  \end{align*}
+  for all $ f: L_{m + 1} $, $ g: L_m $ and $ h: L_n^m $.
+\end{definition}
+
+\begin{definition}[$ \beta $- and $ \eta $-equality]
+  We say that a $ \lambda $-theory $ L $ satisfies $ \beta $-equality (or that it is a $ \lambda $-theory with $ \beta $) if $ \rho_n \circ \lambda_n = \id{L_n} $ for all $ n $. We say that is satisfies $ \eta $-equality if $ \lambda_n \circ \rho_n = \id{L_{n + 1}} $ for all $ n $.
+\end{definition}
+
+\begin{definition}[$ \lambda $-theory morphism]
+  A morphism $ F $ between $ \lambda $-theories $ L $ and $ L^\prime $ is an algebraic theory morphism $ F $ such that
+  \begin{align*}
+    F_n(\lambda_n(f)) &= \lambda_n(F_{n + 1}(f))\\
+    \rho_n(F_n(g)) &= F_{n + 1}(\rho_n(g))
+  \end{align*}
+  for all $ f: L_{n + 1} $ and $ g: L_n $.
+\end{definition}
+
+\begin{remark}
+  The category of lambda theories has all limits, with the underlying algebraic theory of a limit being the limit of the underlying algebraic theories.
+\end{remark}
+
+A $ \lambda $-theory algebra or presheaf is a presheaf for the underlying algebraic theory.
+
+\section{Examples}
+
+\subsection{The free algebraic theory on a set}
+\subsection{The free object algebraic theory}
+\subsection{The initial algebraic theory}
+
+\subsection{The terminal theory}
+\subsection{The Endomorphism Theory}
+\subsection{The free \texorpdfstring{$ \lambda $}{lambda}-theory}
+\subsection{The \texorpdfstring{$ \lambda $}{lambda}-calculus}
+\subsection{The theory presheaf}
+\subsection{The theory algebra}
+\subsection{The "+l" presheaf}
+
+Let $ \iota_{m, n} : T_m \to T_{m + n} $ denote the function that sends $ f $ to $ f \bullet (x_{m + n, 1}, \dots, x_{m + n, m}) $. Note that
+\[ \iota_{m, n}(f) \bullet g = f \bullet (g_i)_{i \leq m} \]
+and
+\[ \iota_{m, n}(f \bullet g) = f \bullet g \bullet (x_i)_i = f \bullet (g_i \bullet (x_j)_j)_i = f \bullet (\iota_{m, n}(g_i))_i. \]
+
+For tuples $ x : X^m $ and $ y: X^n $, let $ x + y $ denote the tuple $ (x_1, \dots, x_m, y_1, \dots, y_n) : X^{m + n} $.
+
+\begin{definition}[The `+l' presheaf]
+  Given a $ T $-presheaf $ Q $, we can construct a presheaf $ A(Q, l) $, given by $ A(Q, l)_n = Q_{n + l} $. Then, for $ q: A(Q, l)_m $ and $ f: T_n^m $, the substitution is given by
+  \[ q \bullet_{A(Q, l)} f = q \bullet_Q ((\iota_{n, l} (f_i))_i + (x_{n + i})_i) \]
+\end{definition}
+\begin{lemma}
+  The +l presheaf is a presheaf
+\end{lemma}
+\begin{proof}
+  We have, for $ q: A(Q, l)_n $,
+  \begin{align*}
+    q \bullet_{A(Q, l)} (x_i)_i &= q \bullet_Q ((\iota_{n, l}(x_i))_i + (x_{n + i})_i)\\
+    &= q \bullet_Q ((x_i)_i + (x_{n + i})_i)\\
+    &= q \bullet_Q (x_i)_i\\
+    &= q.
+  \end{align*}
+  We have, for $ q : A(Q, k)_l $, $ f: T_m^l $ and $ g: T_n^m $,
+  \begin{align*}
+    q \bullet_{A(Q, k)} f \bullet_{A(Q, k)} g &= q \bullet_Q ((\iota_{m, l}(f_i))_i + (x_{m + i})_i) \bullet_Q ((\iota_{n, l}(g_i))_i + (x_{n + i})_i)\\
+    &= q \bullet_Q (((\iota_{m, l}(f_i) \bullet_T ((\iota_{n, l}(g_j))_j + (x_{n + j})_j))_i + (x_{m + i} \bullet_T ((\iota_{n, l}(g_j))_j + (x_{n + j})_j))_i))\\
+    &= q \bullet_Q ((f_i \bullet_T (\iota_{n, l}(g_j))_j)_i + (x_{n + i})_i)\\
+    &= q \bullet_Q ((\iota_{n, l}(f_i \bullet_T g))_i + (x_{n + i})_i)\\
+    &= q \bullet_{A(Q, k)} (f_i \bullet_T g).
+  \end{align*}
+\end{proof}

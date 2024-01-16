@@ -1,0 +1,31 @@
+\chapter{Previous work in categorical semantics}
+
+\section{The correspondence between categories and \texorpdfstring{$ \lambda $}{lambda}-calculi}
+In \cite{curry}, Scott and Lambek argue that there is a correspondence between simply typed $ \lambda $-calculi and cartesian closed categories (categories with products and `function objects'). (See page 413).
+
+Types in the $ \lambda $-calculus correspond to objects in the category.
+
+Types $ A \to B $ in the $ \lambda $-calculus correspond to exponential objects $ B^A $ in the category.
+
+Terms in the $ \lambda $-calculus of type $ B $, with free variables $ x_1: A_1, \dots, x_n: A_n $, correspond to morphisms $ A_1 \times \dots \times A_n \to B $.
+
+A free variable $ x_i: A_i $ in a context with free variables $ x_1: A_1, \dots, x_n: A_n $ corresponds to the projection morphism $ \pi_i : A_1 \times \dots \times A_n \to A_i $.
+
+Given a term $ s: B_1 \to B_2 $ and a term $ t: B_1 $, both with free variables $ x_1: A_1, \dots, x_n: A_n $, corresponding to morphisms $ \overline s: A_1 \times \dots \times A_n \to B_2 $ and $ \overline t: A_1 \times \dots \times A_n \to B_1 $, the application $ st: B_2 $ corresponds to the composite of the product morphism with the evaluation morphism $ A_1 \times \dots \times A_n \to B_2^{B_1} \times B_1 \to B_2 $.
+\begin{center}
+  \begin{tikzcd}
+    & A_1 \times \dots \times A_n \arrow[ld, "\overline s"'] \arrow[rd, "\overline t"] \arrow[d, "{\langle \overline s, \overline t \rangle}", dashed] &\\
+    B_2^{B_1} & B_2^{B_1} \times B_1 \arrow[l, "\pi_1"] \arrow[r, "\pi_2"'] \arrow[d, "ev"] & B_1\\
+    & B_2 &
+  \end{tikzcd}
+\end{center}
+
+Given a term $ t: B $ with free variables $ x_1: A_1, \dots, x_n: A_n $, the abstraction $ (\lambda x_n, t): A_n \to B $ corresponds to using the adjunction $ - \times A_n \dashv (-)^{A_n} $:
+\[ C(A_1 \times \dots \times A_{n-1} \times A_n, B) \simeq C(A_1 \times \dots \times A_{n-1}, B^{A_n}). \]
+
+\TODO
+How about the untyped $ \lambda $-calculus?
+
+\section{Scott's Representation Theorem}
+
+\section{The Taylor Fibration}

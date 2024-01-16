@@ -1,0 +1,107 @@
+\chapter{Alternative definitions}
+The literature, there are many different but equivalent definitions, carrying many different names, for the objects that called `algebraic theories' in Section \ref{sec:algebraic-theories}. What makes matters even more confusing is the fact that the literature does not provide a consistent bijection between names and definitions. This section will showcase some of the various definitions.
+
+% First of all, let $ \F $ be a skeleton of finite sets: the category with $ \F_0 = \{ 0, 1, \dots \} $ and $ \F(m, n) = \SET(\{1, 2, \dots, m\}, \{1, 2, \dots, n\}) $.
+
+\section{Abstract Clone}
+\begin{definition}[abstract clone]
+  An algebraic theory as presented in Section \ref{sec:algebraic-theories}, is usually called an \textit{abstract clone}. In this thesis, outside of this specific section, we will call it algebraic theory to be consistent with the names that Hyland attaches to objects.
+\end{definition}
+
+\section{Lawvere theory}
+\begin{definition}[algebraic theory]
+  An \textit{algebraic theory} as presented in \cite{algebaric-theories-2010} is a small category with finite products.
+\end{definition}
+\begin{definition}[algebraic theory algebra]
+  An \textit{algebra} for an algebraic theory $ T $ is a finite-product-preserving functor $ T \to \SET $.
+\end{definition}
+
+This definition is more general than the definition of algebraic theory in Section \ref{sec:algebraic-theories}. To make it equivalent, we have to be more specific about the objects of the category:
+\begin{definition}[Lawvere theory]
+  A \textit{Lawvere theory}, or \textit{one-sorted algebraic theory} is a category $ L $, with $ L_0 = \{ 0, 1, \dots \} $, such that $ n = 1^n $, the $ n $-fold product.
+\end{definition}
+
+\subsection{Algebras for Lawvere Theories}
+
+\section{Relative Monad}
+\begin{definition}[relative monad]
+  Let $ S: C \to D $ be a functor. A \textit{relative monad} on $ S $ is a functor $ T: C \to D $, together with a natural transformation $ \eta: S \Rightarrow T $ and a transformation $ (-)^*: D(S(X), T(Y)) \to D(T(X), T(Y)) $, natural in both $ S $ and $ T $, such that for all $ f: S(X) \to T(Y) $ and $ g: S(Y) \to T(Z) $,
+  \[ f = \eta_X \cdot f^*, \qquad \eta_X^* = \id{T X} \qquad \text{and} \qquad (f \cdot g^*)^* = f^* \cdot g^*. \]
+\end{definition}
+
+\section{Cartesian Operad}
+\begin{definition}[multicategory]
+  A \textit{multicategory} $ C $ consists of
+  \begin{itemize}
+    \item A collection of objects $ C_0 $;
+    \item For all $ c_1, \dots, c_n, d: C_0 $, a collection of multimorphisms $ C((c_1, \dots, c_n), d) $;
+    \item For all $ c: C_0 $, an identity morphism $ \id c : C(c, c) $;
+    \item For all multimorphisms $ f: C((d_1, \dots, d_n), e) $ and $ g_i: C((c_{i,1}, \dots, c_{i,m_i}), d_i) $ for $ 1 \leq n \leq i $, a composite multimorphism
+    \[ (g_1, \dots, g_n) \cdot f: C((c_{1,1}, \dots, c_{n, m_n}), e) \]
+  \end{itemize}
+  such that these satisfy certain identity and associativity axioms (see for example \cite{higher-operads}, page 35).
+\end{definition}
+
+Let $ S_n $ be the symmetric group on $ n $ elements (the group consisting of all ways to shuffle the numbers $ (1, \dots, n) $).
+
+\begin{definition}[symmetric multicategory]
+  A \textit{symmetric} multicategory is a multicategory $ C $, together with, for each $ \sigma: S_n $ and all $ c_1, \dots, c_n, d $, a bijection
+  \[ \overline \sigma: C((c_1, \dots, c_n), d) \to C((c_{\sigma(1)}, \dots, c_{\sigma(n)}), d), \]
+  such that for all $ \rho, \sigma: S_n $ and $ \theta: C((c_1, \dots, c_n), d) $,
+  \[ \overline \rho(\overline \sigma(\theta)) = \overline{(\sigma \rho)}(\theta) \quad \text{and} \quad \overline {1_{S_n}}(\theta) = \theta, \]
+  compatible with multimorphism composition (see \cite{higher-operads}, page 52, equation (2:7)).
+\end{definition}
+In some sense, for a symmetric multicategory, the order of the objects in the domain of a multimorphism does not matter.
+
+For a collection $ S $ and a tuple $ x = x_1, \dots, x_n: S $ and $ 1 \leq i \leq j \leq n $,
+\begin{itemize}
+  \item let $ u_i(x): S^{n+i+1-j} $ denote the tuple $ x $, but with the subtuple $ (x_i, \dots, x_j) $ repeated once:
+    \[ (x_1, \dots, x_i, \dots, x_j, x_i, \dots, x_j, \dots, x_n). \]
+  \item let $ v_i(x): S^{n-i-1+j} $ denote the tuple $ x $, but with the subtuple $ (x_i, \dots, x_j) $ removed:
+    \[ (x_1, \dots, x_{i-1}, x_{j+1}, \dots, x_n). \]
+\end{itemize}
+
+\begin{definition}[cartesian multicategory]
+  A \textit{cartesian multicategory} is a multicategory $ C $, with, for all $ c_1, \dots, c_n, d: C_0 $ and $ 1 \leq i \leq n $
+  \begin{itemize}
+    \item a \textit{contraction} operation $ \overline{u_i}: C(u_{i, i}(c), d) \to C(c, d) $,
+    \item a \textit{deletion} operation $ \overline {v_i}: C(v_{i, i}(c), d) \to C(c, d) $,
+  \end{itemize}
+  that satisfy some axioms \TODO
+\end{definition}
+
+\begin{definition}[cartesian operad]
+  A \textit{cartesian operad} is a cartesian multicategory with one object.
+\end{definition}
+
+\begin{lemma}
+  The following are equivalent:
+  \begin{enumerate}[(1)]
+    \item An abstract clone.
+    \item A Lawvere theory.
+    \item A relative monad on the embedding $ \iota: \FinSET \hookrightarrow \SET $.
+    \item A cartesian operad.
+  \end{enumerate}
+\end{lemma}
+\begin{proof}
+  $ (1) \Rightarrow (2) $: Given an abstract clone $ C $, we construct a Lawvere theory $ L $ as follows: We have objects $ L_0 = \{ 0, 1, \dots \} $ and morphisms $ L(m, n) = C_m^n $. The identity morphism is $ \id n = (x_i)_i : L(n, n) $ and for $ f: L(l, m) $, $ g: L(m, n) $, we have composition
+  \[ f \cdot g = (g_i \bullet f)_i: L(l, n). \]
+  Lastly, we have product projections $ \pi_{n, i} = x_{n, i}: L(n, 1) $ for all $ 1 \leq i \leq n $.
+
+  $ (2) \Rightarrow (3) $: Given a Lawvere theory $ L $, we construct a relative monad $ (F, \eta) $ as follows: For $ n: \FinSET $, take $ F(n) = L(n, 1) $ and for $ a: \FinSET(m, n) $, let $ F(a): \SET(F(m), F(n)) $ be the morphism given by precomposition with the product morphism
+  \[ \langle \pi_{n, a(1)}, \dots, \pi_{n, a(m)} \rangle : L(n, m). \]
+  The natural transformation is given by $ \eta_n(i) = \pi_{n, i}: F(n) $ for all $ i: \iota(n) = \{1, \dots, n\} $. Lastly, for $ f: \SET(\iota(m), F(n)) $, let $ f : \SET(F(m), F(n)) $ be given by precomposition with the product morphism
+  \[ \langle f(1), \dots, f(m) \rangle : L(n, m) \]
+
+  $ (3) \Rightarrow (4) $: Given a relative monad $ (F, \eta) $, we construct a cartesian operad $ A $ as follows: We take a multicategory with $ A_0: \{ \star \} $. We take as the set of $ n $-fold morphisms $ A((\star)_i, \star) = F(n) $. We take an identity multimorphism $ \id \star = \eta_1(1) : A(\star, star) $.
+  For some natural number $ m $, natural numbers $ n_1, \dots, n_m $ and $ i: 1 \leq i \leq m $ let $ \phi_i: \FinSET(n_i, \sum n_i) $ be the standard injections into the coproduct. For $ f: F(m) $ and $ g_i: F(n_i) $, we have $ F(\varphi_i): \SET(F(n_i), F(\sum n_i)) $, so we have $ (F(\varphi_i)(g_i))_i: \SET(\iota(m), F(\sum n_i)) $ and the composition is given by
+  \[ f \cdot g = (F(\varphi_i)(g_i))_i^*(f): F\left(\sum n_i\right). \]
+
+  The permutation, contraction and deletion operations given by
+  \begin{align*}
+    \overline{\sigma} = F(\sigma): A((\star_1, \dots, \star_n), \star) \to A((\star_{\sigma(1)}, \dots, \star_{\sigma(n)}), \star)
+  \end{align*}
+
+  Given a cartesian operad $ A $
+  \TODO
+\end{proof}

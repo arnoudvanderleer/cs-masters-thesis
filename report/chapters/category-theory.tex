@@ -11,7 +11,8 @@ For composition of morphisms $ f: C(c, d) $ and $ g: C(d, e) $, I will write $ f
 
 For composition of functors $ F: A \to B $ and $ G: B \to C $, I will write $ F \bullet G $.
 
-\section{Adjunctions}
+\section{Quick preliminaries}
+\subsection{Adjunctions}
 An adjoint equivalence of categories has multiple definitions. The one we will use here is the following:
 
 \tikzset{%
@@ -33,6 +34,8 @@ An adjoint equivalence of categories has multiple definitions. The one we will u
   such that the unit $ \eta: \id{C} \Rightarrow L \bullet R $ and counit $ \epsilon: R \bullet L \Rightarrow \id{D} $ are isomorphisms of functors.
 \end{definition}
 
+\subsection{Exponential objects}
+\TODO
 
 \section{Kan Extensions}
 One of the most general and abstract concepts in category theory is the concept of \textit{Kan extensions}. In \cite{MacLane}, Section X.7, MacLane notes that
@@ -246,8 +249,17 @@ Take a monoid $ M $.
 \end{definition}
 
 \begin{remark}
-  An isomorphism of monoids gives an (adjoint) equivalence of categories.
+  Actually, we have a functor from the category of monoids to the category of setcategories (categories whose object type is a set).
+
+  A monoid morphism $ f: M \to M^\prime $ is equivalent to a functor $ F_f: C_M \to C_{M^\prime} $. Any functor between $ C_M $ and $ C_{M^\prime} $ sends $ \star_M $ to $ \star_{M^\prime} $. The monoid morphism manifests as $ F_f(m) = f(m) $ for $ m: C_M(\star, \star) = M $.
 \end{remark}
+
+\begin{lemma}
+  An isomorphism of monoids gives an (adjoint) equivalence of categories.
+\end{lemma}
+\begin{proof}
+  Given an isomorphism $ f: M \to M^\prime $. Then we have functors $ F_f: C_M \to C_{M^\prime} $ and $ F_{f^{-1}}: C_{M^\prime} \to C_M $. Take the identity natural transformations $ \eta: \id{C_M} \Rightarrow F_f \bullet F_{f^{-1}} $ and $ \epsilon: F_{f^{-1}} \bullet F_f \Rightarrow \id{C_{M^\prime}} $. Of course these are natural isomorphisms.
+\end{proof}
 
 \begin{definition}
   A \textit{right monoid action} of $ M $ on a set $ X $ is a function $ X \times M \to X $ such that for all $ x: X $, $ m, m^\prime: M $,
