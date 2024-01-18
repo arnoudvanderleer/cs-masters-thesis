@@ -15,6 +15,7 @@
 
 \theoremstyle{remark}
 \newtheorem{remark}{Remark}
+\newtheorem{example}{Example}
 
 \newcommand{\id}[1]{\ensuremath{\text{id}_{#1}}}
 \newcommand{\op}[1]{\ensuremath{#1^{\text{op}}}}
@@ -22,6 +23,10 @@
 \newcommand\SET{\mathbf{SET}}
 % \newcommand\F{\mathbf{F}}
 \newcommand\FinSET{\mathbf{FinSET}}
+\newcommand\AlgTh{\mathbf{AlgTh}}
+\newcommand\LamTh{\mathbf{AlgTh}}
+\newcommand\Alg[1]{\mathbf{Alg}_{#1}}
+\newcommand\Pshf[1]{\mathbf{Pshf}_{#1}}
 \newcommand\TODO{\textbf{(TODO)} }
 
 \begin{document}
@@ -30,9 +35,9 @@
   \setcounter{tocdepth}{4}
   \tableofcontents
 
-  \include{chapters/algebraic-structures}
   \include{chapters/category-theory}
   \include{chapters/univalent-foundations}
+  \include{chapters/algebraic-structures}
   \include{chapters/previous-work}
   \include{chapters/paper}
   \include{chapters/formalization}

@@ -75,7 +75,7 @@
   for all $ t: P_m $ and $ f: T_n^m $.
 \end{definition}
 
-We will write $ PT $ for the category of $ T $-presheaves and their morphisms.
+We will write $ \Pshf T $ for the category of $ T $-presheaves and their morphisms.
 
 \begin{remark}
   The category of presheaves has all limits. The $ n $th set $ \overline{P}_n $ of a limit $ \overline{P} $ of presheaves $ P_i $ is the limit of the $ n $th sets $ P_{i, n} $ of the presheaves in the limit diagram.
@@ -113,46 +113,229 @@ A $ \lambda $-theory algebra or presheaf is a presheaf for the underlying algebr
 
 \section{Examples}
 
+There is a lot of different examples of algebraic theories and their algebras. Some of these even turn out to be $ \lambda $-theories. In this section, we will discuss a couple of these.
+
 \subsection{The free algebraic theory on a set}
+\begin{example}
+  Let $ S $ be a set. We can construct an algebraic theory $ F(S) $ by taking $ F(S)_n = S \sqcup \{ 1, \dots, n \} $ with projections $ x_i = i $ and substitution
+  \begin{align*}
+    i \bullet g &= g_i & s \bullet g &= s
+  \end{align*}
+  for $ i : \{ 1, \dots, n \} $ and $ s : S $.
+
+  If we have a function $ f: S \to S^\prime $, we get a morphism $ F(f): F(S) \to F(S^\prime) $ given by
+  \begin{align*}
+    F(f)_n(i) &= i & F(f)_n(s) &= f(s)
+  \end{align*}
+  for $ i : \{ 1, \dots, n \} $ and $ s : S $.
+
+  Also, $ F $ obviously respects the identity and substitution morphisms, so it is a functor.
+\end{example}
+
+Note that we have a forgetful functor $ (\cdot)_0 $ that sends a morphism of algebraic theories $ g: T \to T^\prime $ to the function $ f_0: T_0 \to T^\prime_0 $.
+
+\begin{lemma}
+  The algebraic theory $ F(S) $ defined above, is the free algebraic theory on the set $ S $.
+\end{lemma}
+\begin{proof}
+  Let $ T $ be an algebraic theory. We have an equivalence
+  \[ \AlgTh(F(S), T) \cong \SET(S, T_0), \]
+  sending $ f: \AlgTh(F(S), T) $ to $ f_0: S = S \sqcup \emptyset \to T_0 $ (this is trivially natural in $ S $ and $ T $) and $ f: \SET(S, T_0) $ to the functions $ g_n: F(S)_n \to T_n $ given by
+  \begin{align*}
+    g_n(i) &= x_i & g_n(s) &= f(s) \bullet ().
+  \end{align*}
+\end{proof}
+
+The proofs that $ F(S) $ is an algebraic theory and that $ F(f) $ and $ g $ are algebraic theory morphisms is an easy exercise in case distinction.
+
+\begin{corollary}
+  $ F(\emptyset) $ is the initial algebraic theory.
+\end{corollary}
+\begin{proof}
+  For $ S = \emptyset $, the equivalence of hom-sets becomes
+  \[ \AlgTh(F(\emptyset), T) \cong \SET(\emptyset, T_0) \]
+  and the latter has exactly one element.
+\end{proof}
+
 \subsection{The free object algebraic theory}
-\subsection{The initial algebraic theory}
+
+\begin{example}
+  Take a category $ C $, with a forgetful functor $ G: C \to \SET $ and a free functor $ F: \SET \to C $. Let $ \eta: \id \SET \Rightarrow F \bullet G $ be the unit of the adjunction and let $ \varphi: C(F(c), d) \cong \SET(c, G(d)) $ be the natural equivalence of homsets.
+
+  We define an algebraic theory $ T $ with $ T_n = G(F(\{ 1, \dots, n \})) $, projections $ x_{n, i} = \eta_{\{1, \dots, n\}}(i) $. For the substitution, note that we take $ t_1, \dots, t_m: T_n $, so we have $ t: \{ 1, \dots, m \} \to G(F(\{ 1, \dots, n \})) $. We then take
+  \[ s \bullet t = G(\varphi^{-1}(t))(s). \]
+
+  Now, given an object $ c: C $, we can create a $ T $-algebra $ \alpha(c) $, with set $ G(c) $ and action
+  \[ s \bullet t = G(\varphi^{-1}(t))(s). \]
+  Also, given a morphism $ f: C(c, d) $. This gives a morphism $ G(f): \alpha(c) \to \alpha(d) $. Therefore, $ \alpha: C \to \Alg T $ is a functor.
+\end{example}
+
+The proofs that $ T $ is an algebraic theory, that $ G(c) $ is an algebra and that $ G(f) $ is an algebra morphism mainly rely on the fact that $ \varphi $ is natural.
+
+So we have a functor from $ C $ to the category of $ T $-algebras. One can wonder whether there also is a functor the other way, or whether $ \alpha $ is even an equivalence. This is hard to characterize precisely, but in algebra, there is a broad class of examples where the functor is an equivalence, so where $ C $ is equivalent to $ \Alg T $. That is probably why $ T $ is called an \textit{algebraic theory}.
+
+The idea is that if an object of $ C $ is a set, together with some operations between its elements, one can carefully choose some elements of $ T_0 $, $ T_1 $, $ T_2 $ etc., which act on an algebra like the specified operations.
+
+\begin{example}
+  For $ C $ the category of monoids, $ \alpha: C \to \Alg T $ is an adjoint equivalence.
+
+  Note that $ T_n $ is the free monoid on $ n $ elements. Its elements can be viewed as strings $ (x_1 x_5 x_3 x_{18} \dots x_7) $ with the characters $ x_1, \dots, x_n $, with the $ x_i $ the generators of the monoid, acting as the projections of the algebraic theory.
+
+  Let $ A $ be a $ T $-algebra. We can give $ A $ a monoid structure by taking, for $ a, b: A $,
+  \[ a b = (x_1 x_2) \bullet (a, b) \]
+  and unit element
+  \[ 1 = () \bullet (). \]
+  Then the laws like associativity follow from those laws on the monoid and from the fact that the action on the algebra commutes with the substitution:
+  \[ a (b c) = (x_1 (x_2 x_3)) \bullet (a, b, c) = ((x_1 x_2) x_3) \bullet (a, b, c) = (a b) c. \]
+  Note that if we take a monoid, turn it into a $ T $-algebra and then into a monoid again, we still have the same underlying set, and it turns out that the monoid operation and unit element are equal to the original monoid operation and unit element. Therefore, $ \alpha $ is essentially surjective. It is also fully faithful, since any $ T $-algebra morphism respects the action of $ T $, which makes it into a monoid morphism. Therefore, $ \alpha $ is an adjoint equivalence.
+\end{example}
+
+\begin{remark}
+  In the same way, one can characterize groups, rings and $ R $-algebras (for $ R $ a ring) as algebras of some algebraic theory. On the other hand, one can not use this method to describe fields as algebras for some theory $ T $, because one would need to describe the inverse $ z \mapsto z^{-1} $ operation as $ t \bullet (z) $ for some $ t: T_1 $, with $ z z^{-1} = 1 $, but since the elements of the algebraic theory act on all (combinations of) elements of the algebra, one would be able to take the inverse $ 0^{-1} = t \bullet (0) $ with $ 0 0^{-1} = 1 $, which would make no sense.
+\end{remark}
 
 \subsection{The terminal theory}
-\subsection{The Endomorphism Theory}
+\begin{example}
+  We can create a (somewhat trivial) algebraic theory $ T $ by taking $ T_n = \{ \star \} $, with projections $ x_i = \star $ and substitution $ \star \bullet \star = \star $. Taking $ \lambda(\star) = \star $ and $ \rho(\star) = \star $, we give it a $ \lambda $-theory structure (with $ \beta $ and $ \eta $-equality). Checking that this is indeed an algebraic theory and even a $ \lambda $-theory is trivial.
+
+  Now, given any other algebraic theory $ T^\prime $, there exists a unique function $ T^\prime_n \to T_n $ for every $ n $, sending everything to $ \star $. These functions actually constitute an algebraic theory morphism $ T^\prime \to T $. If $ T^\prime $ is a $ \lambda $-theory, the algebraic theory morphism is actually a $ \lambda $-theory morphism. Again, checking this is trivial.
+
+  Therefore, $ T $ is the terminal algebraic theory and $ \lambda $-theory.
+\end{example}
+
+\subsection{The endomorphism theory}
+
+\begin{definition}[Endomorphism theory]
+  Suppose that we have a category $ C $ and an object $ X: C $, such that all powers $ X^n $ of $ X $ are also in $ C $.
+  The endomorphism theory $ E(X) $ of $ X $ is the algebraic theory given by $ E(X)_n = C(X^n, X) $ with projections as variables $ x_{n, i}: X^n \to X $ and a substitution that sends $ f: X^m \to X $ and $ g_1, \dots, g_m: X^n \to X $ to $ f \circ \langle g_i \rangle_i: X^n \to X^m \to X $.
+\end{definition}
+
+\begin{lemma}
+  $ E(X) $ is indeed an algebraic theory.
+\end{lemma}
+\begin{proof}
+  For $ 1 \leq j \leq l $, $ f: E(X)_l $, $ g: {E(X)_m}^l $ and $ h: {E(X)_n}^m $, we have
+  \[ x_j \bullet g = x_j \circ \langle g_i \rangle_i = g_j, \]
+  \[ f \bullet (x_{l,i})_i = f \circ \langle x_{l, i} \rangle_i = f \circ \id{X^l} = f \]
+  and
+  \[ (f \bullet g) \bullet h = f \circ \langle g_i \rangle_i \circ \langle h_i \rangle_i = f \circ \langle g_i \circ \langle h_{i^\prime} \rangle_{i^\prime} \rangle_i = f \bullet (g_i \bullet h)_i. \]
+\end{proof}
+
+\begin{definition}[Endomorphism $ \lambda $-theory]
+  Now, suppose that the exponential object $ X^X $ exists, and that we have morphisms back and forth $ abs: X^X \to X $ and $ app: X \to X^X $. Let, for $ Y: C $, $ \varphi_Y $ be the isomorphism $ C(X \times Y, X) \xrightarrow{\sim} C(Y, X^X) $.
+  We can give $ E(X) $ a $ \lambda $-theory structure by setting, for $ f: E(X)_{n + 1} $ and $ g: E(X)_n $,
+  \[ \lambda(f) = abs \circ \varphi_{X^n}(f) \qquad \rho(g) = \varphi_{X^n}^{-1}(app \circ g). \]
+\end{definition}
+
+\begin{lemma}
+  $ E(X) $ is indeed a $ \lambda $-theory.
+\end{lemma}
+\begin{proof}
+  Note that $ \varphi: C(- \times X, X) \xrightarrow{\sim} C(-, X^X) $ is a natural isomorphism, so for $ g: {E(X)_n}^m $, the following diagram commutes
+  \begin{center}
+    \begin{tikzcd}[column sep = 1in]
+      C(X^m \times X, X) \arrow[r, "- \circ (\langle g_i \rangle_i \times \id X)"]\arrow[d, "\varphi_{X^m}", bend left] & C(X^n \times X, X^X) \arrow[d, "\varphi_{X^n}", bend left]\\
+      C(X^m, X^X) \arrow[r, "- \circ \langle g_i \rangle_i"] \arrow[u, "\varphi_{X^m}^{-1}", bend left] & C(X^n, X^X) \arrow[u, "\varphi_{X^n}^{-1}", bend left]
+    \end{tikzcd}
+  \end{center}
+  and note that $ \langle g_i \rangle_i \times \id X = \langle g_1, \dots, g_m, x_{n + 1} \rangle $. Then we have, for all $ f: E(X)_m $
+  \begin{align*}
+    \lambda_m(f) \bullet g &= abs \circ \varphi_{X^m}(f) \circ \langle g_i \rangle_i\\
+    &= abs \circ \varphi_{X^n}(f \circ \langle g_1, \dots, g_m, x_{n + 1} \rangle)\\
+    &= \lambda_n(f \bullet (g_1, \dots, g_m, x_{n + 1}))
+  \end{align*}
+  and
+  \begin{align*}
+    \rho_n(f \bullet g) &= \varphi_{X^n}^{-1}(app \circ f \circ \langle g_i \rangle_i)\\
+    &= \varphi_{X^m}^{-1}(app \circ f) \circ \langle g_1, \dots, g_m, x_{n + 1} \rangle\\
+    &= \rho_m(f) \bullet (g_1, \dots, g_m, x_{n + 1}).
+  \end{align*}
+\end{proof}
+
 \subsection{The free \texorpdfstring{$ \lambda $}{lambda}-theory}
-\subsection{The \texorpdfstring{$ \lambda $}{lambda}-calculus}
-\subsection{The theory presheaf}
+
+Let $ S $ be a set. Consider the sequence of inductive types $ (\Lambda(S)_n)_n $ with the following constructors:
+\begin{align*}
+  \mathtt{Var}_n &: \{ 1, \dots, n \} \to \Lambda(S)_n;\\
+  \mathtt{App}_n &: \Lambda(S)_n \to \Lambda(S)_n \to \Lambda(S)_n;\\
+  \mathtt{Abs}_n &: \Lambda(S)_{n + 1} \to \Lambda(S)_n;\\
+  \mathtt{Con}_n &: S \to \Lambda(S)_n.\\
+\end{align*}
+
+Define a substitution operator $ \bullet: \Lambda(S)_m \times \Lambda(S)_n^m \to \Lambda(S)_n $ by induction on the first argument:
+\begin{align*}
+  \mathtt{Var}_m(i) \bullet g &= g_i;\\
+  \mathtt{App}_m(a, b) \bullet g &= \mathtt{App}_n(a \bullet g, b \bullet g);\\
+  \mathtt{Abs}_m(a) \bullet g &= \mathtt{Abs}_n(a \bullet ((g_i \bullet (x_{n + 1, j})_j)_i + (x_{n + 1})));\\
+  \mathtt{Con}_m(s) \bullet g &= \mathtt{Con}_n(s).
+\end{align*}
+
+And then quotient $ \Lambda(S) $ by the relation generated by
+\[ \mathtt{App}_m(\mathtt{Abs}_m(f), g) \sim f \bullet ((x_{n, i})_i + (g)) \]
+for all $ f: \Lambda(S)_{n + 1} $ and $ g: \Lambda(S)_n $.
+
+% \subsection{The \texorpdfstring{$ \lambda $}{lambda}-calculus}
+
 \subsection{The theory algebra}
+\begin{example}
+  Let $ T $ be an algebraic theory and $ n $ a natural number. We can endow the $ T_n $ with a $ T $-algebra structure, by taking the substitution operator of $ T $ as the $ T $-action. Since this commutes with the substitution operator and the projections, $ T_n $ is a $ T $-algebra.
+\end{example}
+
+\subsection{The theory presheaf}
+\begin{example}
+  Let $ T $ be an algebraic theory. We can endow $ T $ with a $ T $-presheaf structure, by taking the substitution operator of $ T $ as the action on $ T $. Since this commutes with the substitution operator and the projections, $ T $ is a $ T $-presheaf.
+\end{example}
+
+\begin{lemma}
+  Given an algebraic theory $ T $ and a $ T $-presheaf $ Q $, we have for all $ n $ a bijection of sets
+  \[ \varphi: \Pshf T(T^n, Q) \cong Q_n. \]
+\end{lemma}
+\begin{proof}
+  For $ f: \Pshf T(T^n, Q) $, take $ \varphi(f) = f_n(x_1, \dots, x_n) $.
+
+  Conversely, for all $ q: Q_n $ and all $ t_1, \dots, t_n: T_m^n $ take
+  \[ \varphi^{-1}(q)_m(t_1, \dots, t_n) = q \bullet t. \]
+\end{proof}
+
 \subsection{The "+l" presheaf}
 
 Let $ \iota_{m, n} : T_m \to T_{m + n} $ denote the function that sends $ f $ to $ f \bullet (x_{m + n, 1}, \dots, x_{m + n, m}) $. Note that
-\[ \iota_{m, n}(f) \bullet g = f \bullet (g_i)_{i \leq m} \]
-and
-\[ \iota_{m, n}(f \bullet g) = f \bullet g \bullet (x_i)_i = f \bullet (g_i \bullet (x_j)_j)_i = f \bullet (\iota_{m, n}(g_i))_i. \]
+\[ \iota_{m, n}(f) \bullet g = f \bullet (g_i)_{i \leq m} \quad \text{and} \quad \iota_{m, n}(f \bullet g) = f \bullet (\iota_{m, n}(g_i))_i. \]
 
 For tuples $ x : X^m $ and $ y: X^n $, let $ x + y $ denote the tuple $ (x_1, \dots, x_m, y_1, \dots, y_n) : X^{m + n} $.
 
-\begin{definition}[The `+l' presheaf]
-  Given a $ T $-presheaf $ Q $, we can construct a presheaf $ A(Q, l) $, given by $ A(Q, l)_n = Q_{n + l} $. Then, for $ q: A(Q, l)_m $ and $ f: T_n^m $, the substitution is given by
-  \[ q \bullet_{A(Q, l)} f = q \bullet_Q ((\iota_{n, l} (f_i))_i + (x_{n + i})_i) \]
-\end{definition}
+\begin{example}[The `+l' presheaf]
+  Given a $ T $-presheaf $ Q $, we can construct a presheaf $ A(Q, l) $ with $ A(Q, l)_n = Q_{n + l} $ and, for $ q: A(Q, l)_m $ and $ f: T_n^m $, action
+  \[ q \bullet_{A(Q, l)} f = q \bullet_Q ((\iota_{n, l} (f_i))_i + (x_{n + i})_i). \]
+\end{example}
+
 \begin{lemma}
-  The +l presheaf is a presheaf
+  For all $ l $ and $ T $-presheaves $ Q $, $ A(Q, l) $ is the exponential object $ Q^{T^l} $.
 \end{lemma}
 \begin{proof}
-  We have, for $ q: A(Q, l)_n $,
-  \begin{align*}
-    q \bullet_{A(Q, l)} (x_i)_i &= q \bullet_Q ((\iota_{n, l}(x_i))_i + (x_{n + i})_i)\\
-    &= q \bullet_Q ((x_i)_i + (x_{n + i})_i)\\
-    &= q \bullet_Q (x_i)_i\\
-    &= q.
-  \end{align*}
-  We have, for $ q : A(Q, k)_l $, $ f: T_m^l $ and $ g: T_n^m $,
-  \begin{align*}
-    q \bullet_{A(Q, k)} f \bullet_{A(Q, k)} g &= q \bullet_Q ((\iota_{m, l}(f_i))_i + (x_{m + i})_i) \bullet_Q ((\iota_{n, l}(g_i))_i + (x_{n + i})_i)\\
-    &= q \bullet_Q (((\iota_{m, l}(f_i) \bullet_T ((\iota_{n, l}(g_j))_j + (x_{n + j})_j))_i + (x_{m + i} \bullet_T ((\iota_{n, l}(g_j))_j + (x_{n + j})_j))_i))\\
-    &= q \bullet_Q ((f_i \bullet_T (\iota_{n, l}(g_j))_j)_i + (x_{n + i})_i)\\
-    &= q \bullet_Q ((\iota_{n, l}(f_i \bullet_T g))_i + (x_{n + i})_i)\\
-    &= q \bullet_{A(Q, k)} (f_i \bullet_T g).
-  \end{align*}
+  We will show that $ A(-, l) $ constitutes a right adjoint to the functor $ - \times T^l $. We will do this using universal arrows.
+
+  For $ Q $ a $ T $-presheaf, take the arrow $ \varphi: A(Q, l) \times T^l \to Q $ given by $ \varphi(q, t) = q \bullet_Q ((x_{n, i})_i + t) $ for $ q: A(Q, l)_n = Q_{n + l} $ and $ t: T^l_n $.
+
+  Now, given a $ T $-presheaf $ Q^\prime $ and a morphism $ \psi: Q^\prime \times T^l \to Q $. Define $ \tilde \psi: Q^\prime_n \to A(Q, l)_n $ by $ \tilde \psi(q) = \psi(\iota_{n, l}(q), (x_{n + i})_i) $.
+
+  Then $ \psi $ factors as $ \varphi \circ (\tilde \psi \times \id{T^l}) $. Also, some equational reasoning shows that $ \tilde \psi $ is unique, which proves that $ \varphi $ indeed is a universal arrow.
+\end{proof}
+
+Now, this adjunction $ - \times T^l \dashv A(-, l) $ induces a natural isomorphism
+\[ \varphi: \Pshf T(- \times T^l, T) \xrightarrow{\sim} \Pshf T(-, A(T, l)) \]
+\begin{lemma}
+  For all $ f: \Pshf T(T^n \times T^l, T) $,
+  \[ \varphi_{T^n}(f)(q) = f(\iota_{m, l}(q), (x_{m + i})_i) \]
+\end{lemma}
+\begin{proof}
+  \TODO
+\end{proof}
+
+\begin{lemma}
+  For all $ f: \Pshf T(T^n, A(T, l)) $,
+  \[ \varphi_{T^n}^{-1}(f)(q, t) = f(q) \bullet ((x_i)_i + t). \]
+\end{lemma}
+\begin{proof}
+  \TODO
 \end{proof}
