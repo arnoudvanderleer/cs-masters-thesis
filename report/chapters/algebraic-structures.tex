@@ -83,11 +83,16 @@ We will write $ \Pshf T $ for the category of $ T $-presheaves and their morphis
 
 \section{\texorpdfstring{$ \lambda $-}{lambda-}theories}
 
+Let $ \iota_{m, n} : T_m \to T_{m + n} $ be the function that sends $ f $ to $ f \bullet (x_{m + n, 1}, \dots, x_{m + n, m}) $. Note that
+\[ \iota_{m, n}(f) \bullet g = f \bullet (g_i)_{i \leq m} \quad \text{and} \quad \iota_{m, n}(f \bullet g) = f \bullet (\iota_{m, n}(g_i))_i. \]
+
+For tuples $ x : X^m $ and $ y: X^n $, let $ x + y $ denote the tuple $ (x_1, \dots, x_m, y_1, \dots, y_n) : X^{m + n} $.
+
 \begin{definition}[$ \lambda $-theory]
   A $ \lambda $-theory is an algebraic theory $ L $, together with sequences of functions $ \lambda_n: L_{n + 1} \to L_n $ and $ \rho_n: L_n \to L_{n + 1} $, such that
   \begin{align*}
-    \lambda_m(f) \bullet h &= \lambda_n(f \bullet (h_1 \bullet (x_{n + 1, 1}, \dots, x_{n + 1, n}), \dots, h_m \bullet (x_{n + 1, 1}, \dots, x_{n + 1, n}), x_{n + 1, n + 1}))\\
-    \rho_n(g \bullet h) &= \rho_m(g) \bullet (h_1 \bullet (x_{n + 1, 1}, \dots, x_{n + 1, n}), \dots, h_m \bullet (x_{n + 1, 1}, \dots, x_{n + 1, n}), x_{n + 1, n + 1})
+    \lambda_m(f) \bullet h &= \lambda_n(f \bullet ((\iota_{n, 1}(h_i))_i + (x_{n + 1})))\\
+    \rho_n(g \bullet h) &= \rho_m(g) \bullet ((\iota_{n, 1}(h_i))_i + (x_{n + 1}))
   \end{align*}
   for all $ f: L_{m + 1} $, $ g: L_m $ and $ h: L_n^m $.
 \end{definition}
@@ -158,10 +163,21 @@ The proofs that $ F(S) $ is an algebraic theory and that $ F(f) $ and $ g $ are 
 \end{proof}
 
 \begin{lemma}
-  The category $ \Alg{F(S)} $ is equivalent to the coslice category (\TODO) $ S \downarrow \SET $.
+  There is an adjoint equivalence between the category $ \Alg{F(S)} $ and the coslice category (\TODO) $ S \downarrow \SET $.
 \end{lemma}
 \begin{proof}
-  \TODO
+  For the equivalence, we send a $ F(S) $-algebra $ A $ to the set $ A $ with morphism $ s \mapsto s \bullet () $. An algebra morphism $ f: A \to B $ is sent to the coslice morphism $ f: (S \to A) \to (S \to B) $. This constitutes a functor.
+
+  Note that the category of $ F(S) $-algebras is univalent.
+
+  Also, the functor is fully faithful, since one can show that for $ F(S) $-algebras, the coslice morphism $ \varphi: (f: S \to A) \to (f^\prime: S \to B) $ also has the structure of an algebra morphism $ \varphi: A \to B $.
+
+  Lastly, the functor is essentially surjective, since we can lift a coslice $ f: S \to X $ to a $ F(S) $-algebra $ X $, with action
+  \[ i \bullet x = x_i \quad \text{and} \quad s \bullet x = f(s). \]
+
+  Therefore, the functor $ \Alg{F(S)} \to S \downarrow \SET $ is an adjoint equivalence.
+
+  The proofs of these facts work by simple case distinction, and by using the properties of the coslice and algebra morphisms.
 \end{proof}
 
 $ F(\emptyset) $ is, in some sense, the smallest nontrivial algebraic theory. Then $ F(S) $ is the smallest nontrivial algebraic theory that has the elements of $ S $ as constants.
@@ -320,11 +336,6 @@ The proofs that $ E(X) $ is an algebraic theory and a $ \lambda $-theory, use pr
 \end{proof}
 
 \subsection{The "+l" presheaf}
-
-Let $ \iota_{m, n} : T_m \to T_{m + n} $ denote the function that sends $ f $ to $ f \bullet (x_{m + n, 1}, \dots, x_{m + n, m}) $. Note that
-\[ \iota_{m, n}(f) \bullet g = f \bullet (g_i)_{i \leq m} \quad \text{and} \quad \iota_{m, n}(f \bullet g) = f \bullet (\iota_{m, n}(g_i))_i. \]
-
-For tuples $ x : X^m $ and $ y: X^n $, let $ x + y $ denote the tuple $ (x_1, \dots, x_m, y_1, \dots, y_n) : X^{m + n} $.
 
 \begin{example}[The `+l' presheaf]
   Given a $ T $-presheaf $ Q $, we can construct a presheaf $ A(Q, l) $ with $ A(Q, l)_n = Q_{n + l} $ and, for $ q: A(Q, l)_m $ and $ f: T_n^m $, action
