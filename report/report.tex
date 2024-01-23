@@ -1,10 +1,15 @@
 \documentclass[a4paper]{amsbook}
 
-\usepackage{hyperref}
 \usepackage{tikz-cd}
 \usepackage{enumerate}
+\usepackage{imakeidx}
+\usepackage{hyperref}
 
 \title{Semantics for the $ \lambda $-calculus}
+
+\makeindex
+
+\newcommand{\iindex}[1]{\textit{#1}\index{#1}}
 
 \newtheorem{lemma}{Lemma}
 \newtheorem{theorem}{Theorem}
@@ -47,5 +52,7 @@
 
   \appendix
   \include{chapters/alternative-definitions}
+
+  \printindex
 
 \end{document}

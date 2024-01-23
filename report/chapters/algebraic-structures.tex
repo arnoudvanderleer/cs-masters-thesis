@@ -2,8 +2,8 @@
 
 \section{Algebraic Theories}\label{sec:algebraic-theories}
 
-\begin{definition}[algebraic theory]
-  We define an algebraic theory $ T $ to be a sequence of sets $ T_n $ indexed over $ \mathbb N $ with for all $ 1 \leq i \leq n $ elements ("variables" or "projections") $ x_{n, i}: T_n $ (we usually leave $ n $ implicit), together with a substitution operation
+\begin{definition}
+  We define an \iindex{algebraic theory} $ T $ to be a sequence of sets $ T_n $ indexed over $ \mathbb N $ with for all $ 1 \leq i \leq n $ elements ("variables" or "projections") $ x_{n, i}: T_n $ (we usually leave $ n $ implicit), together with a substitution operation
   \[ \_ \bullet \_: T_m \times T_n^m \to T_n \]
   for all $ m, n $, such that
   \begin{align*}
@@ -14,8 +14,8 @@
   for all $ 1 \leq j \leq l $, $ f: T_l $, $ g: T_m^l $ and $ h: T_n^m $.
 \end{definition}
 
-\begin{definition}[algebraic theory morphism]
-  A morphism $ F $ between algebraic theories $ T $ and $ T^\prime $ is a sequence of functions $ F_n: T_n \to T^\prime_n $ (we usually leave the $ n $ implicit) such that
+\begin{definition}
+  A \textit{morphism}\index{algebraic theory!morphism} $ F $ between algebraic theories $ T $ and $ T^\prime $ is a sequence of functions $ F_n: T_n \to T^\prime_n $ (we usually leave the $ n $ implicit) such that
   \begin{align*}
     F_n(x_j) &= x_j\\
     F_n(f \bullet g) &= F_m(f) \bullet (F_n(g_i))_i
@@ -31,8 +31,8 @@
 
 \section{Algebras}
 
-\begin{definition}[algebra]
-  An algebra $ A $ for an algebraic theory $ T $ is a set $ A $, together with an action
+\begin{definition}
+  An \iindex{algebra} $ A $ for an algebraic theory $ T $ is a set $ A $, together with an action
   \[ \bullet: T_n \times A^n \to A \]
   for all $ n $, such that
   \begin{align*}
@@ -42,8 +42,8 @@
   for all $ j $, $ f: T_m $, $ g: T_n^m $ and $ a: A^n $.
 \end{definition}
 
-\begin{definition}[algebra morphism]
-  For an algebraic theory $ T $, a morphism $ F $ between $ T $-algebras $ A $ and $ A^\prime $ is a function $ F: A \to A $ such that
+\begin{definition}
+  For an algebraic theory $ T $, a \textit{morphism}\index{algebra!morphism} $ F $ between $ T $-algebras $ A $ and $ A^\prime $ is a function $ F: A \to A $ such that
   \[ F(f \bullet a) = f \bullet (F(a_i))_i \]
   for all $ f: T_n $ and $ a: A^n $.
 \end{definition}
@@ -56,10 +56,14 @@
   Note that for an algebraic theory $ T $, the $ T_n $ are all algebras for $ T $, with the action given by $ \bullet $.
 \end{remark}
 
+\begin{lemma}
+  \TODO Fibration
+\end{lemma}
+
 \section{Presheaves}
 
-\begin{definition}[presheaf]
-  A presheaf $ P $ for an algebraic theory $ T $ is a sequence of sets $ P_n $ indexed over $ \mathbb N $, together with an action
+\begin{definition}
+  A \iindex{presheaf} $ P $ for an algebraic theory $ T $ is a sequence of sets $ P_n $ indexed over $ \mathbb N $, together with an action
   \[ \bullet: P_m \times T_n^m \to P_n \]
   for all $ m, n $, such that
   \begin{align*}
@@ -69,8 +73,8 @@
   for all $ t: P_l $, $ f: T_m^l $ and $ g: T_n^m $.
 \end{definition}
 
-\begin{definition}[presheaf morphism]
-  For an algebraic theory $ T $, a morphism $ F $ between $ T $-presheaves $ P $ and $ P^\prime $ is a sequence of functions $ F_n: P_n \to P^\prime_n $ such that
+\begin{definition}
+  For an algebraic theory $ T $, a \textit{morphism}\index{presheaf!morphism} $ F $ between $ T $-presheaves $ P $ and $ P^\prime $ is a sequence of functions $ F_n: P_n \to P^\prime_n $ such that
   \[ F_n(t \bullet f) = F_m(t) \bullet f \]
   for all $ t: P_m $ and $ f: T_n^m $.
 \end{definition}
@@ -81,6 +85,10 @@ We will write $ \Pshf T $ for the category of $ T $-presheaves and their morphis
   The category of presheaves has all limits. The $ n $th set $ \overline{P}_n $ of a limit $ \overline{P} $ of presheaves $ P_i $ is the limit of the $ n $th sets $ P_{i, n} $ of the presheaves in the limit diagram.
 \end{remark}
 
+\begin{lemma}
+  \TODO Fibration
+\end{lemma}
+
 \section{\texorpdfstring{$ \lambda $-}{lambda-}theories}
 
 Let $ \iota_{m, n} : T_m \to T_{m + n} $ be the function that sends $ f $ to $ f \bullet (x_{m + n, 1}, \dots, x_{m + n, m}) $. Note that
@@ -89,7 +97,7 @@ Let $ \iota_{m, n} : T_m \to T_{m + n} $ be the function that sends $ f $ to $ f
 For tuples $ x : X^m $ and $ y: X^n $, let $ x + y $ denote the tuple $ (x_1, \dots, x_m, y_1, \dots, y_n) : X^{m + n} $.
 
 \begin{definition}[$ \lambda $-theory]
-  A $ \lambda $-theory is an algebraic theory $ L $, together with sequences of functions $ \lambda_n: L_{n + 1} \to L_n $ and $ \rho_n: L_n \to L_{n + 1} $, such that
+  A \iindex{$ \lambda $-theory} is an algebraic theory $ L $, together with sequences of functions $ \lambda_n: L_{n + 1} \to L_n $ and $ \rho_n: L_n \to L_{n + 1} $, such that
   \begin{align*}
     \lambda_m(f) \bullet h &= \lambda_n(f \bullet ((\iota_{n, 1}(h_i))_i + (x_{n + 1})))\\
     \rho_n(g \bullet h) &= \rho_m(g) \bullet ((\iota_{n, 1}(h_i))_i + (x_{n + 1}))
@@ -102,7 +110,7 @@ For tuples $ x : X^m $ and $ y: X^n $, let $ x + y $ denote the tuple $ (x_1, \d
 \end{definition}
 
 \begin{definition}[$ \lambda $-theory morphism]
-  A morphism $ F $ between $ \lambda $-theories $ L $ and $ L^\prime $ is an algebraic theory morphism $ F $ such that
+  A \textit{morphism}\index{$ \lambda $-theory!morphism} $ F $ between $ \lambda $-theories $ L $ and $ L^\prime $ is an algebraic theory morphism $ F $ such that
   \begin{align*}
     F_n(\lambda_n(f)) &= \lambda_n(F_{n + 1}(f))\\
     \rho_n(F_n(g)) &= F_{n + 1}(\rho_n(g))
@@ -277,7 +285,7 @@ The idea is that if an object of $ C $ is a set, together with some operations b
 \end{remark}
 
 \begin{remark}
-  Another counterexample is the category $ \mathbf{Top} $ of topological spaces. We have a forgetful functor $ G: \mathbf{Top} \to \SET $ that just forgets the topology. On the other hand, we have a free functor $ F: \SET \to \mathbf{Top} $ which endows a set with the discrete topology. In this case, one obtains the inital algebraic theory $ T_n = \{ 1, \dots, n \} $, with an algebra action on every topological space $ i \bullet (a_1, \dots, a_n) = a_i $. Now, note that we can endow the set $ \{ \top, \bot \} $ with four different, nonisomorphic topologies, which all yield the same $ T $-algebra; the $ T $-algebra structure does not preserve the topological information. Therefore, the functor $ \alpha: \mathbf{Top} \to \Alg T $ is not an equivalence.
+  Another counterexample is the category $ \mathbf{Top} $ of topological spaces. We have a forgetful functor $ G: \mathbf{Top} \to \SET $ that just forgets the topology. On the other hand, we have a free functor $ F: \SET \to \mathbf{Top} $ which endows a set with the discrete topology. The construction above yields the inital algebraic theory $ T_n = \{ 1, \dots, n \} $, with an algebra action on every topological space $ i \bullet (a_1, \dots, a_n) = a_i $. Now, note that we can endow the set $ \{ \top, \bot \} $ with four different, nonisomorphic topologies, which all yield the same $ T $-algebra. In other words: the $ T $-algebra structure does not preserve the topological information. Therefore, the functor $ \alpha: \mathbf{Top} \to \Alg T $ is not an equivalence.
 \end{remark}
 
 \subsection{The terminal theory}
@@ -301,12 +309,12 @@ The idea is that if an object of $ C $ is a set, together with some operations b
 
 \subsection{The endomorphism theory}
 
-\begin{definition}[Endomorphism theory]
+\begin{definition}
   Suppose that we have a category $ C $ and an object $ X: C $, such that all powers $ X^n $ of $ X $ are also in $ C $.
-  The endomorphism theory $ E(X) $ of $ X $ is the algebraic theory given by $ E(X)_n = C(X^n, X) $ with projections as variables $ x_{n, i}: X^n \to X $ and a substitution that sends $ f: X^m \to X $ and $ g_1, \dots, g_m: X^n \to X $ to $ f \circ \langle g_i \rangle_i: X^n \to X^m \to X $.
+  The \iindex{endomorphism theory} $ E(X) $ of $ X $ is the algebraic theory given by $ E(X)_n = C(X^n, X) $ with projections as variables $ x_{n, i}: X^n \to X $ and a substitution that sends $ f: X^m \to X $ and $ g_1, \dots, g_m: X^n \to X $ to $ f \circ \langle g_i \rangle_i: X^n \to X^m \to X $.
 \end{definition}
 
-\begin{definition}[Endomorphism $ \lambda $-theory]
+\begin{definition}
   Now, suppose that the exponential object $ X^X $ exists, and that we have morphisms back and forth $ abs: X^X \to X $ and $ app: X \to X^X $. Let, for $ Y: C $, $ \varphi_Y $ be the isomorphism $ C(X \times Y, X) \xrightarrow{\sim} C(Y, X^X) $.
   We can give $ E(X) $ a $ \lambda $-theory structure by setting, for $ f: E(X)_{n + 1} $ and $ g: E(X)_n $,
   \[ \lambda(f) = abs \circ \varphi_{X^n}(f) \qquad \rho(g) = \varphi_{X^n}^{-1}(app \circ g). \]
@@ -324,7 +332,7 @@ The proofs that $ E(X) $ is an algebraic theory and a $ \lambda $-theory, use pr
   Let $ T $ be an algebraic theory. We can endow $ T $ with a $ T $-presheaf structure, by taking the substitution operator of $ T $ as the action on $ T $. Since this commutes with the substitution operator and the projections, $ T $ is a $ T $-presheaf.
 \end{example}
 
-\begin{lemma}
+\begin{lemma}\label{lem:presheaf-Yoneda}
   Given an algebraic theory $ T $ and a $ T $-presheaf $ Q $, we have for all $ n $ a bijection of sets
   \[ \varphi: \Pshf T(T^n, Q) \cong Q_n. \]
 \end{lemma}
