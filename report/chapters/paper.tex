@@ -2,37 +2,13 @@
 
 \section{Scott's Representation Theorem}
 \begin{theorem}
-  Any $ \lambda $-theory $ L $ is isomorphic to the endomorphism $ \lambda $-theory $ E(\tilde L) $ of $ \tilde L $ in the presheaf category of $ L $.
+  Any $ \lambda $-theory $ L $ is isomorphic to the endomorphism $ \lambda $-theory $ E(L) $ of $ L: \Pshf L $, which is $ L $, viewed as a presheaf in its own presheaf category.
 \end{theorem}
 \begin{proof}
-  First of all, remember that $ \tilde L $ is indeed exponentiable and that $ \tilde L^{\tilde L} = A(\tilde L, 1) $.
-  Now, since $ L $ is a $ \lambda $-theory, we have functions back and forth $ \lambda: A(\tilde L, 1) \to \tilde L $ and $ \rho: \tilde L \to A(\tilde L, 1) $. These are presheaf morphisms because for all $ f: A(\tilde L, 1)_m $ and $ g: \tilde L_m $ and $ t: T_n^m $,
-  \[ \lambda(f \bullet_{A(\tilde L, 1)} t) = \lambda(f \bullet_{\tilde L} ((\iota_{m, 1}(t_i))_i + (x_{n + 1}))) = \lambda(f) \bullet_{\tilde L} t \]
-  and
-  \[ \rho(g \bullet_{\tilde L} t) = \rho(g) \bullet_{\tilde L} ((\iota_{m, 1}(t_i))_i + (x_{n + 1})) = \rho(g) \bullet_{A(\tilde L, 1)} t. \]
-  Therefore, $ E(\tilde L) $ is indeed a $ \lambda $-theory.
+  First of all, remember that $ L $ is indeed exponentiable and that $ L^L = A(L, 1) $.
+  Now, since $ L $ is a $ \lambda $-theory, we have sequences of functions back and forth $ \lambda_n: A(L, 1)_n \to L_n $ and $ \rho_n: L_n \to A(L, 1)_n $. These commute with the $ L $-actions, so they constitute presheaf morphisms and $ E(L) $ is indeed a $ \lambda $-theory.
 
-  For any presheaf $ Q $ and for any $ n $, we have a bijection $ PL(L^n, Q) \cong Q_n $.
-  Then we have $ \varphi: E(\tilde L)_n \cong L_n $.
-  This bijection is an isomorphism of $ \lambda $-theories, since it preserves the $ x_i $, $ \bullet $, $ \rho $ and $ \lambda $: for all $ 1 \leq j \leq n $, $ f: E(\tilde L)_m $, $ g: E(\tilde L)_{m + 1} $ and $ h: E(\tilde L)_n^m $.
-  \begin{align*}
-    \varphi(x_j) &= x_j(x_1, \dots, x_n)\\
-    &= x_j;\\
-    \varphi(f \bullet h) &= f \circ \langle h_i \rangle_i((x_i)_i)\\
-    &= f((h_i((x_j)_j))_i)\\
-    &= f((x_i)_i \bullet (h_i((x_j)_j))_i)\\
-    &= f((x_i)_i) \bullet (h_i((x_j)_j))_i\\
-    &= \varphi(f) \bullet (\varphi(h_i))_i;\\
-    \varphi(\rho(f)) &= \rho(f)((x_i)_i)\\
-    &= \rho(f((x_i)_i)) \bullet (x_i)_i\\
-    &= \rho(f((x_i)_i))\\
-    &= \rho(\varphi(f));\\
-    \varphi(\lambda(g)) &= \lambda(g)((x_i)_i)\\
-    &= \lambda(\varphi_{X^n}(g)((x_i)_i))\\
-    &= \lambda(g(\iota_{m, l}((x_i)_i) + (x_{m + 1})))\\
-    &= \lambda(g((x_i)_i))\\
-    &= \lambda(\varphi(g)).
-  \end{align*}
+  Lemma \ref{lem:presheaf-Yoneda} gives a sequence of bijections $ \varphi_n : \Pshf L(L^n, L) \cong L_n $ for all $ n $, sending $ F: \Pshf L(L^n, L) $ to $ F(x_1, \dots, x_n) $, and conversely sending $ s: L_n $ to $ ((t_1, \dots, t_n) \mapsto s \bullet (t_1, \dots, t_n)) $. It considers $ \lambda $-terms in $ n $ variables as $ n $-ary functions on the $ \lambda $-calculus. Therefore, it should come as no surprise that $ \varphi $ preserves the $ x_i $, $ \bullet $, $ \rho $ and $ \lambda $, which makes it into an isomorphism of $ \lambda $-theories and this concludes the proof.
 \end{proof}
 
 \section{Locally cartesian closedness of the category of retracts}
@@ -54,28 +30,6 @@
 \section{Equivalences}
 
 \section{The Fundamental Theorem of the \texorpdfstring{$ \lambda $-}{lambda }calculus}
-
-\begin{definition}[$ \Lambda $]
-  There is a special $ \lambda $-theory, given by the $ \lambda $-calculus itself. $ \Lambda_n $ is the set of $ \lambda $-terms with $ n $ free variables, the $ x_i $ are the free variables, and $ \bullet $ is given by substitution. $ \lambda $ sends $ f: \Lambda_{n + 1} $ to $ \lambda x_{n + 1}, f $ and $ \rho $ sends $ f: \Lambda_n $ to $ \iota_{n, 1}(f) x_{n + 1} $ in $ \Lambda_n $.
-\end{definition}
-
-\begin{lemma}
-  $ \Lambda $ is indeed a $ \lambda $-theory.
-\end{lemma}
-\begin{proof}
-  \TODO
-\end{proof}
-
-\begin{lemma}
-  $ \Lambda $ is the initial $ \lambda $-theory.
-\end{lemma}
-\begin{proof}
-  Given a $ \lambda $-theory $ L $, we construct a morphism $ f: \Lambda \to L $ by induction on the $ \lambda $-terms. We set $ f(x_i) = x_i $, $ f(\lambda(t)) = \lambda(f(t)) $ and $ f(st) = \rho(f(s)) \bullet ((x_i)_i + (f(t))) $.
-
-  This is a $ \lambda $-theory morphism because \TODO
-
-  It is unique, since \TODO
-\end{proof}
 
 \begin{definition}[Pullback of algebras]
   If we have a morphism of algebraic theories $ f: T^\prime \to T $, we have a functor $ AT \to AT^\prime $.

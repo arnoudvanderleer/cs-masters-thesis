@@ -11,31 +11,96 @@ For composition of morphisms $ f: C(c, d) $ and $ g: C(d, e) $, I will write $ f
 
 For composition of functors $ F: A \to B $ and $ G: B \to C $, I will write $ F \bullet G $.
 
+\section{Universal Arrows}
+(\cite{MacLane}, Chapter IV.1, Theorem 2 (iv))
+\TODO
+
 \section{Adjunctions}
+
+Recall that an \iindex{adjunction} $ L \dashv R $ is a pair of functors
+\begin{center}
+  \begin{tikzcd}
+    D \arrow[r, bend right, "R"'{name=R}] & C \arrow[l, bend right, "L"'{name=L}]
+  \end{tikzcd}
+\end{center}
+with natural transformations (the unit and counit)
+\[ \eta: \id C \Rightarrow L \bullet R \quad \text{and} \quad \epsilon: R \bullet L \Rightarrow \id D \]
+such that the diagrams
+\begin{center}
+  \begin{tikzcd}[column sep = .5cm]
+    L \arrow[rd, "\eta \bullet L"'] \arrow[rr, "\id L"] & & L\\
+    & L \bullet R \bullet L \arrow[ur, "L \bullet \epsilon"']
+  \end{tikzcd}
+  \qquad
+  \begin{tikzcd}[column sep = .5cm]
+    R \arrow[rd, "R \bullet \eta"'] \arrow[rr, "\id R"] & & R\\
+    & R \bullet L \bullet R \arrow[ur, "\epsilon \bullet R"']
+  \end{tikzcd}
+\end{center}
+commute. Here the natural transformation $ \eta \bullet L: L \bullet R \bullet L $ is the natural transformation $ \eta $ whiskered on the right by $ L $, and the other whiskered transformations are similar.
+
+An alternative characterization of an adjunction $ L \dashv R $ is as a natural bijection
+\[ \varphi: D(L(c), d) \xrightarrow{\sim} C(c, R(d)). \]
+Naturality means that for all $ f: C(c^\prime, c) $, $ g: D(d, d^\prime) $ and $ h: D(L(c), d) $,
+\[ \varphi(L(f) \cdot h \cdot g) = f \cdot \varphi(h) \cdot R(g). \]
+
 \subsection{Adjoint equivalences}
 An adjoint equivalence of categories has multiple definitions. The one we will use here is the following:
 
-\tikzset{%
-    symbol/.style={%
-        draw=none,
-        every to/.append style={%
-            edge node={node [sloped, allow upside down, auto=false]{$#1$}}}
-    }
-}
-
 \begin{definition}
-  An adjoint equivalence between categories $ C $ and $ D $ is a pair of adjoint functors
-  \begin{center}
-    \begin{tikzcd}
-      D \arrow[r, bend right, "R"'{name=R}] & C \arrow[l, bend right, "L"'{name=L}]
-      \ar[from=L, to=R, symbol=\dashv]
-    \end{tikzcd}
-  \end{center}
-  such that the unit $ \eta: \id{C} \Rightarrow L \bullet R $ and counit $ \epsilon: R \bullet L \Rightarrow \id{D} $ are isomorphisms of functors.
+  An \iindex{adjoint equivalence} between categories $ C $ and $ D $ is a pair of adjoint functors $ L \dashv R $ like above such that the unit $ \eta: \id{C} \Rightarrow L \bullet R $ and counit $ \epsilon: R \bullet L \Rightarrow \id{D} $ are isomorphisms of functors.
 \end{definition}
 
 \subsection{Exponential objects}
-\TODO
+Note that in the category of sets, for all $ X, Y: \SET $, we have a set $ (X \to Y) $. Also, for all $ X, Y, Z $, there is a (natural) bijection
+\[ (X \times Y \to Z) \cong (X \to (Y \to Z)) \]
+which we can also write as
+\[ \SET(X \times Y, Z) \cong \SET(X, (Y \to Z)). \]
+In other words, we have functors $ X \mapsto X \times Y $ and $ Z \mapsto (Y \to Z) $, and these two form an adjunction. The following generalizes this
+\begin{definition}
+  A category $ C $ has \textit{exponential objects}\index{exponential objects} (or \textit{exponentials}) if for all $ c: C $, the functor $ c^\prime \mapsto c^\prime \times c $ has a right adjoint, which we denote $ d \mapsto d^c $.
+\end{definition}
+
+\begin{lemma}
+  For $ c, d, d^c : C $, we have a natural bijection
+  \[ C(d^\prime \times c, d) \cong C(d^\prime, d^c) \]
+  iff we have a universal arrow ...
+\end{lemma}
+\begin{proof}
+  \TODO
+\end{proof}
+
+\begin{remark}
+  It is actually very well possible that a category does not have all exponentials, but it has some objects $ c, d, d^c: C $ with a natural bijection
+  \[ C(d^\prime \times c, d) \cong C(d^\prime, d^c). \]
+  Then $ d^c $ is still called an exponential object.
+\end{remark}
+
+\section{(Co)slice categories}
+Given an object in a category $ c: C $, the morphisms to and from $ c $ constitute the slice and coslice categories
+\begin{definition}
+  The \iindex{slice category} $ C \downarrow c $ is the category with as objects the morphisms to $ c $:
+  \[ (C \downarrow c)_0 = \sum_{c^\prime: C} C(c^\prime, c). \]
+  The morphisms from $ (c^\prime, f) $ to $ (c^{\prime\prime}, f^\prime) $ are the morphisms $ g: c^\prime \to c^{\prime\prime} $ making the following diagram commute.
+  \begin{center}
+    \begin{tikzcd}[column sep=.5cm]
+      c^\prime \arrow[rr, "g"] \arrow[rd, "f"'] & & c^{\prime\prime} \arrow[ld, "f^\prime"]\\
+      & c
+    \end{tikzcd}
+  \end{center}
+\end{definition}
+The \textit{coslice category}\index{slice category!co-} $ c \downarrow C $ is similar, but with the morphisms from $ c $:
+\[ (c \downarrow C)_0 = \sum_{c^\prime: C} C(c, c^\prime). \]
+
+\section{(Weakly) terminal objects}
+\begin{definition}
+  If a category has an object $ t $, such that there is a (not necessarily unique) morphism to it from every other object in the category, $ t $ is said to be a \iindex{weakly terminal object}.
+\end{definition}
+
+\begin{definition}
+  Given an object $ c $ in a category $ C $ with terminal object $ t $. A \iindex{global element} of $ c $ is a morphism $ C(t, c) $.
+\end{definition}
+
 
 \section{Kan Extensions}
 One of the most general and abstract concepts in category theory is the concept of \textit{Kan extensions}. In \cite{MacLane}, Section X.7, MacLane notes that
@@ -46,7 +111,7 @@ In this thesis, we will use left Kan extension a handful of times. It comes in h
 
 Let $ A $, $ B $ and $ C $ be categories and let $ F : A \to B $ be a functor.
 \begin{definition}
-  Precomposition gives a functor between functor categories $ F_* : [B, C] \to [A, C] $. If $ F_* $ has a left adjoint, we will denote call this adjoint functor the \textit{left Kan extension} along $ F $ and denote it $ \mathrm{Lan}_F : [A, C] \to [B, C] $.
+  Precomposition gives a functor between functor categories $ F_* : [B, C] \to [A, C] $. If $ F_* $ has a left adjoint, we will denote call this adjoint functor the \textit{left Kan extension}\index{Kan extension!left} along $ F $ and denote it $ \mathrm{Lan}_F : [A, C] \to [B, C] $.
 
   \begin{center}
     \begin{tikzcd}[column sep=.5cm]
@@ -58,7 +123,7 @@ Let $ A $, $ B $ and $ C $ be categories and let $ F : A \to B $ be a functor.
     \end{tikzcd}
   \end{center}
 
-  Analogously, when $ F_* $ has a right adjoint, one calls this the \textit{right Kan extension} along $ F $ and denote it $ \mathrm{Ran}_F: [A, C] \to [B, C] $.
+  Analogously, when $ F_* $ has a right adjoint, one calls this the \textit{right Kan extension}\index{Kan extension!right} along $ F $ and denote it $ \mathrm{Ran}_F: [A, C] \to [B, C] $.
 \end{definition}
 
 If a category has limits (resp. colimits), we can construct the right (resp. left) Kan extension in a `pointwise' fashion (see Theorem X.3.1 in \cite{MacLane} or Theorem 2.3.3 in \cite{Kashiwara}). Below, I will outline the parts of the construction that we will need explicitly in this thesis.
@@ -72,7 +137,7 @@ If a category has limits (resp. colimits), we can construct the right (resp. lef
   Here, $ (F \downarrow b) $ denotes the comma category with as objects the morphisms $ B(F(a), b) $ for all $ a: A $, and as morphisms from $ f: B(F(a), b) $ to $ f^\prime: B(F(a^\prime), b) $ the morphisms $ g: A(a, a^\prime) $ that make the diagram commute:
   \begin{center}
     \begin{tikzcd}[column sep=.5cm]
-      F(a) \arrow[rr, "F(g)"] \arrow[rd, "f^\prime"'] & & F(a^\prime) \arrow[ld, "f^\prime"]\\
+      F(a) \arrow[rr, "F(g)"] \arrow[rd, "f"'] & & F(a^\prime) \arrow[ld, "f^\prime"]\\
       & b
     \end{tikzcd}
   \end{center}
@@ -89,14 +154,14 @@ If a category has limits (resp. colimits), we can construct the right (resp. lef
 \end{proof}
 
 \begin{lemma}
-  If $ F : A \to B $ is a fully faithful functor, and $ C $ is a category with colimits, $ \eta $ is a natural isomorphism.
+  If $ F : A \to B $ is a fully faithful functor, and $ C $ is a category with colimits, $ \eta: \id{[A, C]} \Rightarrow \Lan F {} \bullet F_* $ is a natural isomorphism.
 \end{lemma}
 \begin{proof}
-  To show that $ \eta $ is a natural isomorphism, we have to show that $ \eta_G(a^\prime): G(a^\prime) \Rightarrow \Lan F G(F(a^\prime)) $ is an isomorphism for all $ G: [A, C] $ and $ a^\prime: A $. Since a left adjoint is unique up to natural isomorphism, we can assume that $ \Lan F G(F(a^\prime)) $ is given by
+  To show that $ \eta $ is a natural isomorphism, we have to show that $ \eta_G(a^\prime): G(a^\prime) \Rightarrow \Lan F G(F(a^\prime)) $ is an isomorphism for all $ G: [A, C] $ and $ a^\prime: A $. Since a left adjoint is unique up to natural isomorphism (\cite{CT4P}, Exercise 153), we can assume that $ \Lan F G(F(a^\prime)) $ is given by
   \[ \text{colim} ((F \downarrow F(a^\prime)) \to A \xrightarrow G C). \]
   Now, the diagram for this colimit consists of $ G(a) $ for each arrow $ f: B(F(a), F(a^\prime)) $. Since $ F $ is fully faithful, we have $ f = F(\overline f) $ for some $ \overline f: A(a, a^\prime) $. If we now take the arrows $ G(\overline f): C(G(a), G(a^\prime)) $, the universal property of the colimit gives an arrow
   \[ \varphi: C(\Lan F G(F(a^\prime)), G(a^\prime)) \]
-  which constitutes an inverse to $ \eta_G(a^\prime) $.
+  which constitutes an inverse to $ \eta_G(a^\prime) $. The proof of this revolves around properties of the colimit and its (induced) morphisms.
 \end{proof}
 
 \begin{remark}
@@ -124,25 +189,12 @@ Let $ C $ be a category. If we have a retraction-section pair
 \begin{tikzcd}
   c \arrow[r, shift left, "r"] & d \arrow[l, shift left, "s"]
 \end{tikzcd}
-we have (by definition) $ s \cdot r = \id d $. On the other hand, $ s \cdot r: c \to c $ is an idempotent morphism. Conversely, we can wonder whether for any idempotent morphism $ a: c \to c $, we can find a retraction-section pair $ r: c \to d $ and $ s: d \to c $ such that $ a = r \cdot s $. If this is the case, we say that the idempotent $ a $ \textit{splits}. If $ a $ does not split, we can wonder whether we can find an embedding $ \iota_C : C \hookrightarrow \overline C $ such that the idempotent $ \iota_C(a): \iota_C(c) \to \iota_C(c) $ does split.
+we have (by definition) $ s \cdot r = \id d $. On the other hand, $ r \cdot s: c \to c $ is an idempotent morphism, since $ r \cdot s \cdot r \cdot s = r \cdot s $. Conversely, we can wonder whether for some idempotent morphism $ a: c \to c $, we can find a retraction-section pair $ (r, s) $ such that $ a = r \cdot s $. If this is the case, we say that the idempotent $ a $ \textit{splits}\index{split idempotent}. If $ a $ does not split, we can wonder whether we can find an embedding $ \iota_C : C \hookrightarrow \overline C $ such that the idempotent $ \iota_C(a): \iota_C(c) \to \iota_C(c) $ does split. This is one way to arrive at the \textit{Karoubi envelope}.
 
 \begin{definition}
   We define the category $ \overline C $. The objects of $ \overline C $ are tuples $ (c, a) $ with $ c: C $, $ a: C(c, c) $ such that $ a \cdot a = a $. The morphisms between $ (c, a) $ and $ (d, b) $ are morphisms $ f: C(a, b) $ such that $ a \cdot f \cdot b = f $. The identity morphism on $ (c, a) $ is given by $ a $ and $ \overline C $ inherits morphism composition from $ C $.
 \end{definition}
-This category is called the \textit{Karoubi Envelope}, the \textit{idempotent completion}, the \textit{category of retracts}, or the \textit{Cauchy completion} of $ C $.
-
-% \begin{definition}
-%   \TODO Karoubi envelope in terms of presheaves
-%   Alternatively, one can define $ \overline C $ to be the full subcategory of the presheaf category $ [\op C, \SET] $ that consists of retracts of representable presheaves. That is, the presheaves $ P: \op C $ such that there exists
-% \end{definition}
-
-% \begin{definition}
-%   Abstract definition: \TODO
-% \end{definition}
-
-% \begin{lemma}
-%   Equivalence of the definitions
-% \end{lemma}
+This category is called the \iindex{Karoubi envelope}, the \textit{idempotent completion}\index{idempotent completion|see{Karoubi envelope}}, the \textit{category of retracts}\index{category of retracts|see{Karoubi envelope}}, or the \textit{Cauchy completion}\index{Cauchy completion|see{Karoubi envelope}} of $ C $.
 
 \begin{remark}
   Note that for a morphism $ f: \overline C((c, a), (d, b)) $,
@@ -165,7 +217,7 @@ This category is called the \textit{Karoubi Envelope}, the \textit{idempotent co
 \end{proof}
 
 \begin{lemma}
-  Every idempotent splits in $ \overline C $.
+  In $ \overline C $, every idempotent splits.
 \end{lemma}
 \begin{proof}
   Take an idempotent $ e: \overline C(c, c) $. Note that $ c $ is given by an object $ c_0: C $ and an idempotent $ a: C(c_0, c_0) $. Also, $ e $ is given by some idempotent $ e: C(c_0, c_0) $ with $ a \cdot e \cdot a = e $.
@@ -239,7 +291,8 @@ For convenience, the lemma below works with pointwise left Kan extension using c
 \end{proof}
 
 \begin{corollary}
-  As the category $ \SET $ is cocomplete, we have an equivalence between the category of presheaves on $ C $ and the category of presheaves on $ \overline C $.
+  As the category $ \SET $ is cocomplete, we have an equivalence between the category of presheaves on $ C $ and the category of presheaves on $ \overline C $:
+  \[ [\op C, \SET] \cong [\overline{\op C}, \SET] \cong [\op{\overline C}, \SET]. \]
 \end{corollary}
 
 \section{Monoids as categories}
@@ -262,12 +315,12 @@ Take a monoid $ M $.
 \end{proof}
 
 \begin{definition}
-  A \textit{right monoid action} of $ M $ on a set $ X $ is a function $ X \times M \to X $ such that for all $ x: X $, $ m, m^\prime: M $,
+  A \textit{right monoid action}\index{monoid action} of $ M $ on a set $ X $ is a function $ X \times M \to X $ such that for all $ x: X $, $ m, m^\prime: M $,
   \[ x 1 = x \qquad \text{and} \qquad (x m) m^\prime = x (m \cdot m^\prime). \]
 \end{definition}
 
 \begin{definition}
-  A \textit{morphism} between sets $ X $ and $ Y $ with a right $ M $- action is an $ M $-equivariant function $ f: X \to Y $: a function such that $ f(xm) = f(x)m $ for all $ x: X $ and $ m: M $.
+  A \textit{morphism}\index{monoid action!morphism} between sets $ X $ and $ Y $ with a right $ M $-action is an $ M $-equivariant function $ f: X \to Y $: a function such that $ f(xm) = f(x)m $ for all $ x: X $ and $ m: M $.
 \end{definition}
 
 \begin{lemma}
@@ -277,17 +330,9 @@ Take a monoid $ M $.
   This correspondence sends a presheaf $ F $ to the set $ F(\star) $, and conversely, the set $ X $ to the presheaf $ F $ given by $ F(\star) := X $. The $ M $-action corresponds to the presheaf acting on morphisms as $ xm = F(m)(x) $. A morphism (natural transformation) between presheaves $ F \Rightarrow G $ corresponds to a function $ F(\star) \to G(\star) $ that is $ M $-equivariant, which is exactly a monoid action morphism.
 \end{proof}
 
-\begin{definition}
-  We can view $ M $ as a set $ U_M $ with right $ M $-action $ m n = m \cdot_M n $ for $ m: U_M $ and $ n: M $.
-\end{definition}
-
 \begin{remark}
   Since the category of sets with an $ M $-action is equivalent to a presheaf category, it has all limits. However, we can make this concrete. The set of the product $ \prod_i X_i $ is the product of the underlying sets. The action is given pointwise by $ (x_i)_i m = (x_i m)_i $.
 \end{remark}
-
-\begin{definition}
-  Given an object $ c $ in a category $ C $ with terminal object $ t $. The global elements of $ c $ are the morphisms $ C(t, c) $.
-\end{definition}
 
 Note that the initial set with $ M $-action is $ \{ \star \} $, with action $ \star m = \star $.
 
@@ -302,15 +347,21 @@ Note that the initial set with $ M $-action is $ \{ \star \} $, with action $ \s
   The category $ C $ of sets with an $ M $-action has exponentials.
 \end{lemma}
 \begin{proof}
-  Given sets with $ M $-action $ X $ and $ Y $. Consider the set $ C(M \times X, Y) $ with an $ M $-action given by $ \phi m^\prime(m, x) = \phi(m^\prime m, x) $. This is the exponential object $ X^Y $, with the evaluation morphism $ X \times X^Y \to Y $ given by $ (x, \phi) \mapsto \phi(1, x) $.
+  Given sets with $ M $-action $ X $ and $ Y $. Consider the set $ C(M \times X, Y) $ with an $ M $-action given by $ \phi m^\prime(m, x) = \phi(m^\prime m, x) $. This is the exponential object $ X^Y $, with the (universal) evaluation morphism $ X \times X^Y \to Y $ given by $ (x, \phi) \mapsto \phi(1, x) $.
 \end{proof}
+
+\begin{definition}
+  We can view $ M $ as a set $ U_M $ with right $ M $-action $ m n = m \cdot_M n $ for $ m: U_M $ and $ n: M $.
+\end{definition}
 
 \subsection{Extension and restriction of scalars}
 
 Let $ \varphi: M \to M^\prime $ be a morphism of monoids.
 
+Remember that sets with a right monoid action are equivalent to presheaves on the monoid category. Also, $ \varphi $ is equivalent to a functor between the monoid categories. The following is a specific case of the concepts in the section about Kan extension:
+
 \begin{lemma}
-  We get a \textit{restriction of scalars} functor $ \varphi_* $ from sets with a right $ M^\prime $-action to sets with a right $ M $-action.
+  We get a \iindex{restriction of scalars} functor $ \varphi_* $ from sets with a right $ M^\prime $-action to sets with a right $ M $-action.
 \end{lemma}
 \begin{proof}
   Given a set $ X $ with right $ M^\prime $-action, take the set $ X $ again, and give it a right $ M $-action, sending $ (x, m) $ to $ x \varphi(m) $.
@@ -321,12 +372,12 @@ Let $ \varphi: M \to M^\prime $ be a morphism of monoids.
 Since $ \SET $ has colimits, and restriction of scalars corresponds to precomposition of presheaves (on $ C_{M^\prime} $), we can give it a left adjoint. This is the (pointwise) left Kan extension, which boils down to:
 
 \begin{lemma}
-  We get an \textit{extension of scalars} functor $ \varphi^* $ from sets with a right $ M $-action to sets with a right $ M^\prime $-action.
+  We get an \iindex{extension of scalars} functor $ \varphi^* $ from sets with a right $ M $-action to sets with a right $ M^\prime $-action.
 \end{lemma}
 \begin{proof}
   Given a set $ X $ with right $ M $-action. Take $ Y = X \times M^\prime / \sim $ with the relation $ (x m, m^\prime) \sim (x, f(m) \cdot m^\prime) $ for $ m: M $. This has a right $ M^\prime $-action given by $ (x, m^\prime)n^\prime = (x, m^\prime n^\prime) $.
 
-  On morphisms, it sends $ f: X \to X^\prime $ to the morphism $ (x, m^\prime) \mapsto (f(x), m^\prime) $.
+  On morphisms, it sends the $ m $-equivariant $ f: X \to X^\prime $ to the morphism $ (x, m^\prime) \mapsto (f(x), m^\prime) $.
 \end{proof}
 
 \begin{lemma}
@@ -340,13 +391,11 @@ Since $ \SET $ has colimits, and restriction of scalars corresponds to precompos
 Consider the category $ D $ with $ D_0 = M^\prime $ and
 \[ D(m^\prime, \overline m^\prime) = \{ m: M \mid \varphi(m) \cdot m^\prime = \overline m^\prime \}. \]
 
-If a category has an object $ t $, such that there is a morphism to it from every other object in the category, $ t $ is said to be \textit{weakly terminal}.
-
 \begin{lemma}
-  Suppose that $ D $ has a weakly terminal element. Then for $ I_M $ the terminal set with right $ M $-action, we have $ \varphi^*(I_M) \cong I_{M^\prime} $.
+  Suppose that $ D $ has a weakly terminal element. Then for $ I_M $ the terminal object in the category of sets with a right $ M $-action, we have $ \varphi^*(I_M) \cong I_{M^\prime} $.
 \end{lemma}
 \begin{proof}
-  If $ D $ has a weakly terminal object, there exists $ \overline m^\prime : M^\prime $ such that for all $ m^\prime: M^\prime $, there exists $ m: M $ such that $ \varphi(m) \cdot m^\prime = \overline m^\prime $.
+  If $ D $ has a weakly terminal object, there exists $ m_0 : M^\prime $ such that for all $ m^\prime: M^\prime $, there exists $ m: M $ such that $ \varphi(m) \cdot m^\prime = m_0 $.
 
   The proof relies on the fact that every element of $ \varphi^*(I_M) $ is given by some $ (\star, m^\prime) $, but then
   \[ (\star, m^\prime) = (\star \cdot m, m^\prime) \sim (\star, \varphi(m) \cdot m^\prime) = (\star, \overline{m^\prime}), \]
@@ -368,17 +417,9 @@ and
 \begin{proof}
   Now, any element in $ \varphi^*(A) \times \varphi^*(B) = (A \times M^\prime / \sim) \times (B \times M^\prime / \sim) $ is given by some $ (a, m^\prime_1, b, m^\prime_2) $.
 
-  The fact that $ D_{m^\prime_1, m^\prime_2} $ has a weakly terminal object means that we have some $ \overline m^\prime: M^\prime $ and $ \overline m_1, \overline m_2: M $ with $ m_i^\prime = \varphi(\overline m_i) \cdot \overline m^\prime $, such that for all $ m^\prime: M^\prime $ and $ m_1, m_2: M $ with $ m_i^\prime = \varphi(m_i) \cdot m^\prime $, there exists $ m: M $ such that $ \varphi(m) \cdot m^\prime = \overline m^\prime $ and $ m_i = \overline m_i \cdot m $.
-
-  Therefore,
+  The fact that $ D_{m^\prime_1, m^\prime_2} $ has a weakly terminal object means that we have some $ \overline m^\prime: M^\prime $ and $ \overline m_1, \overline m_2: M $ with $ m_i^\prime = \varphi(\overline m_i) \cdot \overline m^\prime $. Therefore,
   \[ (a, m^\prime_1, b, m^\prime_2) = (a, \varphi(\overline m_1) \cdot \overline m^\prime, b, \varphi(\overline m_2) \cdot \overline m^\prime) \sim (a \overline m_1, \overline m^\prime, b \overline m_2, \overline m^\prime), \]
   so this is equivalent to some element in $ \varphi^*(A \times B) = (A \times B \times M^\prime / \sim) $.
 
-  The second part of weak terminality means that this equivalence is actually well-defined: equivalent elements in $ \varphi^*(A) \times \varphi^*(B) $ are sent to equivalent elements in $ \varphi^*(A \times B) $.
-
-  (\TODO Work this out more?)
+  The fact that $ (\overline m^\prime, \overline m_1, \overline m_2) $ is weakly terminal also means that for all $ m^\prime: M^\prime $ and $ m_1, m_2: M $ with $ m_i^\prime = \varphi(m_i) \cdot m^\prime $, there exists $ m: M $ such that $ \varphi(m) \cdot m^\prime = \overline m^\prime $ and $ m_i = \overline m_i \cdot m $. This means that the equivalence that we established is actually well-defined: equivalent elements in $ \varphi^*(A) \times \varphi^*(B) $ are sent to equivalent elements in $ \varphi^*(A \times B) $.
 \end{proof}
-
-\section{Universal Arrows}
-(\cite{MacLane}, Chapter IV.1, Theorem 2 (iv))
-\TODO
