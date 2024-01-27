@@ -295,7 +295,7 @@ For convenience, the lemma below works with pointwise left Kan extension using c
   \[ [\op C, \SET] \cong [\overline{\op C}, \SET] \cong [\op{\overline C}, \SET]. \]
 \end{corollary}
 
-\section{Monoids as categories}
+\section{Monoids as categories}\label{sec:monoid-category}
 Take a monoid $ M $.
 \begin{definition}
   We can construct a category $ C_M $ with $ C_{M0} = \{ \star \} $, $ C_M(\star, \star) = M $. The identity morphism on $ \star $ is the identity $ 1: M $. The composition is given by multiplication $ g \cdot_{C_M} f = f \cdot_M g $.
@@ -322,6 +322,8 @@ Take a monoid $ M $.
 \begin{definition}
   A \textit{morphism}\index{monoid action!morphism} between sets $ X $ and $ Y $ with a right $ M $-action is an $ M $-equivariant function $ f: X \to Y $: a function such that $ f(xm) = f(x)m $ for all $ x: X $ and $ m: M $.
 \end{definition}
+
+These, together with the identity and composition from $ \SET $, constitute a category $ \RAct M $ of right $ M $-actions.
 
 \begin{lemma}
   Presheaves on $ C_M $ are equivalent to sets with a right $ M $-action.
@@ -380,7 +382,7 @@ Since $ \SET $ has colimits, and restriction of scalars corresponds to precompos
   On morphisms, it sends the $ m $-equivariant $ f: X \to X^\prime $ to the morphism $ (x, m^\prime) \mapsto (f(x), m^\prime) $.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}\label{lem:scalar-extension-monoid-monoid-action}
   For $ U_M $ the set $ M $ with right $ M $-action, we have $ \varphi^*(U_M) \cong U_{M^\prime} $.
 \end{lemma}
 \begin{proof}
@@ -391,7 +393,7 @@ Since $ \SET $ has colimits, and restriction of scalars corresponds to precompos
 Consider the category $ D $ with $ D_0 = M^\prime $ and
 \[ D(m^\prime, \overline m^\prime) = \{ m: M \mid \varphi(m) \cdot m^\prime = \overline m^\prime \}. \]
 
-\begin{lemma}
+\begin{lemma}\label{lem:scalar-extension-terminal}
   Suppose that $ D $ has a weakly terminal element. Then for $ I_M $ the terminal object in the category of sets with a right $ M $-action, we have $ \varphi^*(I_M) \cong I_{M^\prime} $.
 \end{lemma}
 \begin{proof}
@@ -411,7 +413,7 @@ For any $ m^\prime_1, m^\prime_2: M^\prime $, consider the category $ D_{m^\prim
 and
 \[ D_{m^\prime_1, m^\prime_2}((m^\prime, m_1, m_2), (\overline m^\prime, \overline m_1, \overline m_2)) = \{ m: M \mid \varphi(m) \cdot m^\prime = \overline m^\prime, m_i = \overline m_i \cdot m \}. \]
 
-\begin{lemma}
+\begin{lemma}\label{lem:scalar-extension-product}
   Suppose that $ D_{m^\prime_1, m^\prime_2} $ has a weakly terminal object for all $ m^\prime_1, m^\prime_2: M^\prime $. Then for sets $ A $ and $ B $ with right $ M $-action, we have $ \varphi^*(A \times B) \cong \varphi^*(A) \times \varphi^*(B) $.
 \end{lemma}
 \begin{proof}
@@ -419,7 +421,11 @@ and
 
   The fact that $ D_{m^\prime_1, m^\prime_2} $ has a weakly terminal object means that we have some $ \overline m^\prime: M^\prime $ and $ \overline m_1, \overline m_2: M $ with $ m_i^\prime = \varphi(\overline m_i) \cdot \overline m^\prime $. Therefore,
   \[ (a, m^\prime_1, b, m^\prime_2) = (a, \varphi(\overline m_1) \cdot \overline m^\prime, b, \varphi(\overline m_2) \cdot \overline m^\prime) \sim (a \overline m_1, \overline m^\prime, b \overline m_2, \overline m^\prime), \]
-  so this is equivalent to some element in $ \varphi^*(A \times B) = (A \times B \times M^\prime / \sim) $.
+  so this is equivalent to some element in $ \varphi^*(A \times B) = (A \times B \times M^\prime / \sim) $. Note that this trivially respects the right $ M^\prime $-action.
 
   The fact that $ (\overline m^\prime, \overline m_1, \overline m_2) $ is weakly terminal also means that for all $ m^\prime: M^\prime $ and $ m_1, m_2: M $ with $ m_i^\prime = \varphi(m_i) \cdot m^\prime $, there exists $ m: M $ such that $ \varphi(m) \cdot m^\prime = \overline m^\prime $ and $ m_i = \overline m_i \cdot m $. This means that the equivalence that we established is actually well-defined: equivalent elements in $ \varphi^*(A) \times \varphi^*(B) $ are sent to equivalent elements in $ \varphi^*(A \times B) $.
+
+  Therefore, we have an isomorphism $ \psi: \varphi^*(A) \times \varphi^*(B) \xrightarrow{\sim} \varphi^*(A \times B) $. Now we only need to show that the projections are preserved by this isomorphism. To that end, take $ x = (a, m^\prime_1, b, m^\prime_2) \sim (a \overline m_1, \overline m^\prime, b \overline m_2, \overline m^\prime) : \varphi^*(A) \times \varphi^*(B) $. We have
+  \[ \varphi^*(\pi_1)(\psi(x)) = (a \overline m_1, \overline m^\prime) = \pi^\prime_1(x). \]
+  In the same way, $ \varphi^*(\pi_2) \circ \psi = \pi^\prime_2 $ and this concludes the proof.
 \end{proof}

@@ -1,5 +1,6 @@
 \chapter{The paper}
 
+
 \section{Scott's Representation Theorem}
 \begin{theorem}
   Any $ \lambda $-theory $ L $ is isomorphic to the endomorphism $ \lambda $-theory $ E(L) $ of $ L: \Pshf L $, which is $ L $, viewed as a presheaf in its own presheaf category.
@@ -10,6 +11,7 @@
 
   Lemma \ref{lem:presheaf-Yoneda} gives a sequence of bijections $ \varphi_n : \Pshf L(L^n, L) \cong L_n $ for all $ n $, sending $ F: \Pshf L(L^n, L) $ to $ F(x_1, \dots, x_n) $, and conversely sending $ s: L_n $ to $ ((t_1, \dots, t_n) \mapsto s \bullet (t_1, \dots, t_n)) $. It considers $ \lambda $-terms in $ n $ variables as $ n $-ary functions on the $ \lambda $-calculus. Therefore, it should come as no surprise that $ \varphi $ preserves the $ x_i $, $ \bullet $, $ \rho $ and $ \lambda $, which makes it into an isomorphism of $ \lambda $-theories and this concludes the proof.
 \end{proof}
+
 
 \section{Locally cartesian closedness of the category of retracts}
 \begin{definition}[Category of retracts]
@@ -27,230 +29,162 @@
   The category of retracts is locally cartesian closed \TODO.
 \end{theorem}
 
+
 \section{Equivalences}
 
-\section{The Fundamental Theorem of the \texorpdfstring{$ \lambda $-}{lambda }calculus}
 
-\begin{definition}[Pullback of algebras]
-  If we have a morphism of algebraic theories $ f: T^\prime \to T $, we have a functor $ AT \to AT^\prime $.
+\section{Terms of a \texorpdfstring{$ \Lambda $}{Lambda}-algebra}
+Let $ A $ be an algebra for the initial $ \lambda $-theory $ \Lambda $. We will assume that $ \Lambda $ (and therefore, any $ \lambda $-theory) satisfies $ \beta $-equality.
 
-  On objects, it sends a $ T $-algebra $ A $ to a $ T^\prime $-algebra with set $ A $ and action $ g \bullet_{T^\prime} a = f(g) \bullet_T a $. This is a $ T^\prime $-algebra because \TODO.
-
-  On morphisms, it sends $ \varphi: A \to A $ to $ \varphi: A \to A $. This is a $ T^\prime $-algebra morphism because for all $ g: T^\prime_n $ and $ a: A^n $, we have
-  \[ \varphi(g \bullet_{T^\prime} a) = \varphi(f(g) \bullet_T a) = f(g) \bullet_T \varphi(a) = g \bullet_{T^\prime} \varphi(a). \]
-\end{definition}
-\begin{lemma}
-  This is indeed a functor.
-\end{lemma}
-\begin{proof}
-  \TODO
-\end{proof}
-
-\begin{definition}[Term algebra]
-  Given an algebraic theory $ T $, for every $ n $, $ T_n $ together with the action operator $ \bullet: T_m \times T_n^m \to T_n $ gives a $ T $-algebra.
-\end{definition}
-
-\begin{lemma}
-  $ T_n $ is indeed a $ T $-algebra.
-\end{lemma}
-\begin{proof}
-  \TODO
-\end{proof}
-
-\begin{definition}
-  For all $ n $, we have a functor from lambda theories to $ \Lambda $-algebras. It sends the $ \lambda $-theory $ L $ to the $ L $-algebra $ L_n $ and then turns this into a $ \Lambda $-algebra via the morpism $ \Lambda \to L $.
-
-  It sends morphisms $ f: L \to L^\prime $ to $ f_n : L_n \to L^\prime_n $. This is a $ \Lambda $-algebra morphism because \TODO
-\end{definition}
-
-\begin{lemma}
-  This indeed constitutes a functor.
-\end{lemma}
-\begin{proof}
-  \TODO
-\end{proof}
+The $ \Lambda $-algebra structure gives the terms of $ A $ quite a lot of behaviour. For example, we can define `function application' as
+\[ a b = (x_1 x_2) \bullet (a, b) \]
+and composition as
+\[ a \circ b = (x_1 \circ x_2) \bullet (a, b) \]
+for $ a, b : A $, with $ x_1 \circ x_2 = \lambda x_3, x_1 (x_2 x_3) : \Lambda_2 $.
 
 \begin{remark}
-  Note that for a monoid $ M $, if we view $ M $ as a category, the category $ [\op{M}, \SET] $ consists of sets with a right $ M $-action.
+  Recall that in Example \ref{ex:free-monoid-theory}, we constructed an algebraic theory $ T $ with a monoid structure. This allowed us to define a monoid operation on $ T $-algebras as well. We then were able to transfer associativity of the operation on the $ T_n $ to associativity of the operation on the algebras. In exactly the same way, the function composition on $ A $ is associative because composition on $ \Lambda_n $ is associative.
 \end{remark}
 
-\begin{definition}[The exponential object in the presheaf category]
-  Given a monoid $ M $, if we have two presheaves (sets with right $ M $-actions) $ P $ and $ P^\prime $, we have a set of $ M $-equivariant maps
-  \[ F_{P, P^\prime} = \left\{ f: M \times P \to P^\prime \mid \prod_{p : P, m, m^\prime: M} f(m, p)m^\prime = f(m m^\prime, p m^\prime) \right\} \]
-  with a right $ M $-action, given by $ f m^\prime(m, p) = f(m^\prime m, p) $. This is again $ M $-equivariant because
-  \[ fm^\prime(m, p)m^{\prime \prime} = f(m^\prime m, p)m^{\prime \prime} = f(m^\prime m m^{\prime \prime}, p m^{\prime \prime}) = f m^\prime(m m^{\prime \prime}, p m^{\prime \prime}), \]
-  so $ F_{P, P^\prime} $ is a presheaf.
-
-  Now, to show that $ F_{P, P^\prime} $ is the exponential object $ {P^\prime}^P $, we show that for any $ P $, $ F_{P, -} $ is the left adjoint of $ - \times P $. So we need for all $ P^\prime: PT $, a universal arrow $ \varphi: F_{P, P^\prime} \times P \to P^\prime $.
-
-  First of all, we have an evaluation map $ \varphi: F_{P, P^\prime} \times P \to P^\prime $ given by $ (f, p) \mapsto f(I, p) $ for $ I $ the unit of the monoid. This map is equivariant because for all $ m $,
-  \[ (f, p) m = (f m, p m) \mapsto f m(I, p m) = f(m, p m) = f(I, p) m. \]
-  Now, given any presheaf $ Q $ and any morphism $ \psi: Q \times P \to P^\prime $, take $ \tilde \psi: Q \to F_{P, P^\prime} $ given by $ \psi(q)(m, p) = \psi(q m, p) $. This is equivariant because
-  \[ \tilde \psi(q)m(m^\prime, p) = \tilde \psi(q)(m m^\prime, p) = \psi(q m m^\prime, p) = \tilde \psi(q m)(m^\prime, p) \]
-  and we have
-  \[ \varphi(\tilde \psi(q), p) = \tilde \psi(q)(I, p) = \psi(q, p). \]
-  Now, suppose that we have $ \tilde \psi^\prime: Q \to F_{P, P^\prime} $ such that $ \varphi \circ (\tilde \psi^\prime \times \id{P}) = \psi $. Then for all $ q : Q $, $ m: M $ and $ p: P $,
-  \[ \tilde \psi(q)(m, p) = \psi(q m, p) = \varphi(\tilde \psi^\prime(q m), p) = \tilde \psi^\prime(q m)(I, p) = \psi^\prime(q) m(I, p) = \psi^\prime(q)(m, p), \]
-  so $ \tilde \psi $ is unique and $ F_{P, P^\prime} $ is an exponential object.
-\end{definition}
-
-\begin{definition}[n-functional terms]
-  Let $ A $ be a $ \Lambda $-algebra. We define
-  \[ A(n) = \{ a : A \mid (\lambda x_2 x_3 \dots x_{n + 1}, x_1 x_2 x_3 \dots x_{n + 1}) \bullet a = a \}. \]
+\begin{definition}
+  We can consider the sets of elements of $ A $ that behave like functions in $ n $ variables:
+  \[ A_n = \{ a : A \mid (\lambda x_2 x_3 \dots x_{n + 1}, x_1 x_2 x_3 \dots x_{n + 1}) \bullet a = a \}. \]
 \end{definition}
 
 \begin{definition}
   Take $ \mathbf 1_n = (\lambda x_1 \dots x_n, x_1 \dots x_n) \bullet () : A $.
 \end{definition}
 
-\begin{definition}
-  We define composition as $ a \circ b = (\lambda x_3, x_1 (x_2 x_3)) \circ (a, b) $ for $ a, b : A $.
-\end{definition}
+\begin{remark}
+  Some straightforward rewriting, shows that for all $ a : A $,
+  \[ \mathbf 1_n \circ a = (\lambda x_2 x_3 \dots x_{n + 1}, x_1 x_2 \dots x_{n + 1}) \bullet a. \]
+  In other words, $ A_n = \{ a : A \mid \mathbf 1_n \circ a = a \} $.
+\end{remark}
+
+\begin{remark}
+  Also note that $ \mathbf 1_n \circ a \circ \mathbf 1_n = \mathbf 1_n \circ a $, so for $ a : A_n $, $ a \circ \mathbf 1_n = a $.
+\end{remark}
 
 \begin{lemma}
-  This composition is associative.
+  For $ t: \Lambda_{m + n} $ and $ a_1, \dots, a_m: A $, we have $ (\lambda^n t) \bullet (a_1, \dots, a_m) : A $ and we have
+  \[ \mathbf 1_n \circ ((\lambda^n t) \bullet (a_1, \dots, a_m)) = (\lambda^n t) \bullet (a_1, \dots, a_m), \]
+  so $ (\lambda^n t) \bullet (a_1, \dots, a_m) : A_n $.
 \end{lemma}
 \begin{proof}
-  \TODO
+  This follows by straightforward rewriting.
 \end{proof}
+
+\begin{corollary}
+  By the previous remark,
+  \[ ((\lambda^n t) \bullet (a_1, \dots, a_m)) \circ \mathbf 1_n = (\lambda^n t) \bullet (a_1, \dots, a_m). \]
+\end{corollary}
+\begin{corollary}
+  In particular, $ \mathbf 1_m \circ \mathbf 1_n = \mathbf 1_{\max(m, n)} $. From this, it follows that $ A_m \subseteq A_n $ for $ m \leq n $. It also follows that $ a \mapsto \mathbf 1_n \circ a $ gives a function from $ A $ to $ A_n $ (and also from $ A_m \subseteq A $ to $ A_n $).
+\end{corollary}
+
+
+\section{The Fundamental Theorem of the \texorpdfstring{$ \lambda $-}{lambda }calculus}
+
+The fundamental theorem states that there is an equivalence of categories
+\[ \LamTh \cong \Alg \Lambda. \]
+We will prove this by showing that there is a fully faithful and essentially surjective functor.
+
+
+\subsection{The functor}
+
+\begin{definition}
+  For all $ n $, we have a functor from lambda theories to $ \Lambda $-algebras. It sends the $ \lambda $-theory $ L $ to the $ L $-algebra $ L_n $ and then turns this into a $ \Lambda $-algebra via the morpism $ \Lambda \to L $. It sends morphisms $ f: L \to L^\prime $ to the algebra morphism $ f_n : L_n \to L^\prime_n $.
+\end{definition}
+
+
+\subsection{Lifting \texorpdfstring{$ \Lambda $}{Lambda}-algebras}
 
 \begin{definition}[The monoid of a $ \Lambda $-algebra]
-  Now we make $ A(1) $ into a monoid with unit $ \lambda x_1, x_1 $.
+  Now we make $ A_1 $ into a monoid under composition $ \circ $ with unit $ \mathbf 1_1 $. The fact that this is a monoid follows from the remarks in the last section.
+\end{definition}
+
+Recall that we have an equivalence $ [\op{C_{A_1}}, \SET] \cong \RAct{A_1} $.
+
+\begin{definition}
+  Now, composition $ \circ $ gives a right $ A_1 $-action on the $ A_n $, so we have $ A_n : \RAct{A_1} $.
 \end{definition}
 
 \begin{lemma}
-  This is indeed a monoid.
+  We have $ A_1^{A_1} \cong A_2 $ in $ \RAct{A_1} $.
 \end{lemma}
 \begin{proof}
-  \TODO
+  Recall that $ A_1^{A_1} $ consists of the set of $ A_1 $-equivariant morphisms $ A_1 \times A_1 \to A_1 $.
+
+  We have a bijection $ \varphi: A_2 \xrightarrow{\sim} A_1^{A_1} $, given by
+  \[ \varphi(a)(b, b^\prime) = (\lambda x_4, x_1 (x_2 x_4) (x_3 x_4)) \bullet (a, b, b^\prime), \]
+  \TODO: relate to product in category of retracts.
+
+  with an inverse given by
+  \[ \varphi^{-1}(f) = \lambda x_1 x_2, f(p_1, p_2)(\lambda x_3, x_3 x_1 x_2) \]
+  for $ p_i = \lambda x_1, x_1 (\lambda x_2 x_3, x_{i + 1}) $. Note that for terms $ c_1, c_2 $, we have $ p_i (\lambda x_1, x_1 c_1 c_2) = c_i $.
+
+  This is an inverse, because given $ f: A_1^{A_1} $ and $ (a_1, a_2): A_1 \times A_1 $, we have
+  \[ \varphi(\psi(f))(a_1, a_2) = f(p_1, p_2) \circ q = f(p_1 \circ q, p_2 \circ q) = f(a_1, a_2) \]
+  for $ q = \lambda x_1, (\lambda x_2, x_2 (a_1 x_1) (a_2 x_1)) $. In the last step of this proof, we use, among other things, the fact that the $ a_i : A_1 $ and therefore $ \lambda x_1, a_i x_1 = a_i $.
+
+  Some straightforward rewriting shows that for $ a: A_2 $, we have $ \psi(\varphi(a)) = a $. In the last step of this proof, we use the fact that $ a : A_2 $ and therefore $ \lambda x_1 x_2, a x_1 x_2 = a $.
+
+  Therefore, $ \varphi $ is a bijection and, as it turns out, an isomorphism.
 \end{proof}
 
-From here on, we will assume that $ \Lambda $ (and therefore, any $ \lambda $-theory) satisfies $ \beta $-equality.
+\begin{definition}[Construction of the $ \lambda $-theory]
+  Since $ \RAct{A_1} $ has products, the algebraic theory $ E(A_1) $ exists.
 
-\begin{lemma}
-  For $ a: A $, $ a $ is in $ A(n) $ iff $ \mathbf 1_n \circ a = a $.
-\end{lemma}
-\begin{proof}
-  \begin{align*}
-    \mathbf 1_n \circ a
-    &= (\lambda x_3, x_1 (x_2 x_3)) \bullet (((\lambda x_1 \dots x_n, x_1 \dots x_n) \bullet ()), a)\\
-    &= (\lambda x_3, x_1 (x_2 x_3)) \bullet (((\lambda x_2 \dots x_{n + 1}, x_2 \dots x_{n + 1}) \bullet a), x_1 \bullet a)\\
-    &= ((\lambda x_3, x_1 (x_2 x_3)) \bullet ((\lambda x_2 \dots x_{n + 1}, x_2 \dots x_{n + 1}), x_1)) \bullet a\\
-    &= (\lambda x_2, (\lambda x_3 \dots x_{n + 2}, x_3 \dots x_{n + 2}) (x_1 x_2)) \bullet a\\
-    &= (\lambda x_2 x_3 \dots x_{n + 1}, x_1 x_2 \dots x_{n + 1}) \bullet a.
-  \end{align*}
-\end{proof}
-
-\begin{definition}[The presheaf category of a $ \Lambda $-algebra]
-  Let $ A $ be a $ \Lambda $-algebra. If we view the monoid $ A(1) $ as a one-object category, we define the category $ PA $ to be the category of presheaves $ [\op{A(1)}, \SET] $.
+  Recall that $ A_2 \subseteq A_1 $ and that $ a \mapsto \mathbf 1_2 \circ a $ gives a function from $ A_1 $ to $ A_2 $, which is, by definition, the identity on $ A_2 $. This gives $ E(A_1) $ a $ \lambda $-theory structure with $ \beta $-equality.
 \end{definition}
 
-\begin{definition}[The objects $ A(n) $ in $ PA $]
-  Given $ a: A(n) $ and $ b: A(1) $, we have
-  \[ \mathbf 1_n \circ (a \circ b) = (\mathbf 1_n \circ a) \circ b = a \circ b, \]
-  so $ a \circ b: A(n) $ and we have a right $ A(1) $-action on $ A(n) $, which makes $ A(n) $ into an object in $ PA $.
-\end{definition}
 
-\begin{lemma}
-  We have $ A(1)^{A(1)} \cong A(2) $.
-\end{lemma}
-\begin{proof}
-  We have a bijection $ \varphi: A(2) \cong F_{A(1), A(1)} $, given by
-  \[ \varphi(a)(b, b^\prime) = (\lambda x_4, x_1 (x_2 x_4) (x_3 x_4)) \bullet (a, b, b^\prime). \]
-  Note that $ \varphi(d) $ is equivariant because \TODO
-  Now, $ \varphi $ is a presheaf morphism because \TODO
-
-  Take $ p = \lambda x_1, x_1 (\lambda x_2 x_3, x_2) $ and $ q = \lambda x_1, x_1 (\lambda x_2 x_3, x_3) $. These are elements of $ A(1) $. Note that for terms $ c_1, c_2 $
-  \begin{align*}
-    p (\lambda x_1, x_1 c_1 c_2)
-    &= (\lambda x_1, x_1 c_1 c_2) (\lambda x_2 x_3, x_2)\\
-    &= (\lambda x_1 x_3, x_2) c_1 c_2\\
-    &= c_1.
-  \end{align*}
-  In the same way, $ q \circ (\lambda x_1 x_2, x_2 c_1 c_2) = c_2 $.
-
-  An inverse is given by
-  \[ \psi: f \mapsto \lambda x_1 x_2, f(p, q)(\lambda x_3, x_3 x_1 x_2). \]
-  This is a presheaf morphism because \TODO
-
-  This is an inverse, because given $ f: F_{A(1), A(1)} $ and$ (a_1, a_2): A(1) \times A(1) $, we have
-  \begin{align*}
-    \varphi(\psi(f))(a_1, a_2) &= u(\lambda x_1 x_2, f(p, q)(\lambda x_3, x_3 x_1 x_2))(a_1, a_2)\\
-    &= \lambda x_1, (\lambda x_2 x_3, f(p, q)(\lambda x_4, x_4 x_2 x_3)) (a_1 x_1) (a_2 x_1)\\
-    &= \lambda x_1, f(p, q)(\lambda x_2, x_2 (a_1 x_1) (a_2 x_1))\\
-    &= f(p, q) \circ (\lambda x_1, (\lambda x_2, x_2 (a_1 x_1) (a_2 x_1)))\\
-    &= f(p \circ (\lambda x_1, (\lambda x_2, x_2 (a_1 x_1) (a_2 x_1))), q \circ (\lambda x_1, (\lambda x_2, x_2 (a_1 x_1) (a_2 x_1))))\\
-    &= f(\lambda x_1, p (\lambda x_2, x_2 (a_1 x_1) (a_2 x_1)), \lambda x_1, q (\lambda x_2, x_2 (a_1 x_1) (a_2 x_1)))\\
-    &= f(\lambda x_1, a_1 x_1, \lambda x_1, a_2 x_1)\\
-    &= f(a_1, a_2).
-  \end{align*}
-  The last line is because $ a_i : A(1) $ and therefore $ \lambda x_1, a_i x_1 = a_i $.
-
-  On the other hand, if we have $ a_1: A(2) $, we have
-  \begin{align*}
-    \psi(\varphi(a_1)) &= \psi((a_2, a_3) \mapsto \lambda x_1, a_1 (a_2 x_1) (a_3 x_1))\\
-    &= \lambda x_1 x_2, (\lambda x_3, a_1 (p x_3) (q x_3)) (\lambda x_3, x_3 x_1 x_2)\\
-    &= \lambda x_1 x_2, a_1 (p (\lambda x_3, x_3 x_1 x_2)) (q (\lambda x_3, x_3 x_1 x_2))\\
-    &= \lambda x_1 x_2, a_1 x_1 x_2\\
-    &= a_1.
-  \end{align*}
-  The last line is because $ a_1 : A(2) $ and therefore $ \lambda x_1 x_2, a_1 x_1 x_2 = a_1 $.
-
-  Therefore, this map is a bijection and an isomorphism.
-\end{proof}
-
-\begin{definition}[Endomorphism $ \lambda $-theory of a $ \Lambda $-algebra]
-  $ PA $ borrows products from $ \SET $. Therefore, the algebraic theory $ E(A(1)) $ exists. Now note that $ A(1) $ is exponentiable and $ A(1)^{A(1)} \cong A(2) $.
-  Note that $ A(2) \subseteq A(1) $ and that $ (\lambda x_2 x_3, x_1 x_2 x_3) \bullet - $ gives a function from $ A(1) $ to $ A(2) $. This gives $ E(A(1)) $ a $ \lambda $-theory structure.
-\end{definition}
+\subsection{Lifting algebra morphisms}
 
 \begin{definition}[Pullback functor on presheaves for a $ \Lambda $-algebra]
-  Let $ f: A \to A^\prime $ be a $ \Lambda $-algebra morphism. Then for all $ a: A(n) $,
-  \[ \mathbf 1_n \circ f(a) = f(\mathbf 1_n) \circ f(a) = f(\mathbf 1_n \circ a), \]
-  so we have an induced morphism $ f: A(n) \to A^\prime(n) $.
+  A $ \Lambda $-algebra morphism preserves $ \mathbf 1_n $ and $ \circ $, so it sends elements of $ A_n $ to $ A^\prime_n $. In particular, it gives a monoid morphism $ f: A_1 \to A^\prime_1 $.
 
-  Now, given a presheaf $ P: PA^\prime $. We can create a presheaf $ f^* P : PA $ by taking the set of $ P $, and, for $ p: P $ and $ a: A $, setting $ pa = p \circ f(a) $. This is indeed a presheaf because \TODO
+  Therefore, as described in Section \ref{sec:monoid-category}, we get pullback and pushforward functors $ f_*: \RAct{A^\prime_1} \to \RAct{A_1} $ and $ f^* : \RAct{A_1} \to \RAct{A^\prime_1} $.
+\end{definition}
 
-  Now, given a morphism $ g: P \to P^\prime $, we get a morphism by taking the function on the sets of $ P $ and $ P^\prime $. This is a morphism because \TODO
+\begin{remark}
+  By Lemma \ref{lem:scalar-extension-monoid-monoid-action}, we have $ f^*(U_{A_1}) \cong U_{A^\prime_1} $.
+\end{remark}
+
+\begin{lemma}
+  $ f^* $ preserves finite products.
+\end{lemma}
+\begin{proof}
+  We will show that $ f^* $ preserves binary products and the terminal object.
+
+  We use Lemma \ref{lem:scalar-extension-terminal} to show that $ f^* $ preserves the terminal object. We take
+  \[ a_0 = (\lambda x_1 x_2, x_2) \bullet () : A_1 \quad \text{and} \quad a_0^\prime = (\lambda x_1 x_2, x_2) \bullet () : A^\prime_1 \]
+  and $ a_0^\prime $ is weakly terminal because for all $ a : A_1 $, we have $ f(a_0) \circ a = a_0^\prime $.
+
+  We use Lemma \ref{lem:scalar-extension-product} to show that $ f^* $ also preserves the product. Therefore, given $ a_1, a_2 : A_1 $.
+
+  (\TODO: relate to product)
+  Take $ a = \lambda x_1 x_2, x_2 (a_1 x_1) (a_2 x_1) $ and $ \pi_i = \lambda x_1, x_1 (\lambda x_2 x_3, x_{n + 1}) $. We have $ a_i = f(\pi_i) \circ a $.
+
+  Need to show that exists $ (\overline m^\prime, \overline m_1, \overline m_2) : A^\prime_1 \times A_1 \times A_1 $ with $ a_i = f(\overline m_i) \circ \overline m^\prime $ such that for all $ (m^\prime, m_1, m_2) $, there exists $ m : A_1 $ such that $ f(m) = m^\prime = \overline m^\prime $ and $ m_i = \overline m_i \circ m $.
+
+  \TODO
+\end{proof}
+
+\begin{definition}
+  Since $ f^* $ preserves finite products, given an element of $ g: E(U_{A_1})_n = \RAct{A}(U_{A_1}^n, U_{A_1}) $, we get
+  \[ \# f^*(g): \RAct{A^\prime}(f(A_1^n), f(A_1)) \cong \RAct{A^\prime}((A^\prime_1)^n, A^\prime_1) = E(A^\prime_1)_n. \]
 \end{definition}
 
 \begin{lemma}
-  The above indeed constitutes a functor.
-\end{lemma}
-\begin{proof}
-  \TODO
-\end{proof}
-
-Left Kan extension then gives a left adjoint $ f_*: PA \to PA^\prime $.
-
-\begin{lemma}
-  We have $ f_*(A(1)) \cong A^\prime(1) $.
-\end{lemma}
-\begin{proof}
-  \TODO
-\end{proof}
-
-\begin{lemma}
-  $ f_* $ preserves finite products.
+  $ \# f^*: E(U_{A_1}) \to E(U_{A^\prime_1}) $ is a map of $ \lambda $-theories.
 \end{lemma}
 \begin{proof}
   \TODO
 \end{proof}
 
 \begin{definition}
-  Since $ f_* $ preserves finite products, given an element of $ g: E(A(1))(n) = PA(A(1)^n, A(1)) $, we get
-  \[ \# f_*(g): PA^\prime(f(A(1)^n), f(A(1))) \cong PA^\prime(A^\prime(1)^n, A^\prime(1)) = E(A^\prime(1))(n). \]
-\end{definition}
-
-\begin{lemma}
-  $ \# f_*: E(A(1)) \to E(A^\prime(1)) $ is a map of $ \lambda $-theories.
-\end{lemma}
-\begin{proof}
-  \TODO
-\end{proof}
-
-\begin{definition}
-  We have an isomorphism $ E(A(1))(0) \cong A $ given by $ a \mapsto a I $.
+  We have an isomorphism $ E(U_{A_1})_0 \cong A $ given by $ a \mapsto a I $.
 \end{definition}
 
 \begin{lemma}
@@ -270,16 +204,18 @@ Left Kan extension then gives a left adjoint $ f_*: PA \to PA^\prime $.
 \begin{proof}
   We will show that the functor $ L \mapsto L_0 $ is an equivalence of categories.
 
-  It is essentially surjective, because $ L $ is isomorphic \TODO to $ E(A(1)) $.
+  It is essentially surjective, because $ L $ is isomorphic \TODO to $ E(U_{A_1}) $.
 
   Now, given morphisms $ f, f^\prime: L \to L^\prime $. Suppose that $ f_0 = f^\prime_0 $. Suppose that $ L $ and $ L^\prime $ have $ \beta $-equality. Then, given $ l: L_n $, we have
   \[ f_n(l) = \rho^n(\lambda^n(f_n(l))) = \rho^n(f_0(\lambda^n(l))) = \rho^n(f^\prime_0(\lambda^n(l))) = \rho^n(\lambda^n(f^\prime_n(l))) = f^\prime_n(l), \]
   so the functor is faithful.
 
-  The functor is full because a $ \Lambda $-algebra morphism $ f: A \to A^\prime $ induces a functor $ f^*: PA^\prime \to PA $, and via left Kan extension we get a left adjoint $ f_*: PA \to PA^\prime $ with $ f_*(A(1)) \cong A^\prime(1) $. Now, $ f_* $ preserves (finite) products, so we have maps $ PA(A(1)^n, A(1)) \to PA^\prime(A^\prime(1)^n, A^\prime(1)) $ and so a map $ E(A(1)) \to E(A^\prime(1)) $. This map, when restricted to a map $ PA(1, A(1)) \to PA^\prime(1, A(1)) $, and transported along the isomorphism $ a \mapsto a I $ \TODO, is equal to $ f $ \TODO.
+  The functor is full because a $ \Lambda $-algebra morphism $ f: A \to A^\prime $ induces a functor $ f^*: \RAct{A^\prime} \to \RAct{A} $, and via left Kan extension we get a left adjoint $ f^*: \RAct{A} \to \RAct{A^\prime} $ with $ f^*(A_1) \cong A^\prime_1 $. Now, $ f^* $ preserves (finite) products, so we have maps $ \RAct{A}(A_1^n, A_1) \to \RAct{A^\prime}((A^\prime_1)^n, A^\prime_1) $ and so a map $ E(U_{A_1}) \to E(U_{A^\prime_1}) $. This map, when restricted to a map $ \RAct{A}(1, A_1) \to \RAct{A^\prime}(1, A_1) $, and transported along the isomorphism $ a \mapsto a I $ \TODO, is equal to $ f $ \TODO.
 \end{proof}
 
+
 \section{An alternative proof for the fundamental theorem}
+
 
 \section{Theory of extensions}
 

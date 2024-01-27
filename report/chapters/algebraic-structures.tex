@@ -56,6 +56,10 @@
   Note that for an algebraic theory $ T $, the $ T_n $ are all algebras for $ T $, with the action given by $ \bullet $.
 \end{remark}
 
+\begin{definition}[Pullback of algebras]
+  If we have a morphism of algebraic theories $ f: T^\prime \to T $, we have a functor $ \Alg T \to \Alg T^\prime $. It endows $ T^\prime $-algebras with an action from $ T $ given by $ g \bullet_{T^\prime} a = f(g) \bullet_T a $. Then $ T^\prime $-algebra morphisms commute with this $ T $-action, so we indeed have a functor.
+\end{definition}
+
 \begin{lemma}
   \TODO Fibration
 \end{lemma}
@@ -266,7 +270,7 @@ So we have a functor from $ C $ to the category of $ T $-algebras. One can wonde
 
 The idea is that if an object of $ C $ is a set, together with some operations between its elements, one can carefully choose some elements of $ T_0 $, $ T_1 $, $ T_2 $ etc., which act on an algebra like the specified operations.
 
-\begin{example}
+\begin{example}\label{ex:free-monoid-theory}
   For $ C $ the category of monoids, $ \alpha: C \to \Alg T $ is an adjoint equivalence.
 
   Note that $ T_n $ is the free monoid on $ n $ elements. Its elements can be viewed as strings $ (x_1 x_5 x_3 x_{18} \dots x_7) $ with the characters $ x_1, \dots, x_n $, with the $ x_i $ the generators of the monoid, acting as the projections of the algebraic theory.
