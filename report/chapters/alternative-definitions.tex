@@ -1,107 +1,139 @@
 \chapter{Alternative definitions}
-The literature, there are many different but equivalent definitions, carrying many different names, for the objects that called `algebraic theories' in Section \ref{sec:algebraic-theories}. What makes matters even more confusing is the fact that the literature does not provide a consistent bijection between names and definitions. This section will showcase some of the various definitions.
+The literature, there are many different but equivalent definitions, carrying many different names, for the objects that called `algebraic theories' in Section \ref{sec:algebraic-theories}. Also, many of these different names are attached to differently defined objects in different sources. This section will showcase some of the various definitions.
 
-% First of all, let $ \F $ be a skeleton of finite sets: the category with $ \F_0 = \{ 0, 1, \dots \} $ and $ \F(m, n) = \SET(\{1, 2, \dots, m\}, \{1, 2, \dots, n\}) $.
+In this section, we will denote the finite set $ \llbracket n \rrbracket = \{ 1, \dots, n \} $.
 
 \section{Abstract Clone}
-\begin{definition}[abstract clone]
-  An algebraic theory as presented in Section \ref{sec:algebraic-theories}, is usually called an \textit{abstract clone}. In this thesis, outside of this specific section, we will call it algebraic theory to be consistent with the names that Hyland attaches to objects.
+\begin{definition}
+  An algebraic theory as presented in Section \ref{sec:algebraic-theories}, is usually called an \iindex{abstract clone}. In this thesis, outside of this specific section, we will call it algebraic theory to be consistent with the names that Hyland attaches to objects.
 \end{definition}
 
+\begin{remark}
+  The definition of algebraic theory that Hyland gives is closest to that of an abstract clone. However, instead of a sequence of sets $ (T_n)_n $, he requires a functor $ T: F \to \SET $ (with $ F \subseteq \FinSET $ the skeleton category of finite sets $ F_0 = \{ \llbracket 0 \rrbracket, \llbracket 1 \rrbracket, \dots \} $), and he requires $ \bullet: T_m \times T_n^m \to T_n $ to be dinatural in $ n $ and natural in $ m $.
+
+  Using naturality, one can show that with such a functor we have $ x_{n, i} = f(a)(x_{1, 1}) $ for the function $ a(1) = i : \llbracket n \rrbracket $.
+
+  Alternatively, using the same naturality, one can show that this functor sends a morphism $ a: \llbracket m \rrbracket \to \llbracket n \rrbracket $ to the function $ T_m \to T_n $ given by
+  \[ f \mapsto f \bullet (x_{n, a(i)})_i. \]
+  If we take this to be the definition of our functor on morphisms, the (di)naturality in $ m $ and $ n $ can be shown using the associativity and the laws about the interaction between $ \bullet $ and the $ x_i $.
+
+  Since any additional properties mean extra complexity when formalizing, and since the proofs rarely use the functor structure, we decided to reduce the functor $ T: \FinSET \to \SET $ to a sequence of sets $ (T_n)_n $.
+\end{remark}
+
 \section{Lawvere theory}
-\begin{definition}[algebraic theory]
-  An \textit{algebraic theory} as presented in \cite{algebaric-theories-2010} is a small category with finite products.
+\begin{definition}
+  An \iindex{algebraic theory} as presented in \cite{algebaric-theories-2010} is a small category with finite products.
 \end{definition}
-\begin{definition}[algebraic theory algebra]
-  An \textit{algebra} for an algebraic theory $ T $ is a finite-product-preserving functor $ T \to \SET $.
+\begin{definition}
+  An \iindex{algebra} for an algebraic theory $ T $ is a finite-product-preserving functor $ T \to \SET $.
 \end{definition}
 
 This definition is more general than the definition of algebraic theory in Section \ref{sec:algebraic-theories}. To make it equivalent, we have to be more specific about the objects of the category:
-\begin{definition}[Lawvere theory]
-  A \textit{Lawvere theory}, or \textit{one-sorted algebraic theory} is a category $ L $, with $ L_0 = \{ 0, 1, \dots \} $, such that $ n = 1^n $, the $ n $-fold product.
-\end{definition}
-
-\subsection{Algebras for Lawvere Theories}
-
-\section{Relative Monad}
-\begin{definition}[relative monad]
-  Let $ S: C \to D $ be a functor. A \textit{relative monad} on $ S $ is a functor $ T: C \to D $, together with a natural transformation $ \eta: S \Rightarrow T $ and a transformation $ (-)^*: D(S(X), T(Y)) \to D(T(X), T(Y)) $, natural in both $ S $ and $ T $, such that for all $ f: S(X) \to T(Y) $ and $ g: S(Y) \to T(Z) $,
-  \[ f = \eta_X \cdot f^*, \qquad \eta_X^* = \id{T X} \qquad \text{and} \qquad (f \cdot g^*)^* = f^* \cdot g^*. \]
-\end{definition}
-
-\section{Cartesian Operad}
-\begin{definition}[multicategory]
-  A \textit{multicategory} $ C $ consists of
-  \begin{itemize}
-    \item A collection of objects $ C_0 $;
-    \item For all $ c_1, \dots, c_n, d: C_0 $, a collection of multimorphisms $ C((c_1, \dots, c_n), d) $;
-    \item For all $ c: C_0 $, an identity morphism $ \id c : C(c, c) $;
-    \item For all multimorphisms $ f: C((d_1, \dots, d_n), e) $ and $ g_i: C((c_{i,1}, \dots, c_{i,m_i}), d_i) $ for $ 1 \leq n \leq i $, a composite multimorphism
-    \[ (g_1, \dots, g_n) \cdot f: C((c_{1,1}, \dots, c_{n, m_n}), e) \]
-  \end{itemize}
-  such that these satisfy certain identity and associativity axioms (see for example \cite{higher-operads}, page 35).
-\end{definition}
-
-Let $ S_n $ be the symmetric group on $ n $ elements (the group consisting of all ways to shuffle the numbers $ (1, \dots, n) $).
-
-\begin{definition}[symmetric multicategory]
-  A \textit{symmetric} multicategory is a multicategory $ C $, together with, for each $ \sigma: S_n $ and all $ c_1, \dots, c_n, d $, a bijection
-  \[ \overline \sigma: C((c_1, \dots, c_n), d) \to C((c_{\sigma(1)}, \dots, c_{\sigma(n)}), d), \]
-  such that for all $ \rho, \sigma: S_n $ and $ \theta: C((c_1, \dots, c_n), d) $,
-  \[ \overline \rho(\overline \sigma(\theta)) = \overline{(\sigma \rho)}(\theta) \quad \text{and} \quad \overline {1_{S_n}}(\theta) = \theta, \]
-  compatible with multimorphism composition (see \cite{higher-operads}, page 52, equation (2:7)).
-\end{definition}
-In some sense, for a symmetric multicategory, the order of the objects in the domain of a multimorphism does not matter.
-
-For a collection $ S $ and a tuple $ x = x_1, \dots, x_n: S $ and $ 1 \leq i \leq j \leq n $,
-\begin{itemize}
-  \item let $ u_i(x): S^{n+i+1-j} $ denote the tuple $ x $, but with the subtuple $ (x_i, \dots, x_j) $ repeated once:
-    \[ (x_1, \dots, x_i, \dots, x_j, x_i, \dots, x_j, \dots, x_n). \]
-  \item let $ v_i(x): S^{n-i-1+j} $ denote the tuple $ x $, but with the subtuple $ (x_i, \dots, x_j) $ removed:
-    \[ (x_1, \dots, x_{i-1}, x_{j+1}, \dots, x_n). \]
-\end{itemize}
-
-\begin{definition}[cartesian multicategory]
-  A \textit{cartesian multicategory} is a multicategory $ C $, with, for all $ c_1, \dots, c_n, d: C_0 $ and $ 1 \leq i \leq n $
-  \begin{itemize}
-    \item a \textit{contraction} operation $ \overline{u_i}: C(u_{i, i}(c), d) \to C(c, d) $,
-    \item a \textit{deletion} operation $ \overline {v_i}: C(v_{i, i}(c), d) \to C(c, d) $,
-  \end{itemize}
-  that satisfy some axioms \TODO
-\end{definition}
-
-\begin{definition}[cartesian operad]
-  A \textit{cartesian operad} is a cartesian multicategory with one object.
+\begin{definition}
+  A \iindex{Lawvere theory}, or \textit{one-sorted algebraic theory} is a category $ L $, with $ L_0 = \{ 0, 1, \dots \} $, such that $ n = 1^n $, the $ n $-fold product.
 \end{definition}
 
 \begin{lemma}
-  The following are equivalent:
-  \begin{enumerate}[(1)]
-    \item An abstract clone.
-    \item A Lawvere theory.
-    \item A relative monad on the embedding $ \iota: \FinSET \hookrightarrow \SET $.
-    \item A cartesian operad.
-  \end{enumerate}
+  There is an equivalence between abstract clones and Lawvere theories.
 \end{lemma}
 \begin{proof}
-  $ (1) \Rightarrow (2) $: Given an abstract clone $ C $, we construct a Lawvere theory $ L $ as follows: We have objects $ L_0 = \{ 0, 1, \dots \} $ and morphisms $ L(m, n) = C_m^n $. The identity morphism is $ \id n = (x_i)_i : L(n, n) $ and for $ f: L(l, m) $, $ g: L(m, n) $, we have composition
+  Let $ C $ be an abstract clone. We construct a Lawvere theory $ L $ as follows: We have objects $ L_0 = \{ 0, 1, \dots \} $ and morphisms $ L(m, n) = C_m^n $. The identity morphism is $ \id n = (x_i)_i : L(n, n) $ and for $ f: L(l, m) $, $ g: L(m, n) $, we have composition
   \[ f \cdot g = (g_i \bullet f)_i: L(l, n). \]
   Lastly, we have product projections $ \pi_{n, i} = x_{n, i}: L(n, 1) $ for all $ 1 \leq i \leq n $.
 
-  $ (2) \Rightarrow (3) $: Given a Lawvere theory $ L $, we construct a relative monad $ (F, \eta) $ as follows: For $ n: \FinSET $, take $ F(n) = L(n, 1) $ and for $ a: \FinSET(m, n) $, let $ F(a): \SET(F(m), F(n)) $ be the morphism given by precomposition with the product morphism
-  \[ \langle \pi_{n, a(1)}, \dots, \pi_{n, a(m)} \rangle : L(n, m). \]
-  The natural transformation is given by $ \eta_n(i) = \pi_{n, i}: F(n) $ for all $ i: \iota(n) = \{1, \dots, n\} $. Lastly, for $ f: \SET(\iota(m), F(n)) $, let $ f : \SET(F(m), F(n)) $ be given by precomposition with the product morphism
-  \[ \langle f(1), \dots, f(m) \rangle : L(n, m) \]
+  Conversely, if $ L $ is a Lawvere theory, we construct an abstract clone $ C $ as follows:
+  We take $ C_n = L(n, 1) $. We take the $ x_{n, i} $ to be the product projections $ \pi_i : L(n, 1) $ and we define the substitution $ f \bullet g = \langle g_i \rangle_i \cdot f $ the composite of the product morphism $ \langle g_i \rangle_i $ with $ f $.
+\end{proof}
 
-  $ (3) \Rightarrow (4) $: Given a relative monad $ (F, \eta) $, we construct a cartesian operad $ A $ as follows: We take a multicategory with $ A_0: \{ \star \} $. We take as the set of $ n $-fold morphisms $ A((\star)_i, \star) = F(n) $. We take an identity multimorphism $ \id \star = \eta_1(1) : A(\star, star) $.
-  For some natural number $ m $, natural numbers $ n_1, \dots, n_m $ and $ i: 1 \leq i \leq m $ let $ \phi_i: \FinSET(n_i, \sum n_i) $ be the standard injections into the coproduct. For $ f: F(m) $ and $ g_i: F(n_i) $, we have $ F(\varphi_i): \SET(F(n_i), F(\sum n_i)) $, so we have $ (F(\varphi_i)(g_i))_i: \SET(\iota(m), F(\sum n_i)) $ and the composition is given by
-  \[ f \cdot g = (F(\varphi_i)(g_i))_i^*(f): F\left(\sum n_i\right). \]
+\subsection{Algebras for Lawvere Theories}
 
-  The permutation, contraction and deletion operations given by
+\begin{lemma}
+  Let $ C $ be an abstract clone, and $ L $ be its associated Lawvere theory by the equivalence given above. A $ C $-algebra is equivalent to an algebra for $ L $.
+\end{lemma}
+\begin{proof}
+  Let $ A $ be a $ C $-algebra. We will construct a functor $ F: L \to \SET $ as follows: We take $ F(n) = A^n $. We define the action on morphisms as
+  \[ F(f)(a) = (f_i \bullet a)_i \]
+  for $ f: L(m, n) = L(m, 1)^n $ and $ a: A^m $.
+
+  Conversely, let $ F: L \to \SET $ be a functor. We take the $ C $-algebra $ A $, with $ A = F(1) $ and for $ f: C_n = L(n, 1) $ and $ a: A^n $, $ f \bullet a = F(f)(a) $.
+\end{proof}
+
+\section{Cartesian Operad}
+
+\begin{definition}
+  A \iindex{cartesian operad} T is a functor $ T: F \to \SET $, together with an `identity' element $ \id{}: T(1) $ and for all $ m, n_1, \dots, n_m: \mathbb N $, a composition map
+  \[ T(m) \times \prod_i T(n_i) \to T\left(\sum_i n_i\right), \]
+  written $ (f, g_1, \dots, g_m) \mapsto f[g_1, \dots, g_m] $, satisfying some identity, associativity and naturality conditions (see \cite{lambda-monoid}, Definition 2.1, for more details).
+\end{definition}
+
+\begin{remark}
+  One can arrive at this concept as a standalone definition, or one can view a cartesian operad as a \iindex{cartesian multicategory} with one element. A multicategory is a category in which morphisms have type $ C((X_1, X_2, \dots, X_n), Y) $ instead of $ C(X, Y) $. A cartesian multicategory is a multicategory in which one can permute the $ X_i $ of a morphism and has `contraction' and `weakening' operations:
   \begin{align*}
-    \overline{\sigma} = F(\sigma): A((\star_1, \dots, \star_n), \star) \to A((\star_{\sigma(1)}, \dots, \star_{\sigma(n)}), \star)
+    C((X_1, \dots, X_i, X_i, \dots, X_n), Y) &\to C((X_1, \dots, X_i, \dots, X_n), Y),\\
+    C((X_1, \dots, X_{i - 1}, X_{i + 1}, \dots, X_n), Y) &\to C((X_1, \dots, X_{i - 1}, X_i, X_{i + 1}, \dots, X_n), Y).
   \end{align*}
+\end{remark}
 
-  Given a cartesian operad $ A $
-  \TODO
+\begin{lemma}
+  There is an equivalence between abstract clones and cartesian operads.
+\end{lemma}
+\begin{proof}
+  Let $ C $ be an abstract clone. We define a cartesian operad $ T $ with $ T(n) = C_n $ and $ T(f)(t) = t \bullet (x_{f(1)}, \dots, x_{f(m)}) $ for $ f: \llbracket m \rrbracket \to \llbracket n \rrbracket $ and $ t: C_m $. The identity element is $ x_{1, 1} $ and the composition $ f[g_1, \dots, g_n] $, for $ f: C_m $ and $ g_i: C_{n_i} $, is given by lifting all terms to $ C_{\sum_i n_i} $ and then substituting:
+  \[ f[g_1, \dots, g_n] = f \bullet (T(\iota_i)(g_i)) \]
+  for $ \iota_i : \llbracket n_i \rrbracket \hookrightarrow \llbracket \sum_i n_i \rrbracket $ the pairwise disjoint injections.
+
+  Conversely, given a cartesian operad $ T $, we construct an abstract clone $ C $ with $ C_n = T(\llbracket n \rrbracket) $. The variables are $ x_{n, i} = \iota_{n, i}(\id{}) $, for $ \iota_{n, i}: \llbracket 1 \rrbracket \hookrightarrow \llbracket n \rrbracket $ the morphism that sends $ 1 $ to $ i $. The substitution $ f \bullet (g_i)_i $ for $ g_1, \dots, g_m: T(n) $ is given by composing and then identifying some variables:
+  \[ f \bullet (g_i)_i = T(\pi)(f[g_1, \dots, g_m]) \]
+  for $ \pi: \llbracket m n \rrbracket \to \llbracket n \rrbracket $ the function that sends $ i + 1 $ to $ (i \mod n) + 1 $.
+\end{proof}
+
+\section{Relative Monad}
+\begin{definition}
+  Let $ S: C \to D $ be a functor. A \iindex{relative monad} on $ S $ is a functor $ T: C \to D $, together with a natural transformation $ \eta: S \Rightarrow T $ and a `kleisli extension' $ (-)^*: D(S(X), T(Y)) \to D(T(X), T(Y)) $, natural in both $ S $ and $ T $, such that for all $ f: D(S(X), T(Y)) $ and $ g: D(S(Y), T(Z)) $,
+  \[ \eta_X^* = \id{T X}, \qquad f = \eta_X \cdot f^* \qquad \text{and} \qquad (f \cdot g^*)^* = f^* \cdot g^*. \]
+\end{definition}
+
+\begin{remark}
+  Note that for an adjunction $ F \dashv G $, $ F \bullet G $ gives a monad. In the same way, there exists a notion of \iindex{relative adjunction}, from which we can obtain a relative monad (see \cite{monads-endofunctors}, Theorem 2.10).
+\end{remark}
+
+\begin{remark}
+  Now, there is a result that states: There is an equivalence between abstract clones and relative monads on the embedding $ \iota: \FinSET \hookrightarrow \SET $.
+
+  Note that the objects of $ \FinSET $ are defined to be sets $ X $, together with a proof that there exists some $ n: \mathbb N $ and some bijection $ f: X \xrightarrow{\sim} \llbracket n \rrbracket $. This existence of $ n $ and $ f $ is given by the propositional truncation $ \left\Vert \sum_{n: \mathbb N}, X \xrightarrow{\sim} \llbracket n \rrbracket \right\Vert $.
+
+  Classically, this construction starts with ``fix, for all $ X : \FinSET $, a bijection $ f: X \xrightarrow{\sim} \llbracket n \rrbracket $''. However, since $ X $ only provides \textit{mere existence} of such a bijection without choosing one (by the propositional truncation), there is no way to obtain $ f $ without using the axiom of choice.
+
+  Now, we can partially circumvent this problem by noting that we have a fully faithful and essentially surjective embedding $ F \to \FinSET $ (for $ F $ a skeleton of finite sets), which induces an adjoint equivalence $ [F, \SET] \xrightarrow{\sim} [\FinSET, \SET] $, so we can lift the functor part of a relative monad on $ F \to \SET $ to $ \FinSET \to \SET $. We can also lift the natural transformation using this equivalence. However, the kleisli extension cannot be lifted using this and we are stuck.
+
+  Therefore, we will prove a modified statement:
+\end{remark}
+
+\begin{lemma}
+  There is an equivalence between abstract clones and relative monads on the embedding $ \iota: F \hookrightarrow \SET $.
+\end{lemma}
+\begin{proof}
+  Let $ C $ be an abstract clone. We define a relative monad $ T $ as follows: We take $ T(\llbracket n \rrbracket) = C_n $. For a morphism $ a: F(\llbracket m \rrbracket, \llbracket n \rrbracket) $. We take $ T(a)(f) = f \bullet (x_{a(i)})_i $. We define $ \eta_{\llbracket n \rrbracket}(i) = x_{n, i} $. Finally, for $ g: \SET(\llbracket m \rrbracket, T(\llbracket n \rrbracket)) $, we define $ g^*(f) = f \bullet g $.
+
+  Conversely, let $ (T, \eta, (\cdot)^*) $ be a relative monad on the embedding $ \iota: F \hookrightarrow \SET $. We define an abstract clone $ C $ with $ C_n = T(\llbracket n \rrbracket) $. Substitution is defined as $ f \bullet g = g^*(f) $ for $ f: C_m $ and $ g: C_n^m $ and we have variables $ x_{n, i} = \eta_{\llbracket n \rrbracket}(i) $.
+\end{proof}
+
+\section{Monoid in a skew-monoidal category}
+For details and a general treatment, see \cite{monads-endofunctors}, Section 3 and specifically Theorem 3.4.
+
+\begin{definition}
+  Consider the category $ [F, \SET] $. Note that we have a functor $ \iota: F \hookrightarrow \SET $ and that $ \SET $ has colimits. Therefore, we can define a `tensor product' on functors $ [F, \SET] $ as
+  \[ F \otimes G = G \bullet \Lan{\iota}{F}. \]
+  Together with the `unit' $ \iota $, this gives $ [F, \SET] $ a `skew-monoidal category' structure.
+\end{definition}
+
+\begin{definition}
+  Given a (skew-)monoidal category $ (C, \otimes, I) $, a \iindex{monoid} in this category is an object $ T : C $, together with a `multiplication' $ \mu: C(T \otimes T, T) $ and a `unit' morphism $ \eta: C(I, T) $ satisfying a couple of laws (see \cite{MacLane}, Section III.6).
+\end{definition}
+
+\begin{lemma}
+  There exists an equivalence between relative monads on $ \iota: F \hookrightarrow \SET $ and monoids in the skew-monoidal category $ [F, \SET] $.
+\end{lemma}
+\begin{proof}
+  A monoid in $ [F, \SET] $ consists of an object $ T: [F, \SET] $, together with natural transformations $ \mu: T \otimes T \Rightarrow T $ and $ \eta: \iota \Longrightarrow T $. We can immediately see the functor $ T $ and natural transformation $ \eta $ of the relative monad pop up here. The kleisli extension corresponds to $ \mu $; they are related to each other via the properties of the left Kan extension of $ T $.
 \end{proof}
