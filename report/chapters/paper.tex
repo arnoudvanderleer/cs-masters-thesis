@@ -110,20 +110,21 @@ Recall that we have an equivalence $ [\op{C_{A_1}}, \SET] \cong \RAct{A_1} $.
 \end{definition}
 
 \begin{lemma}
-  We have $ A_1^{A_1} \cong A_2 $ in $ \RAct{A_1} $.
+  We have $ U_{A_1}^{U_{A_1}} \cong A_2 $ in $ \RAct{A_1} $.
 \end{lemma}
 \begin{proof}
-  Recall that $ A_1^{A_1} $ consists of the set of $ A_1 $-equivariant morphisms $ A_1 \times A_1 \to A_1 $.
+  Recall that $ U_{A_1}^{U_{A_1}} $ consists of the set of $ A_1 $-equivariant morphisms $ U_{A_1} \times U_{A_1} \to U_{A_1} $.
 
-  We have a bijection $ \varphi: A_2 \xrightarrow{\sim} A_1^{A_1} $, given by
+  We have a bijection $ \varphi: A_2 \xrightarrow{\sim} U_{A_1}^{U_{A_1}} $, given by
   \[ \varphi(a)(b, b^\prime) = (\lambda x_4, x_1 (x_2 x_4) (x_3 x_4)) \bullet (a, b, b^\prime), \]
   \TODO: relate to product in category of retracts.
 
   with an inverse given by
   \[ \varphi^{-1}(f) = \lambda x_1 x_2, f(p_1, p_2)(\lambda x_3, x_3 x_1 x_2) \]
+  \TODO: Make more explicitly that we use $ \bullet $ here.
   for $ p_i = \lambda x_1, x_1 (\lambda x_2 x_3, x_{i + 1}) $. Note that for terms $ c_1, c_2 $, we have $ p_i (\lambda x_1, x_1 c_1 c_2) = c_i $.
 
-  This is an inverse, because given $ f: A_1^{A_1} $ and $ (a_1, a_2): A_1 \times A_1 $, we have
+  This is an inverse, because given $ f: U_{A_1}^{U_{A_1}} $ and $ (a_1, a_2): U_{A_1} \times U_{A_1} $, we have
   \[ \varphi(\psi(f))(a_1, a_2) = f(p_1, p_2) \circ q = f(p_1 \circ q, p_2 \circ q) = f(a_1, a_2) \]
   for $ q = \lambda x_1, (\lambda x_2, x_2 (a_1 x_1) (a_2 x_1)) $. In the last step of this proof, we use, among other things, the fact that the $ a_i : A_1 $ and therefore $ \lambda x_1, a_i x_1 = a_i $.
 
@@ -133,9 +134,9 @@ Recall that we have an equivalence $ [\op{C_{A_1}}, \SET] \cong \RAct{A_1} $.
 \end{proof}
 
 \begin{definition}[Construction of the $ \lambda $-theory]
-  Since $ \RAct{A_1} $ has products, the algebraic theory $ E(A_1) $ exists.
+  Since $ \RAct{A_1} $ has products, the algebraic theory $ E(U_{A_1}) $ exists.
 
-  Recall that $ A_2 \subseteq A_1 $ and that $ a \mapsto \mathbf 1_2 \circ a $ gives a function from $ A_1 $ to $ A_2 $, which is, by definition, the identity on $ A_2 $. This gives $ E(A_1) $ a $ \lambda $-theory structure with $ \beta $-equality.
+  Recall that $ A_2 \subseteq A_1 $ and that $ a \mapsto \mathbf 1_2 \circ a $ gives a function from $ A_1 $ to $ A_2 $, which is, by definition, the identity on $ A_2 $. This gives $ E(U_{A_1}) $ a $ \lambda $-theory structure with $ \beta $-equality.
 \end{definition}
 
 
@@ -164,39 +165,120 @@ Recall that we have an equivalence $ [\op{C_{A_1}}, \SET] \cong \RAct{A_1} $.
   We use Lemma \ref{lem:scalar-extension-product} to show that $ f^* $ also preserves the product. Therefore, given $ a_1, a_2 : A_1 $.
 
   (\TODO: relate to product)
-  Take $ a = \lambda x_1 x_2, x_2 (a_1 x_1) (a_2 x_1) $ and $ \pi_i = \lambda x_1, x_1 (\lambda x_2 x_3, x_{n + 1}) $. We have $ a_i = f(\pi_i) \circ a $.
 
-  Need to show that exists $ (\overline m^\prime, \overline m_1, \overline m_2) : A^\prime_1 \times A_1 \times A_1 $ with $ a_i = f(\overline m_i) \circ \overline m^\prime $ such that for all $ (m^\prime, m_1, m_2) $, there exists $ m : A_1 $ such that $ f(m) = m^\prime = \overline m^\prime $ and $ m_i = \overline m_i \circ m $.
+  Take $ a = \lambda x_1 x_2, x_2 (a_1 x_1) (a_2 x_1) $ and $ \pi_i = \lambda x_1, x_1 (\lambda x_2 x_3, x_{i + 1}) $. We have $ a_i = f(\pi_i) \circ a $. Now, for some $ a^\prime: A^\prime_1 $, $ \pi_1^\prime, \pi_2^\prime: A_1 $ such that $ a_i = f(\pi_i^\prime) \circ a^\prime $, take $ m = \lambda x_1 x_2, x_2 (\pi_1^\prime x_1) (\pi_2^\prime x_1) $. Then $ \pi_i \circ m = \pi_i^\prime $ and $ f(m) \circ a^\prime = a $, so $ (a, \pi_1, \pi_2) $ is weakly terminal and $ f^* $ preserves binary products.
 
-  \TODO
+  Since any finite product is (isomorphic to) a construction with a repeated binary product and the terminal object, the fact that $ f^* $ preserves binary products and the terminal object shows that $ f^* $ preserves all finite products.
 \end{proof}
 
 \begin{definition}
   Since $ f^* $ preserves finite products, given an element of $ g: E(U_{A_1})_n = \RAct{A}(U_{A_1}^n, U_{A_1}) $, we get
-  \[ \# f^*(g): \RAct{A^\prime}(f(A_1^n), f(A_1)) \cong \RAct{A^\prime}((A^\prime_1)^n, A^\prime_1) = E(A^\prime_1)_n. \]
+  \[ f^*(g): \RAct{A^\prime}(f(U_{A_1}^n), f(U_{A_1})) \cong \RAct{A^\prime}((U_{A^\prime_1})^n, U_{A^\prime_1}) = E(U_{A^\prime_1})_n \]
+  so we have a morphism $ f^*: \LamTh(E(U_{A_1}), E(U_{A^\prime_1})) $.
 \end{definition}
 
+\begin{remark}
+  The fact that $ f^* $ preserves the variables and substitution is not very hard, since these are just defined in terms of finite products $ U_{A_1} $ and $ f^* $ preserves finite products and $ U_{A_1} $.
+
+  However, showing that it is a $ \lambda $-theory morphism is really hard. Hyland claims
+  \begin{quote}
+    $ f $ preserves $ \mathbf 1_n $, which determines the function space as a retract of the universal. So $ f^* $ preserves the retract and the result follows.
+  \end{quote}
+  This indeed covers the core of the argument, but actually verifying that it works is much more complicated: We a natural equivalence and isomorphisms
+  \begin{align*}
+    \alpha_A: \RAct{A_1}(X \times Y, Z) &\xrightarrow{\sim} \RAct{A}(X, Z^Y);\\
+    \beta: f^*(U_{A_1}) &\xrightarrow{\sim} U_{A_1^\prime};\\
+    \bar \gamma: f^*(A \times B) &\xrightarrow{\sim} f^*(A) \times f^*(B);\\
+    \gamma_n: f^*(X^n) &\xrightarrow{\sim} f^*(X)^n;\\
+    % \delta: f^*(X^Y) &\xrightarrow{\sim} f^*(X)^{f^*(Y)};\\
+    \delta_A: U_{A_1}^{U_{A_1}} &\xrightarrow{\sim} A_2.
+  \end{align*}
+  with $ \gamma_{n + 1} = \bar{\gamma} \cdot (\gamma_n \times \id X) $.
+  Then, for $ s: E(U_{A_1})_{n + 1} $, we have $ \lambda_A(s) = \alpha_A(s) \cdot \delta_A \cdot \pi_A : \RAct{A_1}(U_{A_1}^n, U_{A_1}) $ for the projection $ \pi_A: A_2 \to U_{A_1} $. However, note that $ f^*(\lambda_A(s)): \RAct{A^\prime_1}(f^*(U_{A^\prime_1}^n), f^*(U_{A^\prime_1})) $. To compare this to $ \lambda_{A^\prime}(\dots) $, we actually need to take
+  \[ (\beta^{-1})^n \cdot \gamma_n^{-1} \cdot f^*(\lambda_A(s)) \cdot \beta : \RAct{A^\prime_1}(U_{A_1}^n, U_{A_1}). \]
+  On the other hand, we also have $ f^*(s): \RAct{A^\prime_1}(f^*(U_{A_1}^{n + 1}), f^*(U_{A_1})) $ and we cannot apply $ \lambda_{A^\prime} $ directly. Instead, the term that we end up with is
+  \[ \lambda_{A^\prime}((\beta^{-1})^{n + 1} \cdot \gamma_{n + 1}^{-1} \cdot f^*(s) \cdot \beta): \RAct{A^\prime_1}(U_{A_1}^n, U_{A_1}). \]
+  So the equality that we need to prove is (using functoriality of $ f^* $ and naturality of $ \alpha_{A^\prime} $):
+  \begin{align*}
+    &(\beta^{-1})^n \cdot \gamma_n^{-1} \cdot f^*(\alpha_A(s)) \cdot f^*(\delta_A \cdot \pi_A) \cdot \beta\\
+    &= (\beta^{-1})^n \cdot \gamma_n^{-1} \cdot \alpha_{A^\prime}((\id X^n \times \beta^{-1}) \cdot \bar{\gamma}^{-1} \cdot f^*(s)) \cdot \beta^{U_{A_1}} \cdot \delta_{A^\prime} \cdot \pi_{A^\prime}.
+  \end{align*}
+  Because of the complicated definition of each of these terms, I was unable to verify the correctness of this statement (and the similar statement about $ \rho: E(U_{A_1})_n \to E(U_{A_1})_{n + 1} $) within a day, even though I am willing to believe Hyland's claim.
+  \TODO
+
+  % Given a morphism $ t: X \times Y \to Z $, $ \alpha_{A_1}(t): X \to (U_{A_1} \times Y \to Z) $ is given by
+  % \[ \alpha(t)(x)(a, y) = t(x a, y) \]
+
+  % Also, $ \beta: f^*(U_{A_1}) \xrightarrow{\sim} U_{A^\prime_1} $ is given, for $ a: A_1 $ and $ a^\prime : A^\prime_1 $, by
+  % \[ \beta(a, a^\prime) = f(a) a^\prime \quad \text{and} \quad \beta^{-1}(a^\prime) = (1, a^\prime). \]
+
+  % Given a morphism $ s: X \to Y $, we have $ f^*(s): f^*(X) \to f^*(Y) $ given by
+  % \[ f^*(s)(x, a^\prime) = (s(x), a^\prime). \]
+
+  % Finally, we have
+  % \[ \delta(s) = \lambda x_1 x_2, s(p_1, p_2)(\lambda x_3, x_3 x_1 x_2) \]
+  % with $ p_i = \lambda x_1, x_1 (\lambda x_2 x_3, x_{i + 1}) $.
+
+
+  % For some $ s: U_{A_1}^{n + 1} \to U_{A_1} $, the left hand side sends $ (a, (a^\prime_1, \dots, a^\prime_n)): f^*(U_{A_1}^n) $ to
+  % \begin{align*}
+  %   &\lambda x_1 x_2, f(s((a_i p_1)_i, p_2)) (\lambda x_3, x_3 x_1 x_2) \circ a^\prime\\
+  %   &= \lambda x_1 x_2, f(s((a_i p_1)_i, p_2)) (\lambda x_3, x_3 a^\prime (x_1) x_2)
+  % \end{align*}
+  % and the right hand side sends it to
+  % \begin{align*}
+  %   \lambda x_1 x_2, \lambda x_3, (f(s((a_i p_1)_i, p_2))((\lambda x_4, x_4 (a^\prime p_1 (\lambda x_3, x_3 x_1 x_2)) (p_2 (\lambda x_3, x_3 x_1 x_2)))(x_3)))
+  % \end{align*}
+\end{remark}
+
 \begin{lemma}
-  $ \# f^*: E(U_{A_1}) \to E(U_{A^\prime_1}) $ is a map of $ \lambda $-theories.
+  We have a bijection $ \varphi: E(U_{A_1})_0 \cong A $, sending $ s $ to $ x_1 (\lambda x_2, x_2) \bullet (s(\star)) $.
+\end{lemma}
+\begin{proof}
+  Using \ref{lem:global-action-elements}, we showed that $ E(U_{A_1})_0 $ corresponds to the set of $ A_1 $-equivariant elements of $ U_{A_1} $, sending $ s $ to $ s(\star) $. Now, for an $ A_1 $-equivariant element $ a $,
+  \[ (\lambda x_2, x_1 (\lambda x_3, x_3)) \bullet a = a \circ ((\lambda x_1 x_2, x_2) \bullet ()) = a \]
+  so we can send $ a $ to $ A $ as $ (x_1 (\lambda x_2, x_2)) \bullet a $ and it has (two-sided) inverse $ (\lambda x_2, x_1) \bullet a $.
+\end{proof}
+
+We want to show that $ \varphi $ is an isomorphism of $ \Lambda $-algebras. We use Lemma \ref{lem:make-is-lambda-algebra-morphism} for this, so we need to show that it preserves the application and the $ \Lambda $-definable constants.
+
+\begin{lemma}
+  For $ \varphi $ as above, we have for all $ a, b: E(U_{A_1})_0 $, we have
+  \[ \varphi((x_1 x_2) \bullet (a, b)) = (x_1 x_2) \bullet (\varphi(a), \varphi(b)). \]
+\end{lemma}
+\begin{proof}
+  For $ a, b: E(U_{A_1})_0 $, we have, for the isomorphism $ \delta: \RAct{A_1}(U_{A_1}^{U_{A_1}}, A_2) $,
+  \begin{align*}
+    \varphi((x_{2, 1} x_{2, 2}) \bullet (a, b)) &= \varphi(\rho(x_{1, 1}) \bullet (a, b))\\
+    &= (x_1 (\lambda x_2, x_2)) \bullet (\langle a, b \rangle \cdot ((s, t) \mapsto (\delta^{-1}(\mathbf 1_2 \circ s)) (1, t)))(\star)\\
+    &= (x_1 (\lambda x_2, x_2)) \bullet (\lambda x_3, x_1 x_3 (x_2 x_3)) \bullet (a(\star), b(\star))\\
+    &= (x_1 (\lambda x_3, x_3) (x_2 (\lambda x_3, x_3))) \bullet (a(\star), b(\star))\\
+    &= (x_1 x_2) \bullet (\varphi(a), \varphi(b))
+  \end{align*}
+  and this concludes the proof.
+\end{proof}
+
+\begin{lemma}
+  For $ \varphi $ as above, we have for all $ s: \Lambda_0 $,
+  \[ \varphi(s \bullet ()) = s \bullet (). \]
 \end{lemma}
 \begin{proof}
   \TODO
 \end{proof}
 
-\begin{definition}
-  We have an isomorphism $ E(U_{A_1})_0 \cong A $ given by $ a \mapsto a I $.
-\end{definition}
-
 \begin{lemma}
-  This is indeed an isomorphism of $ \Lambda $-algebras.
+  We have an isomorphism $ U_{L_0} \cong L $.
 \end{lemma}
 \begin{proof}
   \TODO
 \end{proof}
 
 \begin{lemma}
-  Given $ g: A \to A^\prime $,
+  This is indeed an isomorphism of $ \lambda $-theories.
 \end{lemma}
+\begin{proof}
+  \TODO
+\end{proof}
 
 \begin{theorem}
   There exists an adjoint equivalence between the category of $ \lambda $-theories, and the category of algebras of $ \Lambda $.

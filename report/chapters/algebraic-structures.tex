@@ -23,6 +23,8 @@
   for all $ 1 \leq j \leq n $, $ f: T_m $ and $ g: T_n^m $.
 \end{definition}
 
+Together, these form the category of algebraic theories \iindex{$ \AlgTh $}.
+
 \begin{remark}
   We can construct binary products of algebraic theories, with sets $ (T \times T^\prime)_n = T_n \times T^\prime_n $, variables $ (x_i, x_i) $ and substitution
   \[ (f, f^\prime) \bullet (g, g^\prime) = (f \bullet g, f^\prime \bullet g^\prime). \]
@@ -47,6 +49,8 @@
   \[ F(f \bullet a) = f \bullet (F(a_i))_i \]
   for all $ f: T_n $ and $ a: A^n $.
 \end{definition}
+
+Together, these form the category of $ T $-algebras \iindex{$ \Alg T $}.
 
 \begin{remark}
   The category of algebras has all limits. The set of a limit of algebras is the limit of the underlying sets.
@@ -83,7 +87,7 @@
   for all $ t: P_m $ and $ f: T_n^m $.
 \end{definition}
 
-We will write $ \Pshf T $ for the category of $ T $-presheaves and their morphisms.
+Together, these form the category of $ T $-presheaves \iindex{$ \Pshf T $}.
 
 \begin{remark}
   The category of presheaves has all limits. The $ n $th set $ \overline{P}_n $ of a limit $ \overline{P} $ of presheaves $ P_i $ is the limit of the $ n $th sets $ P_{i, n} $ of the presheaves in the limit diagram.
@@ -109,6 +113,8 @@ For tuples $ x : X^m $ and $ y: X^n $, let $ x + y $ denote the tuple $ (x_1, \d
   for all $ f: L_{m + 1} $, $ g: L_m $ and $ h: L_n^m $.
 \end{definition}
 
+Together, these form the category of $ \lambda $-theories \iindex{$ \LamTh $}.
+
 \begin{definition}[$ \beta $- and $ \eta $-equality]
   We say that a $ \lambda $-theory $ L $ satisfies $ \beta $-equality (or that it is a $ \lambda $-theory with $ \beta $) if $ \rho_n \circ \lambda_n = \id{L_n} $ for all $ n $. We say that is satisfies $ \eta $-equality if $ \lambda_n \circ \rho_n = \id{L_{n + 1}} $ for all $ n $.
 \end{definition}
@@ -126,7 +132,9 @@ For tuples $ x : X^m $ and $ y: X^n $, let $ x + y $ denote the tuple $ (x_1, \d
   The category of lambda theories has all limits, with the underlying algebraic theory of a limit being the limit of the underlying algebraic theories.
 \end{remark}
 
-A $ \lambda $-theory algebra or presheaf is a presheaf for the underlying algebraic theory.
+\begin{definition}
+  A $ \lambda $-theory algebra or presheaf is an algebra or presheaf for the underlying algebraic theory.
+\end{definition}
 
 \section{Examples}
 
@@ -236,7 +244,7 @@ Note that, like with the previous example, we have a forgetful functor $ (\dot)_
   sending $ f: \LamTh(\Lambda(S), L) $ to $ f_0 \vert_S: S \to L_0 $ (again, trivially natural in $ S $ and $ L $) and conversely, $ g: \SET(S, L_0) $ to the inductively defined $ f: \LamTh(\Lambda(S), L) $ given by
   \begin{align*}
     f(\mathtt{Var}(i)) &= x_i;\\
-    f(\mathtt{App}(a, b)) &= \rho(f(a)) \bullet ((x_{n, i})_i + (b));\\
+    f(\mathtt{App}(a, b)) &= \rho(f(a)) \bullet ((x_{n, i})_i + (f(b)));\\
     f(\mathtt{Abs}(a)) &= \lambda(f(a));\\
     f(\mathtt{Con}(s)) &= g(s) \bullet ().
   \end{align*}
@@ -249,6 +257,25 @@ The proofs that $ \Lambda(S) $ is indeed a $ \lambda $-theory and that $ \Lambda
 \end{corollary}
 \begin{proof}
   If we take $ S = \emptyset $, $ \Lambda(\emptyset) $ is the lambda calculus, which we will call $ \Lambda $. We have, like with the free algebraic theory, that $ \Lambda(\emptyset) $ is the initial $ \lambda $-theory.
+\end{proof}
+
+\subsubsection{About $ \Lambda $-algebra morphisms}
+
+\begin{lemma}\label{lem:make-is-lambda-algebra-morphism}
+  Let $ A $ and $ B $ be $ \Lambda $-algebras and let $ f: \SET(A, B) $ be a function that preserves the application and the $ \Lambda $-definable constants:
+  \[ f((x_1 x_2) \bullet (a, b)) = (x_1 x_2) \bullet (f(a), f(b)) \quad \text{and} \quad f(s \bullet ()) = s \bullet () \]
+  for all $ a, b: A $ and $ s: \Lambda_0 $. Then $ f $ is a $ \Lambda $-algebra morphism.
+\end{lemma}
+\begin{proof}
+  Note that for $ s: \Lambda_{n + 1} $ and $ a: A^{n + 1} $,
+  \[ (x_1 x_2) \bullet (\lambda(s) \bullet (a_i)_i, a_{n + 1}) = s \bullet a. \]
+  By induction, we can express $ s \bullet a $ using a combination of $ (x_1 x_2) \bullet (\cdot, \cdot) $ and $ \lambda^n(s) $:
+  \begin{align*}
+    f(s \bullet a) &= f((x_1 x_2) \bullet (\dots ((x_1 x_2) \bullet (\lambda^n(s) \bullet (), a_1), \dots), a_n))\\
+    &= (x_1 x_2) \bullet (\dots ((x_1 x_2) \bullet (f(\lambda^n(s) \bullet ()), f(a_1)), \dots), f(a_n))\\
+    &= s \bullet (f(a_i))_i,
+  \end{align*}
+  so $ f $ is a $ \Lambda $-algebra morphism.
 \end{proof}
 
 \subsection{The free object algebraic theory}

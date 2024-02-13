@@ -12,8 +12,25 @@ For composition of morphisms $ f: C(c, d) $ and $ g: C(d, e) $, I will write $ f
 For composition of functors $ F: A \to B $ and $ G: B \to C $, I will write $ F \bullet G $.
 
 \section{Universal Arrows}
-(\cite{MacLane}, Chapter IV.1, Theorem 2 (iv))
-\TODO
+
+One concept in category theory that can be used to describe a lot of limits and adjunctions is that of a universal arrow (see for example \cite{MacLane}, Part III)
+\begin{definition}
+  A \iindex{universal arrow} from an object $ c: C $ to a functor $ F: D \to C $ consists of an object $ d: D $ and a morphism $ f: D(c, F(d)) $ such that for every similar pair $ (d^\prime, f^\prime) $, $ f^\prime $ factors uniquely as $ f \cdot F(g) $ for some $ g: C(d, d^\prime) $:
+  \begin{center}
+    \begin{tikzcd}
+      c \arrow[d, "f"'] \arrow[rd, "f^\prime"] &\\
+      F(d) \arrow[r, "F(g)"'] & F(d^\prime)
+    \end{tikzcd}
+  \end{center}
+\end{definition}
+
+There is also the dual concept of a universal arrow $ (d, f) $ from a functor $ F $ to an object $ c: C $. Its universal property yields the following diagram:
+\begin{center}
+  \begin{tikzcd}
+    F(d^\prime)\arrow[rd, "f^\prime"']  \arrow[r, "F(g)"] & F(d) \arrow[d, "f"]\\
+    & c
+  \end{tikzcd}
+\end{center}
 
 \section{Adjunctions}
 
@@ -39,10 +56,18 @@ such that the diagrams
 \end{center}
 commute. Here the natural transformation $ \eta \bullet L: L \bullet R \bullet L $ is the natural transformation $ \eta $ whiskered on the right by $ L $, and the other whiskered transformations are similar.
 
-An alternative characterization of an adjunction $ L \dashv R $ is as a natural bijection
+An alternative characterization (see \cite{MacLane}, chapter IV.1, Theorem 2) of an adjunction $ L \dashv R $ is as a natural bijection
 \[ \varphi: D(L(c), d) \xrightarrow{\sim} C(c, R(d)). \]
 Naturality means that for all $ f: C(c^\prime, c) $, $ g: D(d, d^\prime) $ and $ h: D(L(c), d) $,
 \[ \varphi(L(f) \cdot h \cdot g) = f \cdot \varphi(h) \cdot R(g). \]
+
+Lastly, one can construct an adjunction using universal arrows. This lends itself particularly well for a formalization, where it is often preferable to have as little `demonstranda' as possible:
+\begin{lemma}
+  One can construct an adjunction $ (F, G, \eta, \epsilon) $ as above from only the functor $ L: C \to D $ and, for each $ c: C $, a universal arrow $ (R(c), \epsilon_c) $ from $ L $ to $ c $.
+\end{lemma}
+\begin{proof}
+  See \cite{MacLane}, Chapter IV.1, Theorem 2 (iv).
+\end{proof}
 
 \subsection{Adjoint equivalences}
 An adjoint equivalence of categories has multiple definitions. The one we will use here is the following:
@@ -61,20 +86,28 @@ In other words, we have functors $ X \mapsto X \times Y $ and $ Z \mapsto (Y \to
   A category $ C $ has \textit{exponential objects}\index{exponential objects} (or \textit{exponentials}) if for all $ c: C $, the functor $ c^\prime \mapsto c^\prime \times c $ has a right adjoint, which we denote $ d \mapsto d^c $.
 \end{definition}
 
-\begin{lemma}
-  For $ c, d, d^c : C $, we have a natural bijection
-  \[ C(d^\prime \times c, d) \cong C(d^\prime, d^c) \]
-  iff we have a universal arrow ...
-\end{lemma}
-\begin{proof}
-  \TODO
-\end{proof}
-
 \begin{remark}
   It is actually very well possible that a category does not have all exponentials, but it has some objects $ c, d, d^c: C $ with a natural bijection
   \[ C(d^\prime \times c, d) \cong C(d^\prime, d^c). \]
   Then $ d^c $ is still called an exponential object.
 \end{remark}
+
+\section{Fibrations}
+Let $ P : E \to B $ be a functor. In this case, we will view this as the category $ E $ `lying over' the category $ B $, with for every point $ b: B $, a slice $ E_b = P^{-1}(B) $ lying `above' $ b $.
+
+\begin{definition}
+  A morphism $ f: E(y, z) $ is called \iindex{cartesian} if for all $ g: E(x, z) $ and $ w: B(P(x), P(y)) $ with $ w \cdot P(f) = P(g) $, there exists $ \bar w: E(x, y) $ such that $ P(\bar w) = w $ and $ \bar w \cdot f = g $, like illustrated in the following diagram from \cite{nlab:grothendieck_fibration}
+  \begin{center}
+    \begin{tikzcd}[row sep = .5in]
+      E \arrow[d, "P"] &x \arrow[rr, "\forall g", bend left] \arrow[r, "\exists! \bar w"'] & y \arrow[r, "f"'] & z\\
+      B & P(x) \arrow[r, "\forall w"'] \arrow[rr, "P(g)", bend left] & P(y) \arrow[r, "P(f)"'] & P(z)
+    \end{tikzcd}
+  \end{center}
+\end{definition}
+
+\begin{definition}
+  $ P $ is a \iindex{fibration} if for all $ y: E $ and morphisms $ f: B(x, P(y)) $, there exists a cartesian morphism $ \bar f: E(\bar x, y) $ such that $ P(\bar f) = f $.
+\end{definition}
 
 \section{(Co)slice categories}
 Given an object in a category $ c: C $, the morphisms to and from $ c $ constitute the slice and coslice categories
@@ -323,7 +356,7 @@ Take a monoid $ M $.
   A \textit{morphism}\index{monoid action!morphism} between sets $ X $ and $ Y $ with a right $ M $-action is an $ M $-equivariant function $ f: X \to Y $: a function such that $ f(xm) = f(x)m $ for all $ x: X $ and $ m: M $.
 \end{definition}
 
-These, together with the identity and composition from $ \SET $, constitute a category $ \RAct M $ of right $ M $-actions.
+These, together with the identity and composition from $ \SET $, constitute a category \iindex{$ \RAct M $} of right $ M $-actions.
 
 \begin{lemma}
   Presheaves on $ C_M $ are equivalent to sets with a right $ M $-action.
@@ -338,7 +371,7 @@ These, together with the identity and composition from $ \SET $, constitute a ca
 
 Note that the initial set with $ M $-action is $ \{ \star \} $, with action $ \star m = \star $.
 
-\begin{lemma}
+\begin{lemma}\label{lem:global-action-elements}
   The global elements of a set with right $ M $-action correspond to the elements that are invariant under the $ M $-action.
 \end{lemma}
 \begin{proof}
