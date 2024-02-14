@@ -19,7 +19,7 @@ One concept in category theory that can be used to describe a lot of limits and 
   \begin{center}
     \begin{tikzcd}
       c \arrow[d, "f"'] \arrow[rd, "f^\prime"] &\\
-      F(d) \arrow[r, "F(g)"'] & F(d^\prime)
+      F(d) \arrow[r, "F(g)"', dashed] & F(d^\prime)
     \end{tikzcd}
   \end{center}
 \end{definition}
@@ -27,7 +27,7 @@ One concept in category theory that can be used to describe a lot of limits and 
 There is also the dual concept of a universal arrow $ (d, f) $ from a functor $ F $ to an object $ c: C $. Its universal property yields the following diagram:
 \begin{center}
   \begin{tikzcd}
-    F(d^\prime)\arrow[rd, "f^\prime"']  \arrow[r, "F(g)"] & F(d) \arrow[d, "f"]\\
+    F(d^\prime)\arrow[rd, "f^\prime"']  \arrow[r, "F(g)", dashed] & F(d) \arrow[d, "f"]\\
     & c
   \end{tikzcd}
 \end{center}
@@ -96,17 +96,23 @@ In other words, we have functors $ X \mapsto X \times Y $ and $ Z \mapsto (Y \to
 Let $ P : E \to B $ be a functor. In this case, we will view this as the category $ E $ `lying over' the category $ B $, with for every point $ b: B $, a slice $ E_b = P^{-1}(B) $ lying `above' $ b $.
 
 \begin{definition}
-  A morphism $ f: E(y, z) $ is called \iindex{cartesian} if for all $ g: E(x, z) $ and $ w: B(P(x), P(y)) $ with $ w \cdot P(f) = P(g) $, there exists $ \bar w: E(x, y) $ such that $ P(\bar w) = w $ and $ \bar w \cdot f = g $, like illustrated in the following diagram from \cite{nlab:grothendieck_fibration}
+  A morphism $ f: E(y, z) $ is called \iindex{cartesian} if for all $ g: E(x, z) $ and $ h: B(P(x), P(y)) $ with $ h \cdot P(f) = P(g) $, there exists $ \bar h: E(x, y) $ such that $ P(\bar h) = h $ and $ \bar h \cdot f = g $, like illustrated in the following diagram from \cite{nlab:grothendieck_fibration}
   \begin{center}
     \begin{tikzcd}[row sep = .5in]
-      E \arrow[d, "P"] &x \arrow[rr, "\forall g", bend left] \arrow[r, "\exists! \bar w"'] & y \arrow[r, "f"'] & z\\
-      B & P(x) \arrow[r, "\forall w"'] \arrow[rr, "P(g)", bend left] & P(y) \arrow[r, "P(f)"'] & P(z)
+      E \arrow[d, "P"] &x \arrow[rr, "\forall g", bend left] \arrow[r, "\exists! \bar h"', dashed] & y \arrow[r, "f"'] & z\\
+      B & P(x) \arrow[r, "\forall h"'] \arrow[rr, "P(g)", bend left] & P(y) \arrow[r, "P(f)"'] & P(z)
     \end{tikzcd}
   \end{center}
 \end{definition}
 
 \begin{definition}
-  $ P $ is a \iindex{fibration} if for all $ y: E $ and morphisms $ f: B(x, P(y)) $, there exists a cartesian morphism $ \bar f: E(\bar x, y) $ such that $ P(\bar f) = f $.
+  $ P $ is a \iindex{fibration} if for all $ y: E $ and morphisms $ f: B(x, P(y)) $, there exist an object $ \bar x: E $ and a cartesian morphism $ \bar f: E(\bar x, y) $ such that $ P(\bar x) = x $ and $ P(\bar f) = f $:
+  \begin{center}
+    \begin{tikzcd}
+      E \arrow[d, "P"] & \bar x \arrow[r, "\exists \bar f", dashed] & y\\
+      B & x \arrow[r, "\forall f"] & P(y)
+    \end{tikzcd}
+  \end{center}
 \end{definition}
 
 \section{(Co)slice categories}
@@ -122,7 +128,7 @@ Given an object in a category $ c: C $, the morphisms to and from $ c $ constitu
     \end{tikzcd}
   \end{center}
 \end{definition}
-The \textit{coslice category}\index{slice category!co-} $ c \downarrow C $ is similar, but with the morphisms from $ c $:
+The \textit{coslice category}\index{slice category!co-} $ c \downarrow C $ is similar, but with the morphisms \textit{from} $ c $ instead of \textit{to} $ c $:
 \[ (c \downarrow C)_0 = \sum_{c^\prime: C} C(c, c^\prime). \]
 
 \section{(Weakly) terminal objects}
@@ -131,7 +137,7 @@ The \textit{coslice category}\index{slice category!co-} $ c \downarrow C $ is si
 \end{definition}
 
 \begin{definition}
-  Given an object $ c $ in a category $ C $ with terminal object $ t $. A \iindex{global element} of $ c $ is a morphism $ C(t, c) $.
+  Let $ C $ be a category with terminal object $ t $. For an object $ c: C $, a \iindex{global element} of $ c $ is a morphism $ f: C(t, c) $.
 \end{definition}
 
 

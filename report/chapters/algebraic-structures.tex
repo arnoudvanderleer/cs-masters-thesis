@@ -60,13 +60,22 @@ Together, these form the category of $ T $-algebras \iindex{$ \Alg T $}.
   Note that for an algebraic theory $ T $, the $ T_n $ are all algebras for $ T $, with the action given by $ \bullet $.
 \end{remark}
 
-\begin{definition}[Pullback of algebras]
+\begin{definition}[Pullback of algebras]\label{def:algebra-pullback}
   If we have a morphism of algebraic theories $ f: T^\prime \to T $, we have a functor $ \Alg T \to \Alg T^\prime $. It endows $ T^\prime $-algebras with an action from $ T $ given by $ g \bullet_{T^\prime} a = f(g) \bullet_T a $. Then $ T^\prime $-algebra morphisms commute with this $ T $-action, so we indeed have a functor.
 \end{definition}
 
-\begin{lemma}
-  \TODO Fibration
+We can also consider the category of `all' algebraic theory algebras together. That is, the category $ C $ with $ C_0 = \sum_{T : \AlgTh}, \Alg T $ and $ C((T, A), (T^\prime, A^\prime)) $ consisting of pairs $ (f, f^\prime): \AlgTh(T, T^\prime) \times \SET(A, A^\prime) $ such that for all $ t: T_n $ and $ a: A^n $,
+\[ f^\prime(t \bullet a) = f(t) \bullet (f^\prime(a_i))_i. \]
+We then have a functor $ P: C \to \AlgTh $, projecting onto the first coordinate.
+
+\begin{lemma}\label{lem:algebra-fibration}
+  $ P $ is a fibration.
 \end{lemma}
+\begin{proof}
+  Given an algebraic theory morphism $ f: \AlgTh(S, T) $ and a $ T $-algebra $ A_T $, Definition \ref{def:algebra-pullback} gives an $ S $-algebra $ A_S $ with underlying set $ A_T $. The cartesian morphism is $ (f, \id{A_T}): C((S, A_S), (T, A_T)) $.
+
+  It is cartesian because for $ (R, A_R): C $ and $ (g, g^\prime): C((R, A_R), (T, A_T)) $ and $ h: \AlgTh(R, S) $ with $ h \cdot f = g $, the required morphism $ C((R, A_R), (S, A_S)) $ is given by $ g^\prime: \SET(A_R, A_S) $.
+\end{proof}
 
 \section{Presheaves}
 
@@ -93,9 +102,7 @@ Together, these form the category of $ T $-presheaves \iindex{$ \Pshf T $}.
   The category of presheaves has all limits. The $ n $th set $ \overline{P}_n $ of a limit $ \overline{P} $ of presheaves $ P_i $ is the limit of the $ n $th sets $ P_{i, n} $ of the presheaves in the limit diagram.
 \end{remark}
 
-\begin{lemma}
-  \TODO Fibration
-\end{lemma}
+An analogue to Lemma \ref{lem:algebra-fibration} shows that, like with algebras, the total category of presheaves is fibered over the category of algebraic theories.
 
 \section{\texorpdfstring{$ \lambda $-}{lambda-}theories}
 
@@ -183,7 +190,7 @@ The proofs that $ F(S) $ is an algebraic theory and that $ F(f) $ and $ g $ are 
 \end{proof}
 
 \begin{lemma}
-  There is an adjoint equivalence between the category $ \Alg{F(S)} $ and the coslice category (\TODO) $ S \downarrow \SET $.
+  There is an adjoint equivalence between the category $ \Alg{F(S)} $ and the coslice category $ S \downarrow \SET $.
 \end{lemma}
 \begin{proof}
   For the equivalence, we send a $ F(S) $-algebra $ A $ to the set $ A $ with morphism $ s \mapsto s \bullet () $. An algebra morphism $ f: A \to B $ is sent to the coslice morphism $ f: (S \to A) \to (S \to B) $. This constitutes a functor.
