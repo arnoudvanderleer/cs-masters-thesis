@@ -1,7 +1,7 @@
 \chapter{Previous work in categorical semantics}
 
-\section{The correspondence between categories and \texorpdfstring{$ \lambda $}{lambda}-calculi}
-In \cite{curry}, Scott and Lambek argue that there is a correspondence between simply typed $ \lambda $-calculi and cartesian closed categories (categories with products and `function objects'). (See page 413).
+\section{The correspondence between categories and typed \texorpdfstring{$ \lambda $}{lambda}-calculi}
+In \cite{curry}, page 413, Scott and Lambek argue that there is a correspondence between simply typed $ \lambda $-calculi and cartesian closed categories (categories with products and `function objects').
 
 Types in the $ \lambda $-calculus correspond to objects in the category.
 
@@ -20,12 +20,109 @@ Given a term $ s: B_1 \to B_2 $ and a term $ t: B_1 $, both with free variables 
   \end{tikzcd}
 \end{center}
 
-Given a term $ t: B $ with free variables $ x_1: A_1, \dots, x_n: A_n $, the abstraction $ (\lambda x_n, t): A_n \to B $ corresponds to using the adjunction $ - \times A_n \dashv (-)^{A_n} $:
+Given a term $ t: B $ with free variables $ x_1: A_1, \dots, x_n: A_n $, the abstraction $ (\lambda x_n, t): A_n \to B $ corresponds to using the adjunction corresponding to the exponential object of $ A_n $:
 \[ C(A_1 \times \dots \times A_{n-1} \times A_n, B) \simeq C(A_1 \times \dots \times A_{n-1}, B^{A_n}). \]
 
-\TODO
-How about the untyped $ \lambda $-calculus?
-
 \section{Scott's Representation Theorem}
+The correspondence above for a simply-typed $ \lambda $-calculus raises a question whether such a correspondence also exists for an untyped $ \lambda $-calculus. As Definition \ref{def:endomorphism-theory} shows that in fairly general circumstances we can take one object $ c $ in a category $ C $ and consider the morphisms $ t: C(c^n, c) $ as terms in an untyped $ \lambda $-calculus. Hyland calls this the `endomorphism theory' of $ c $.
+
+\TODO Remark upon the significance of having a reflexive object
+
+We can then wonder whether this construction is part of a correspondence between untyped $ \lambda $-calculi and some class of categories. This question finds a partial answer in the following theorem, originally proven in a very syntactical way by Dana Scott (see \cite{curry}, page 418).
+\begin{lemma}
+  We can obtain every untyped $ \lambda $-calculus as the endomorphism theory of some object in some category.
+\end{lemma}
+\begin{proof}
+  Let $ L $ be a $ \lambda $-theory. First of all, for $ a_1, a_2: L_0 $, we define
+  \begin{align*}
+    a_1 \circ a_2 &= \lambda x_1, a_1 (a_2 x_1);\\
+    (a_1, a_2) &= \lambda x_1, x_1 a_1 a_2;\\
+    \langle a_1, a_2 \rangle &= \lambda x_1, (a_1 x_1, a_2 x_1);\\
+    \pi_i &= \lambda x_1, x_1 (\lambda x_2 x_3, x_{i + 1}).
+  \end{align*}
+  Although, actually, since every one of these starts with a $ \lambda $-abstraction, we would need to lift the constants $ a_i $ to $ \iota_{0, 1}(a_i): L_1 $ to make the definitions above typecheck.
+
+  Note that $ \pi_i (a_1, a_2) = a_i $ and $ \pi_i \circ \langle a_1, a_2 \rangle = \lambda x_1, a_i x_1 $.
+
+  Also, note that by replacing the $ x_i $ by $ x_{n + i} $ and the $ \iota_{0, 1}(a_i) $ by $ \iota_{n, 1}(a_i) $, we obtain definitions not only for $ n = 0 $, but for all $ n \geq 0 $.
+
+  For our category, we take the category $ \mathbb R $ which Hyland calls the `category of retracts'. It is the Karoubi envelope of the monoid of the terms without free variables under composition. That is, we consider the category of idempotent functions:
+  \[ \mathbb R_0 = \{ A : L_0 \mid A \circ A = A \} \quad \text{and} \quad \mathbb R(A, B) = \{ f: L_0 \mid B \circ f \circ A = f \}, \]
+  with $ \id A = A $ and composition given by $ \circ $.
+
+  This category has a terminal object $ I = \lambda x_1 x_2, x_2 : \mathbb R $.
+
+  The category has binary products with projections and product morphisms
+  \[ A_1 \times A_2 = \langle p_1, p_2 \rangle, \quad p_i = A_i \circ \pi_i \quad \text{and} \quad \langle f, g \rangle. \]
+
+  The category also has exponential objects
+  \[ C^B = \lambda x_1, B \circ x_1 \circ C \]
+  with evaluation morphism $ \epsilon_{BC}: C^B \times B \to C $ given by
+  \[ \epsilon_{BC} = \lambda x_1, C(\pi_1 x_1 (B (\pi_2 x_1))), \]
+  which is universal because we can lift a morphism $ f: \mathbb R(A \times B, C) $ to a morphism $ \varphi(f): \mathbb R(A, C^B) $ given by
+  \[ \varphi(f) = \lambda x_1 x_2, f (x_1, x_2). \]
+  Note that for $ g: \mathbb R(A, C^B) $, the inverse $ \varphi^{-1}(g) $ is given by
+  \[ \epsilon \circ \langle g \circ \pi_1, B \circ \pi_2 \rangle: \mathbb R(A \times B, C). \]
+
+  Now, consider the object $ U = \lambda x_1, x_1 : \mathbb R $. Note that for all $ A: \mathbb R $, we have morphisms $ A: \mathbb R(U, A) $ and $ A: \mathbb R(A, U) $, which exhibit $ A $ as a retract of $ U $. In particular, $ U^U $ is a retract of $ U $, so $ U $ is a reflexive object.
+
+  Therefore, $ E(U) $, the endomorphism theory of $ U $, has a $ \lambda $-theory structure. Note that the finite powers of $ U $ in $ \mathbb R $ are given by $ U^0 = I $ and $ U^{n + 1} = U^n \times U $.
+
+  We have $ E(U)_n = \mathbb R(U^n, U) = \{ f: L_0 \mid U \circ f \circ U^n = f \} $. The variables of $ E(U) $ are the projections of $ U^n $:
+  \[ q_{n, i} = \pi_2 \circ \underbrace{\pi_1 \circ \dots \circ \pi_1}_{n - i}. \]
+  The substitution is given by composition with the product morphism:
+  \[ f \bullet g = f \circ \langle \langle \langle I, g_1 \rangle, \dots \rangle, g_n \rangle. \]
+  We have $ U^U = \lambda f, U \circ f \circ U = \lambda x_1 x_2, x_1 x_2 $. Using the equivalence $ \mathbb R(U^n \times U, U) \simeq \mathbb R(U^n, U^U) $ and the retraction $ U^U: U \to U^U $, the abstraction and application $ \lambda $ and $ \rho $ are given by
+  \[ \lambda(f) = \lambda x_1 x_2, \iota_{0, 2}(f)(x_1, x_2), \quad \rho(g) = \lambda x_1, \iota_{0, 1}(g) (\pi_1 x_1) (\pi_2 x_1). \]
+  for $ f: \mathbb R(U^{n + 1}, U) $ and $ g: \mathbb R(U^n, U) $.
+
+  Now, we have bijections $ \psi_0: E(U)_0 \xrightarrow{\sim} L_0 $, given by
+  \[ \psi_0(f) = f (\lambda x_1, x_1) \quad \text{and} \quad \psi_0^{-1}(g) = \lambda x_1, \iota_{0, 1}(g). \]
+  We can extend this to any $ n $, by reducing any term to a constant by repeatedly using $ \lambda $, then applying the bijection, and then lifting it again using $ \rho $. Explicitly, we obtain
+  \[ \psi_n(f) = \iota_{0, n}(f) ((((\lambda x_{n+1}, x_{n+1}), x_1), \dots), x_n), \quad \text{and} \quad \psi^{-1}_n(g) = \lambda x_1, g \bullet (q_i x_1)_i. \]
+  It is not hard to verify that this is indeed a bijection, using at one point the fact that $ f: \mathbb R(U^n, U) $ is defined by $ f \circ U^n = f $, for
+  \[ U^n = \lambda x_1, (((\lambda x_2, x_2), q_{n, 1} x_1 ), \dots, q_{n, n} x_1 ). \]
+  It is also pretty straightforward to check that
+  \begin{align*}
+    \psi(q_{n, i}) &= x_i, & \psi(f) \bullet (\psi(g_i))_i &= \psi(f \bullet g),\\
+    \psi(\lambda(h)) &= \lambda(\psi(h)), & \psi(\rho(h^\prime)) &= \rho(\psi(h^\prime))
+  \end{align*}
+  for $ f: E(U)_m $, $ g: E(U)_n^m $, $ h: E(U)_{n + 1} $ and $ h^\prime : E(U)_n $. Therefore, $ \psi $ is an isomorphism of $ \lambda $-theories.
+\end{proof}
 
 \section{The Taylor Fibration}
+
+In his dissertation, Paul Taylor shows that $ \mathbb R $ is not only cartesian closed, but also \iindex{relatively cartesian closed}.
+
+In Section \ref{sec:dependent-products}, we studied internal and external representations of families of objects in a category and how they behaved under substitutions (pullbacks). This was to arrive at a definition for dependent products and sums, as the right and left adjoints to the pullback (or substitution) functor $ \alpha^*: (C \downarrow A) \to (C \downarrow B) $ along some morphism $ \alpha : C(B, A) $.
+
+Now, some categories are not locally cartesian closed. That is: not all substitution functors $ \alpha^* $ exist or have a right adjoint. One way to look at this, is that not all morphisms $ X \to A $ represent an family. In these categories, we can carefully choose a subset of the morphisms to represent our indexed families. We will call a morphism representing an indexed family a \iindex{display map}. In most cases, we have quite a bit of choice which maps we want to take as our display maps. However, to make sure that indexed families are well-behaved, a class of display maps needs to have some properties:
+\begin{enumerate}
+  \item The pullback of a display map along any morphism exists and is a display map.
+  \item The composite of two display maps is a display map.
+  \item $ C $ has a terminal object and any terminal projection is a display map.
+\end{enumerate}
+\begin{remark}
+  A maximal example of a class of display maps is, for example, in the category $ \SET $, where we can take our class of display maps to equal the class of all morphisms of $ C $.
+\end{remark}
+\begin{remark}
+  A `minimal' example of a class of display maps is the class of (maps isomorphic to) product projections in a category with finite products. In this case, all indexed families are constant, and then dependent sums and products become binary products and exponential objects.
+\end{remark}
+
+Now, let $ C $ be a category with a class of display maps. For any $ A : C $, we get a category $ C^A $ as a full subcategory of the slice category $ C \downarrow A $, with as objects the display maps $ f: X \to A $. A morphisms from in $ f: X \to A $ to $ g: Y \to A $ is a morphism $ \varphi: X \to Y $ such that the following diagram commutes.
+\begin{center}
+  \begin{tikzcd}
+    X \arrow[rd, "f"'] \arrow[rr, "\varphi"] & & Y \arrow[ld, "g"]\\
+    & A &
+  \end{tikzcd}
+\end{center}
+Note that for the terminal object $ I : C $, $ C^I $ is still equivalent to $ C $.
+
+Also note that since display maps are closed under pullbacks, we can construct the pullback functor $ \alpha^*: (C \downarrow A) \to (C \downarrow B) $ for all $ \alpha: C(B, A) $.
+
+Note that since composing two display maps gives a display map again, and since the dependent sum is given by postcomposition, the pullback functor $ \alpha^* $ has a left adjoint for all display maps $ \alpha $. That is: the fiber categories $ C^A $ have dependent sums over display maps.
+
+The question whether the fiber categories $ C^A $ also have dependent products over display maps, brings us to the definition of relative cartesian closedness.
+\begin{definition}
+  A category $ C $ is \index{cartesian closed!relatively}\textit{cartesian closed relative} to a class of display maps $ D $, if the substitution functors $ \alpha^* $ along display maps have right adjoints.
+\end{definition}

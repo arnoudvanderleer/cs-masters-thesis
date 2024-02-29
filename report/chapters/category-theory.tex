@@ -131,6 +131,86 @@ Given an object in a category $ c: C $, the morphisms to and from $ c $ constitu
 The \textit{coslice category}\index{slice category!co-} $ c \downarrow C $ is similar, but with the morphisms \textit{from} $ c $ instead of \textit{to} $ c $:
 \[ (c \downarrow C)_0 = \sum_{c^\prime: C} C(c, c^\prime). \]
 
+\section{Dependent products and sums}\label{sec:dependent-products}
+
+Take a category $ C $ (for example, $ \mathbb R $, $ \SET $ or $ \TYPE $). To talk about dependent sums $ \sum_{a: A} X_a $ and products $ \prod_{a: A} X_a $ in $ C $, we first need some way to construct the family of objects $ (X_a)_a $. Of course, we can do this \textit{externally} using a set $ A $, and picking an object $ X_a : C $ for every element $ a : A $. However, there is also an \textit{internal} representation, as a morphism $ X \to A $.
+
+Note that in $ \SET $, the external and internal ways of indexing are equivalent, because given a family $ (X_a)_a $ we can construct a morphism $ f: \sum_{a : A} X_a \to A $ and conversely, we can recover the family $ (X_a)_a $ as $ (f^{-1}(a))_a $.
+
+In $ \SET $, given a family $ (X_a)_a $ over $ A $ and a morphism $ \alpha: B \to A $, we get a family $ X_{\alpha(b)} $ over $ B $. It turns out that in the internal representation this arises as the pullback
+\begin{center}
+  \begin{tikzcd}
+    \sum_{b : B} X_{\alpha(b)} \arrow[r] \arrow[d, "\alpha^* f"] \arrow[dr, phantom, "\lrcorner", very near start] & \sum_{a : A} X_a \arrow[d, "f"]\\
+    B \arrow[r, "\alpha"] & A
+  \end{tikzcd}
+\end{center}
+This can be turned into a pullback or `substitution' functor $ \alpha^* $, which Taylor calls $ \mathtt{P}\alpha $. We can construct $ \alpha^* : (C \downarrow A) \to (C \downarrow B) $ for any category $ C $ with pullbacks and any morphism $ \alpha: C(B, A) $.
+
+Now, in $ \SET $, for a family $ (X_a)_a $, consider the dependent product $ \prod_{a : A} X_a $. Its elements $ (x_a)_a $ can be identified with morphisms from the terminal set: $ \{ \star \} \to \prod_{a : A} X_a $, sending $ \star $ to $ (x_a)_a $. However, they can also be identified with the morphisms $ \varphi: A \to \sum_{a : A} X_a $ that make the following diagram commute, sending $ a $ to $ x_a $:
+\begin{center}
+  \begin{tikzcd}
+    A \arrow[rd, "\id A"] \arrow[rr, " \varphi "] & & \sum_{a : A} X_a \arrow[ld, "f"]\\
+    & A
+  \end{tikzcd}
+\end{center}
+These are morphisms in $ (\SET \downarrow A) $ from $ (A, \id A) $ to $ (\sum_{a : A} X_a, f) $. Note that for the terminal morphism $ \alpha: A \to \{ \star \} $, we have $ \id A = \alpha^*(\id{\{\star\}}) $. To summarize, we have an equivalence
+\[ (\SET \downarrow A)(\alpha^*(\id{\{\star\}}), f) \simeq (\SET \downarrow {\{\star\}})( \id{\{ \star \}}, \prod_{a : A} X_a). \]
+Now, given a family of families $ ((X_b)_{b : B_a})_{a : A} $, we can wonder whether we can construct the family of dependent products $ (\prod_{b : B_a} X_b)_a $. In $ \SET $, this is definitely possible, and from this, we get an equivalence again
+\[ (\SET \downarrow (\sum_{a : A} B_a))(\alpha^*(\id A), f) \simeq (\SET \downarrow A)(\id A, (\prod_{b : B_a} X_b)_a). \]
+These equivalences suggest an adjunction $ \alpha^* \dashv \prod_{\dots} $. We can use this to define in general
+\begin{definition}
+  For a category $ C $ and a morphism $ \alpha: B \to A $, the \iindex{dependent product} along $ \alpha $ is, if it exists, the right adjoint to the pullback functor:
+  \begin{center}
+    \begin{tikzcd}
+      (C \downarrow A) \arrow[r, shift left=2, "\alpha^*"{name=A}] &
+      (C \downarrow B) \arrow[l, shift left=2, "\prod_\alpha"{name=B}]
+      \ar[from=A, to=B, symbol=\dashv]
+    \end{tikzcd}
+  \end{center}
+\end{definition}
+\begin{remark}
+  As argued above, we can recover the familiar dependent product $ \prod_{a : A} X_a $ of a family $ (X_a)_a $ as the dependent product $ \prod_\alpha f $ along the terminal morphism $ \alpha: A \to I $, with $ f: \sum_a X_a \to A $ the internal representation of the family. Here we use the equivalence between $ (C \downarrow I) $ and $ C $.
+\end{remark}
+
+Now we turn our attention to dependent sums. In $ \SET $, let $ (X_a)_a $ and $ (B_a)_a $ be two families over $ A $ and let $ ((Y_b)_{b : B_a})_{a : A} $ be a family of families. Let $ \alpha: \sum_{a : A} B_a \to A $ be the internal representation of $ (B_a)_a $. A family of maps $ f_a : (\sum_{b : B_a} Y_b)_a \to X_a $ consists of maps $ Y_b \to X_a $ for all $ b : B_a $, so these are maps $ f_b : Y_b \to X_{\alpha(b)} $. This gives an equivalence
+\[ (\SET \downarrow A)((\sum_{b : B_a} Y_b)_a, (X_a)_a) \simeq (\SET \downarrow (\sum_{a : A} B_a))((Y_b)_b, \alpha^*((X_a)_a)). \]
+This, again, suggests an adjunction which we will use as a definition.
+\begin{definition}
+  For a category $ C $ and a morphism $ \alpha: B \to A $, the \iindex{dependent sum} along $ \alpha $ is, if it exists, the left adjoint to the pullback functor:
+  \begin{center}
+    \begin{tikzcd}
+      (C \downarrow A) \arrow[r, shift right=2, "\alpha^*"'{name=B}] &
+      (C \downarrow B) \arrow[l, shift right=2, "\sum_\alpha"'{name=A}]
+      \ar[from=A, to=B, symbol=\dashv]
+    \end{tikzcd}
+  \end{center}
+\end{definition}
+
+However, note that the conversion from an external to an internal representation in $ \SET $ already contained a dependent sum, which is no coincidence. It turns out that in practice, we will never have a hard time obtaining dependent sums:
+\begin{lemma}
+  Let $ \alpha : C(B, A) $ be a morphism in a category. If the pullback functor $ \alpha^*: (C \downarrow A) \to (C \downarrow B) $ exists, it has a left adjoint given by postcomposition with $ \alpha $.
+\end{lemma}
+\begin{proof}
+  For morphisms $ f: X \to A $, $ g: Y \to B $, the universal property of the pullback, with the following diagram
+  \begin{center}
+    \begin{tikzcd}
+      Y \arrow[r, "\varphi"'] \arrow[rr, "\psi", bend left] \arrow[dr, "g"'] & \alpha^* X \arrow[d, "\alpha^* f"'] \arrow[r] \arrow[rd, phantom, "\lrcorner", very near start] & X \arrow[d, "f"]\\
+      & B \arrow[r, "\alpha"'] & A
+    \end{tikzcd}
+  \end{center}
+  gives an equivalence between morphisms $ \varphi: Y \to \alpha^* X $ that commute with $ g $ and $ \alpha^* f $, and morphisms $ \psi: Y \to X $ that commute with $ g $, $ f $ and $ \alpha $. In other words:
+  \[ (C \downarrow A)(g \cdot \alpha, f) \simeq (C \downarrow B)(g, \alpha^*(f)), \]
+  which shows the adjunction.
+\end{proof}
+
+Now, let $ f : X \to A $ be the internal representation of an indexed family $ (X_a)_a $ and let $ \alpha : A \to I $ be the terminal projection. We have $ \sum_{a : A} X_a = f \circ \alpha : X \to I $. By the equivalence between $ (C \downarrow I) $ and $ C $, we see that the dependent sum of the family $ (X_a)_a $ is exactly $ X $. Therefore, our attention is mainly focused on the dependent product.
+
+We will close this section with a name for a category that has all dependent products:
+
+\begin{definition}
+  A \index{cartesian closed!locally}\textit{locally cartesian closed} category is a category $ C $ with pullbacks such that each pullback functor $ \alpha^* $ has a right adjoint.
+\end{definition}
+
 \section{(Weakly) terminal objects}
 \begin{definition}
   If a category has an object $ t $, such that there is a (not necessarily unique) morphism to it from every other object in the category, $ t $ is said to be a \iindex{weakly terminal object}.

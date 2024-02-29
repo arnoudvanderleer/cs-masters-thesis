@@ -26,7 +26,8 @@
 \newcommand{\id}[1]{\ensuremath{\text{id}_{#1}}}
 \newcommand{\op}[1]{\ensuremath{#1^{\text{op}}}}
 \newcommand{\Lan}[2]{\ensuremath{\text{Lan}_{#1}#2}}
-\newcommand\SET{\mathbf{SET}}
+\newcommand\SET{\mathbf{Set}}
+\newcommand\TYPE{\mathbf{Type}}
 % \newcommand\F{\mathbf{F}}
 \newcommand\FinSET{\mathbf{FinSET}}
 \newcommand\AlgTh{\mathbf{AlgTh}}
@@ -35,6 +36,14 @@
 \newcommand\Pshf[1]{\mathbf{Pshf}_{#1}}
 \newcommand\RAct[1]{\mathbf{RAct}_{#1}}
 \newcommand\TODO{\textbf{(TODO)} }
+
+\tikzset{%
+    symbol/.style={%
+        draw=none,
+        every to/.append style={%
+            edge node={node [sloped, allow upside down, auto=false]{$#1$}}}
+    }
+}
 
 \labelformat{section}{\thechapter.\thesection}
 
