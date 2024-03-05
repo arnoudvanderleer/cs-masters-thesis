@@ -64,12 +64,12 @@ Since Lambek showed an equivalence between simply typed $ \lambda $-calculi and 
   \[ A_1 \times A_2 = \langle p_1, p_2 \rangle, \quad p_i = A_i \circ \pi_i \quad \text{and} \quad \langle f, g \rangle. \]
 
   The category also has exponential objects
-  \[ C^B = \lambda x_1, B \circ x_1 \circ C \]
-  with evaluation morphism $ \epsilon_{BC}: C^B \times B \to C $ given by
+  \[ (C \downarrow_D B) = \lambda x_1, B \circ x_1 \circ C \]
+  with evaluation morphism $ \epsilon_{BC}: (C \downarrow_D B) \times B \to C $ given by
   \[ \epsilon_{BC} = \lambda x_1, C(\pi_1 x_1 (B (\pi_2 x_1))), \]
-  which is universal because we can lift a morphism $ f: \mathbb R(A \times B, C) $ to a morphism $ \varphi(f): \mathbb R(A, C^B) $ given by
+  which is universal because we can lift a morphism $ f: \mathbb R(A \times B, C) $ to a morphism $ \varphi(f): \mathbb R(A, (C \downarrow_D B)) $ given by
   \[ \varphi(f) = \lambda x_1 x_2, f (x_1, x_2). \]
-  Note that for $ g: \mathbb R(A, C^B) $, the inverse $ \varphi^{-1}(g) $ is given by
+  Note that for $ g: \mathbb R(A, (C \downarrow_D B)) $, the inverse $ \varphi^{-1}(g) $ is given by
   \[ \epsilon \circ \langle g \circ \pi_1, B \circ \pi_2 \rangle: \mathbb R(A \times B, C). \]
 
   Now, consider the object $ U = \lambda x_1, x_1 : \mathbb R $. Note that for all $ A: \mathbb R $, we have morphisms $ A: \mathbb R(U, A) $ and $ A: \mathbb R(A, U) $, which exhibit $ A $ as a retract of $ U $. In particular, $ U^U $ is a retract of $ U $, so $ U $ is a reflexive object.
@@ -104,33 +104,41 @@ In his dissertation, Paul Taylor shows that $ \mathbb R $ is not only cartesian 
 
 In Section \ref{sec:dependent-products}, we studied internal and external representations of families of objects in a category and how they behaved under substitutions (pullbacks). This was to arrive at a definition for dependent products and sums, as the right and left adjoints to the pullback (or substitution) functor $ \alpha^*: (C \downarrow A) \to (C \downarrow B) $ along some morphism $ \alpha : C(B, A) $.
 
-Now, some categories are not locally cartesian closed. That is: not all substitution functors $ \alpha^* $ exist or have a right adjoint. One way to look at this, is that not all morphisms $ X \to A $ represent an family. In these categories, we can carefully choose a subset of the morphisms to represent our indexed families. We will call a morphism representing an indexed family a \iindex{display map}. In most cases, we have quite a bit of choice which maps we want to take as our display maps. However, to make sure that indexed families are well-behaved, a class of display maps needs to have some properties:
+Now, some categories are not locally cartesian closed. That is: not all substitution functors $ \alpha^* $ exist or have a right adjoint. One way to look at this, is that not all morphisms $ X \to A $ represent a family of objects. In these categories, we can carefully choose a subset of the morphisms to represent our indexed families. We will call a morphism representing an indexed family a \iindex{display map}. In most cases, we have quite a bit of choice which maps we want to take as our display maps. However, to make sure that indexed families are well-behaved, a class of display maps needs to have some properties:
 \begin{enumerate}
   \item The pullback of a display map along any morphism exists and is a display map.
   \item The composite of two display maps is a display map.
   \item $ C $ has a terminal object and any terminal projection is a display map.
 \end{enumerate}
 \begin{remark}
-  A maximal example of a class of display maps is, for example, in the category $ \SET $, where we can take our class of display maps to equal the class of all morphisms of $ C $.
+  A `maximal' example of a class of display maps is, for example, in the category $ \SET $, where we can take our class of display maps to equal the class of all morphisms of $ C $.
 \end{remark}
 \begin{remark}
   A `minimal' example of a class of display maps is the class of (maps isomorphic to) product projections in a category with finite products. In this case, all indexed families are constant, and then dependent sums and products become binary products and exponential objects.
 \end{remark}
 
-Now, let $ C $ be a category with a class of display maps. For any $ A : C $, we get a category $ C^A $ as a full subcategory of the slice category $ C \downarrow A $, with as objects the display maps $ f: X \to A $. A morphisms from in $ f: X \to A $ to $ g: Y \to A $ is a morphism $ \varphi: X \to Y $ such that the following diagram commutes.
+Now, let $ C $ be a category with a class of display maps $ D $. We will denote the class of display maps from $ X $ to $ A $ with $ D(X, A) \subseteq C(X, A) $. For any $ A : C $, we get a category $ (C \downarrow_D A) $ as a full subcategory of the slice category $ (C \downarrow A) $, with as objects the display maps $ f: D(X, A) $. A morphism from $ f: D(X, A) $ to $ g: D(Y, A) $ is a morphism $ \varphi: C(X, Y) $ such that the following diagram commutes.
 \begin{center}
   \begin{tikzcd}
     X \arrow[rd, "f"'] \arrow[rr, "\varphi"] & & Y \arrow[ld, "g"]\\
     & A &
   \end{tikzcd}
 \end{center}
-Note that for the terminal object $ I : C $, $ C^I $ is still equivalent to $ C $.
+Note that for the terminal object $ I : C $, $ (C \downarrow_D I) $ is still equivalent to $ C $, since every terminal projection is a display map.
 
-Also note that since display maps are closed under pullbacks, we can construct the pullback functor $ \alpha^*: (C \downarrow A) \to (C \downarrow B) $ for all $ \alpha: C(B, A) $.
+Also note that since display maps are closed under pullbacks, the pullback functor $ (C \downarrow A) \to (C \downarrow B) $ for $ \alpha: C(B, A) $ restricts to a pullback functor $ \alpha^*: (C \downarrow_D A) \to (C \downarrow_D B) $.
 
-Note that since composing two display maps gives a display map again, and since the dependent sum is given by postcomposition, the pullback functor $ \alpha^* $ has a left adjoint for all display maps $ \alpha $. That is: the fiber categories $ C^A $ have dependent sums over display maps.
+Note that since composing two display maps gives a display map again, and since the dependent sum is given by postcomposition, $ \alpha^* $ has a left adjoint for all display maps $ \alpha $. That is: the fiber categories $ (C \downarrow_D A) $ have dependent sums over display maps.
 
-The question whether the fiber categories $ C^A $ also have dependent products over display maps, brings us to the definition of relative cartesian closedness.
+The question whether the fiber categories $ (C \downarrow_D A) $ also have dependent products over display maps, brings us to the definition of relative cartesian closedness.
 \begin{definition}
   A category $ C $ is \index{cartesian closed!relatively}\textit{cartesian closed relative} to a class of display maps $ D $, if the substitution functors $ \alpha^* $ along display maps have right adjoints.
 \end{definition}
+
+Now, analogously to \ref{lem:locally-cartesian-closed}, Taylor shows:
+\begin{lemma}
+  If a category $ C $ is cartesian closed relative to a class of display maps $ D $, then the fiber categories $ (C \downarrow_D A) $ are cartesian closed and the substitution functors $ \alpha^* $ preserve this structure.
+\end{lemma}
+\begin{proof}
+  The proofs leading up to \S 4.3.7 in \cite{taylor}.
+\end{proof}

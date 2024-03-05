@@ -132,6 +132,7 @@ The \textit{coslice category}\index{slice category!co-} $ c \downarrow C $ is si
 \[ (c \downarrow C)_0 = \sum_{c^\prime: C} C(c, c^\prime). \]
 
 \section{Dependent products and sums}\label{sec:dependent-products}
+The following is based loosely on Section 4.1 of \cite{taylor}.
 
 Take a category $ C $ (for example, $ \mathbb R $, $ \SET $ or $ \TYPE $). To talk about dependent sums $ \sum_{a: A} X_a $ and products $ \prod_{a: A} X_a $ in $ C $, we first need some way to construct the family of objects $ (X_a)_a $. Of course, we can do this \textit{externally} using a set $ A $, and picking an object $ X_a : C $ for every element $ a : A $. However, there is also an \textit{internal} representation, as a morphism $ X \to A $.
 
@@ -194,7 +195,7 @@ However, note that the conversion from an external to an internal representation
   For morphisms $ f: X \to A $, $ g: Y \to B $, the universal property of the pullback, with the following diagram
   \begin{center}
     \begin{tikzcd}
-      Y \arrow[r, "\varphi"'] \arrow[rr, "\psi", bend left] \arrow[dr, "g"'] & \alpha^* X \arrow[d, "\alpha^* f"'] \arrow[r] \arrow[rd, phantom, "\lrcorner", very near start] & X \arrow[d, "f"]\\
+      Y \arrow[r, dashed, "\varphi"'] \arrow[rr, "\psi", bend left] \arrow[dr, "g"'] & \alpha^* X \arrow[d, "\alpha^* f"'] \arrow[r] \arrow[rd, phantom, "\lrcorner", very near start] & X \arrow[d, "f"]\\
       & B \arrow[r, "\alpha"'] & A
     \end{tikzcd}
   \end{center}
@@ -210,6 +211,14 @@ We will close this section with a name for a category that has all dependent pro
 \begin{definition}
   A \index{cartesian closed!locally}\textit{locally cartesian closed} category is a category $ C $ with pullbacks such that each pullback functor $ \alpha^* $ has a right adjoint.
 \end{definition}
+
+Apart from having dependent sums and products, there also is the following theorem that shows the significance locally cartesian closedness:
+\begin{lemma}\label{lem:locally-cartesian-closed}
+  A category $ C $ is locally cartesian closed iff $ (C \downarrow A) $ is cartesian closed for each $ A : C $.
+\end{lemma}
+\begin{proof}
+  See the end of Section 1.3 of \cite{freyd}.
+\end{proof}
 
 \section{(Weakly) terminal objects}
 \begin{definition}
