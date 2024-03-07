@@ -134,7 +134,7 @@ The \textit{coslice category}\index{slice category!co-} $ c \downarrow C $ is si
 \section{Dependent products and sums}\label{sec:dependent-products}
 The following is based loosely on Section 4.1 of \cite{taylor}.
 
-Take a category $ C $ (for example, $ \mathbb R $, $ \SET $ or $ \TYPE $). To talk about dependent sums $ \sum_{a: A} X_a $ and products $ \prod_{a: A} X_a $ in $ C $, we first need some way to construct the family of objects $ (X_a)_a $. Of course, we can do this \textit{externally} using a set $ A $, and picking an object $ X_a : C $ for every element $ a : A $. However, there is also an \textit{internal} representation, as a morphism $ X \to A $.
+Take a category $ C $. To talk about dependent sums $ \sum_{a: A} X_a $ and products $ \prod_{a: A} X_a $ in $ C $, we first need some way to construct the family of objects $ (X_a)_a $. Of course, we can do this \textit{externally} using a set $ A $, and picking an object $ X_a : C $ for every element $ a : A $. However, there is also an \textit{internal} representation, as a morphism $ X \to A $.
 
 Note that in $ \SET $, the external and internal ways of indexing are equivalent, because given a family $ (X_a)_a $ we can construct a morphism $ f: \sum_{a : A} X_a \to A $ and conversely, we can recover the family $ (X_a)_a $ as $ (f^{-1}(a))_a $.
 

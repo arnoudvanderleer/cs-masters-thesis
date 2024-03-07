@@ -1,6 +1,6 @@
 \chapter{Previous work in categorical semantics}
 
-\section{The correspondence between categories and typed \texorpdfstring{$ \lambda $}{lambda}-calculi}
+\section{The correspondence between categories and typed \texorpdfstring{$ \lambda $}{lambda}-calculi}\label{sec:lambek-correspondence}
 In \cite{curry}, page 413, Scott and Lambek argue that there is a correspondence between simply typed $ \lambda $-calculi and cartesian closed categories (categories with products and `function objects').
 
 Types in the $ \lambda $-calculus correspond to objects in the category.
@@ -23,8 +23,61 @@ Given a term $ s: B_1 \to B_2 $ and a term $ t: B_1 $, both with free variables 
 Given a term $ t: B $ with free variables $ x_1: A_1, \dots, x_n: A_n $, the abstraction $ (\lambda x_n, t): A_n \to B $ corresponds to using the adjunction corresponding to the exponential object of $ A_n $:
 \[ C(A_1 \times \dots \times A_{n-1} \times A_n, B) \simeq C(A_1 \times \dots \times A_{n-1}, B^{A_n}). \]
 
+\section{The category of retracts}
+
+The next sections make extensive use of a category called $ \R $, which Hyland calls the `category of retracts'. In this section, we will define the category, and show some properties about it.
+
+Let $ L $ be a $ \lambda $-theory. First of all, for $ a_1, a_2: L_0 $, we define
+\begin{align*}
+  a_1 \circ a_2 &= \lambda x_1, a_1 (a_2 x_1);\\
+  (a_1, a_2) &= \lambda x_1, x_1 a_1 a_2;\\
+  \langle a_1, a_2 \rangle &= \lambda x_1, (a_1 x_1, a_2 x_1);\\
+  \pi_i &= \lambda x_1, x_1 (\lambda x_2 x_3, x_{i + 1}).
+\end{align*}
+Although, actually, since every one of these starts with a $ \lambda $-abstraction, we need to lift the constants $ a_i $ to $ \iota_{0, 1}(a_i): L_1 $ to make the definitions above typecheck.
+
+Note that $ \pi_i (a_1, a_2) = a_i $ and $ \pi_i \circ \langle a_1, a_2 \rangle = \lambda x_1, a_i x_1 $, which is exactly what we would expect of a projection.
+
+Also, note that by replacing the $ x_i $ by $ x_{n + i} $ and the $ \iota_{0, 1}(a_i) $ by $ \iota_{n, 1}(a_i) $, we obtain definitions not only for elements of $ L_0 $, but for all $ L_n $.
+
+\begin{definition}
+  We define the category \index{R}$ \R $ as the Karoubi envelope of the monoid of the $ \lambda $-terms without free variables under composition. That is, the category of idempotent functions:
+  \[ \R_0 = \{ A : L_0 \mid A \circ A = A \} \quad \text{and} \quad \R(A, B) = \{ f: L_0 \mid B \circ f \circ A = f \}, \]
+  with $ \id A = A $ and composition given by $ \circ $.
+\end{definition}
+
+Now, to give a bit more intuition for the objects of $ \R $, we can pretend that an object $ A : \R $ consists of the set of elements that satisfy $ A a = a $. Then a morphism $ f : \R(A, B) $ gives $ B (f a) = (B \circ f) a = f a $. This actually constitutes a functor from $ R $ to $ \Pshf L $:
+
+\begin{definition}\label{def:retracts-embedding}
+  We define a functor $ \varphi: \R \to \Pshf L $ by taking
+  \[ \varphi(A)_n = \{ a : L_n \mid \iota_{0, n}(A) a = a \} \quad \text{and} \quad \varphi(f)_n(a) = \iota_{0, n}(f) a \]
+  for $ A, B : \R $, $ f: \R(A, B) $ and $ a : A $. The presheaf action on $ \varphi(A) $ is given by the substitution of $ L $:
+  \[ (a, f) \mapsto a \bullet f \]
+  for $ f : L_n^m $ and $ a : L_m $ such that $ \iota_{0, m}(A) a = a $.
+\end{definition}
+
+It turns out that this embeds $ \R $ as a full subcategory of $ \Pshf L $:
+\begin{lemma}
+  This functor $ \varphi $ is fully faithful.
+\end{lemma}
+\begin{proof}
+  Take $ A, B : \R $. We need to show that $ f \mapsto \varphi(f) $ is an equivalence between $ \R(A, B) $ and $ \Pshf L(\varphi(A), \varphi(B)) $. We have a function
+  \[ \psi: \Pshf L(\varphi(A), \varphi(B)) \to \R(A, B), \quad g \mapsto (\lambda x_1, g_1(\iota_1(A) x_1)) \]
+  which gives us the inverse. To see that this even typechecks, note that we have
+  \[ \iota_1(A) x_1 : \varphi(A)_1 \quad \text{and} \quad g_1(\iota_1(A) x_1) : \varphi(B)_1 \subseteq L_1. \]
+  Using the fact that $ g $ is a presheaf morphism, we can show that
+  \[ B \circ \psi(g) \circ A = \psi(g), \]
+  and that $ \varphi $ and $ \psi $ are inverses.
+\end{proof}
+
+\begin{remark}
+  Note that if $ L $ is a nontrivial $ \lambda $-theory, $ \R $ is not a univalent category. To see this, note, for example, that we have an object $ X := \langle \pi_1, \pi_2 \rangle : \R $ (corresponding to the type of `pairs' of $ \lambda $-terms). Since $ L_0 $ is a set, $ X = X $ is a proposition. However, $ X $ has (at least) two automorphisms:
+  \[ \langle \pi_1, \pi_2 \rangle \quad \text{and} \quad \langle \pi_2, \pi_1 \rangle. \]
+  These are the identity, and the automorphism (of order 2) that swaps the elements of the pair. To see that these are indeed different morphisms, note that applying them (or their lifted versions) to $ (x_{2, 1}, x_{2, 2}) $ gives respectively $ x_{2, 1} $ and $ x_{2, 2} $, which are distinct elements by Lemma \ref{lem:nontrivial-algebraic-theory}.
+\end{remark}
+
 \section{Scott's Representation Theorem}
-The correspondence above for a simply-typed $ \lambda $-calculus raises a question whether such a correspondence also exists for an untyped $ \lambda $-calculus. As Definition \ref{def:endomorphism-theory} shows that in fairly general circumstances we can take one object $ c $ in a category $ C $ and consider the morphisms $ t: C(c^n, c) $ as terms in an untyped $ \lambda $-calculus. Hyland calls this the `endomorphism theory' of $ c $.
+The correspondence in Section \ref{sec:lambek-correspondence} between simply-typed $ \lambda $-calculi and cartesian closed categories raises a question whether such a correspondence also exists for untyped $ \lambda $-calculi. Definition \ref{def:endomorphism-theory} shows that in fairly general circumstances we can take one object $ c $ in a category $ C $ and consider the morphisms $ t: C(c^n, c) $ as terms in an untyped $ \lambda $-calculus. Hyland calls this the `endomorphism theory' of $ c $.
 
 \begin{remark}
   To construct a \textit{simply typed} $ \lambda $-calculus from a category, we just need a cartesian closed category. In a simply typed $ \lambda $-calculus, there is a lot of restriction on which terms we can apply to each other. A term of type $ A \to B $ can only be applied to a term of type $ A $, which gives a term of type $ B $. In particular, a term can be applied only finitely many times to other terms, and every time, the result has a different type.
@@ -41,24 +94,9 @@ Since Lambek showed an equivalence between simply typed $ \lambda $-calculi and 
   We can obtain every untyped $ \lambda $-calculus as the endomorphism theory of some object in some category.
 \end{lemma}
 \begin{proof}
-  Let $ L $ be a $ \lambda $-theory. First of all, for $ a_1, a_2: L_0 $, we define
-  \begin{align*}
-    a_1 \circ a_2 &= \lambda x_1, a_1 (a_2 x_1);\\
-    (a_1, a_2) &= \lambda x_1, x_1 a_1 a_2;\\
-    \langle a_1, a_2 \rangle &= \lambda x_1, (a_1 x_1, a_2 x_1);\\
-    \pi_i &= \lambda x_1, x_1 (\lambda x_2 x_3, x_{i + 1}).
-  \end{align*}
-  Although, actually, since every one of these starts with a $ \lambda $-abstraction, we would need to lift the constants $ a_i $ to $ \iota_{0, 1}(a_i): L_1 $ to make the definitions above typecheck.
+  Let $ L $ be a $ \lambda $-theory. Scott considers the category $ \R $.
 
-  Note that $ \pi_i (a_1, a_2) = a_i $ and $ \pi_i \circ \langle a_1, a_2 \rangle = \lambda x_1, a_i x_1 $.
-
-  Also, note that by replacing the $ x_i $ by $ x_{n + i} $ and the $ \iota_{0, 1}(a_i) $ by $ \iota_{n, 1}(a_i) $, we obtain definitions not only for $ n = 0 $, but for all $ n \geq 0 $.
-
-  For our category, we take the category $ \mathbb R $ which Hyland calls the `category of retracts'. It is the Karoubi envelope of the monoid of the terms without free variables under composition. That is, we consider the category of idempotent functions:
-  \[ \mathbb R_0 = \{ A : L_0 \mid A \circ A = A \} \quad \text{and} \quad \mathbb R(A, B) = \{ f: L_0 \mid B \circ f \circ A = f \}, \]
-  with $ \id A = A $ and composition given by $ \circ $.
-
-  This category has a terminal object $ I = \lambda x_1 x_2, x_2 : \mathbb R $.
+  This category has a terminal object $ I = \lambda x_1 x_2, x_2 : \R $.
 
   The category has binary products with projections and product morphisms
   \[ A_1 \times A_2 = \langle p_1, p_2 \rangle, \quad p_i = A_i \circ \pi_i \quad \text{and} \quad \langle f, g \rangle. \]
@@ -67,28 +105,28 @@ Since Lambek showed an equivalence between simply typed $ \lambda $-calculi and 
   \[ (C \downarrow_D B) = \lambda x_1, B \circ x_1 \circ C \]
   with evaluation morphism $ \epsilon_{BC}: (C \downarrow_D B) \times B \to C $ given by
   \[ \epsilon_{BC} = \lambda x_1, C(\pi_1 x_1 (B (\pi_2 x_1))), \]
-  which is universal because we can lift a morphism $ f: \mathbb R(A \times B, C) $ to a morphism $ \varphi(f): \mathbb R(A, (C \downarrow_D B)) $ given by
+  which is universal because we can lift a morphism $ f: \R(A \times B, C) $ to a morphism $ \varphi(f): \R(A, (C \downarrow_D B)) $ given by
   \[ \varphi(f) = \lambda x_1 x_2, f (x_1, x_2). \]
-  Note that for $ g: \mathbb R(A, (C \downarrow_D B)) $, the inverse $ \varphi^{-1}(g) $ is given by
-  \[ \epsilon \circ \langle g \circ \pi_1, B \circ \pi_2 \rangle: \mathbb R(A \times B, C). \]
+  Note that for $ g: \R(A, (C \downarrow_D B)) $, the inverse $ \varphi^{-1}(g) $ is given by
+  \[ \epsilon \circ \langle g \circ \pi_1, B \circ \pi_2 \rangle: \R(A \times B, C). \]
 
-  Now, consider the object $ U = \lambda x_1, x_1 : \mathbb R $. Note that for all $ A: \mathbb R $, we have morphisms $ A: \mathbb R(U, A) $ and $ A: \mathbb R(A, U) $, which exhibit $ A $ as a retract of $ U $. In particular, $ U^U $ is a retract of $ U $, so $ U $ is a reflexive object.
+  Now, consider the object $ U = \lambda x_1, x_1 : \R $. Note that for all $ A: \R $, we have morphisms $ A: \R(U, A) $ and $ A: \R(A, U) $, which exhibit $ A $ as a retract of $ U $. In particular, $ U^U $ is a retract of $ U $, so $ U $ is a reflexive object.
 
-  Therefore, $ E(U) $, the endomorphism theory of $ U $, has a $ \lambda $-theory structure. Note that the finite powers of $ U $ in $ \mathbb R $ are given by $ U^0 = I $ and $ U^{n + 1} = U^n \times U $.
+  Therefore, $ E(U) $, the endomorphism theory of $ U $, has a $ \lambda $-theory structure. Note that the finite powers of $ U $ in $ \R $ are given by $ U^0 = I $ and $ U^{n + 1} = U^n \times U $.
 
-  We have $ E(U)_n = \mathbb R(U^n, U) = \{ f: L_0 \mid U \circ f \circ U^n = f \} $. The variables of $ E(U) $ are the projections of $ U^n $:
+  We have $ E(U)_n = \R(U^n, U) = \{ f: L_0 \mid U \circ f \circ U^n = f \} $. The variables of $ E(U) $ are the projections of $ U^n $:
   \[ q_{n, i} = \pi_2 \circ \underbrace{\pi_1 \circ \dots \circ \pi_1}_{n - i}. \]
   The substitution is given by composition with the product morphism:
   \[ f \bullet g = f \circ \langle \langle \langle I, g_1 \rangle, \dots \rangle, g_n \rangle. \]
-  We have $ U^U = \lambda f, U \circ f \circ U = \lambda x_1 x_2, x_1 x_2 $. Using the equivalence $ \mathbb R(U^n \times U, U) \simeq \mathbb R(U^n, U^U) $ and the retraction $ U^U: U \to U^U $, the abstraction and application $ \lambda $ and $ \rho $ are given by
+  We have $ U^U = \lambda f, U \circ f \circ U = \lambda x_1 x_2, x_1 x_2 $. Using the equivalence $ \R(U^n \times U, U) \simeq \R(U^n, U^U) $ and the retraction $ U^U: U \to U^U $, the abstraction and application $ \lambda $ and $ \rho $ are given by
   \[ \lambda(f) = \lambda x_1 x_2, \iota_{0, 2}(f)(x_1, x_2), \quad \rho(g) = \lambda x_1, \iota_{0, 1}(g) (\pi_1 x_1) (\pi_2 x_1). \]
-  for $ f: \mathbb R(U^{n + 1}, U) $ and $ g: \mathbb R(U^n, U) $.
+  for $ f: \R(U^{n + 1}, U) $ and $ g: \R(U^n, U) $.
 
   Now, we have bijections $ \psi_0: E(U)_0 \xrightarrow{\sim} L_0 $, given by
   \[ \psi_0(f) = f (\lambda x_1, x_1) \quad \text{and} \quad \psi_0^{-1}(g) = \lambda x_1, \iota_{0, 1}(g). \]
   We can extend this to any $ n $, by reducing any term to a constant by repeatedly using $ \lambda $, then applying the bijection, and then lifting it again using $ \rho $. Explicitly, we obtain
   \[ \psi_n(f) = \iota_{0, n}(f) ((((\lambda x_{n+1}, x_{n+1}), x_1), \dots), x_n), \quad \text{and} \quad \psi^{-1}_n(g) = \lambda x_1, g \bullet (q_i x_1)_i. \]
-  It is not hard to verify that this is indeed a bijection, using at one point the fact that $ f: \mathbb R(U^n, U) $ is defined by $ f \circ U^n = f $, for
+  It is not hard to verify that this is indeed a bijection, using at one point the fact that $ f: \R(U^n, U) $ is defined by $ f \circ U^n = f $, for
   \[ U^n = \lambda x_1, (((\lambda x_2, x_2), q_{n, 1} x_1 ), \dots, q_{n, n} x_1 ). \]
   It is also pretty straightforward to check that
   \begin{align*}
@@ -100,7 +138,7 @@ Since Lambek showed an equivalence between simply typed $ \lambda $-calculi and 
 
 \section{The Taylor Fibration}
 
-In his dissertation, Paul Taylor shows that $ \mathbb R $ is not only cartesian closed, but also \iindex{relatively cartesian closed}.
+In his dissertation, Paul Taylor shows that $ \R $ is not only cartesian closed, but also \iindex{relatively cartesian closed}.
 
 In Section \ref{sec:dependent-products}, we studied internal and external representations of families of objects in a category and how they behaved under substitutions (pullbacks). This was to arrive at a definition for dependent products and sums, as the right and left adjoints to the pullback (or substitution) functor $ \alpha^*: (C \downarrow A) \to (C \downarrow B) $ along some morphism $ \alpha : C(B, A) $.
 
@@ -140,5 +178,38 @@ Now, analogously to \ref{lem:locally-cartesian-closed}, Taylor shows:
   If a category $ C $ is cartesian closed relative to a class of display maps $ D $, then the fiber categories $ (C \downarrow_D A) $ are cartesian closed and the substitution functors $ \alpha^* $ preserve this structure.
 \end{lemma}
 \begin{proof}
-  The proofs leading up to \S 4.3.7 in \cite{taylor}.
+  Taylor proves this in a series of lemmas leading up to \S 4.3.7 in \cite{taylor}.
 \end{proof}
+
+\TODO Displayed category?
+
+\subsection{Taylor's proof}
+
+First of all, Taylor considers `functions' $ X: A \to \R_0 $ for some $ A : \R_0 $. He characterizes these functions as the $ \lambda $-terms that satisfy $ X \circ A = X $ and $ \lambda x_1, (X x_1) \circ (X x_1) = X $. Taylor then constructs global dependent sums as
+\[ \sum_A X = \lambda x_1, (A (\pi_1 x_1), X (\pi_1 x_1) (\pi_2 x_1)). \]
+Note that with the embedding in Definition \ref{def:retracts-embedding}, we can consider this as consisting of pairs $ (a, x) $ with $ a : A $ and $ x : X a $, which is exactly what we would expect from a dependent sum.
+
+\begin{definition}
+  For $ \R $, we will take a morphism $ f: X \to A $ to be a display map if we have some $ Y : A \to R_0 $ like above, and some isomorphism $ g: X \xrightarrow{\sim} \sum_A Y $ such that $ f = g \cdot p_1 $ with $ p_1 : \sum_A Y \to A $ given by $ \lambda x_1, A (\pi_1 x_1) $.
+\end{definition}
+
+\begin{remark}
+  Hyland actually gives a different characterization of Taylor's display maps. He claims that Taylor takes the display maps $ X \to A $ to be the retracts in $ (C \downarrow A) $ of $ p_1: A \times U \to A $,
+  the projection onto the first coordinate. The two characterizations are equivalent:
+
+  Given $ Y: A \to \R_0 $, $ Y a $ is a retract of $ U $ for all $ a $. Concretely, both morphisms $ r : A \times U \to \sum_A Y $ and $ s : \sum_A Y \to A \times U $ are given by $ \sum_A Y $ and these commute with the projection to $ A $. Therefore, if we have an isomorphism $ g: X \xrightarrow{\sim} \sum_A Y $ in $ (C \downarrow A) $, then $ \sum_A Y \cdot g^{-1} $ and $ g \cdot \sum_A Y $ make $ X $ into a retract of $ A \times U $.
+
+  Conversely, given a retraction $ r : A \times U \to X $ and section $ s : X \to A \times U $ in $ (C \downarrow A) $, the term
+  \[ \lambda x_1 x_2, \pi_2 (s (r (x_1, x_2))) \]
+  gives a function $ Y : A \to \R_0 $. Using the properties of $ r $ and $ s $ and the definition of $ \sum_A Y $, one can show that $ r $ gives a morphism $ \sum_A Y \to X $ and $ s $ gives a morphism $ X \to \sum_A Y $, and that $ r \circ s = \id{\sum_A Y} $. Combined with the fact that $ s \circ r = \id X $, this shows that $ X $ is isomorphic to $ \sum_A Y $.
+\end{remark}
+
+\begin{remark}
+  Recall that if $ L $ is nontrivial, $ \R $ is not univalent, and the existence of $ Y: A \to \R_0 $ with the isomorphism $ g: X \xrightarrow{\sim} \sum_A Y $ is not a proposition. Take, for example, $ Y : I \to \R_0 $ given by $ (\lambda x_1, U \times U) $ for $ I $ the terminal object. Recall that $ (C \downarrow I) $ is equivalent to $ C $. Under this equivalence $ \sum_I Y $ is equivalent to $ U \times U $. As mentioned before, $ \sum_I Y $ has (at least) two distinct isomorphisms to itself: the identity and the isomorphism that swaps both sides of the product.
+
+  In a similar way, being a retract of $ A \times U $ is not a proposition. Therefore, if we want the class of display maps to really be a subclass of the class of morphisms, we need the existence of $ Y: A \to \R_0 $ and the isomorphism $ g : X \to \sum_A Y $, or the existence of the retraction $ A \times U \to X $, to mean \textit{mere existence} in this case.
+\end{remark}
+
+Now, in the spirit of Scott, Taylor gives a very syntactical proof that $ \R $ is cartesian closed, relative to some class of display maps:
+
+\TODO
