@@ -90,9 +90,9 @@ The correspondence in Section \ref{sec:lambek-correspondence} between simply-typ
 \end{remark}
 
 Since Lambek showed an equivalence between simply typed $ \lambda $-calculi and cartesian closed categories, and since we have a construction for an untyped $ \lambda $-calculus from a cartesian closed category with a reflexive object, we can wonder whether this construction constitutes contitutes an equivalence between untyped $ \lambda $-calculi and some class of categories. This question finds a partial answer in the following theorem, originally proven in a very syntactical way by Dana Scott (see \cite{curry}, page 418).
-\begin{lemma}
+\begin{theorem}
   We can obtain every untyped $ \lambda $-calculus as the endomorphism theory of some object in some category.
-\end{lemma}
+\end{theorem}
 \begin{proof}
   Let $ L $ be a $ \lambda $-theory. Scott considers the category $ \R $.
 
@@ -102,13 +102,13 @@ Since Lambek showed an equivalence between simply typed $ \lambda $-calculi and 
   \[ A_1 \times A_2 = \langle p_1, p_2 \rangle, \quad p_i = A_i \circ \pi_i \quad \text{and} \quad \langle f, g \rangle. \]
 
   The category also has exponential objects
-  \[ (C \downarrow_D B) = \lambda x_1, B \circ x_1 \circ C \]
-  with evaluation morphism $ \epsilon_{BC}: (C \downarrow_D B) \times B \to C $ given by
+  \[ C^B = \lambda x_1, B \circ x_1 \circ C \]
+  with evaluation morphism $ \epsilon_{BC}: C^B \times B \to C $ given by
   \[ \epsilon_{BC} = \lambda x_1, C(\pi_1 x_1 (B (\pi_2 x_1))), \]
-  which is universal because we can lift a morphism $ f: \R(A \times B, C) $ to a morphism $ \varphi(f): \R(A, (C \downarrow_D B)) $ given by
+  which is universal because we can lift a morphism $ f: \R(A \times B, C) $ to a morphism $ \varphi(f): \R(A, C^B) $ given by
   \[ \varphi(f) = \lambda x_1 x_2, f (x_1, x_2). \]
-  Note that for $ g: \R(A, (C \downarrow_D B)) $, the inverse $ \varphi^{-1}(g) $ is given by
-  \[ \epsilon \circ \langle g \circ \pi_1, B \circ \pi_2 \rangle: \R(A \times B, C). \]
+  Note that for $ g: \R(A, C^B) $, the inverse $ \varphi^{-1}(g) $ is given by
+  \[ \epsilon \circ \langle g \circ \pi_1, B \circ \pi_2 \rangle = \lambda x_1, g (\pi_1 x_1) (\pi_2 x_1): \R(A \times B, C). \]
 
   Now, consider the object $ U = \lambda x_1, x_1 : \R $. Note that for all $ A: \R $, we have morphisms $ A: \R(U, A) $ and $ A: \R(A, U) $, which exhibit $ A $ as a retract of $ U $. In particular, $ U^U $ is a retract of $ U $, so $ U $ is a reflexive object.
 
@@ -178,7 +178,7 @@ Now, analogously to \ref{lem:locally-cartesian-closed}, Taylor shows:
   If a category $ C $ is cartesian closed relative to a class of display maps $ D $, then the fiber categories $ (C \downarrow_D A) $ are cartesian closed and the substitution functors $ \alpha^* $ preserve this structure.
 \end{lemma}
 \begin{proof}
-  Taylor proves this in a series of lemmas leading up to \S 4.3.7 in \cite{taylor}.
+  Taylor proves this in a series of lemmas leading up to \S 4.3.7 in \cite{taylor}. It is also proved as Proposition 6 of \cite{theory-of-constructions}.
 \end{proof}
 
 \TODO Displayed category?
@@ -210,6 +210,12 @@ Note that with the embedding in Definition \ref{def:retracts-embedding}, we can 
   In a similar way, being a retract of $ A \times U $ is not a proposition. Therefore, if we want the class of display maps to really be a subclass of the class of morphisms, we need the existence of $ Y: A \to \R_0 $ and the isomorphism $ g : X \to \sum_A Y $, or the existence of the retraction $ A \times U \to X $, to mean \textit{mere existence} in this case.
 \end{remark}
 
-Now, in the spirit of Scott, Taylor gives a very syntactical proof that $ \R $ is cartesian closed, relative to some class of display maps:
+This brings us to Taylor's theorem about $ \R $:
+\begin{theorem}
+  $ \R $ is cartesian closed, relative to this class of display maps.
+\end{theorem}
+\begin{proof}
+  In the spirit of Scott, Taylor gives a very syntactical proof.
+\end{proof}
 
-\TODO
+\TODO Relate indexed types and fibrations.

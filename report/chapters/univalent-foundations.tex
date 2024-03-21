@@ -1,14 +1,87 @@
 \chapter{Univalent Foundations}
 
+\section{The univalence principle}
+\begin{quote}
+  \textit{Isomorphic objects are equivalent.}
+\end{quote}
+This principle is visible in most of mathematics: Sets with a bijection have the same number of elements, isomorphic groups have the same properties, and since the universal property of limits makes them ``unique up to unique isomorphism'', we can talk about `the' limit of some diagram in a category.
+
+Now, the \iindex{univalence principle} takes this a step further. It states that
+\begin{quote}
+  \textit{Isomorphic objects are equal.}
+\end{quote}
+Univalent foundations seeks to be a foundation for mathematics that is in line with this principle. This is often done within the framework of `Martin-Löf dependent type theory', a type theory constructed by Per Martin-Löf \cite{martin-lof-type-theory}. This type theory has types which depend on values of (other) types (like \texttt{array(T, n)}, the type of arrays of length $ n $, with elements of type $ T $). It is a constructive type theory, so it does not automatically assume the law of excluded middle (which states that "not (not x)" implies "x") or the axiom of choice (stating that for every indexed family $ (S_i)_{i : I} $ with the $ S_i $ nonempty, there exists $ f: \prod_i S_i $), although it is compatible with these axioms, so one can still assume these alongside its usual axioms.
+
+It is important to note that Martin-Löf type theory has \textit{identity types}: given a type $ T $ and elements $ x, y: T $, we have a type $ \mathrm{Id}_T(x, y) $ (note that this is a dependent type), which we will usually denote with $ x = y $. An element $ p: x = y $ is a proof that $ x $ is `equal' to $ y $. This type comes with an interesting induction principle called \iindex{path induction}: we can show any statement about paths $ p: x = y $ for generic $ x $ and $ y $, if we can show it about the `trivial' path $ \mathrm{refl}: x = x $ for generic $ x $. For example, symmetry of the equality boils down to a function $ \prod_{x y : T} x = y \to y = x $. We construct this using path induction with the function that sends $ \mathrm{refl}: x = x $ to itself. For more information, see \cite{hottbook}, Section 1.12.1.
+
+In set-theoretic mathematics, there is the concept of a `bijection' $ S \simeq T $ of sets (or an isomorphism in the category $ \SET $), which is often treated as an equivalence. It consists of functions $ f: S \to T $ and $ g: T \to S $ with $ f \cdot g = \id S $ and $ g \cdot f = \id T $. In type theory, we have a similar concept, which is called `equivalence' (of types) $ S \simeq T $. Since bijections are not well-behaved for types that are not sets (see \ref{sec:homotopy-props-sets}), because in those cases, a function $ f: S \to T $ can have multiple distinct inverses. Therefore, we define $ S \simeq T := \sum_{f: S \to T} \mathrm{isequiv}(f) $, for some predicate $ \mathrm{isequiv}: (S \to T) \to \TYPE $ (see \cite{hottbook}, Equation 2.4.10). However, intuitively we can still think of these as bijections.
+
+Using the identity type, we can make our statement of the univalence principle more precise (and a bit stronger). For types, we can construct a function
+\[ \mathrm{idtoequiv}: \prod_{S, T: \TYPE} (S = T) \to (S \simeq T). \]
+We construct this function using path induction with the identity bijection $ \prod_S \id S: (S \simeq S) $. In fact, this is a specific case of the following: for a category $ C $, if we denote the type of isomorphisms between objects $ c $ and $ d $ with $ c \cong d $, we can construct a function
+\[ \mathrm{idtoiso}: \prod_{c, d: C} (c = d) \to (c \cong d), \]
+using path induction with the identity isomorphism $ \prod_{c: C} \id c: (c \cong c) $. We can then formulate the univalence principle for categories as
+\begin{quote}
+  For all $ c, d : C $, $ \mathrm{idtoiso}_{c, d}: (c = d) \to (c \cong d) $ is an equivalence.
+\end{quote}
+A category that adheres to the univalence principle is called a \iindex{univalent category}.
+
+\section{The univalence axiom}
+Now, even for a basic category, like the category of types, it seems impossible to prove that the univalence principle holds. However, this is no surprise: it turns out that it is independent of the axioms of Martin-Löf type theory (\TODO \textbf{Is this true? I need a reference for this, but could not find one}). That is: it cannot be proven, but assuming it as an axiom does not yield contradictions.
+
+As mentioned before, univalent foundations attempts to develop as much of mathematics as possible along the univalence principle. Therefore, we assume as our first axiom the \iindex{univalence axiom}:
+\begin{axiom}
+  For all $ S, T: \TYPE $, the function $ \mathrm{idtoequiv}_{S, T}: (S = T) \to (S \simeq T) $ is an equivalence.
+\end{axiom}
+In other words:
+\begin{axiom}
+  $ \TYPE $ is univalent.
+\end{axiom}
+
+\begin{remark}
+  One consequence of the independence of the univalence axiom is that equivalent objects are `indiscernible'. That is: even if we do not yet assume the univalence axiom, we cannot formulate a property that is satisfied by some type, but not by another, equivalent type. This is because such a property would yield a contradiction when we would assume the univalence axiom.
+\end{remark}
+
+Now, the question arises: how about the univalence axiom for categories other than $ \TYPE $? Do we need to keep assuming an additional axiom for every category that we want to be univalent? It turns out that this is not necessary. In practice, most categories consist of `sets (or types) with additional structure'. For example: topological spaces, groups, $ \lambda $-theories and algebraic theory algebras. In such categories, we can leverage the univalence of $ \TYPE $ to show that for isomorphic objects, their underlying types are equal. Also morphisms are usually defined in such a way that they `preserve' the `additional structure', which is what we need to show that the category is univalent.
+
+Also, Theorem 4.5 in \cite{univalent-categories} shows that if a category $ B $ is univalent (in the paper, categories are called `precategories` and univalent categories are just called `categories'), then the functor category $ A \rightarrow B $ is also univalent. In particular, the category of (pre)sheaves $ A \to \SET $ is univalent.
+
+Therefore, the univalence axiom is a very powerful axiom, and we usually do not need to assume additional axioms to show that more categories satisfy the univalence principle.
+
+The last structure in this section for which we want to consider the univalence axiom, is the 2-category $ \Cat $ of categories. In general, we cannot show that this satisfies the univalence principle. However, we will restrict our attention to the sub-2-category of univalent categories, which are the categories that we want to study. Then Theorem 6.8 in \cite{univalent-categories} shows that for univalent categories $ C $ and $ D $, there is an equivalence between $ C = D $ and $ C \simeq D $, where $ C \simeq D $ denotes the type of (adjoint) equivalences of categories (see Definition \ref{def:equivalence-of-categories}).
+
+Lastly, a result about univalent categories that we will use a couple of times in this thesis:
+\begin{lemma}
+  For a functor between univalent categories $ F: A \to B $, the types `$ F $ is an adjoint equivalence' and `$ F $ is fully faithful and essentially surjective' are equivalent propositions (see \ref{sec:homotopy-props-sets}).
+\end{lemma}
+\begin{proof}
+  See \cite{univalent-categories}, Lemma 6.8.
+\end{proof}
+
 \section{Equality and homotopy}
 \TODO
-\section{hProps and hSets}
+
+\section{hProps and hSets}\label{sec:homotopy-props-sets}
+If we have a type $ T $ and objects $ x $ and $ y $, we can wonder how many elements $ x = y $ has. In set-based mathematics, this would be a nonsensical question: two elements of a set are either equal or not equal. Therefore, we can expect the answer to be that $ x = y $ has at most one element. And indeed, if we do not assume the univalence axiom, we can assume the axiom `uniqueness of identity proofs', which states that for $ p, q: x = y $, we have a proof of equality $ h: p = q $.
+
+On the other hand, suppose that we do assume the univalence axiom. Consider the type $ T = \{ -1, 1 \} $. We can construct two equivalences $ \id T, \sigma: T \simeq T $:
+\[ \id T(x) = x \quad \text{and} \quad \sigma(x) = -x. \]
+By the univalence axiom, we must have that $ T = T $ has (at least) two distinct elements, corresponding to $ \id T $ and $ \sigma $. Therefore, the univalence axiom is not compatible with uniqueness of identity proofs, and we see that in a univalent setting, some identity types have more than one element.
+
+This means that types in general have too little structure to serve as a foundation for mathematics that was originally set-based. For example, suppose that we want to define monoids, based on general types. We define these as types $ T $, together with a monoid operation $ \circ: T \times T \to T $ and a unit $ u: T $ which satisfies some axioms (for example, $ h_1: \prod_{f: M} f \circ u = f $). Now, suppose that we want to show that two of these monoids $ ((M, \circ, u), (h_1^\prime, \dots)) $ and $ ((M^\prime, \circ^\prime, u^\prime), (h_1, \dots)) $ are equal. We would start by showing that $ M = M^\prime $, that $ \circ = \circ^\prime $ and that $ u = u^\prime $ (actually, for the last two, we would need to transport). However, then we still need to show that $ (h_1, \dots) = (h_1^\prime, \dots) $, so we need to show that $ h_1 = h_1^\prime $ (both showing that $ f \circ u = f $ for all $ f $). This quickly becomes very unwieldy and painful. To prevent this, we base our definitions of structures such as groups on homotopy sets:
+\begin{definition}
+  A \iindex{mere proposition} is a type $ T $ such that for all $ x, y: T $, $ x = y $.
+\end{definition}
+
+\begin{definition}
+  A \iindex{homotopy set} is a type $ T $ such that for all $ x, y: T $, $ x = y $ is a mere proposition.
+\end{definition}
+
 \TODO
+
 \subsection{(mere) existence}
 \index{mere existence}
+\TODO
+
 \section{Transports and transport hell}
-\TODO
-\section{The univalence axiom}
-\TODO
-\section{Univalent categories}
 \TODO
