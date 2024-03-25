@@ -1,5 +1,30 @@
 \chapter{Univalent Foundations}
 
+\section{Dependent type theory}
+Univalent foundations takes place in a framework of type theory. In this section, we will quickly introduce some topics that we will need in subsequent sections.
+
+First of all, \iindex{type theory} is the study of types. A type is much like a set in set theory, it has elements (for example,$ \mathrm{true}: \mathrm{Bool} $ or $ 1: \mathbb N $), but there are important differences. First of all, in type theory, elements are declared together with their type, whereas in set theory, something can be an element of multiple sets, like $ 5 \in \mathbb N $ and $ 5 \in \mathbb R $. Secondly, equality in type theory can work a bit differently than in classical mathematics, but will cover this in the next section.
+
+One notable class of types is given by the \textit{function types}. For types $ A $ and $ B $, we may have the type $ A \to B $. An element $ f $ of this type can be combined with an element $ a $ of $ A $ to give an element $ f(b) $ of $ B $.
+
+Now, in type theory, we can assume the existence of all kinds of constructs. One of these constructs is \index{dependent type}\textit{dependent types}. A dependent type is a type which depends on values of other types. For example, $ \mathtt{array}(T, n) $, the type of arrays of length $ n $, with elements of type $ T $. If a type theory has dependent types, we talk about \iindex{dependent type theory}.
+
+Suppose that we have a type $ A $, and a dependent type which we will write $ B: A \to \TYPE $.
+
+One of the constructs which may or may not exist, is a type $ \sum_{a: A} B(a) $ called the \textit{dependent sum}, consisting of all pairs $ (a, b) $ with $ a : A $ and $ b: B(a) $. So every element of $ \sum_{a: A} B(a) $ consists of exactly one element $ a: A $ with a corresponding element of $ B(a) $.
+
+Another construct which may exist, is a type $ \prod_{a: A} B(a) $, consisting of all `functions' $ f $ which map elements $ a: A $ to elements $ f(a): B(a) $. Every element of $ \prod_{a: A} B(a) $ contains therefore elements of $ B(a) $ for all the $ a $ simultaneously.
+
+Lastly, there is a very strong connection between logic and type theory. This is called the \iindex{Curry-Howard correspondence} or sometimes referred to as \iindex{products as types}. We can view a type $ T $ as the proposition ``$ T $ has an element''. An element of $ T $ is then a `proof' or `witness' of this proposition. If the type theory is strong enough, it allows us to do mathematics in it, where:
+\begin{itemize}
+  \item A function $ f: A \to B $ that takes an argument of type $ A $ and yields a result of type $ B $ corresponds to the proof of $ B $ under the hypothesis that $ A $ holds: ``suppose that $ A $, then $ B $''.
+  \item The empty type $ \mathbf 0 $ corresponds to `false'. Note that for all types $ A $, we can construct a function $ \mathbf 0 \to A $. In other words, we can prove everything from `false'.
+  \item The unit type $ \mathbf 1 $ corresponds to `true'.
+  \item The negation of $ T $ is the function type $ T \to \mathbf 0 $.
+  \item The conjuction ``$ A $ and $ B $'' is given as the product type $ A \times B $.
+  \item The statement ``For all $ a: A $, $ B(a) $ holds'', for some dependent type $ B $ (i.e. predicate) over $ A $, is given as the dependent product $ \prod_{a: A} B(a) $.
+\end{itemize}
+
 \section{The univalence principle}
 \begin{quote}
   \textit{Isomorphic objects are equivalent.}
@@ -10,7 +35,7 @@ Now, the \iindex{univalence principle} takes this a step further. It states that
 \begin{quote}
   \textit{Isomorphic objects are equal.}
 \end{quote}
-Univalent foundations seeks to be a foundation for mathematics that is in line with this principle. This is often done within the framework of `Martin-Löf dependent type theory', a type theory constructed by Per Martin-Löf \cite{martin-lof-type-theory}. This type theory has types which depend on values of (other) types (like \texttt{array(T, n)}, the type of arrays of length $ n $, with elements of type $ T $). It is a constructive type theory, so it does not automatically assume the law of excluded middle (which states that "not (not x)" implies "x") or the axiom of choice (stating that for every indexed family $ (S_i)_{i : I} $ with the $ S_i $ nonempty, there exists $ f: \prod_i S_i $), although it is compatible with these axioms, so one can still assume these alongside its usual axioms.
+Univalent foundations seeks to be a foundation for mathematics that is in line with this principle. This is often done within the framework of `Martin-Löf dependent type theory', a type theory developed by Per Martin-Löf \cite{martin-lof-type-theory}. It is a constructive type theory, so it does not automatically assume the law of excluded middle (which states that "not (not x)" implies "x") or the axiom of choice (stating that for every indexed family $ (S_i)_{i : I} $ with the $ S_i $ nonempty, there exists $ f: \prod_i S_i $), although it is compatible with these axioms, so one can still assume these alongside its usual axioms.
 
 It is important to note that Martin-Löf type theory has \textit{identity types}: given a type $ T $ and elements $ x, y: T $, we have a type $ \mathrm{Id}_T(x, y) $ (note that this is a dependent type), which we will usually denote with $ x = y $. An element $ p: x = y $ is a proof that $ x $ is `equal' to $ y $. This type comes with an interesting induction principle called \iindex{path induction}: we can show any statement about paths $ p: x = y $ for generic $ x $ and $ y $, if we can show it about the `trivial' path $ \mathrm{refl}: x = x $ for generic $ x $. For example, symmetry of the equality boils down to a function $ \prod_{x y : T} x = y \to y = x $. We construct this using path induction with the function that sends $ \mathrm{refl}: x = x $ to itself. For more information, see \cite{hottbook}, Section 1.12.1.
 
@@ -58,17 +83,17 @@ Lastly, a result about univalent categories that we will use a couple of times i
   See \cite{univalent-categories}, Lemma 6.8.
 \end{proof}
 
-\section{Equality and homotopy}
-\TODO
-
 \section{hProps and hSets}\label{sec:homotopy-props-sets}
-If we have a type $ T $ and objects $ x $ and $ y $, we can wonder how many elements $ x = y $ has. In set-based mathematics, this would be a nonsensical question: two elements of a set are either equal or not equal. Therefore, we can expect the answer to be that $ x = y $ has at most one element. And indeed, if we do not assume the univalence axiom, we can assume the axiom `uniqueness of identity proofs', which states that for $ p, q: x = y $, we have a proof of equality $ h: p = q $.
+If we have a type $ T $ and objects $ x $ and $ y $, we can wonder how many elements $ x = y $ has. In set-based mathematics, this would be a nonsensical question: two elements of a set are either equal or not equal. Therefore, we can expect the answer to be that $ x = y $ has at most one element. And indeed, if we do not assume the univalence axiom, we can assume another axiom, called `uniqueness of identity proofs', which states that for $ p, q: x = y $, we have a proof of equality $ h: p = q $.
 
-On the other hand, suppose that we do assume the univalence axiom. Consider the type $ T = \{ -1, 1 \} $. We can construct two equivalences $ \id T, \sigma: T \simeq T $:
+On the other hand, suppose that we do assume the univalence axiom. Consider the two-element type $ T = \{ -1, 1 \} $. We can construct two different equivalences $ \id T, \sigma: T \simeq T $:
 \[ \id T(x) = x \quad \text{and} \quad \sigma(x) = -x. \]
-By the univalence axiom, we must have that $ T = T $ has (at least) two distinct elements, corresponding to $ \id T $ and $ \sigma $. Therefore, the univalence axiom is not compatible with uniqueness of identity proofs, and we see that in a univalent setting, some identity types have more than one element.
+By the univalence axiom, we must have that the identity type $ (T = T) $ has (at least) two distinct elements, corresponding to $ \id T $ and $ \sigma $. Therefore, the univalence axiom is not compatible with uniqueness of identity proofs, and we see that in a univalent setting, some identity types have more than one element.
 
-This means that types in general have too little structure to serve as a foundation for mathematics that was originally set-based. For example, suppose that we want to define monoids, based on general types. We define these as types $ T $, together with a monoid operation $ \circ: T \times T \to T $ and a unit $ u: T $ which satisfies some axioms (for example, $ h_1: \prod_{f: M} f \circ u = f $). Now, suppose that we want to show that two of these monoids $ ((M, \circ, u), (h_1^\prime, \dots)) $ and $ ((M^\prime, \circ^\prime, u^\prime), (h_1, \dots)) $ are equal. We would start by showing that $ M = M^\prime $, that $ \circ = \circ^\prime $ and that $ u = u^\prime $ (actually, for the last two, we would need to transport). However, then we still need to show that $ (h_1, \dots) = (h_1^\prime, \dots) $, so we need to show that $ h_1 = h_1^\prime $ (both showing that $ f \circ u = f $ for all $ f $). This quickly becomes very unwieldy and painful. To prevent this, we base our definitions of structures such as groups on homotopy sets:
+A consequence of this is that types in general have too little structure to serve as a foundation for mathematics that was originally set-based. For example, suppose that we want to formalize the theory of groups. A group homomorphism $ f: \mathbf{Grp}(H, G) $ is defined as a function on the underlying types $ f_1: H \to G $, together with a proof that it commutes with the group operations: $ f_2: \prod_{x, y: H} f_1(x \circ y) = f_1(x) \circ f_1(y) $. Now, normally in group theory, to show that two homomorphisms $ f, g: \mathbf{Grp}(H, G) $ are equal, we show that $ \prod_{x: H} f_1(x) = g_1(x) $, the `data' is equal. However, if we are working with types instead of sets, we also need to show that the proofs of the `properties' are equal: $ f_2 = g_2 $ (note that we actually would need to transport $ f_2 $ here, for this equality to typecheck). This makes showing equality of morphisms much more complicated for concrete groups, and sometimes outright impossible for generic groups.
+
+To deal with this, we need the concepts of mere propositions and (homotopy) sets:
+
 \begin{definition}
   A \iindex{mere proposition} is a type $ T $ such that for all $ x, y: T $, $ x = y $.
 \end{definition}
@@ -77,11 +102,117 @@ This means that types in general have too little structure to serve as a foundat
   A \iindex{homotopy set} is a type $ T $ such that for all $ x, y: T $, $ x = y $ is a mere proposition.
 \end{definition}
 
-\TODO
+Since the identity types for a homotopy set are mere propositions, a homotopy set mimicks a set in set theory, where equality between elements `is' or `is not'. If we restrict the underlying type of a group to be a homotopy set, it can be shown that $ \prod_{x, y: H} f_1(x \circ y) = f_1(x) \circ f_1(y) $ is a mere proposition, so $ f_2 = g_2 $ trivially. This is often true when translating definitions from set theory to univalent foundations: if we base our objects on homotopy sets instead of types, we only have to worry about equality of `data', the equality of `properties' follows automatically.
 
-\subsection{(mere) existence}
-\index{mere existence}
-\TODO
+For similar reasons, we restrict the hom-types $ C(c, d) $ of categories to be sets. Note that $ \TYPE $ is not a category under this definition (it is a `precategory', for some definition of precategory), because in general, the type of functions between sets $ S \to T $ is not a set.
 
-\section{Transports and transport hell}
-\TODO
+\section{truncation and (mere) existence}
+As mentioned before, if we want to do mathematics in a dependent type theory, we can `encode' propositions as types. The elements of the type correspond to the proofs that the proposition is true, see for example the identity types. However, we need to be careful here about the distinction between types in general and mere propositions:
+
+A proof that a type $ T $ is nonempty usually consists of giving an element $ t : T $. If we encode the statement ``$ T $ is nonempty'' as $ T $, and if $ T $ is not a mere proposition, then ``$ T $ is nonempty'' is not a mere proposition, so it has multiple distinct proofs. In some cases, this is exactly what we want, because we want to retrieve the chosen element of $ T $. However, in some cases, we want the fact that a set is nonempty (or any statement in general) to be a mere proposition, to avoid having to carry around a specific element and having to prove equality of two specific elements. For such cases, we have the `propositional truncation':
+
+\begin{definition}
+  For a type $ T $, a type $ \Vert T \Vert $ exists (\cite{hottbook}, Section 3.7) with the properties that for all $ t: T $, we have an element $ \vert t \vert : \Vert T \Vert $ and that $ \Vert T \Vert $ is a mere proposition. It has a recursion principle stating that for a mere proposition $ B $, a function $ f: A \to B $ induces a function $ \vert f \vert: \Vert T \Vert \to B $ that commutes with $ \vert \cdot \vert $. This object is called the \index{truncation!propositional}\textit{propositional truncation}.
+\end{definition}
+The propositional truncation forgets the details about a type, and only keeps the information about whether it is inhabited or not. The recursion principle means that if we are trying to prove a mere proposition based on some element $ \vert t \vert: \Vert T \Vert $, we can pretend that we do have a concrete element $ t: T $.
+
+There also is the concept of higher order truncations. For example, the \index{truncation!set}\textit{set truncation} $ \Vert A \Vert_0 $, which is a homotopy set and has an equivalence $ (\Vert A \Vert_0 \to B) \simeq (A \to B) $ for any set $ B $. However, these higher truncation types become increasingly harder to construct, and in this thesis, we will only need to consider the propositional truncation.
+
+Often, when we prove a theorem or lemma that ``there exists some $ x: X $ such that $ Y(x) $'', what we actually mean is that we can construct an element $ x: X $ and then an element $ y : Y(x) $ of the dependent type $ Y $ over $ X $. This is equivalent to having an element of $ \sum_{x: X} Y(x) $. However, this is in general of course not a mere proposition. If we want to express that the set of such $ x $ is nonempty as a mere proposition, we talk about \iindex{mere existence}:
+\begin{definition}
+  Given a dependent type $ Y $ over $ X $, if we say that there \textit{merely exists} an element $ x: X $ such that $ Y(x) $, we mean that we have an element of the propositional truncation
+  \[ h: \left(\exists x: Y(x)\right) := \left\Vert \sum_{x: X} Y(x) \right\Vert. \]
+\end{definition}
+
+For example, if we have objects in a category $ c, d: C $ and we want to talk about a retraction $ f $ of $ c $ onto $ d $, we commonly define this as ``a morphism $ f_1: C(c, d) $, such that there exists a `section': a morphism $ f_2: C(d, c) $ with $ f_2 \cdot f_1 = \id d $''. Now, we commonly consider $ f_1 $ to be the `data' of the retraction; we consider retractions $ f $ and $ f^\prime $ to be the same retraction if $ f_1 = f^\prime_1 $. This means that being a retraction is about the `mere existence' of a section. Note, however, that in this case, we cannot use the section in constructions, except when we are trying to prove mere propositions.
+
+\section{Equality and homotopy}
+Univalent Foundations is often mentioned together with Homotopy Type Theory, because they are related but distinct concepts. Therefore, we will mention it here.
+
+As we saw before, if we do not assume uniqueness of identity proofs, given two elements $ x, y: T $, we can have multiple distinct proofs that $ x = y $, which is counterintuitive. One way to think about this, is the perspective of homotopy type theory. In homotopy type theory, one considers a type $ T $ to be a `space', intuitively similar to a topological space, but without an explicit topology. The elements $ t : T $ are then the points of the space. Elements of the identity type $ (s = t) $ are interpreted as `paths' from $ s $ to $ t $. That is why the induction principle of $ (s = t) $ is called `path induction'. Of course, we can go higher: for $ p, q : x = y $, the elements $ (p = q) $ are `paths between paths', (path) `homotopies', `sheets' or `1-cells', for homotopies $ h, h^\prime: p = q $, the elements of $ h = h^\prime $ are paths between paths between paths, `volumes' or `2-cells' etc.
+
+If we have a `geometric' interpretation of our type theory, we can investigate the `shape' of a (nonempty) type $ T $, given by the structure of the (higher) identity types.
+
+\begin{figure}
+  \begin{subfigure}{.3\textwidth}
+    \includesvg[pretex=\tiny, width=\columnwidth]{images/homotopy-plane}
+    \caption{}
+    \label{fig:homotopy-plane}
+  \end{subfigure}
+  \begin{subfigure}{.3\textwidth}
+    \includesvg[pretex=\tiny, width=\columnwidth]{images/homotopy-cylinder}
+    \caption{}
+    \label{fig:homotopy-cylinder}
+  \end{subfigure}
+  \begin{subfigure}{.3\textwidth}
+    \includesvg[pretex=\tiny, width=\columnwidth]{images/homotopy-sphere}
+    \caption{}
+    \label{fig:homotopy-sphere}
+  \end{subfigure}
+  \caption{Different possible homotopy structures}
+\end{figure}
+
+First of all, if we have $ x, y : T $ for which $ x = y $ does not have an inhabitant, $ x $ and $ y $ lie in different `connected components'. Now, we focus on a connected type:
+
+For example, are all elements $ x, y: T $ of the type equal to each other, and are all elements $ p, q: x = y $ of all the (higher) identity types also equal in a unique way? Then we have a \iindex{contractible type}, which intuitively looks somewhat like a plane (Figure \ref{fig:homotopy-plane}).
+
+It is also possible that any two elements $ x, y : T $ are equal, but that there are distinct paths $ p, q: x = y $, with no homotopy between them. Then intuitively $ T $ looks like a circle or a tube or a projective space, or something more complicated (Figure \ref{fig:homotopy-cylinder}).
+
+\begin{remark}
+  Note that we can give the type of paths $ x = x $ a group structure and $ x = y $ is a `torsor' for this group. If $ x = y $ has exactly two distinct elements, the group $ x = x $ looks like $ \mathbb Z / 2 \mathbb Z $, which suggests some projective plane-like structure.
+
+  For something to look like a circle or tube, we need this group $ x = x $ to be isomorphic to $ \mathbb Z $. For an example, see \cite{circle-fundamental-group}.
+\end{remark}
+
+As a third example, consider a type $ T $ in which any two elements $ x, y : T $ are equal, and any two paths $ p, q: x = y $ have two distinct homotopies $ h, h^\prime: p = q $ between them. Then we can imagine the type to look somewhat like a sphere (Figure \ref{fig:homotopy-sphere}) or something more complicated.
+
+This is the lens through which homotopy type theory studies types.
+
+\section{Transport}
+
+\begin{figure}
+  \begin{subfigure}{.45\textwidth}
+    \includesvg[pretex=\tiny, width=.7\columnwidth]{images/fibration}
+    \caption{}
+    \label{fig:fibration}
+  \end{subfigure}
+  \begin{subfigure}{.45\textwidth}
+    \includesvg[pretex=\tiny, width=.7\columnwidth]{images/transport}
+    \caption{}
+    \label{fig:transport}
+  \end{subfigure}
+  \caption{A fibration with a path in the base space, giving rise to transport in the fibration}
+\end{figure}
+
+Suppose that we have a dependent type $ B: A \to UU $. Intuitively, $ B $ is a collection of spaces, lying over the points of $ A $ (Figure \ref{fig:fibration}). Now, if we have a path $ p: a = a^\prime $ in $ A $, we can use path induction to get a function $ \mathrm{transport}_p: B(a) \to B(a^\prime) $ (Figure \ref{fig:transport}).
+
+For example, this allows us to transfer an element from $ \mathtt{array}(T, n + n) $ to $ \mathtt{array}(T, 2 \cdot n) $ with transport over the path $ n + n = 2 \cdot n $. Also, if we assume the univalence axiom, and we have, for example, an isomorphism of groups $ f: G \cong G^\prime $ and a proof $ h $ that $ G $ is semisimple, we can transport $ h $ along the equality given by $ f $ to a proof that $ G^\prime $ is semisimple.
+
+\begin{example}\label{ex:transport-array}
+  In addition, consider the following example. We take $ A $ to be a type universe, and let $ B: T \mapsto \mathtt{array}(T, 3) $. Consider the types $ a = \{ \top, \bot \} $ and $ a^\prime = \{ 0, 1 \} $. We have equivalences $ \overline p $ and $ \overline q $ between $ a $ and $ a^\prime $:
+  \[ \overline p(\top) = 1, \overline p(\bot) = 0 \quad \text{and} \quad \overline q(\top) = 0, \overline q(\bot) = 1. \]
+  That means that we have distinct equalities $ p, q: a = a^\prime $. Now, suppose that we have an array $ x = [\top, \top, \bot]: B(a) $. Since $ a = a^\prime $, we would want to treat $ x $ as an element of $ B(a^\prime) $, but then we need to make a choice whether we treat it as $ [1, 1, 0] $ or $ [0, 0, 1] $ (or something else altogether). This is exactly the question whether we transport along $ p $ or $ q $, and therefore, when our base type is not a set, it is important to be aware that we are transporting a property along an equality, and we need to be careful which equality it is that we transport along.
+\end{example}
+
+Another place where transports occur frequently is when proving equality $ (x, y) = (x^\prime, y^\prime) $ of elements of a dependent sum $ \sum_{a: A} B(a) $. We can start componentwise by proving $ p: x = x^\prime $, but after this, we cannot directly prove $ q: y = y^\prime $, because these two live in different types: $ B(x) $ and $ B(x^\prime) $ respectively. Therefore, we need to transport, and then prove
+\[ \mathrm{transport}_p(y) = y^\prime: B(x^\prime). \]
+
+\subsection{Caution: `transport hell'}
+Now, it seems that we can transport all properties and data along equalities. And of course, that is true, but some caution needs to be taken with this when working with a proof assistant.
+
+For example, consider the situation in Example \ref{ex:transport-array}. As mentioned, we can transport $ x $ to get an element $ y := \mathrm{transport}_p(x) $, which is an element of $ B(a^\prime) $, but now suppose that we want to compute something using its first coefficient $ y_1 $. Of course, on paper it quickly becomes clear that $ y_1 = 1 $, but in practice, it takes quite some work to convince a proof assistant of that fact. Of course, we could write a lemma which states that for any array $ x $, any equivalence $ \overline p $ with corresponding equality $ p $, and any index $ i $,
+\[ \mathrm{transport}_p(x)_i = \overline p(x_i). \]
+However, at that point, we have more or less constructed our own function between $ B(a) $ and $ B(a^\prime) $, which is much easier to work with than $ \mathrm{transport}_p $.
+
+Experience teaches that in general, it is fine to transport properties $ b: B(a) $ of which we will never need the value, only the fact that it (merely) exists. On the other hand, for properties and constructions of which we might later want to use the actual value, it is much better to transfer them `by hand'. Often, but not always, this criterion coincides with $ B(a) $ being a mere proposition.
+
+Another case where unwanted transports often occur is when showing the equality of two complicated elements of a type. For example, $ ((x_1, x_2), (x_3, x_4)) = ((x^\prime_1, x^\prime_2), (x^\prime_3, x^\prime_4)) $, both elements of
+\[ \sum_{(x_1, x_2): \sum_{a: A} B(a)} \sum_{x_3 : C(x_1)} D(x_1, x_2, x_3). \]
+This example involves proofs:
+\begin{itemize}
+  \item $ p : x_1 = x^\prime_1 $;
+  \item $ q : \mathrm{transport}_p(x_2) = x^\prime_2 $;
+  \item $ r : \mathrm{transport}_{(p, q)}(x_3) = x^\prime_3 $, which can be simplified to $ \mathrm{transportf}_p(x_3) = x^\prime_3 $, since $ x_3 $ does not depend on $ x_2 $
+  \item and finally $ s: \mathrm{transport}_{((p, q), r)}(x_4) = x^\prime_4 $.
+\end{itemize}
+In general, these latter proofs $ r $ and $ s $ are very challenging and best avoided whenever possible. The situation in which one has to work with such complicated transports, which make a proof (seemingly unnecesarily) complicated is called \iindex{transport hell}. Some mathematical tools have been developed (see for example \ref{sec:displayed-categories} about displayed categories) that help avoid transport hell in some cases. Additionally, the structure or `strategy' of a proof can sometimes be changed in order to avoid the worst of the transports. However, it is often not possible to avoid transports altogether, and this is one of the reasons why proving something in a proof assistant takes a lot more work than proving it on paper.
