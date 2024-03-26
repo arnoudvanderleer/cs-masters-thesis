@@ -3,26 +3,37 @@
 \section{Dependent type theory}
 Univalent foundations takes place in a framework of type theory. In this section, we will quickly introduce some topics that we will need in subsequent sections.
 
-First of all, \iindex{type theory} is the study of types. A type is much like a set in set theory, it has elements (for example,$ \mathrm{true}: \mathrm{Bool} $ or $ 1: \mathbb N $), but there are important differences. First of all, in type theory, elements are declared together with their type, whereas in set theory, something can be an element of multiple sets, like $ 5 \in \mathbb N $ and $ 5 \in \mathbb R $. Secondly, equality in type theory can work a bit differently than in classical mathematics, but will cover this in the next section.
+First of all, \iindex{type theory} is the study of `type systems'. A \iindex{type system} is a collection of terms or elements, each of which has a corresponding type. A type is much like a set in set theory in that it has elements (for example, $ \mathrm{true}: \mathrm{Bool} $ or $ 1: \mathbb N $), but there are important differences. First of all, in type theory, elements are declared together with their type, whereas in set theory, something can be an element of multiple sets, like $ 5 \in \mathbb N $ and $ 5 \in \mathbb R $. Secondly, equality in type theory can work a bit differently than in classical mathematics, but will cover this in the next section.
 
-One notable class of types is given by the \textit{function types}. For types $ A $ and $ B $, we may have the type $ A \to B $. An element $ f $ of this type can be combined with an element $ a $ of $ A $ to give an element $ f(b) $ of $ B $.
+One notable class of types is given by the \textit{function types}. For types $ A $ and $ B $, our type system might have the type $ A \to B $. An element $ f $ of this type can be combined with an element $ a $ of $ A $ to give an element $ f(b) $ of $ B $. Of course, the elements of this type are thought of (and usually are) functions from $ A $ to $ B $.
 
-Now, in type theory, we can assume the existence of all kinds of constructs. One of these constructs is \index{dependent type}\textit{dependent types}. A dependent type is a type which depends on values of other types. For example, $ \mathtt{array}(T, n) $, the type of arrays of length $ n $, with elements of type $ T $. If a type theory has dependent types, we talk about \iindex{dependent type theory}.
+Now, a type system may or may not have all kinds of constructs. One of these constructs is \index{dependent type}\textit{dependent types}. A dependent type is a type which depends on values of other types. For example, $ \mathtt{array}(T, n) $, the type of arrays of length $ n $, with elements of type $ T $. The study of type systems that have such dependent types is called \iindex{dependent type theory}.
 
 Suppose that we have a type $ A $, and a dependent type which we will write $ B: A \to \TYPE $.
 
-One of the constructs which may or may not exist, is a type $ \sum_{a: A} B(a) $ called the \textit{dependent sum}, consisting of all pairs $ (a, b) $ with $ a : A $ and $ b: B(a) $. So every element of $ \sum_{a: A} B(a) $ consists of exactly one element $ a: A $ with a corresponding element of $ B(a) $.
+One of the possible constructs in a type system is a type $ \sum_{a: A} B(a) $ called the \textit{dependent sum}, consisting of all pairs $ (a, b) $ with $ a : A $ and $ b: B(a) $. So every element of $ \sum_{a: A} B(a) $ gives an element of one $ B(a) $ (for some $ a : A $). Note that for the constant dependent type $ B(a) = B $, $ \sum_{a: A} B $ is the product type $ A \times B $.
 
-Another construct which may exist, is a type $ \prod_{a: A} B(a) $, consisting of all `functions' $ f $ which map elements $ a: A $ to elements $ f(a): B(a) $. Every element of $ \prod_{a: A} B(a) $ contains therefore elements of $ B(a) $ for all the $ a $ simultaneously.
+Another construct which may exist, is a type $ \prod_{a: A} B(a) $, consisting of all `functions' $ f $ which map elements $ a: A $ to elements $ f(a): B(a) $. Every element of $ \prod_{a: A} B(a) $ gives therefore elements of all the $ B(a) $ simultaneously. Note that $ \prod_{a: A} B $ is the function type $ A \to B $.
 
-Lastly, there is a very strong connection between logic and type theory. This is called the \iindex{Curry-Howard correspondence} or sometimes referred to as \iindex{products as types}. We can view a type $ T $ as the proposition ``$ T $ has an element''. An element of $ T $ is then a `proof' or `witness' of this proposition. If the type theory is strong enough, it allows us to do mathematics in it, where:
+Lastly, there is a very strong connection between logic and type theory. This is called the \iindex{Curry-Howard correspondence} or sometimes referred to as \iindex{products as types}. We can view a type $ T $ as the proposition ``$ T $ has an element''. An element of $ T $ is then a `proof' or `witness' of this proposition. If the type system is strong enough, it allows us to do mathematics in it, where:
 \begin{itemize}
-  \item A function $ f: A \to B $ that takes an argument of type $ A $ and yields a result of type $ B $ corresponds to the proof of $ B $ under the hypothesis that $ A $ holds: ``suppose that $ A $, then $ B $''.
+  \item A function $ f: A \to B $ that takes an argument of type $ A $ and yields a result of type $ B $ corresponds to the proof of $ B $ under the hypothesis that $ A $ holds: ``suppose that $ A $, then $ B $''. Note that the notation $ A \to B $ also makes sense if we think of $ A $ and $ B $ propositions.
   \item The empty type $ \mathbf 0 $ corresponds to `false'. Note that for all types $ A $, we can construct a function $ \mathbf 0 \to A $. In other words, we can prove everything from `false'.
   \item The unit type $ \mathbf 1 $ corresponds to `true'.
   \item The negation of $ T $ is the function type $ T \to \mathbf 0 $.
   \item The conjuction ``$ A $ and $ B $'' is given as the product type $ A \times B $.
+  \item The disjunction ``$ A $ or $ B $'' is given as the propositional truncation of the coproduct, union or sum type $ A \sqcup B $.
   \item The statement ``For all $ a: A $, $ B(a) $ holds'', for some dependent type $ B $ (i.e. predicate) over $ A $, is given as the dependent product $ \prod_{a: A} B(a) $.
+\end{itemize}
+If we think of types as propositions, the question whether some axiom is assumed or not becomes the question whether some (family of) type(s) is inhabited. Note that most of the axioms that we list here require the notion of mere propositions, propositional truncation and mere existence, which we will cover from Section \ref{sec:homotopy-props-sets} onwards.
+\begin{itemize}
+  \item If for all mere propositions $ A $, the type $ \Vert A \lor (A \to \mathbf 0) \Vert $ is inhabited, we say that the type system assumes the \iindex{axiom of excluded middle}: ``Either $ A $ is true, or $ A $ is not true''. This is axiom allows us to prove $ A $ from `not not $ A $'.
+  \item If for all dependent types $ C $ over $ A $ and $ B $, the type
+    \[ \left(\prod_{a: A} \exists (b: B), C(a, b) \right) \to \exists (f: A \to B), \prod_{a: A} C(a, f(a)) \]
+    is inhabited, we say that the type system assumes the \index{axiom of choice!propositional}\textit{propositional axiom of choice}: ``The product of a family of nonempty sets is nonempty''.
+  \item In any type theory which has the required constructs, the following holds: For all dependent types $ C $ over $ A $ and $ B $, the type
+    \[ \left(\prod_{a: A} \sum_{b: B} C(a, b) \right) \to \sum_{f: A \to B} \prod_{a: A} C(a, f(a)) \]
+    is inhabited. This axiom (or actually more of a theorem) is called the \index{axiom of choice!type theoretic}\textit{type theoretic axiom of choice}.
 \end{itemize}
 
 \section{The univalence principle}
@@ -35,7 +46,7 @@ Now, the \iindex{univalence principle} takes this a step further. It states that
 \begin{quote}
   \textit{Isomorphic objects are equal.}
 \end{quote}
-Univalent foundations seeks to be a foundation for mathematics that is in line with this principle. This is often done within the framework of `Martin-Löf dependent type theory', a type theory developed by Per Martin-Löf \cite{martin-lof-type-theory}. It is a constructive type theory, so it does not automatically assume the law of excluded middle (which states that "not (not x)" implies "x") or the axiom of choice (stating that for every indexed family $ (S_i)_{i : I} $ with the $ S_i $ nonempty, there exists $ f: \prod_i S_i $), although it is compatible with these axioms, so one can still assume these alongside its usual axioms.
+Univalent foundations seeks to be a foundation for mathematics that is in line with this principle. This is often done within the framework of `Martin-Löf dependent type theory', a type theory developed by Per Martin-Löf \cite{martin-lof-type-theory}. It is a family of dependent type systems with dependent products, dependent sums, an empty type, a unit type and union types. It is a constructive type theory, so it does not automatically assume the axiom of excluded middle or the propositional axiom of choice. It is however compatible with these axioms, so one can still assume these alongside its usual axioms.
 
 It is important to note that Martin-Löf type theory has \textit{identity types}: given a type $ T $ and elements $ x, y: T $, we have a type $ \mathrm{Id}_T(x, y) $ (note that this is a dependent type), which we will usually denote with $ x = y $. An element $ p: x = y $ is a proof that $ x $ is `equal' to $ y $. This type comes with an interesting induction principle called \iindex{path induction}: we can show any statement about paths $ p: x = y $ for generic $ x $ and $ y $, if we can show it about the `trivial' path $ \mathrm{refl}: x = x $ for generic $ x $. For example, symmetry of the equality boils down to a function $ \prod_{x y : T} x = y \to y = x $. We construct this using path induction with the function that sends $ \mathrm{refl}: x = x $ to itself. For more information, see \cite{hottbook}, Section 1.12.1.
 
@@ -125,6 +136,8 @@ Often, when we prove a theorem or lemma that ``there exists some $ x: X $ such t
 \end{definition}
 
 For example, if we have objects in a category $ c, d: C $ and we want to talk about a retraction $ f $ of $ c $ onto $ d $, we commonly define this as ``a morphism $ f_1: C(c, d) $, such that there exists a `section': a morphism $ f_2: C(d, c) $ with $ f_2 \cdot f_1 = \id d $''. Now, we commonly consider $ f_1 $ to be the `data' of the retraction; we consider retractions $ f $ and $ f^\prime $ to be the same retraction if $ f_1 = f^\prime_1 $. This means that being a retraction is about the `mere existence' of a section. Note, however, that in this case, we cannot use the section in constructions, except when we are trying to prove mere propositions.
+
+Note that for the Curry-Howard correspondence, the product or conjunction $ A \land B = A \times B $ of two mere propositions is again a mere proposition. However, the union $ A \sqcup B $ is not necessarily a mere proposition. To make it into a mere proposition, we need to take the propositional truncation $ A \lor B = \Vert A \sqcup B \Vert $.
 
 \section{Equality and homotopy}
 Univalent Foundations is often mentioned together with Homotopy Type Theory, because they are related but distinct concepts. Therefore, we will mention it here.
