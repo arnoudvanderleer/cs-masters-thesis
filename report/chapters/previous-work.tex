@@ -1,5 +1,18 @@
 \chapter{Previous work in categorical semantics}
 
+\begin{tabular}{|c|c|c|}\hline
+  $ K $ & $ \lambda xy.x $ & constant \\\hline
+  $ S $ & $ \lambda xyz.xz(yz) $ & \\\hline
+  $ I $ & $ \lambda x.x = SKK $ & identity \\\hline
+  $ Y $ & $ \lambda f.(\lambda x.f (xx))(\lambda x.f (xx)) $ & ﬁxpoint \\\hline
+  $ \bot $ & $ (\lambda x.xx)(\lambda x.xx) = (SII)(SII) = YI $ & bottom \\\hline
+  $ P $ & $ \lambda f gx.g(f x) = S(K(S(S(KS)K)))K $ & composition \\\hline
+  $ Q $ & $ \lambda f gax.ga(f ax) $ & ﬁbred composition \\\hline
+  $ \langle \rangle $ & $ \lambda xyz.zxy $ & pairing \\\hline
+  $ 0 $ & $ \lambda xy.x = K $ & left projection \\\hline
+  $ 1 $ & $ \lambda xy.y = KI $ & right projection \\\hline
+\end{tabular}
+
 \section{The correspondence between categories and typed \texorpdfstring{$ \lambda $}{lambda}-calculi}\label{sec:lambek-correspondence}
 In \cite{curry}, page 413, Scott and Lambek argue that there is a correspondence between simply typed $ \lambda $-calculi and cartesian closed categories (categories with products and `function objects').
 
@@ -78,17 +91,17 @@ It turns out that this embeds $ \R $ as a full subcategory of $ \Pshf L $:
 
 In the next chapter, the `universal object' $ U : \R $, given by the identity $ \lambda x_1, x_1 $, plays a major role. Note that $ \varphi(U) = L $.
 
-Note that this category has many (isomorphic, but not equal for nontrivial $ L $) terminal objects, given by $ I_c := \lambda x_1, \iota_{0, 1}(c) : \R $ for any $ c: L_0 $. These are terminal because for $ f: A \to I_c $, we have $ f = I_c \circ f = I_c $. Note that $ \varphi(I_c)_n = \{ \iota_{0, n}(c) \} $. We will choose $ I = \lambda x_1 x_2, x_2 : \R $ as our main example of the terminal object.
+Note that $ \R $ has many (isomorphic, but not equal for nontrivial $ L $) terminal objects, given by $ I_c := \lambda x_1, \iota_{0, 1}(c) : \R $ for any $ c: L_0 $. These are terminal because for $ f: A \to I_c $, we have $ f = I_c \circ f = I_c $. Note that $ \varphi(I_c)_n = \{ \iota_{0, n}(c) \} $. We will choose $ I = \lambda x_1 x_2, x_2 : \R $ as our main example of the terminal object.
 
-We might wonder whether the category also has an initial object $ O $. However, for any $ c: L_0 $, we would have a morphism (with the same term as the terminal object)
+We might wonder whether $ \R $ also has an initial object $ O $. However, for any $ c: L_0 $, we would have a morphism (with the same term as the terminal object)
 \[ \lambda x_1, \iota_{0, 1}(c) : A \to U, \]
 so if $ L $ is nontrivial, $ \R $ has no initial object.
 
-The category has binary products with projections and product morphisms
+$ \R $ has binary products with projections and product morphisms
 \[ A_1 \times A_2 = \langle p_1, p_2 \rangle, \quad p_i = A_i \circ \pi_i \quad \text{and} \quad \langle f, g \rangle. \]
 Recall that for any object $ A $, we have $ A = \id A $, which for $ A_1 \times A_2 $ is $ \langle p_1, p_2 \rangle $ by the universal property of the product, which explains why the product is of this form.
 
-The category also has exponential objects
+$ \R $ also has exponential objects
 \[ C^B = \lambda x_1, C \circ x_1 \circ B \]
 with evaluation morphism $ \epsilon_{BC}: C^B \times B \to C $ given by
 \[ \epsilon_{BC} = \lambda x_1, C(\pi_1 x_1 (B (\pi_2 x_1))), \]
@@ -118,6 +131,48 @@ for different $ f, g: \R(I, U) $. For example, $ f = (\lambda x_1, \iota_{0, 1}(
 with
 \[ f \circ I = f \not = g = g \circ I, \]
 so the diagram does not commute, and $ Q $ is not a pullback of this cospan.
+
+Taylor notes (\cite{taylor}, Section 1.5) that the objects in $ \R $ have very strong properties with respect to fixpoints. One of the properties also arises via Lawvere's fixed point theorem (\cite{lawvere-fixpoints}, page 136): For all $ B: \R $, since $ B^U $ is a retract of $ U $, every endomorphism $ f: B \to B $ has a fixpoint. That is, there exists $ s: I \to B $ such that $ f \circ s = s $. Working out the proof even yields an explicit term:
+\[ s = \lambda i, (\lambda x, f (x x)) (\lambda x, f (x x)). \]
+Indeed, $ s = \lambda i, f ((\lambda x, f (x x)) (\lambda x, f (x x))) = f \circ s $, and $ B \circ s = B \circ f \circ s = s = s \circ I $, so $ s : \R(I, B) $.
+
+From this, Taylor deduces (\cite{taylor}, \S 1.5.12) that $ \R $ does not have all coproducts if $ L $ is nontrivial, because suppose that $ \R $ has all coproducts. Then $ B = I + I $ is a `boolean algebra object': We define $ \bot, \top: I \to B $ to be the injections on the left and right components. Since $ \R $ is cartesian closed, binary products distribute over binary coproducts, so we have $ B \times B \cong ((I \times I) + (I \times I)) + ((I \times I) + (I \times I)) $, and note that $ I \times I \cong I $. Using the universal property of the coproduct, we can define $ \lnot: B \to B $ componentwise as $ \lnot = [\top, \bot] $, the coproduct arrow
+\begin{center}
+  \begin{tikzcd}[row sep = .3in]
+    I \arrow[r, "\bot"] \arrow[rd, "\top"'] & I + I \arrow[d, dashed, "{[\top, \bot]}"description] & I \arrow[l, "\top"'] \arrow[ld, "\bot"]\\
+    & I + I &
+  \end{tikzcd}
+  % \begin{tikzcd}[row sep = .3in]
+  %   I \arrow[rrrd, "\bot"'] \arrow[r, "\bot"] & I + I \arrow[rrd, "{[\bot, \bot]}" description, dashed] \arrow[rr, bend left] & I \arrow[rd, "\bot"] \arrow[l, "\top"'] & I + I + I + I \arrow[d, dashed, "{[[\bot, \bot], [\bot, \top]]}" description] & I \arrow[ld, "\bot"'] \arrow[r, "\bot"] & I + I \arrow[lld, "{[\bot, \top]}" description, dashed] \arrow[ll, bend right] & I \arrow[llld, "\top"] \arrow[l, "\top"'] \\
+  %   & & & I + I & & &
+  % \end{tikzcd}
+\end{center}
+Note that by the definition of $ \lnot $, $ \lnot \circ \bot = \top $. Similarly, we define $ \land, \lor : B \times B \to B $ as $ \land = [[\bot, \bot], [\bot, \top]] $ and $ \lor = [[\bot, \top], [\top, \top]] $. Using the same universal property, we can also verify some properties of $ \bot, \top, \land $ and $ \lnot $, like the fact that the following diagrams commute:
+\begin{center}
+  \begin{tikzcd}[column sep = .5in]
+    B \arrow[rd, "{\id B}"] \arrow[r, "{\langle \id B, \id B \rangle}"] & B \times B \arrow[d, "\land"]\\
+    & B
+  \end{tikzcd}
+  \begin{tikzcd}[column sep = .5in]
+    B \arrow[d, "!"] \arrow[r, "{\langle \lnot, \id B \rangle}"] & B \times B \arrow[d, "\land"]\\
+    I \arrow[r, "\bot"] & B
+  \end{tikzcd}
+\end{center}
+for $ !: B \to I $ the terminal projection. We do this by checking, for example, that $ \id B \circ \top = \land \circ \langle \id B, \id B \rangle \circ \top $ and $ \id B \circ \bot = \land \circ \langle \id B, \id B \rangle \circ \bot $. Now, as mentioned above, every endomorphism has a fixed point. In particular, we have some $ \star: I \to B $ such that $ \lnot \circ \star = \star $. Now, note that
+\[ \star = \land \circ \langle \id B, \id B \rangle \circ \star = \land \circ \langle \star, \star \rangle = \land \circ \langle \star, \lnot \circ \star \rangle = \land \circ \langle \id B, \lnot \rangle \circ \star = \bot \circ ! \circ \star = \bot \]
+and then
+\[ \bot = \star = \lnot \circ \star = \lnot \circ \bot = \top. \]
+Now, for any object $ A: \R $ and any two global elements $ f, g: I \to A $, we have the following diagram:
+\begin{center}
+  \begin{tikzcd}
+    I \arrow[r, shift left, "\bot"] \arrow[r, shift right, "\top"'] \arrow[rr, bend left, "f"] \arrow[rr, bend right, "g"'] & I + I \arrow[r, "{[f, g]}"] & A
+  \end{tikzcd}
+\end{center}
+and we have
+\[ f = [f, g] \circ \bot = [f, g] \circ \top = g. \]
+In particular, for any two objects $ A, A^\prime: \R $,
+\[ \R(A^\prime, A) \simeq \R(I \times A^\prime, A) \simeq \R(I, A^{A^\prime}) \simeq \{ \star \}, \]
+so $ \R $ the trivial category and $ L $ is trivial.
 
 \section{Scott's Representation Theorem}
 The correspondence in Section \ref{sec:lambek-correspondence} between simply-typed $ \lambda $-calculi and cartesian closed categories raises a question whether such a correspondence also exists for untyped $ \lambda $-calculi. Definition \ref{def:endomorphism-theory} shows that in fairly general circumstances we can take one object $ c $ in a category $ C $ and consider the morphisms $ t: C(c^n, c) $ as terms in an untyped $ \lambda $-calculus. Hyland calls this the `endomorphism theory' of $ c $.
