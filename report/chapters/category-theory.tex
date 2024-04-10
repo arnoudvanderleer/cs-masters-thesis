@@ -134,18 +134,20 @@ The \textit{coslice category}\index{slice category!co-} $ c \downarrow C $ is si
 \section{Dependent products and sums}\label{sec:dependent-products}
 The following is based loosely on Section 4.1 of \cite{taylor}.
 
-Take a category $ C $. To talk about dependent sums $ \sum_{a: A} X_a $ and products $ \prod_{a: A} X_a $ in $ C $, we first need some way to construct the family of objects $ (X_a)_a $. Of course, we can do this \textit{externally} using a set $ A $, and picking an object $ X_a : C $ for every element $ a : A $. However, there is also an \textit{internal} representation, as a morphism $ X \to A $.
+Take a category $ C $. To talk about dependent sums $ \sum_{a: A} X_a $ and products $ \prod_{a: A} X_a $ in $ C $, we first need some way to construct the family of objects $ (X_a)_a $. Of course, we can do this \textit{externally} using a set $ A $, and picking an object $ X_a : C $ for every element $ a : A $. We then have a category of such families $ C^A $, with objects $ (X_a)_a $ and morphisms $ (f_a)_a: C^A((X_a)_a, (Y_a)_a) $, with $ f_a: X_a \to Y_a $. We write $ C^A $ because we can view this as just the $ A $-fold power of $ C $. Now, this assignment of categories $ A \mapsto C^A $ can be turned into a contravariant (pseudo)functor of $ 2 $-categories $ \op \SET \to \Cat $. It sends a morphism $ f: A \to B $ to the `relabeling' or `substitution' functor $ C^B \to C^A $, $ (X_b)_b \mapsto (X_{f(a)})_a $.
 
-Note that in $ \SET $, the external and internal ways of indexing are equivalent, because given a family $ (X_a)_a $ we can construct a morphism $ f: \sum_{a : A} X_a \to A $ and conversely, we can recover the family $ (X_a)_a $ as $ (f^{-1}(a))_a $.
+However, there is also an \textit{internal} representation, as a morphism $ X \to A $. We can turn the collection of these morphisms over all the $ A : C $ simultaneously into a category $ C^2 $ (abusing notation a bit, writing $ 2 $ for the two-point category $ \bullet \to \bullet $). Then taking codomains $ (X \to A) \mapsto A $ gives a functor $ C^2 \to C $. The fiber of this functor above $ A $ is the slice category $ (C \downarrow A) $.
 
-In $ \SET $, given a family $ (X_a)_a $ over $ A $ and a morphism $ \alpha: B \to A $, we get a family $ X_{\alpha(b)} $ over $ B $. It turns out that in the internal representation this arises as the pullback
+In $ \SET $, the external and internal ways of indexing are actually equivalent, because given a family $ (X_a)_a $ we can construct a morphism $ f: \sum_{a : A} X_a \to A $ and conversely, we can recover the family $ (X_a)_a $ as $ (f^{-1}(a))_a $.
+
+Also note that for $ \SET $, if we consider an indexed family $ (X_a)_a $ as some function $ X: A \to \SET $, then substitution over $ \alpha: B \to A $ is just given by postcomposition $ X \circ \alpha: B \to \SET $. It turns out that in the internal representation this arises as the pullback
 \begin{center}
   \begin{tikzcd}
     \sum_{b : B} X_{\alpha(b)} \arrow[r] \arrow[d, "\alpha^* f"] \arrow[dr, phantom, "\lrcorner", very near start] & \sum_{a : A} X_a \arrow[d, "f"]\\
     B \arrow[r, "\alpha"] & A
   \end{tikzcd}
 \end{center}
-This can be turned into a pullback or `substitution' functor $ \alpha^* $, which Taylor calls $ \mathtt{P}\alpha $. We can construct $ \alpha^* : (C \downarrow A) \to (C \downarrow B) $ for any category $ C $ with pullbacks and any morphism $ \alpha: C(B, A) $.
+This can be turned into a pullback or `substitution' functor $ \alpha^* $, which Taylor calls $ \mathtt{P}\alpha $. This turns the functor $ \SET^2 \to \SET $ into a fibration. We can construct $ \alpha^* : (C \downarrow A) \to (C \downarrow B) $ for any category $ C $ with pullbacks and any morphism $ \alpha: C(B, A) $. The existence of this pullback makes the functor $ C^2 \to C $ into a fibration.
 
 Now, in $ \SET $, for a family $ (X_a)_a $, consider the dependent product $ \prod_{a : A} X_a $. Its elements $ (x_a)_a $ can be identified with morphisms from the terminal set: $ \{ \star \} \to \prod_{a : A} X_a $, sending $ \star $ to $ (x_a)_a $. However, they can also be identified with the morphisms $ \varphi: A \to \sum_{a : A} X_a $ that make the following diagram commute, sending $ a $ to $ x_a $:
 \begin{center}
@@ -212,7 +214,7 @@ We will close this section with a name for a category that has all dependent pro
   A \index{cartesian closed!locally}\textit{locally cartesian closed} category is a category $ C $ with pullbacks such that each pullback functor $ \alpha^* $ has a right adjoint.
 \end{definition}
 
-Apart from having dependent sums and products, there also is the following theorem that shows the significance locally cartesian closedness:
+Apart from having dependent sums and products, there also is the following theorem that shows the significance of locally cartesian closedness:
 \begin{lemma}\label{lem:locally-cartesian-closed}
   A category $ C $ is locally cartesian closed iff $ (C \downarrow A) $ is cartesian closed for each $ A : C $.
 \end{lemma}

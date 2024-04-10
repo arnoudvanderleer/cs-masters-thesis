@@ -89,7 +89,7 @@ It turns out that this embeds $ \R $ as a full subcategory of $ \Pshf L $:
   These are the identity, and the automorphism (of order 2) that swaps the elements of the pair. To see that these are indeed different morphisms, note that applying them (or their lifted versions) to $ (x_{2, 1}, x_{2, 2}) $ gives respectively $ x_{2, 1} $ and $ x_{2, 2} $, which are distinct elements by Lemma \ref{lem:nontrivial-algebraic-theory}.
 \end{remark}
 
-In the next chapter, the `universal object' $ U : \R $, given by the identity $ \lambda x_1, x_1 $, plays a major role. Note that $ \varphi(U) = L $.
+In the next chapter, the `universal object' $ U : \R $, given by the identity $ \lambda x_1, x_1 $, plays a major role. Note that for all $ A: \R $, we have morphisms $ A: \R(U, A) $ and $ A: \R(A, U) $, which exhibit $ A $ as a retract of $ U $. Also note that $ \varphi(U) = L $.
 
 Note that $ \R $ has many (isomorphic, but not equal for nontrivial $ L $) terminal objects, given by $ I_c := \lambda x_1, \iota_{0, 1}(c) : \R $ for any $ c: L_0 $. These are terminal because for $ f: A \to I_c $, we have $ f = I_c \circ f = I_c $. Note that $ \varphi(I_c)_n = \{ \iota_{0, n}(c) \} $. We will choose $ I = \lambda x_1 x_2, x_2 : \R $ as our main example of the terminal object.
 
@@ -172,7 +172,7 @@ and we have
 \[ f = [f, g] \circ \bot = [f, g] \circ \top = g. \]
 In particular, for any two objects $ A, A^\prime: \R $,
 \[ \R(A^\prime, A) \simeq \R(I \times A^\prime, A) \simeq \R(I, A^{A^\prime}) \simeq \{ \star \}, \]
-so $ \R $ the trivial category and $ L $ is trivial.
+so $ \R $ is the trivial category and $ L $ is trivial.
 
 \section{Scott's Representation Theorem}
 The correspondence in Section \ref{sec:lambek-correspondence} between simply-typed $ \lambda $-calculi and cartesian closed categories raises a question whether such a correspondence also exists for untyped $ \lambda $-calculi. Definition \ref{def:endomorphism-theory} shows that in fairly general circumstances we can take one object $ c $ in a category $ C $ and consider the morphisms $ t: C(c^n, c) $ as terms in an untyped $ \lambda $-calculus. Hyland calls this the `endomorphism theory' of $ c $.
@@ -192,9 +192,9 @@ Since Lambek showed an equivalence between simply typed $ \lambda $-calculi and 
   We can obtain every untyped $ \lambda $-calculus as the endomorphism theory of some object in some category.
 \end{theorem}
 \begin{proof}
-  Let $ L $ be a $ \lambda $-theory. Scott considers the category $ \R $.
+  Let $ L $ be a $ \lambda $-theory. Scott considers its category of retracts $ \R $, with `universal object' $ U $.
 
-  Note that for all $ A: \R $, we have morphisms $ A: \R(U, A) $ and $ A: \R(A, U) $, which exhibit $ A $ as a retract of $ U $. In particular, $ U^U $ is a retract of $ U $, so $ U $ is a reflexive object.
+  Note that $ U^U $ is a retract of $ U $, so $ U $ is a reflexive object.
 
   Therefore, $ E(U) $, the endomorphism theory of $ U $, has a $ \lambda $-theory structure. Note that the finite powers of $ U $ in $ \R $ are given by $ U^0 = I $ and $ U^{n + 1} = U^n \times U $.
 
@@ -226,20 +226,20 @@ In his dissertation, Paul Taylor shows that $ \R $ is not only cartesian closed,
 
 In Section \ref{sec:dependent-products}, we studied internal and external representations of families of objects in a category and how they behaved under substitutions (pullbacks). This was to arrive at a definition for dependent products and sums, as the right and left adjoints to the pullback (or substitution) functor $ \alpha^*: (C \downarrow A) \to (C \downarrow B) $ along some morphism $ \alpha : C(B, A) $.
 
-Now, some categories are not locally cartesian closed. That is: not all pullback/substitution functors $ \alpha^* $ exist or have a right adjoint. For example, $ \R $ does not have all pullbacks, so the substitution functors do not always exist. One way to look at this, is that in such a category not every morphism $ X \to A $ represents a family of objects. In such a category, we can carefully choose a subset of the morphisms to represent our indexed families. We will call a morphism that we choose to represent an indexed family a \iindex{display map}. In most cases, we have quite a bit of choice how big we want our class of display maps to be. However, to make sure that indexed families are well-behaved, a class of display maps needs to have some properties:
+Now, some categories are not locally cartesian closed. That is: not all pullback/substitution functors $ \alpha^* $ exist or have a right adjoint. For example, $ \R $ does not have all pullbacks, so the substitution functors do not always exist. In such a category $ C $, the functor $ C^2 \to C $ is not a fibration. One way to look at this, is that in such a category not every morphism $ X \to A $ represents a family of objects. In such a category, we can carefully choose a subset of the morphisms to represent our indexed families. We will call a morphism that we choose to represent an indexed family a \iindex{display map}. In most cases, we have quite a bit of choice how big we want our subtype of display maps to be. However, to make sure that indexed families are well-behaved, the subtype of display maps needs to have some properties:
 \begin{enumerate}
   \item The pullback of a display map along any morphism exists and is a display map.
   \item The composite of two display maps is a display map.
   \item $ C $ has a terminal object and any terminal projection is a display map.
 \end{enumerate}
 \begin{remark}
-  A `maximal' example of a class of display maps is, for example, in the category $ \SET $, where we can take our class of display maps to equal the class of all morphisms of $ C $.
+  A `maximal' example of a subtype of display maps is, for example, in the category $ \SET $, where we can take our subtype of display maps to equal the full type of all morphisms of $ C $.
 \end{remark}
 \begin{remark}
-  A `minimal' example of a class of display maps is the class of (maps isomorphic to) product projections in a category with finite products. In this case, all indexed families are constant, and then dependent sums and products become binary products and exponential objects.
+  A `minimal' example of a subtype of display maps is the subtype of (maps isomorphic to) product projections in a category with finite products. In this case, all indexed families are constant, and then dependent sums and products become binary products and exponential objects.
 \end{remark}
 
-Now, let $ C $ be a category with a class of display maps $ D $. We will denote the class of display maps from $ X $ to $ A $ with $ D(X, A) \subseteq C(X, A) $. For any $ A : C $, we get a category $ (C \downarrow_D A) $ as a full subcategory of the slice category $ (C \downarrow A) $, with as objects the display maps $ f: D(X, A) $. A morphism from $ f: D(X, A) $ to $ g: D(Y, A) $ is a morphism $ \varphi: C(X, Y) $ such that the following diagram commutes.
+Now, let $ C $ be a category with a subtype of display maps $ D \subseteq C $. We will denote the subtype of display maps from $ X $ to $ A $ with $ D(X, A) \subseteq C(X, A) $. For any $ A : C $, we get a category $ (C \downarrow_D A) $ as a full subcategory of the slice category $ (C \downarrow A) $, with as objects the display maps $ f: D(X, A) $. A morphism from $ f: D(X, A) $ to $ g: D(Y, A) $ is a morphism $ \varphi: C(X, Y) $ such that the following diagram commutes.
 \begin{center}
   \begin{tikzcd}
     X \arrow[rd, "f"'] \arrow[rr, "\varphi"] & & Y \arrow[ld, "g"]\\
@@ -269,29 +269,48 @@ Now, analogously to \ref{lem:locally-cartesian-closed}, Taylor shows:
 
 \subsection{Taylor's proof}
 
-First of all, Taylor considers `functions' $ X: A \to \R_0 $ for some $ A : \R_0 $. He characterizes these functions as the $ \lambda $-terms that satisfy $ X \circ A = X $ and $ \lambda x_1, (X x_1) \circ (X x_1) = X $. Taylor then constructs global dependent sums as
-\[ \sum_A X = \lambda x_1, (A (\pi_1 x_1), X (\pi_1 x_1) (\pi_2 x_1)). \]
-Note that with the embedding in Definition \ref{def:retracts-embedding}, we can consider this as consisting of pairs $ (a, x) $ with $ a : A $ and $ x : X a $, which is exactly what we would expect from a dependent sum.
+Taylor starts out with a kind of `external' representation of indexed families $ (X_a)_a $ in $ \R $. He denotes these as `functions' $ A \to \R_0 $. They are the elements $ X: L_0 $ with
+\[ X \circ A = X \quad \text{and} \quad (\lambda x_1, (X x_1) \circ (X x_1)) = X. \]
+These $ X $ form a category $ \R^A $, with the morphisms in $ \R^A(X, Y) $ given by $ f: L_0 $ with $ f \circ A = f $ and $ (\lambda x_1, (Y x_1) \circ (f x_1) \circ (X x_1)) = f $. The identity on $ X $ is given by $ X $, and the composition is given by $ f \cdot g = \lambda x_1, g x_1 \circ f x_1 $.
+
+Taylor shows that these categories $ \R^A $ are cartesian closed. He notes that assigning these categories $ \R^A $ to objects $ A: \R $ again constitutes a contravariant (pseudo)functor $ \op \R \to \Cat $, sending morphisms $ A \to B $ to precomposition functors $ \R^B \to \R^A $.
+
+For $ A: \SET $, we have an equivalence between the elements of $ \SET^A $ and the elements of the fiber $ (\SET \downarrow A) $ of the fibration $ \SET^2 \to \SET $. Now, in the case of some $ A: \R $, we can construct a `global dependent sum' functor $ \sum_A : \R^A \to (\R \downarrow A) $, which sends $ X: \R^A $ to
+\[ \sum_A X = \lambda x_1, (A (\pi_1 x_1), X (\pi_1 x_1) (\pi_2 x_1)), \]
+together with a projection morphism $ p_X: \sum_A X \to A $ given by $ \lambda x_1, A(\pi_1 x_1) $. Note that with the embedding in Definition \ref{def:retracts-embedding} into $ \Pshf L $, we can consider $ \sum_A X $ as consisting of pairs $ (a, x) $ with $ a : A $ and $ x : X a $, which is exactly what we would expect from a dependent sum. $ \sum_A $ sends a morphism $ f: X \to Y $ to
+\[ \sum_A f = \lambda x_1, ( A (\pi_1 x_1), f (\pi_1 x_1) (\pi_2 x_1) ) : \R\left(\sum_A X, \sum_A Y\right) \]
+
+Now, this is fully faithful: given a morphism $ g: \R\left(\sum_A X, \sum_A Y\right) $, we take
+\[ \psi(g) = \lambda x_1 x_2, \pi_2 (g (x_1, x_2)). \]
+For verifying that $ \psi(g) $ is indeed a morphism in $ \R^A(X, Y) $, it helps to recall that $ g \circ \sum_A X = g = \sum_A Y \circ g $ and $ p_Y \circ g = p_X $. Since $ \psi(\sum_A f) = f $ for all $ f: \R^A(X, Y) $ and $ \sum_A \psi(g) = g $ for all $ g: \R(\sum_A X, \sum_A Y) $, $ \sum_A $ is indeed fully faithful.
+
+On the other hand, $ \sum_A $ is generally not surjective. To mitigate this somewhat, we can choose our subtype $ D $ of display maps in such a way that the restriction $ \R^A \to (C \downarrow_D A) $ becomes essentially surjective.
 
 \begin{definition}
-  For $ \R $, we will take a morphism $ f: X \to A $ to be a display map if we have some $ Y : A \to R_0 $ like above, and some isomorphism $ g: X \xrightarrow{\sim} \sum_A Y $ such that $ f = g \cdot p_1 $ with $ p_1 : \sum_A Y \to A $ given by $ \lambda x_1, A (\pi_1 x_1) $.
+  For $ \R $, we will consider a morphism $ f: X \to A $ to be a display map if we have some $ Y : \R^A $ like above, and some isomorphism $ g: X \xrightarrow{\sim} \sum_A Y $ such that $ f = g \cdot p_Y $:
+  \begin{center}
+    \begin{tikzcd}
+      X \arrow[rd, "f"] \arrow[rr, "g"] & & \sum_A Y \arrow[ld, "p_1"]\\
+      & A
+    \end{tikzcd}
+  \end{center}
 \end{definition}
 
 \begin{remark}
-  Hyland actually gives a different characterization of Taylor's display maps. He claims that Taylor takes the display maps $ X \to A $ to be the retracts in $ (C \downarrow A) $ of $ p_1: A \times U \to A $,
+  Hyland actually gives a different characterization of Taylor's display maps. He claims that Taylor takes the display maps $ X \to A $ to be the retracts in $ (\R \downarrow A) $ of $ p_1: A \times U \to A $,
   the projection onto the first coordinate. The two characterizations are equivalent:
 
-  Given $ Y: A \to \R_0 $, $ Y a $ is a retract of $ U $ for all $ a $. Concretely, both morphisms $ r : A \times U \to \sum_A Y $ and $ s : \sum_A Y \to A \times U $ are given by $ \sum_A Y $ and these commute with the projection to $ A $. Therefore, if we have an isomorphism $ g: X \xrightarrow{\sim} \sum_A Y $ in $ (C \downarrow A) $, then $ \sum_A Y \cdot g^{-1} $ and $ g \cdot \sum_A Y $ make $ X $ into a retract of $ A \times U $.
+  Given $ Y: \R^A $, intuitively $ Y a $ is a retract of $ U $ for all $ a $. Concretely, both morphisms $ r : A \times U \to \sum_A Y $ and $ s : \sum_A Y \to A \times U $ are given by $ \sum_A Y $ and these commute with the projection to $ A $. Therefore, if we have an isomorphism $ g: X \xrightarrow{\sim} \sum_A Y $ in $ (\R \downarrow A) $, then $ \sum_A Y \cdot g^{-1} $ and $ g \cdot \sum_A Y $ make $ X $ into a retract of $ A \times U $.
 
-  Conversely, given a retraction $ r : A \times U \to X $ and section $ s : X \to A \times U $ in $ (C \downarrow A) $, the term
-  \[ \lambda x_1 x_2, \pi_2 (s (r (x_1, x_2))) \]
-  gives a function $ Y : A \to \R_0 $. Using the properties of $ r $ and $ s $ and the definition of $ \sum_A Y $, one can show that $ r $ gives a morphism $ \sum_A Y \to X $ and $ s $ gives a morphism $ X \to \sum_A Y $, and that $ r \circ s = \id{\sum_A Y} $. Combined with the fact that $ s \circ r = \id X $, this shows that $ X $ is isomorphic to $ \sum_A Y $.
+  Conversely, given a retraction $ r : A \times U \to X $ and section $ s : X \to A \times U $ in $ (\R \downarrow A) $, we have
+  \[ Y = \lambda x_1 x_2, \pi_2 (s (r (x_1, x_2))) : \R^A. \]
+  Using the properties of $ r $ and $ s $ and the definition of $ \sum_A Y $, one can show that $ r $ gives a morphism $ \sum_A Y \to X $ and $ s $ gives a morphism $ X \to \sum_A Y $, and that $ r \circ s = \id{\sum_A Y} $. Combined with the fact that $ s \circ r = \id X $, this shows that $ X $ is isomorphic to $ \sum_A Y $.
 \end{remark}
 
 \begin{remark}
-  Recall that if $ L $ is nontrivial, $ \R $ is not univalent, and the existence of $ Y: A \to \R_0 $ with the isomorphism $ g: X \xrightarrow{\sim} \sum_A Y $ is not a proposition. Take, for example, $ Y : I \to \R_0 $ given by $ (\lambda x_1, U \times U) $ for $ I $ the terminal object. Recall that $ (C \downarrow I) $ is equivalent to $ C $. Under this equivalence $ \sum_I Y $ is equivalent to $ U \times U $. As mentioned before, $ \sum_I Y $ has (at least) two distinct isomorphisms to itself: the identity and the isomorphism that swaps both sides of the product.
+  Recall that if $ L $ is nontrivial, $ \R $ is not univalent, and the existence of $ Y: \R^A $ with the isomorphism $ g: X \xrightarrow{\sim} \sum_A Y $ is not a proposition. Take, for example, $ Y : \R^I $ given by $ (\lambda x_1, U \times U) $. Recall that $ (\R \downarrow I) $ is equivalent to $ \R $. Under this equivalence $ \sum_I Y $ is equivalent to $ U \times U $. As mentioned before, $ \sum_I Y $ has (at least) two distinct isomorphisms to itself: the identity and the isomorphism that swaps both sides of the product.
 
-  In a similar way, being a retract of $ A \times U $ is not a proposition. Therefore, if we want the class of display maps to really be a subclass of the class of morphisms, we need the existence of $ Y: A \to \R_0 $ and the isomorphism $ g : X \to \sum_A Y $, or the existence of the retraction $ A \times U \to X $, to mean \textit{mere existence} in this case.
+  In a similar way, being a retract of $ A \times U $ is not a proposition. Therefore, if we want the class of display maps to really be a subclass of the class of morphisms, we need the existence of $ Y: \R^A $ and the isomorphism $ g : X \xrightarrow \sim \sum_A Y $, or the existence of the retraction $ A \times U \to X $, to mean \textit{mere existence} in this case. This means that we cannot use these in constructions, except for mere propositions.
 \end{remark}
 
 This brings us to Taylor's theorem about $ \R $:
