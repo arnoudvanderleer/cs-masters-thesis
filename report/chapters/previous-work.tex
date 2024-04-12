@@ -84,6 +84,13 @@ It turns out that this embeds $ \R $ as a full subcategory of $ \Pshf L $:
 \end{proof}
 
 \begin{remark}
+  Note that for all $ A : \R $, we can `reduce' any $ x: L_n $ to
+  \[ \iota_{0, n}(A) x : \varphi(A)_n \]
+  and in the same way, for all $ A, B: \R $, we can turn any $ f: L_0 $ into a morphism $ B \circ f \circ A : \R(A, B) $. In particular, we have $ B \circ A : \R(A, B) $.
+  Of course, all elements of $ \varphi(A)_n $ and all elements of $ \R(A, B) $ arise this way.
+\end{remark}
+
+\begin{remark}
   Note that if $ L $ is a nontrivial $ \lambda $-theory, $ \R $ is not a univalent category. To see this, note, for example, that we have an object $ X := \langle \pi_1, \pi_2 \rangle : \R $ (corresponding to the type of `pairs' of $ \lambda $-terms). Since $ L_0 $ is a set, $ X = X $ is a proposition. However, $ X $ has (at least) two automorphisms:
   \[ \langle \pi_1, \pi_2 \rangle \quad \text{and} \quad \langle \pi_2, \pi_1 \rangle. \]
   These are the identity, and the automorphism (of order 2) that swaps the elements of the pair. To see that these are indeed different morphisms, note that applying them (or their lifted versions) to $ (x_{2, 1}, x_{2, 2}) $ gives respectively $ x_{2, 1} $ and $ x_{2, 2} $, which are distinct elements by Lemma \ref{lem:nontrivial-algebraic-theory}.
@@ -93,8 +100,8 @@ In the next chapter, the `universal object' $ U : \R $, given by the identity $ 
 
 Note that $ \R $ has many (isomorphic, but not equal for nontrivial $ L $) terminal objects, given by $ I_c := \lambda x_1, \iota_{0, 1}(c) : \R $ for any $ c: L_0 $. These are terminal because for $ f: A \to I_c $, we have $ f = I_c \circ f = I_c $. Note that $ \varphi(I_c)_n = \{ \iota_{0, n}(c) \} $. We will choose $ I = \lambda x_1 x_2, x_2 : \R $ as our main example of the terminal object.
 
-We might wonder whether $ \R $ also has an initial object $ O $. However, for any $ c: L_0 $, we would have a morphism (with the same term as the terminal object)
-\[ \lambda x_1, \iota_{0, 1}(c) : A \to U, \]
+We might wonder whether $ \R $ also has an initial object $ O $. However, for any $ c: L_0 $, we would have a constant morphism
+\[ I_c = \lambda x_1, \iota_{0, 1}(c) : \R(A, U), \]
 so if $ L $ is nontrivial, $ \R $ has no initial object.
 
 $ \R $ has binary products with projections and product morphisms
@@ -117,7 +124,7 @@ Now, we might wonder whether there exists some $ A: \R $ such that $ \varphi(A)_
 \[ A c = (A \circ A) c = A (A c). \]
 Note that we can lift constants from $ \varphi(A)_0 $ to any $ \varphi(A)_n $, so they are all nonempty.
 
-Combining this with the embedding of $ \R \hookrightarrow \Pshf L $, we would expect $ \R $ to not have all pullbacks. This is because in $ \Pshf L $, for a cospan $ B \xrightarrow f A \xleftarrow g C $ with $ f_n(B_n) \cap g_n(C_n) = \emptyset $, we would have $ Q_n = \emptyset $, which could never happen with an object coming from $ \R $. Note, however, that this can not be made rigorous, because a fully faithful embedding reflects limits, but does not preserve them.
+Combining this with the embedding of $ \R \hookrightarrow \Pshf L $, we would expect $ \R $ to not have all pullbacks. This is because in $ \Pshf L $, for a cospan $ B \xrightarrow f A \xleftarrow g C $ with $ f_n(B_n) \cap g_n(C_n) = \emptyset $ for some $ n $, the pullback $ Q $ would have $ Q_n = \emptyset $, which could never happen with an object coming from $ \R $. Note, however, that this can not be made rigorous, because a fully faithful embedding reflects limits, but does not necessarily preserve them.
 
 However, it is true that $ \R $ does not have all pullbacks (if $ L $ is nontrivial). Consider for example the following cospan:
 \[ I \xrightarrow f U \xleftarrow g I \]
@@ -170,7 +177,7 @@ Now, for any object $ A: \R $ and any two global elements $ f, g: I \to A $, we 
 \end{center}
 and we have
 \[ f = [f, g] \circ \bot = [f, g] \circ \top = g. \]
-In particular, for any two objects $ A, A^\prime: \R $,
+In particular, for any two objects $ A, A^\prime: \R $, since we have $ A \circ A^\prime : \R(A^\prime, A) $, so $ \R(A^\prime, A) $ is nonempty, we have
 \[ \R(A^\prime, A) \simeq \R(I \times A^\prime, A) \simeq \R(I, A^{A^\prime}) \simeq \{ \star \}, \]
 so $ \R $ is the trivial category and $ L $ is trivial.
 
@@ -284,16 +291,10 @@ Now, this is fully faithful: given a morphism $ g: \R\left(\sum_A X, \sum_A Y\ri
 \[ \psi(g) = \lambda x_1 x_2, \pi_2 (g (x_1, x_2)). \]
 For verifying that $ \psi(g) $ is indeed a morphism in $ \R^A(X, Y) $, it helps to recall that $ g \circ \sum_A X = g = \sum_A Y \circ g $ and $ p_Y \circ g = p_X $. Since $ \psi(\sum_A f) = f $ for all $ f: \R^A(X, Y) $ and $ \sum_A \psi(g) = g $ for all $ g: \R(\sum_A X, \sum_A Y) $, $ \sum_A $ is indeed fully faithful.
 
-On the other hand, $ \sum_A $ is generally not surjective. To mitigate this somewhat, we can choose our subtype $ D $ of display maps in such a way that the restriction $ \R^A \to (C \downarrow_D A) $ becomes essentially surjective.
+On the other hand, $ \sum_A $ is generally not surjective. However, we can choose our subtype $ D $ of display maps in such a way that the restriction $ \R^A \to (C \downarrow_D A) $ becomes essentially surjective.
 
 \begin{definition}
-  For $ \R $, we will consider a morphism $ f: X \to A $ to be a display map if we have some $ Y : \R^A $ like above, and some isomorphism $ g: X \xrightarrow{\sim} \sum_A Y $ such that $ f = g \cdot p_Y $:
-  \begin{center}
-    \begin{tikzcd}
-      X \arrow[rd, "f"] \arrow[rr, "g"] & & \sum_A Y \arrow[ld, "p_1"]\\
-      & A
-    \end{tikzcd}
-  \end{center}
+  For $ \R $, we will consider a morphism $ f: X \to A $ to be a display map if we have some $ Y : \R^A $ like above, and some isomorphism $ g: (X, f) \xrightarrow{\sim} (\sum_A Y, p_Y) $ in $ (\R \downarrow A) $.
 \end{definition}
 
 \begin{remark}
@@ -312,6 +313,25 @@ On the other hand, $ \sum_A $ is generally not surjective. To mitigate this some
 
   In a similar way, being a retract of $ A \times U $ is not a proposition. Therefore, if we want the class of display maps to really be a subclass of the class of morphisms, we need the existence of $ Y: \R^A $ and the isomorphism $ g : X \xrightarrow \sim \sum_A Y $, or the existence of the retraction $ A \times U \to X $, to mean \textit{mere existence} in this case. This means that we cannot use these in constructions, except for mere propositions.
 \end{remark}
+
+Taylor shows that these display maps are well-defined, in the sense that they satisfy the three properties mentioned above.
+\begin{enumerate}
+  \item Given a display map $ (X, f): (\R \downarrow_D A) $ and a morphism $ \alpha: \R(B, A) $. Recall that this means that there merely exists a $ Y: \R^A $ and an isomorphism $ X \xrightarrow \sim \sum_A Y $ in $ (\R \downarrow A) $. Therefore, we have mere existence of a pullback $ \sum_B (Y \circ \alpha) $ of $ \sum_A Y $ along $ \alpha $. For all $ C: \R $ with $ \beta: \R(C, B) $ and $ \gamma: \R(C, \sum_A Y) $ that make the square commute, we have the morphism $ \lambda x_1, (\beta x_1, \pi_2 (\gamma x_1)): \R(C, \sum_B (Y \circ \alpha)) $.
+    \begin{center}
+      \begin{tikzcd}[column sep = .5in]
+        C \arrow[rrrd, bend left, "\gamma"] \arrow[dd, bend right=90, "\beta"'] \arrow[d, dashed, "{\lambda x_1, (\beta x_1, \pi_2 (\gamma x_1))}"] \\
+        \sum_B (Y \circ \alpha) \arrow[rrr, "{\lambda x_1, (\alpha (\pi_1 x_1), Y (\alpha (\pi_1 x_1)) (\pi_2 x_1))}"] \arrow[d, "p_{(Y \circ \alpha)}"] &&& \sum_A Y \arrow[d, "p_Y"] & X \arrow[l, "g"] \arrow[ld, "f"]\\
+        B \arrow[rrr, "\alpha"] &&& A
+      \end{tikzcd}
+    \end{center}
+    By the isomorphism between $ X $ and $ \sum_A Y $, $ \sum_B (Y \circ \alpha) $ is also a pullback of $ X $: by postcomposing with $ g $ and its inverse, we see that morphisms from $ \sum_B (Y \circ A) $ and $ C $ to $ X $ are equivalent to morphisms to $ \sum_A Y $.
+
+    \TODO: Verify that these morphisms are indeed morphisms.
+  \item
+  \item Let $ B \to I $ be a terminal projection. Consider $ Y = (\lambda x_1, B) : \R^I $. We have
+    \[ \sum_I Y = \lambda x_1, ((\lambda x_2, x_2), B (\pi_2 x_1)) = \langle I \circ \pi_1, B \circ \pi_2 \rangle = I \times B, \]
+    which is isomorphic to $ B $.
+\end{enumerate}
 
 This brings us to Taylor's theorem about $ \R $:
 \begin{theorem}
