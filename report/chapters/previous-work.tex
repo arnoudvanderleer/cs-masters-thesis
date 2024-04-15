@@ -246,16 +246,11 @@ Now, some categories are not locally cartesian closed. That is: not all pullback
   A `minimal' example of a subtype of display maps is the subtype of (maps isomorphic to) product projections in a category with finite products. In this case, all indexed families are constant, and then dependent sums and products become binary products and exponential objects.
 \end{remark}
 
-Now, let $ C $ be a category with a subtype of display maps $ D \subseteq C $. We will denote the subtype of display maps from $ X $ to $ A $ with $ D(X, A) \subseteq C(X, A) $. For any $ A : C $, we get a category $ (C \downarrow_D A) $ as a full subcategory of the slice category $ (C \downarrow A) $, with as objects the display maps $ f: D(X, A) $. A morphism from $ f: D(X, A) $ to $ g: D(Y, A) $ is a morphism $ \varphi: C(X, Y) $ such that the following diagram commutes.
-\begin{center}
-  \begin{tikzcd}
-    X \arrow[rd, "f"'] \arrow[rr, "\varphi"] & & Y \arrow[ld, "g"]\\
-    & A &
-  \end{tikzcd}
-\end{center}
+Now, let $ C $ be a category with a subtype of display maps $ D \subseteq C $. We will denote the subtype of display maps from $ X $ to $ A $ with $ D(X, A) \subseteq C(X, A) $. For any $ A : C $, we define the category $ (C \downarrow_D A) $ as a full subcategory of the slice category $ (C \downarrow A) $, with as objects the display maps $ f: D(X, A) $. The morphisms between two objects of $ (C \downarrow_D A) $ are still all the morphisms of $ (C \downarrow A) $ (i.e. the morphisms of $ C $ that commute with the display maps).
+
 Note that for the terminal object $ I : C $, $ (C \downarrow_D I) $ is still equivalent to $ C $, since every terminal projection is a display map.
 
-Also note that since display maps are closed under pullbacks, the pullback functor $ (C \downarrow A) \to (C \downarrow B) $ for $ \alpha: C(B, A) $ restricts to a pullback functor $ \alpha^*: (C \downarrow_D A) \to (C \downarrow_D B) $.
+Also note that since the pullback of display maps against any map exist (and are display maps again), we get a pullback functor $ \alpha^*: (C \downarrow_D A) \to (C \downarrow_D B) $. This is the restriction of the pullback functor $ \alpha^*: (C \downarrow A) \to (C \downarrow B) $, if it exists.
 
 Note that since composing two display maps gives a display map again, and since the dependent sum is given by postcomposition, $ \alpha^* $ has a left adjoint for all display maps $ \alpha $. That is: the fiber categories $ (C \downarrow_D A) $ have dependent sums over display maps.
 
@@ -271,8 +266,6 @@ Now, analogously to \ref{lem:locally-cartesian-closed}, Taylor shows:
 \begin{proof}
   Taylor proves this in a series of lemmas leading up to \S 4.3.7 in \cite{taylor}. It is also proved as Proposition 6 of \cite{theory-of-constructions}.
 \end{proof}
-
-\TODO Displayed category?
 
 \subsection{Taylor's proof}
 
@@ -314,7 +307,7 @@ On the other hand, $ \sum_A $ is generally not surjective. However, we can choos
   In a similar way, being a retract of $ A \times U $ is not a proposition. Therefore, if we want the class of display maps to really be a subclass of the class of morphisms, we need the existence of $ Y: \R^A $ and the isomorphism $ g : X \xrightarrow \sim \sum_A Y $, or the existence of the retraction $ A \times U \to X $, to mean \textit{mere existence} in this case. This means that we cannot use these in constructions, except for mere propositions.
 \end{remark}
 
-Taylor shows that these display maps are well-defined, in the sense that they satisfy the three properties mentioned above.
+Taylor shows that these display maps indeed satisfy the three properties mentioned above. However, in univalent foundations, there are some subtleties in the case of pullbacks:
 \begin{enumerate}
   \item Given a display map $ (X, f): (\R \downarrow_D A) $ and a morphism $ \alpha: \R(B, A) $. Recall that this means that there merely exists a $ Y: \R^A $ and an isomorphism $ X \xrightarrow \sim \sum_A Y $ in $ (\R \downarrow A) $. Therefore, we have mere existence of a pullback $ \sum_B (Y \circ \alpha) $ of $ \sum_A Y $ along $ \alpha $. For all $ C: \R $ with $ \beta: \R(C, B) $ and $ \gamma: \R(C, \sum_A Y) $ that make the square commute, we have the morphism $ \lambda x_1, (\beta x_1, \pi_2 (\gamma x_1)): \R(C, \sum_B (Y \circ \alpha)) $.
     \begin{center}
@@ -325,13 +318,86 @@ Taylor shows that these display maps are well-defined, in the sense that they sa
       \end{tikzcd}
     \end{center}
     By the isomorphism between $ X $ and $ \sum_A Y $, $ \sum_B (Y \circ \alpha) $ is also a pullback of $ X $: by postcomposing with $ g $ and its inverse, we see that morphisms from $ \sum_B (Y \circ A) $ and $ C $ to $ X $ are equivalent to morphisms to $ \sum_A Y $.
+  \item Given display maps $ f: B \to A $ and $ g: C \to B $. We have $ X : \R^A $ and $ Y: \R^B $ with isomorphisms $ s: B \xrightarrow \sim \sum_A X $ and $ t: C \xrightarrow \sim \sum_B Y $. We need to show that $ f \circ g: C \to A $ is also a display map.
+    \begin{center}
+      \begin{tikzcd}
+        C \arrow[d, "g"] \arrow[r, "\sim", "t"'] & \sum_B Y \arrow[ld, "p_Y"] \arrow[r, "u"', "\sim"] & \sum_A Z \arrow[ldld, bend left, "p_Z"]\\
+        B \arrow[d, "f"] \arrow[r, "\sim", "s"'] & \sum_A X \arrow[ld, "p_X"]\\
+        A
+      \end{tikzcd}
+    \end{center}
+    Intuitively, $ \sum_B Y \cong \sum_A Z $ represents
+    \[ \sum_{b: \sum_{a: A} X a} Y b \cong \sum_{a: A} \sum_{x: X a} Y(a, x), \]
+    by the isomorphism that relates $ ((a, x), y) $ to $ (a, (x, y)) $. Therefore, consider
+    \[ Z = \lambda x_1 x_2, (X x_1 (\pi_1 x_2), Y (s^{-1} (x_1, \pi_1 x_2)) (\pi_2 x_2)): \R^A. \]
+    we have an isomorphism $ u: \sum_B Y \xrightarrow \sim \sum_A Z $ given by:
+    \[ u = \lambda x_1, (A a, (X a x, Y b y)) \]
+    with
+    \[ b = \pi_1 x_1;\quad a = \pi_1 (s b); \quad x = \pi_2 (s b); \quad y = \pi_2 x_1, \]
+    and
+    \[ u^{-1} = \lambda x_1, (s^{-1}(A a, X a x), Y b y) \]
+    with
+    \[ a = \pi_1 x_1; \quad x = \pi_1 (\pi_2 x_1); \quad b = s^{-1}(a, x); \quad y = \pi_2 (\pi_2 x_1) \]
+    and then $ u \circ t $ is an isomorphism in $ (\R \downarrow A) $ between $ (C, f \circ g) $ and $ (\sum_A Z, p_Z) $.
 
-    \TODO: Verify that these morphisms are indeed morphisms.
-  \item
+    % \TODO: Verify that
+    % \begin{itemize}
+    %   \item $ Z: \R^A $
+    %     \begin{align*}
+    %       &Z x_1 (Z x_1 x_2)\\
+    %       &= (X x_1 (X x_1 (\pi_1 x_2)), Y (s^{-1} (x_1, (X x_1 (\pi_1 x_2)))) (Y (s^{-1} (x_1, (\pi_1 x_2))) (\pi_2 x_2)))\\
+    %       &= (X x_1 (\pi_1 x_2), Y (s^{-1} (x_1, \pi_1 x_2)) (\pi_2 x_2))\\
+    %       &= Z x_1 x_2.
+    %     \end{align*}
+    %   \item $ u $ is a morphism
+    %     \begin{align*}
+    %       \sum_A Z (u (\sum_B Y x_1))
+    %       &= \sum_A Z (u (B (\pi_1 x_1), Y (\pi_1 x_1) (\pi_2 x_1)))\\
+    %       &= \sum_A Z (\pi_1 (s (\pi_1 x_1)), (\pi_2 (s (\pi_1 x_1)), Y (\pi_1 x_1) (\pi_2 x_1)))\\
+    %       &= (A (\pi_1 (s (\pi_1 x_1))), (X (\pi_1 (s (\pi_1 x_1))) ((\pi_2 (s (\pi_1 x_1)))), Y (\pi_1 x_1) (\pi_2 x_1)))\\
+    %       &= u x_1.
+    %     \end{align*}
+    %   \item $ u^{-1} $ is a morphism
+    %     \begin{align*}
+    %       \sum_B Y (u^{-1} (\sum_A Z x_1))
+    %       &= \sum_B Y (u^{-1} (A (\pi_1 x_1), (X (\pi_1 x_1) (\pi_1 (\pi_2 x_1)), Y (s^{-1} ((\pi_1 x_1), \pi_1 (\pi_2 x_1))) (\pi_2 (\pi_2 x_1)))))\\
+    %       &= \sum_B Y (s^{-1}(\pi_1 x_1, \pi_1 (\pi_2 x_1)), Y (s^{-1} (\pi_1 x_1, \pi_1 (\pi_2 x_1))) (\pi_2 (\pi_2 x_1)))\\
+    %       &= (s^{-1}(\pi_1 x_1, \pi_1 (\pi_2 x_1)), Y (s^{-1} (\pi_1 x_1, \pi_1 (\pi_2 x_1))) (\pi_2 (\pi_2 x_1)))\\
+    %       &= u^{-1} x_1
+    %     \end{align*}
+    %   \item $ u \circ u^{-1} = \id{\sum_A Z} $
+    %     \begin{align*}
+    %       u(u^{-1} x_1)
+    %       &= u(s^{-1} (\pi_1 x_1, \pi_1 (\pi_2 x_1)), Y (s^{-1} (\pi_1 x_1, \pi_1 (\pi_2 x_1))) (\pi_2 (\pi_2 x_1)))\\
+    %       &= (A (\pi_1 x_1), (X (\pi_1 x_1) (\pi_1 (\pi_2 x_1)), Y (s^{-1} (\pi_1 x_1, \pi_1 (\pi_2 x_1))) (\pi_2 (\pi_2 x_1))))\\
+    %       &= \sum_A Z x_1
+    %     \end{align*}
+    %   \item $ u^{-1} \circ u = \id{\sum_B Y} $.
+    %     \begin{align*}
+    %       u^{-1} (u x_1)
+    %       &= u^{-1}(\pi_1 (s (\pi_1 x_1)), (\pi_2 (s (\pi_1 x_1)), Y (\pi_1 x_1) (\pi_2 x_1)))\\
+    %       &= (B (\pi_1 x_1), Y (\pi_1 x_1) (\pi_2 x_1))
+    %       &= \sum_B Y x_1.
+    %     \end{align*}
+    %   \item $ p_Z \circ u = g \circ p_Y $.
+    %     \begin{align*}
+    %       p_Z (u x_1)
+    %       &= p_Z (\pi_1 (s (\pi_1 x_1)), (\pi_2 (s (\pi_1 x_1)), Y (\pi_1 x_1) (\pi_2 x_1)))\\
+    %       &= A (\pi_1 (s (\pi_1 x_1)))\\
+    %       &= A (\pi_1 (s (B (\pi_1 x_1))))\\
+    %       &= p_X (s (p_Y x_1))\\
+    %       g (p_Y x_1).
+    %     \end{align*}
+    % \end{itemize}
   \item Let $ B \to I $ be a terminal projection. Consider $ Y = (\lambda x_1, B) : \R^I $. We have
     \[ \sum_I Y = \lambda x_1, ((\lambda x_2, x_2), B (\pi_2 x_1)) = \langle I \circ \pi_1, B \circ \pi_2 \rangle = I \times B, \]
     which is isomorphic to $ B $.
 \end{enumerate}
+\begin{remark}
+  There is an awful lot of properties to verify here (e.g. that some terms are elements of some $ \R^A $, that others are morphisms in some $ \R(\sum_A X, \sum_B Y) $, that some diagrams commute), but most of it boils down to writing down the equations that should hold, reducing them via $ \beta $-equality, and then using the facts that objects $ A: \R $ are idempotent, that morphisms $ f: \R(A, B) $ equal $ B \circ f \circ A $ and that objects $ X: \R^A $ satisfy $ X \circ A = X $ and $ X a (X a x) = X a x $ for all $ a $ and $ x $. Note that for a morphism $ f: \sum_A X \to B $,
+  \[ f(A x_1, x_2) = f(x_1, x_2) = f(x_1, X x_1 x_2), \]
+  so $ f $ `absorbs' such instances of $ A $ and $ X $, so to speak.
+\end{remark}
 
 This brings us to Taylor's theorem about $ \R $:
 \begin{theorem}
@@ -340,5 +406,3 @@ This brings us to Taylor's theorem about $ \R $:
 \begin{proof}
   In the spirit of Scott, Taylor gives a very syntactical proof.
 \end{proof}
-
-\TODO Relate indexed types and fibrations.
