@@ -24,7 +24,7 @@ One concept in category theory that can be used to describe a lot of limits and 
   \end{center}
 \end{definition}
 
-There is also the dual concept of a universal arrow $ (d, f) $ from a functor $ F $ to an object $ c: C $. Its universal property yields the following diagram:
+There is also the dual concept of a universal arrow $ (d, f) $ from a functor $ F $ to an object $ c: C $. Its universal property can be summarized in the following diagram:
 \begin{center}
   \begin{tikzcd}
     F(d^\prime)\arrow[rd, "f^\prime"']  \arrow[r, "F(g)", dashed] & F(d) \arrow[d, "f"]\\
@@ -63,7 +63,7 @@ Naturality means that for all $ f: C(c^\prime, c) $, $ g: D(d, d^\prime) $ and $
 
 Lastly, one can construct an adjunction using universal arrows. This lends itself particularly well for a formalization, where it is often preferable to have as little `demonstranda' as possible:
 \begin{lemma}
-  One can construct an adjunction $ (F, G, \eta, \epsilon) $ as above from only the functor $ L: C \to D $ and, for each $ c: C $, a universal arrow $ (R(c), \epsilon_c) $ from $ L $ to $ c $.
+  One can construct an adjunction $ (L, R, \eta, \epsilon) $ as above from only the functor $ L: C \to D $ and, for each $ c: C $, a universal arrow $ (R(c), \epsilon_c) $ from $ L $ to $ c $.
 \end{lemma}
 \begin{proof}
   See \cite{MacLane}, Chapter IV.1, Theorem 2 (iv).

@@ -269,18 +269,20 @@ Now, analogously to \ref{lem:locally-cartesian-closed}, Taylor shows:
 
 \subsection{Taylor's proof}
 
-Taylor starts out with a kind of `external' representation of indexed families $ (X_a)_a $ in $ \R $. He denotes these as `functions' $ A \to \R_0 $. They are the elements $ X: L_0 $ with
+As Hyland remarks, Taylor shows that $ \R $ is relatively cartesian closed using a very syntactical argument, in the spirit of Scott.
+
+He starts out with a kind of `external' representation of indexed families $ (X_a)_a $ in $ \R $. He denotes these as `functions' $ A \to \R_0 $. They are the elements $ X: L_0 $ with
 \[ X \circ A = X \quad \text{and} \quad (\lambda x_1, (X x_1) \circ (X x_1)) = X. \]
 These $ X $ form a category $ \R^A $, with the morphisms in $ \R^A(X, Y) $ given by $ f: L_0 $ with $ f \circ A = f $ and $ (\lambda x_1, (Y x_1) \circ (f x_1) \circ (X x_1)) = f $. The identity on $ X $ is given by $ X $, and the composition is given by $ f \cdot g = \lambda x_1, g x_1 \circ f x_1 $.
 
 Taylor shows that these categories $ \R^A $ are cartesian closed. He notes that assigning these categories $ \R^A $ to objects $ A: \R $ again constitutes a contravariant (pseudo)functor $ \op \R \to \Cat $, sending morphisms $ A \to B $ to precomposition functors $ \R^B \to \R^A $.
 
-For $ A: \SET $, we have an equivalence between the elements of $ \SET^A $ and the elements of the fiber $ (\SET \downarrow A) $ of the fibration $ \SET^2 \to \SET $. Now, in the case of some $ A: \R $, we can construct a `global dependent sum' functor $ \sum_A : \R^A \to (\R \downarrow A) $, which sends $ X: \R^A $ to
-\[ \sum_A X = \lambda x_1, (A (\pi_1 x_1), X (\pi_1 x_1) (\pi_2 x_1)), \]
-together with a projection morphism $ p_X: \sum_A X \to A $ given by $ \lambda x_1, A(\pi_1 x_1) $. Note that with the embedding in Definition \ref{def:retracts-embedding} into $ \Pshf L $, we can consider $ \sum_A X $ as consisting of pairs $ (a, x) $ with $ a : A $ and $ x : X a $, which is exactly what we would expect from a dependent sum. $ \sum_A $ sends a morphism $ f: X \to Y $ to
-\[ \sum_A f = \lambda x_1, ( A (\pi_1 x_1), f (\pi_1 x_1) (\pi_2 x_1) ) : \R\left(\sum_A X, \sum_A Y\right) \]
+For $ A: \R $, we introduce the combinator
+\[ \sum_A = \lambda x_1 x_2, (A (\pi_1 x_2), x_1 (\pi_1 x_2) (\pi_2 x_2)). \]
 
-Now, this is fully faithful: given a morphism $ g: \R\left(\sum_A X, \sum_A Y\right) $, we take
+For $ A: \SET $, we have an equivalence between the elements of $ \SET^A $ and the elements of the fiber $ (\SET \downarrow A) $ of the fibration $ \SET^2 \to \SET $. Now, for $ A: \R $, $ \sum_A $ gives a functor from $ \R^A $ to $ (\R \downarrow A) $. Note that it sends objects $ X: \R^A $ to $ \sum_A X $, together with a projection morphism $ p_X = A \circ \pi_1: \sum_A X \to A $. Note that with the embedding in Definition \ref{def:retracts-embedding} into $ \Pshf L $, we can consider $ \sum_A X $ as consisting of pairs $ (a, x) $ with $ a : A $ and $ x : X a $, which is exactly what we would expect from a dependent sum.
+
+Now, $ \sum_A $ is fully faithful: given a morphism $ g: \R\left(\sum_A X, \sum_A Y\right) $, we take
 \[ \psi(g) = \lambda x_1 x_2, \pi_2 (g (x_1, x_2)). \]
 For verifying that $ \psi(g) $ is indeed a morphism in $ \R^A(X, Y) $, it helps to recall that $ g \circ \sum_A X = g = \sum_A Y \circ g $ and $ p_Y \circ g = p_X $. Since $ \psi(\sum_A f) = f $ for all $ f: \R^A(X, Y) $ and $ \sum_A \psi(g) = g $ for all $ g: \R(\sum_A X, \sum_A Y) $, $ \sum_A $ is indeed fully faithful.
 
@@ -393,16 +395,94 @@ Taylor shows that these display maps indeed satisfy the three properties mention
     \[ \sum_I Y = \lambda x_1, ((\lambda x_2, x_2), B (\pi_2 x_1)) = \langle I \circ \pi_1, B \circ \pi_2 \rangle = I \times B, \]
     which is isomorphic to $ B $.
 \end{enumerate}
+
 \begin{remark}
   There is an awful lot of properties to verify here (e.g. that some terms are elements of some $ \R^A $, that others are morphisms in some $ \R(\sum_A X, \sum_B Y) $, that some diagrams commute), but most of it boils down to writing down the equations that should hold, reducing them via $ \beta $-equality, and then using the facts that objects $ A: \R $ are idempotent, that morphisms $ f: \R(A, B) $ equal $ B \circ f \circ A $ and that objects $ X: \R^A $ satisfy $ X \circ A = X $ and $ X a (X a x) = X a x $ for all $ a $ and $ x $. Note that for a morphism $ f: \sum_A X \to B $,
   \[ f(A x_1, x_2) = f(x_1, x_2) = f(x_1, X x_1 x_2), \]
   so $ f $ `absorbs' such instances of $ A $ and $ X $, so to speak.
 \end{remark}
 
-This brings us to Taylor's theorem about $ \R $:
+\begin{remark}
+  To talk about `relatively cartesian closed', we need a pullback functor $ \alpha^* : (\R \downarrow_D A) \to (\R \downarrow_D B) $ for all (display maps) $ \alpha: B \to A $. However, as remarked before, since the definition of display maps involves a propositional truncation, we only have mere existence of pullbacks, and to pass from the statement ``for all $ f $, there exists a pullback $ \alpha^* f $'' to the statement ``there exists a function that sends every morphism $ f : (\R \downarrow_D A) $ to its pullback $ \alpha^* f : (\R \downarrow_D B) $'', we need to assume the axiom of choice.
+
+  However, note that we have a weak equivalence (an essentially surjective and fully faithful functor) between strict categories (categories in which the type of objects is a homotopy set) $ \sum_A: \R^A \xrightarrow \sim (\R \downarrow_D A) $. If we assume the axiom of choice, $ \sum_A $ becomes an equivalence of categories (\cite{univalent-categories}, introduction, page 2 \TODO: maybe find a better reference for this) and then our pullback functor is given by
+  \[ \sum_A^{-1} \bullet (\alpha \cdot -) \bullet \sum_B, \]
+  where $ (\alpha \cdot -): \R^A \to \R^B $ denotes the functor given by precomposition with $ \alpha $.
+\end{remark}
+
+This brings us to the main theorem of this section (\cite{taylor}, 5.1.8).
 \begin{theorem}
-  $ \R $ is cartesian closed, relative to this class of display maps.
+  If we assume the axiom of choice, $ \R $ is cartesian closed, relative to the given class of display maps.
 \end{theorem}
 \begin{proof}
-  In the spirit of Scott, Taylor gives a very syntactical proof.
+  Let $ \alpha: B \to A $ be a display map. We have mere existence of some $ X: \R^A $ and an isomorphism $ g: (X, \alpha) \xrightarrow \sim (\sum B, p_X) $. We need to show that there is a right adjoint to the pullback functor $ \alpha^* $. Since under assumption of the axiom of choice, $ \alpha^* $ is defined as a composition of a precomposition functor with two equivalences of categories, this is equivalent to showing that there is a right adjoint to the precomposition functor $ (\alpha \cdot -): \R^A \to \R^B $ (note that $ \alpha \cdot - $ sends $ f $ to $ f \circ \alpha $).
+
+  Now, intuitively, any $ Y: \R^B $ denotes an indexed family $ ((Y (a, b))_{b: X a})_{a: A} $. We want the right adjoint $ \alpha_* Y $ to be the indexed family of dependent products $ (\prod_{b: B_a} Y (a, b))_a $. An element $ f $ of the dependent product $ \alpha_* Y a $ is then a function from $ X a $, that satisfies $ f b : Y (a, b) $ for all $ b : X a $. Therefore, for all $ a : A $ and all $ f : L_0 $, we want $ (\alpha_* Y a) f = f $ to mean ``$ f \circ X a = f $ and, $ f b : Y (a, b) $ for all $ b: X a $''. We encode these two parts as
+  \[ \lambda x_1, x_1 \circ X a \quad \text{and} \quad \lambda x_1 x_2, Y (g^{-1} (a, x_2)) (x_1 x_2). \]
+  It turns out that these are idempotents and they commute, so we can compose them into one object
+  \[ \alpha_* Y a = \lambda x_1 x_2, Y (g^{-1} (a, x_2)) (x_1 (X a x_2)) : \R \]
+  and we define the combinator
+  \[ \alpha_* = \lambda x_1 x_2 x_3 x_4, x_1 (g^{-1} (x_2, x_4)) (x_3 (X x_2 x_4)). \]
+  Now, applying $ \alpha_* $ to both objects and morphisms in $ \R^A $ gives a functor $ \alpha_* : \R^B \to \R^A $.
+
+  Note that for all $ Y : \R^B $ and all $ b $, we have a morphism $ (\lambda x_1, x_1 (\pi_2 (g b))) : \R(\alpha_* Y (\alpha b), Y b) $. Making this parametric in $ b $ gives us a counit
+  \[ \epsilon_Y = \lambda x_1 x_2, Y x_1 (x_2 (\pi_2 (g x_1))) : \R^B((\alpha_* Y) \circ \alpha, Y). \]
+
+  % First of all, $ \epsilon_Y \circ B = \epsilon_Y $, also
+  % \begin{align*}
+  %   (Y x_1 \circ \epsilon_Y x_1 \circ (\alpha_* Y \circ \alpha) x_1) x_2
+  %   &= Y x_1 (\epsilon_Y x_1 (\alpha_* Y (\alpha x_1) x_2))\\
+  %   &= Y x_1 ((\lambda f, Y x_1 (f (X (\alpha x_1) (\pi_2 (g x_1))))) (\lambda x_3, Y (g^{-1} (\alpha x_1, x_3)) (x_2 (X (\alpha x_1) x_3))))\\
+  %   &= Y x_1 (((\lambda x_3, Y (g^{-1} (\alpha x_1, x_3)) (x_2 (X (\alpha x_1) x_3)))) (X (\alpha x_1) (\pi_2 (g x_1))))\\
+  %   &= Y x_1 (Y (g^{-1} (\alpha x_1, (\pi_2 (g x_1)))) (x_2 (X (\alpha x_1) (X (\alpha x_1) (\pi_2 (g x_1))))))\\
+  %   &= Y x_1 (Y x_1 (x_2 (X (\alpha x_1) (X (\alpha x_1) (\pi_2 (g x_1))))))\\
+  %   &= Y x_1 (x_2 (X (\alpha x_1) (\pi_2 (g x_1))))\\
+  %   &= \epsilon_Y x_1 x_2.
+  % \end{align*}
+
+  To show that $ (\alpha \cdot -) \dashv \alpha_* $, we need to show that for all $ Y : \R^B $, $ (\alpha_* Y, \epsilon_Y) $ is a universal arrow from $ (\alpha \cdot -) $ to $ Y $. Recall the following diagram:
+  \begin{center}
+    \begin{tikzcd}
+      Z \circ \alpha \arrow[rd, "f"'] \arrow[r, "{\hat f \circ \alpha}", dashed] & (\alpha_* Y) \circ \alpha \arrow[d, "{\epsilon_Y}"]\\
+      & Y
+    \end{tikzcd}
+  \end{center}
+  Now, suppose that we have some $ Z : \R^A $ and some $ f: \R^B(Z \circ \alpha, Y) $. We define
+  \[ \hat f = \lambda x_1 x_2 x_3, f(g^{-1}(x_1, x_3)) (Z x_1 x_2): \R^A(Z, \alpha_* Y) \]
+  and we have $ ((\hat f) \circ \alpha) \cdot \epsilon_Y = f $.
+  % \begin{align*}
+  %   (((\alpha \cdot -) \hat f) \cdot \epsilon_Y) b z
+  %   &= \epsilon_Y b ((\hat f (\alpha b)) z)\\
+  %   &= \epsilon_Y b (\lambda x_3, f (g^{-1} ((\alpha b), x_3)) (Z (\alpha b) z))\\
+  %   &= Y b ((\lambda x_3, f (g^{-1} ((\alpha b), x_3)) (Z (\alpha b) z)) (\pi_2 (g b)))\\
+  %   &= Y b (f (g^{-1} ((\alpha b), \pi_2 (g b))) (Z (\alpha b) z))\\
+  %   &= Y b (f (g^{-1} (g b)) (Z (\alpha b) z))\\
+  %   &= f b z.
+  % \end{align*}
+  Now, suppose that we have some (other) $ \hat f^\prime : \R^A(Z, \alpha_*(Y)) $ such that $ (\hat f^\prime \circ \alpha) \cdot \epsilon_Y = f $. Then substituting $ (\hat f^\prime \circ \alpha) \cdot \epsilon_Y $ for $ f $ in $ \hat f $ yields
+  \[ \hat f = \lambda x_1, (\alpha_* Y x_1) \circ (\hat f^\prime x_1) = \hat f^\prime, \]
+  so $ \hat f $ is unique and $ (\alpha_* Y, \epsilon_Y) $ is a universal arrow, which concludes the proof that $ (\alpha \cdot -) \dashv \alpha_* $.
+  % \begin{align*}
+  %   \hat f
+  %   &= \lambda x_1 x_2 x_3, f (g^{-1} (x_1, x_3))(Z x_1 x_2)\\
+  %   &= \lambda x_1 x_2 x_3, ((\epsilon_Y (g^{-1} (x_1, x_3))) \circ ((\hat f^\prime \circ \alpha) (g^{-1} (x_1, x_3)))) (Z x_1 x_2)\\
+  %   &= \lambda x_1 x_2 x_3, (\epsilon_Y (g^{-1} (x_1, x_3))) (\hat f^\prime (\alpha (g^{-1} (x_1, x_3))) (Z x_1 x_2))\\
+  %   &= \lambda x_1 x_2 x_3, (\epsilon_Y (g^{-1} (x_1, x_3))) (\hat f^\prime x_1 x_2)\\
+  %   &= \lambda x_1 x_2 x_3, Y (g^{-1} (x_1, x_3)) (\hat f^\prime x_1 x_2 (\pi_2 (g (g^{-1} (x_1, x_3)))))\\
+  %   &= \lambda x_1 x_2 x_3, Y (g^{-1} (x_1, x_3)) (\hat f^\prime x_1 x_2 (X x_1 x_3))\\
+  %   &= \lambda x_1 x_2, \alpha_* Y x_1 (\hat f^\prime x_1 (Z x_1 x_2))\\
+  %   &= \hat f^\prime
+  % \end{align*}
 \end{proof}
+
+\begin{remark}
+  Recall that in the definition of $ \alpha_* $, we composed commuting idempotents
+  \[ \lambda x_1 x_2, x_1 (X a x_2) \quad \text{and} \quad \lambda x_1 x_2, Y (a, x_2) (x_1 x_2). \]
+  In his PhD thesis, Taylor instead composes the idempotents
+  \[ \lambda x_1, x_1 (X a x_2) \quad \text{and} \quad \lambda x_1 x_2, Y x_2 (x_1 x_2). \]
+  Note that in the first term, $ x_2 $ plays the role of an element of $ X a $, whereas in the second term, it plays the role of an element of $ B $. Of course, if we worked in $ \SET $, we would indeed have $ X a \subseteq \bigsqcup_{a : A} X_a \cong B $. However, in $ \R $, the `terms' of $ B \cong \sum_A X $ look like pairs $ (a, x) $ with $ a : A $ and $ x : X a $, so we cannot consider terms of $ X a $ to be terms of $ B $.
+
+  Therefore, the idempotents that he uses do not commute, and the resulting term
+  \[ \lambda x_1 x_2, Y (B x_2) (x_1 (X a x_2)) \]
+  (notice the redundant usage of $ B $) is not idempotent.
+\end{remark}
