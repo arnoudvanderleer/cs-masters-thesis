@@ -12,26 +12,53 @@
   Lemma \ref{lem:presheaf-Yoneda} gives a sequence of bijections $ \varphi_n : \Pshf L(L^n, L) \cong L_n $ for all $ n $, sending $ F: \Pshf L(L^n, L) $ to $ F(x_1, \dots, x_n) $, and conversely sending $ s: L_n $ to $ ((t_1, \dots, t_n) \mapsto s \bullet (t_1, \dots, t_n)) $. It considers $ \lambda $-terms in $ n $ variables as $ n $-ary functions on the $ \lambda $-calculus. Therefore, it should come as no surprise that $ \varphi $ preserves the $ x_i $, $ \bullet $, $ \rho $ and $ \lambda $, which makes it into an isomorphism of $ \lambda $-theories and this concludes the proof.
 \end{proof}
 
+\section{Relations between the categories}
 
-\section{Locally cartesian closedness of the category of retracts}
-\begin{definition}[Category of retracts]
-  The category of retracts for a $ \lambda $-theory $ L $ is the category with objects $ f: L_n $ such that $ f \bullet f = f $ and it has as morphisms $ g: f \to f^\prime $ the terms $ g: L_n $ such that $ f^\prime \bullet g \bullet f = g $. The object $ f: L_n $ has identity element $ f $, and we have composition $ g \circ g^\prime = g \bullet g^\prime $. These are morphisms \TODO
-\end{definition}
+As mentioned before, we have a fully faithful embedding of $ \R $ into $ \Pshf L $.
+
+Also, we have a functor from the Lawvere Theory $ \mathbf{L} $ (see Lemma \ref{lem:lawvere-clone}) associated to $ L $ into $ \R $, sending $ n : \mathbf L $ to $ U^n : \R $. By Scott's representation theorem, this functor can map morphisms as follows:
+\[ \mathbf L(m, n) = L_m^n \cong \R(U^m, U)^n \cong \R(U^m, U^n), \]
+which immediately shows that this functor is a fully faithful embedding.
+
+Note that if we consider $ L_1 $ as a monoid, with operation $ \bullet $ and unit $ x_1 $, and if we consider this monoid as a category, we can embed this (fully faithfully) into $ \mathbf L $. This gives the following sequence of embeddings:
+\begin{center}
+  \begin{tikzcd}
+    L_1 \arrow[r, hookrightarrow] & \mathbf L \arrow[r, hookrightarrow] & \R \arrow[r, hookrightarrow] & \Pshf L
+  \end{tikzcd}
+\end{center}
+Note that the composition of the first two morphisms sends the object of the category $ L_1 $ to $ (\lambda x_1, x_1) : \R $, which is exactly the usual embedding of $ L_1 $ into its Karoubi envelope.
+
+Write $ i: \op{L_1} \hookrightarrow \op{\mathbf L} $ and $ j: \op{\mathbf L} \hookrightarrow \op \R $ for the embeddings on the opposite categories. By Corollary \ref{cor:surjective-precomposition}, the first three categories in this sequence yield the following sequence of essentially surjective functors on the presheaf categories:
+\begin{center}
+  \begin{tikzcd}
+    & \Pshf L \arrow[d, "\sim"]\\
+    P \R \arrow[r, twoheadrightarrow, "j_*"] \arrow[rr, bend right, "\sim"] & P \mathbf L \arrow[r, twoheadrightarrow, "i_*"] & P L_1
+  \end{tikzcd}
+\end{center}
+The two equivalences in this diagram are due to Lemma \ref{lem:lawvere-presheaf} and Corollary \ref{cor:karoubi-presheaf}.
 
 \begin{lemma}
-  The category of retracts is indeed a category.
+  The precomposition functors $ i_* $ and $ j_* $ are adjoint equivalences.
 \end{lemma}
 \begin{proof}
-  \TODO
+  We will show that $ j_* $ is an adjoint equivalence. From the `two out of three' property, it follows then that $ i_* $ is also an adjoint equivalence.
+
+  Lemma \ref{lem:lan-precomp-iso} shows that $ \eta: \id{P \mathbf L} \Rightarrow \Lan j {} \bullet j_* $ is a natural isomorphism. To complete the proof that $ j_* $ is an adjoint equivalence, we just have to show that $ \epsilon: j_* \bullet \Lan j {} \Rightarrow \id{P \mathbf L} $ is a natural isomorphism as well.
+
+  To this end, take $ F : P \R $. By Lemma \ref{lem:lan-precomp-iso}, we have the isomorphism
+  \[ \eta^{-1}_{j_* F}: j_* (\Lan j (j_* F)) \cong j_* F. \]
+  Since functors preserve isomorphisms, we have $ i_* (j_* (\Lan j (j_* F))) \cong i_* (j_* F) $. However, since $ j_* \bullet i_* $ is an equivalence and in particular fully faithful, this corresponds to an isomorphism
+  \[ \Lan j (j_* F) \cong F. \]
+  Now we only need to prove that its morphism is equal to $ \epsilon_F $. Equivalently, we need to prove that $ i_* (j_* \epsilon) $ is equal to the morphism $ i_* \eta_{j_* F}^{-1} $, or that $ j_* \epsilon $ equals $ \eta^{-1}_{j_* F} $.
+
+  Take $ n : \mathbf L $. We need to show that $ \epsilon_F (j(n)) = \eta_{j_* F}^{-1}(n) $ as functions from $ (\Lan j {} (j_* F)) (j(n)) $ to $ F(j(n)) $. Note that the diagram for $ (\Lan j {} (j_* F)) (j(n)) $ consists of $ F(j(m)) $ for all $ f: \R(j(m), j(n)) $. Now, as it turns out, both $ \epsilon_F (j(n)) $ and $ \eta_{j_* F}^{-1}(n) $ are defined as the colimit arrow of $ F(f) : \SET(F(j(m)), F(j(n))) $ for all $ f: \R(j(m), j(n)) $, which concludes the proof.
 \end{proof}
+
+\section{Locally cartesian closedness of the category of retracts}
 
 \begin{theorem}
   The category of retracts is locally cartesian closed \TODO.
 \end{theorem}
-
-
-\section{Equivalences}
-
 
 \section{Terms of a \texorpdfstring{$ \Lambda $}{Lambda}-algebra}
 Let $ A $ be an algebra for the initial $ \lambda $-theory $ \Lambda $. We will assume that $ \Lambda $ (and therefore, any $ \lambda $-theory) satisfies $ \beta $-equality.

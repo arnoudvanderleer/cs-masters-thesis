@@ -59,6 +59,19 @@ Also, note that by replacing the $ x_i $ by $ x_{n + i} $ and the $ \iota_{0, 1}
   with $ \id A = A $ and composition given by $ \circ $.
 \end{definition}
 
+\begin{remark}
+  Hyland instead defines $ \R $ as
+  \[ \R_0 = \{ A : L_1 \mid A \bullet A = A \} \quad \text{and} \R(A, B) = \{ f : L_1 \mid B \bullet f \bullet A = f \}, \]
+  writing $ s \bullet t $ instead of $ s \bullet (t) $ for $ s, t : L_1 $. Note that the following diagram commutes:
+  \begin{center}
+    \begin{tikzcd}
+      L_1 \times L_1 \arrow[r, "\bullet"] \arrow[d, "{(s, t) \mapsto ((\lambda x_1, s), (\lambda x_1, t))}"'] & L_1 \arrow[d, "{s \mapsto (\lambda x_1, s)}"]\\
+      L_0 \times L_0 \arrow[r, "\circ"] & L_0
+    \end{tikzcd}
+  \end{center}
+  Now, since for $ A : \R $, $ A = \lambda x_1, \iota_{0, 1}(A) (\iota_{0, 1}(A) x_1) $, we have $ \lambda x_1, \iota_{0, 1}(A) x_1 = A $. This shows that $ s \mapsto \lambda x_1, s $ and $ t \mapsto \iota_{0, 1}(t) x_1 $ (both on objects and morphisms) constitute an equivalence between Hyland's category of retracts and Scott's category of retracts.
+\end{remark}
+
 Now, to give a bit more intuition for the objects of $ \R $, we can pretend that an object $ A : \R $ consists of the set of elements that satisfy $ A a = a $. Then a morphism $ f : \R(A, B) $ gives $ B (f a) = (B \circ f) a = f a $. This actually constitutes a functor from $ R $ to $ \Pshf L $:
 
 \begin{definition}\label{def:retracts-embedding}
@@ -461,7 +474,7 @@ This brings us to the main theorem of this section (\cite{taylor}, 5.1.8).
   % \end{align*}
   Now, suppose that we have some (other) $ \hat f^\prime : \R^A(Z, \alpha_*(Y)) $ such that $ (\hat f^\prime \circ \alpha) \cdot \epsilon_Y = f $. Then substituting $ (\hat f^\prime \circ \alpha) \cdot \epsilon_Y $ for $ f $ in $ \hat f $ yields
   \[ \hat f = \lambda x_1, (\alpha_* Y x_1) \circ (\hat f^\prime x_1) = \hat f^\prime, \]
-  so $ \hat f $ is unique and $ (\alpha_* Y, \epsilon_Y) $ is a universal arrow, which concludes the proof that $ (\alpha \cdot -) \dashv \alpha_* $.
+  so $ \hat f $ is unique and $ (\alpha_* Y, \epsilon_Y) $ is a universal arrow, which concludes the proof that $ (\alpha \cdot -) \dashv \alpha_* $ and we see that $ \R $ is cartesian closed relative to the given class of display maps.
   % \begin{align*}
   %   \hat f
   %   &= \lambda x_1 x_2 x_3, f (g^{-1} (x_1, x_3))(Z x_1 x_2)\\

@@ -33,7 +33,7 @@ This definition is more general than the definition of algebraic theory in Secti
   A \iindex{Lawvere theory}, or \textit{one-sorted algebraic theory} is a category $ L $, with $ L_0 = \{ 0, 1, \dots \} $, such that $ n = 1^n $, the $ n $-fold product.
 \end{definition}
 
-\begin{lemma}
+\begin{lemma}\label{lem:lawvere-clone}
   There is an equivalence between abstract clones and Lawvere theories.
 \end{lemma}
 \begin{proof}
@@ -56,6 +56,19 @@ This definition is more general than the definition of algebraic theory in Secti
   for $ f: L(m, n) = L(m, 1)^n $ and $ a: A^m $.
 
   Conversely, let $ F: L \to \SET $ be a functor. We take the $ C $-algebra $ A $, with $ A = F(1) $ and for $ f: C_n = L(n, 1) $ and $ a: A^n $, $ f \bullet a = F(f)(a) $.
+\end{proof}
+
+\subsection{Presheaves for Lawvere Theories}
+
+\begin{lemma}\label{lem:lawvere-presheaf}
+  Let $ C $ be an abstract clone, and $ L $ be its associated Lawvere theory by the equivalence given above. A $ C $-presheaf is equivalent to a presheaf over $ L $.
+\end{lemma}
+\begin{proof}
+  The correspondence between $ C $-presheaves $ P $ and presheaves $ Q $ over $ L $ is as follows:
+
+  The sets $ P_n $ correspond to the action of $ Q $ on objects $ Q(n) $.
+
+  The $ P $-action $ P_m \times C_n^m \to P_n $ corresponds to the action of $ Q $ on morphisms $ L(n, m) \times Q(m) \to Q(n) $.
 \end{proof}
 
 \section{Cartesian Operad}

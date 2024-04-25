@@ -283,7 +283,7 @@ If a category has limits (resp. colimits), we can construct the right (resp. lef
   \[ \epsilon_G(b) : C(\Lan F (F_* G)(b), G(b)). \]
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}\label{lem:lan-precomp-iso}
   If $ F : A \to B $ is a fully faithful functor, and $ C $ is a category with colimits, $ \eta: \id{[A, C]} \Rightarrow \Lan F {} \bullet F_* $ is a natural isomorphism.
 \end{lemma}
 \begin{proof}
@@ -298,7 +298,7 @@ If a category has limits (resp. colimits), we can construct the right (resp. lef
   In the same way, if $ C $ has limits, $ \epsilon $ is a natural isomorphism.
 \end{remark}
 
-\begin{corollary}
+\begin{corollary}\label{cor:surjective-precomposition}
   If $ C $ has limits or colimits, precomposition of functors $ [B, C] $ along a fully faithful functor is (split) essentially surjective.
 \end{corollary}
 \begin{proof}
@@ -420,7 +420,7 @@ For convenience, the lemma below works with pointwise left Kan extension using c
   Lastly, $ \overline {\op C} $ inherits morphism composition from $ \op C $, which is the opposite of composition in $ C $. On the other hand, composition in $ \op{\overline C} $ is the opposite of composition in $ \overline C $, which inherits composition from $ C $.
 \end{proof}
 
-\begin{corollary}
+\begin{corollary}\label{cor:karoubi-presheaf}
   As the category $ \SET $ is cocomplete, we have an equivalence between the category of presheaves on $ C $ and the category of presheaves on $ \overline C $:
   \[ [\op C, \SET] \cong [\overline{\op C}, \SET] \cong [\op{\overline C}, \SET]. \]
 \end{corollary}
