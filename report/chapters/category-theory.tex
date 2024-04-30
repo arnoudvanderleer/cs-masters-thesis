@@ -11,6 +11,47 @@ For composition of morphisms $ f: C(c, d) $ and $ g: C(d, e) $, I will write $ f
 
 For composition of functors $ F: A \to B $ and $ G: B \to C $, I will write $ F \bullet G $.
 
+\section{Yoneda}
+We can embed a category $ C $ into the functor category $ P C = [\op C, \SET] $ as follows (see \cite{Kashiwara}, Section 1.4):
+\begin{definition}
+  The \iindex{Yoneda embedding} $ Y : C \hookrightarrow P C $ is given on objects by $ Y(c) = C(-, c) $:
+  \[ Y(c)(d) = C(d, c) \quad \text{and} \quad Y(c)(f)(g) = f \cdot g \]
+  for $ d: C $, $ f: C(d, d^\prime) $ and $ g: C(d^\prime, c) $. It sends a morphism $ f: C(c, c^\prime) $ to the natural transformation $ Y(f): C(-, c) \Rightarrow C(-, c^\prime) $ given by
+  \[ Y(f)(d)(g) = g \cdot f \]
+  for $ d: C $ and $ g: C(d, c) $.
+\end{definition}
+
+For a functor between categories $ f: C \to D $, given the Yoneda embeddings $ Y_C : C \to P C $ and $ Y_D : D \to P D $ (we will often omit the subscript $ C $ and $ D $), we can create a diagram
+\begin{center}
+  \begin{tikzcd}
+    C \arrow[r, "f"] \arrow[d, hookrightarrow, "Y"] & D \arrow[d, hookrightarrow, "Y"]\\
+    P C & P D \arrow[l, "\op f_*"]
+  \end{tikzcd}
+\end{center}
+Note that the arrows in this diagram are functors, so objects in a category, instead of elements of a set. Therefore, it does not make sense to talk about `equality' of the morphisms along the different paths, but we rather talk about isomorphism in the functor category $ [C, P C] $. If we have such an isomorphism, we say the diagram `2-commutes':
+\begin{lemma}\label{lem:Yoneda-restriction-commutes}
+  If $ f: C \to D $ is a fully faithful functor, the diagram above 2-commutes.
+\end{lemma}
+\begin{proof}
+  For $ c, d : C $, since $ f $ is fully faithful, we have isomorphisms of sets, given by
+  \[ Y(c)(d) = C(d, c) \xrightarrow[f_{d, c}]{\sim} D(f(d), f(c)) = \op f_*(Y(f(c)))(d). \]
+  Also, for $ g: C(d^\prime, d) $, the following diagram commutes
+  \begin{center}
+    \begin{tikzcd}
+      Y(c)(d) \arrow[d, "g \cdot -"] \arrow[r, "f_{d, c}"] & \op f_*(Y(f(c)))(d) \arrow[d, "f_{d^\prime, d}(g) \cdot -"]\\
+      Y(c)(d^\prime) \arrow[r, "f_{d^\prime, c}"] & \op f_*(Y(f(c)))(d^\prime)
+    \end{tikzcd}
+  \end{center}
+  so the isomorphism is natural in $ d $ and we have $ Y(c) \cong \op f_*(Y(f(c))) $ in $ P C $. Lastly, for $ g: C(c, c^\prime) $ and $ d: C $, the following diagram commutes
+  \begin{center}
+    \begin{tikzcd}
+      Y(c)(d) \arrow[d, "- \cdot g"] \arrow[r, "f_{d, c}"] & \op f_*(Y(f(c)))(d) \arrow[d, "- \cdot f_{c, c^\prime}(g)"]\\
+      Y(c^\prime)(d) \arrow[r, "f_{d, c^\prime}"] & \op f_*(Y(f(c^\prime)))(d)
+    \end{tikzcd}
+  \end{center}
+  so the isomorphism is natural in $ c $ and we have $ Y \cong f \bullet Y \bullet \op f_* $ in $ [C, P C] $.
+\end{proof}
+
 \section{Universal Arrows}
 
 One concept in category theory that can be used to describe a lot of limits and adjunctions is that of a universal arrow (see for example \cite{MacLane}, Part III)
@@ -32,7 +73,7 @@ There is also the dual concept of a universal arrow $ (d, f) $ from a functor $ 
   \end{tikzcd}
 \end{center}
 
-\section{Adjunctions}
+\section{Adjunctions and equivalences}
 
 Recall that an \iindex{adjunction} $ L \dashv R $ is a pair of functors
 \begin{center}
@@ -74,6 +115,12 @@ An (adjoint) equivalence of categories has multiple definitions. The one we will
 
 \begin{definition}\label{def:equivalence-of-categories}
   An \iindex{adjoint equivalence} between categories $ C $ and $ D $ is a pair of adjoint functors $ L \dashv R $ like above such that the unit $ \eta: \id{C} \Rightarrow L \bullet R $ and counit $ \epsilon: R \bullet L \Rightarrow \id{D} $ are isomorphisms of functors.
+\end{definition}
+
+\subsection{Weak equivalences}
+There is also the notion of `weak equivalence'. In some cases, this is equivalent to an adjoint equivalence (for example, when its domain is univalent).
+\begin{definition}
+  A functor $ F: C \to D $ is called a \iindex{weak equivalence} if it is essentially surjective and fully faithful.
 \end{definition}
 
 \subsection{Exponential objects}
@@ -336,7 +383,7 @@ This category is called the \iindex{Karoubi envelope}, the \textit{idempotent co
   We have an embedding $ \iota_C: C \to \overline C $, sending $ c: C $ to $ (c, \id{c}) $ and $ f: C(c, d) $ to $ f $.
 \end{definition}
 
-\begin{lemma}
+\begin{lemma}\label{lem:karoubi-is-retract}
   Every object $ c: \overline C $ is a retract of $ \iota_C(c_0) $ for some $ c_0: C $.
 \end{lemma}
 \begin{proof}
@@ -363,7 +410,7 @@ This category is called the \iindex{Karoubi envelope}, the \textit{idempotent co
   \[ \overline C((c, \id c), (d, \id d)) = \{ f: C(c, d) \mid \id c \cdot f \cdot \id d = f \} = C(c, d). \]
 \end{remark}
 
-\begin{remark}
+\begin{remark}\label{rem:retract-coequalizer}
   Let $ D $ be a category. Suppose that we have a retraction-section pair in $ D $, given by
   \begin{tikzcd}
     d \arrow[r, shift left, "r"] & d^\prime \arrow[l, shift left, "s"]
@@ -424,6 +471,46 @@ For convenience, the lemma below works with pointwise left Kan extension using c
   As the category $ \SET $ is cocomplete, we have an equivalence between the category of presheaves on $ C $ and the category of presheaves on $ \overline C $:
   \[ [\op C, \SET] \cong [\overline{\op C}, \SET] \cong [\op{\overline C}, \SET]. \]
 \end{corollary}
+
+Now, there is also another (classically equivalent) definition of the category of retracts:
+\begin{definition}
+  Let $ Y: C \to P C $ be the Yoneda embedding of $ C $ into its category of presheaves. We define the category $ \hat \R $ as the full subcategory of $ P C $ consisting of objects $ F : P C $ such that there exists an object $ c: C $ and a retraction of $ Y(c) $ onto $ F $. Note that the existence of $ c $ and the retraction is \textit{mere existence} (see the chapter on Univalent Foundations) because we need this to be a subcategory of $ P C $.
+\end{definition}
+
+\begin{lemma}
+  $ \hat \R $ is the Rezk completion of $ \R $.
+\end{lemma}
+\begin{proof}
+  First of all, note that $ \hat \R $ is univalent, since it is a presheaf category (see Theorem 4.5 in \cite{univalent-categories}). So we must show that we have a weak equivalence from $ \R $ to $ \hat \R $.
+
+  Secondly, by Corollary \ref{cor:karoubi-presheaf} we have an adjoint equivalence $ {\op{\iota_C}}_*: P \R \xrightarrow \sim P C $ and by Lemma \ref{lem:Yoneda-restriction-commutes}, the following diagram 2-commutes:
+  \begin{center}
+    \begin{tikzcd}
+      C \arrow[r, "\iota_C"] \arrow[d, "Y"] & \R \arrow[d, "Y"]\\
+      P C & P \R \arrow[l, "\sim"', "{\op{\iota_C}}_*"]
+    \end{tikzcd}
+  \end{center}
+
+  By Lemma \ref{lem:karoubi-is-retract}, every object of $ \R $ is a retract of some object in $ c $. Therefore, every object in the image of $ \R $ inside $ P C $ is a retract of some object in the image of $ C $, so we can turn $ Y \bullet {\op{\iota_C}}_* : \R \to P C $ into a fully faithful embedding into $ \hat \R $.
+
+  Now, to show that it is essentially surjective, take an object $ F : \hat \R $. That is, take a retract \begin{tikzcd} F \arrow[r, shift left, "s"] & Y(c) \arrow[l, shift left, "r"] \end{tikzcd}. Note that $ r \cdot s $ is an idempotent on $ Y(c) $. Since $ Y $ is a fully faithful embedding, it gives an equivalence on the hom-sets, so we have an element $ e : C(c, c) $ that maps to $ r \cdot s : P C (Y(c), Y(c)) $. We will show that $ (c, e) $ is our preimage in $ \R $ of $ F $.
+
+  Also, $ (c, e) $ is a retract of $ \iota_C(c) $ with section and retraction $ e $. Therefore, $ \op{\iota_C} \bullet Y(c, e) $ is a retract of $ \op{\iota_C} \bullet Y (\iota_C (c)) $ with section and retraction $ \op{\iota_C} \bullet Y(e) $. Composing these gives an idempotent
+  \[ \op{\iota_C} \bullet Y(e): d \mapsto f \mapsto f \cdot e \]
+  on $ \op{\iota_C} \bullet Y (\iota_C (c)) $. Transporting this along the isomorphism with $ Y(c) $, we get an idempotent
+  \[ d \mapsto f \mapsto \iota_C^{-1}(\iota_C(f) \cdot e) \]
+  on $ Y(c) $. Note that we can view $ e $ both as an idempotent on $ c $ and on $ \iota_C(e) $, and that $ \iota_C(e) = e $, so $ \iota_C^{-1}(\iota_C(f) \cdot e) = f \cdot e $.
+
+  Therefore, the idempotent on $ Y(c) $ is exactly $ Y(e) = r \cdot s $. By Remark \ref{rem:retract-coequalizer}, $ \op{\iota_C} \bullet Y(c, e) $ is the equalizer of $ \id{Y(c)} $ and $ r \cdot s $. Note that by the same remark, $ F $ is the equalizer of $ \id{Y(c)} $ and $ r \cdot s $ as well. Since the equalizer is unique up to unique isomorphism, we have an isomorphism $ F \cong \op{\iota_C} \bullet Y(c, e) $ and we see that $ Y \bullet {\op{\iota_C}}_* $ is essentially surjective.
+\end{proof}
+
+\begin{remark}
+  As shown above, $ \R $ and $ \hat \R $ have a very strong relation. In classical mathematics, they are even equivalent. However, since $ \R $ is not univalent, we do not have a full equivalence in univalent foundations and our choice of definition will have consequences. One one hand, $ \hat \R $ is univalent. On the other hand, the objects of $ \R $ are uniquely associated with one idempotent morphism in $ C $.
+
+  In this thesis, I will choose to interpret the `category of retracts' to mean $ \R $. This is because Dana Scott and Paul Taylor perform most of their constructions explicitly using the (idempotent) morphisms of $ C $, which is closest to working in $ \R $.
+
+  It is however very well possible that most of the proofs can be made to work in $ \hat \R $ as well. For future research, it would be interesting to see what the differences are between working in $ \R $ and $ \hat \R $ for these proofs.
+\end{remark}
 
 \section{Monoids as categories}\label{sec:monoid-category}
 Take a monoid $ M $.

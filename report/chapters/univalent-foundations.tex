@@ -64,6 +64,18 @@ using path induction with the identity isomorphism $ \prod_{c: C} \id c: (c \con
 \end{quote}
 A category that adheres to the univalence principle is called a \iindex{univalent category}.
 
+Note that if $ B $ is a univalent category and $ A $ is any cateory, the functor category $ [A, B] = B^A $ is univalent as well. In particular, the presheaf category $ P A = [\op A, \SET] $ is univalent.
+
+\begin{lemma}
+  For every category $ C $, there exists a univalent category $ \hat C $ with a weak equivalence
+  \[ \iota: C \hookrightarrow \hat C. \]
+\end{lemma}
+\begin{proof}
+  See \cite{univalent-categories}, Theorem 8.5.
+\end{proof}
+We call this univalent category the \iindex{Rezk completion}.
+\TODO: Uniqueness?
+
 \section{The univalence axiom}
 Now, even for a basic category, like the category of types, it seems impossible to prove that the univalence principle holds. However, this is no surprise: it turns out that it is independent of the axioms of Martin-Löf type theory (\TODO \textbf{Is this true? I need a reference for this, but could not find one}). That is: it cannot be proven, but assuming it as an axiom does not yield contradictions.
 
@@ -90,7 +102,7 @@ The last structure in this section for which we want to consider the univalence 
 
 Lastly, a result about univalent categories that we will use a couple of times in this thesis:
 \begin{lemma}
-  For a functor between univalent categories $ F: A \to B $, the types `$ F $ is an adjoint equivalence' and `$ F $ is fully faithful and essentially surjective' are equivalent propositions (see \ref{sec:homotopy-props-sets}).
+  For a functor between univalent categories $ F: A \to B $, the types `$ F $ is an adjoint equivalence' and `$ F $ is a weak equivalence' are equivalent propositions (see \ref{sec:homotopy-props-sets}).
 \end{lemma}
 \begin{proof}
   See \cite{univalent-categories}, Lemma 6.8.

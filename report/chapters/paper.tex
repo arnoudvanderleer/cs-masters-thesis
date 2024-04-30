@@ -26,12 +26,13 @@ Note that if we consider $ L_1 $ as a monoid, with operation $ \bullet $ and uni
     L_1 \arrow[r, hookrightarrow] & \mathbf L \arrow[r, hookrightarrow] & \R \arrow[r, hookrightarrow] & \Pshf L
   \end{tikzcd}
 \end{center}
+
 Note that the composition of the first two morphisms sends the object of the category $ L_1 $ to $ (\lambda x_1, x_1) : \R $, which is exactly the usual embedding of $ L_1 $ into its Karoubi envelope.
 
-Write $ i: \op{L_1} \hookrightarrow \op{\mathbf L} $ and $ j: \op{\mathbf L} \hookrightarrow \op \R $ for the embeddings on the opposite categories. By Corollary \ref{cor:surjective-precomposition}, the first three categories in this sequence yield the following sequence of essentially surjective functors on the presheaf categories:
+Write $ i: \op{L_1} \hookrightarrow \op{\mathbf L} $ and $ j: \op{\mathbf L} \hookrightarrow \op \R $ for the embeddings on the opposite categories. By Corollary \ref{cor:surjective-precomposition}, the first two morphisms in this sequence yield the following sequence of essentially surjective functors on the presheaf categories:
 \begin{center}
   \begin{tikzcd}
-    & \Pshf L \arrow[d, "\sim"]\\
+    \mathbf R \arrow[r, hookrightarrow] \arrow[d, hookrightarrow, "Y"] & \Pshf L \arrow[d, "\sim"]\\
     P \R \arrow[r, twoheadrightarrow, "j_*"] \arrow[rr, bend right, "\sim"] & P \mathbf L \arrow[r, twoheadrightarrow, "i_*"] & P L_1
   \end{tikzcd}
 \end{center}
@@ -54,7 +55,25 @@ The two equivalences in this diagram are due to Lemma \ref{lem:lawvere-presheaf}
   Take $ n : \mathbf L $. We need to show that $ \epsilon_F (j(n)) = \eta_{j_* F}^{-1}(n) $ as functions from $ (\Lan j {} (j_* F)) (j(n)) $ to $ F(j(n)) $. Note that the diagram for $ (\Lan j {} (j_* F)) (j(n)) $ consists of $ F(j(m)) $ for all $ f: \R(j(m), j(n)) $. Now, as it turns out, both $ \epsilon_F (j(n)) $ and $ \eta_{j_* F}^{-1}(n) $ are defined as the colimit arrow of $ F(f) : \SET(F(j(m)), F(j(n))) $ for all $ f: \R(j(m), j(n)) $, which concludes the proof.
 \end{proof}
 
+\begin{lemma}
+  We have a natural isomorphism between the two functors from $ \R $ to $ P \mathbf L $ in the diagram above.
+\end{lemma}
+\begin{proof}
+  Note:
+  \[ (Y \bullet j_*)(A)(n) = (j \bullet (Y(A)))(n) = Y(A)(j(n)) = \R(U^n, A) \]
+  \[ (\iota \bullet \sim)(A)(n) = \{ a : L_n \mid A a = a \} \]
+
+  By Scott's representation theorem, we have $ \mathbb R(U^n, U) \cong L_n, $ via
+  \[ f \mapsto \iota_{0, n}(f) ((((c, x_1), x_2), \dots), x_n). \]
+  Restricting this equivalence to the morphisms to $ A $ yields
+  \[ \R(U^n, A) \cong \{ a : L_n \mid A a = a \}. \]
+  \TODO: Check coherence.
+\end{proof}
+
 \section{Locally cartesian closedness of the category of retracts}
+
+Recall that Paul Taylor constructed a class of display maps for $ \R $.
+
 
 \begin{theorem}
   The category of retracts is locally cartesian closed \TODO.
@@ -112,9 +131,9 @@ for $ a, b : A $, with $ x_1 \circ x_2 = \lambda x_3, x_1 (x_2 x_3) : \Lambda_2 
 
 \section{The Fundamental Theorem of the \texorpdfstring{$ \lambda $-}{lambda }calculus}
 
-The fundamental theorem states that there is an equivalence of categories
+The fundamental theorem states that there is an adjoint equivalence
 \[ \LamTh \cong \Alg \Lambda. \]
-We will prove this by showing that there is a fully faithful and essentially surjective functor.
+We will prove this by showing that there is a weak equivalence.
 
 
 \subsection{The functor}
