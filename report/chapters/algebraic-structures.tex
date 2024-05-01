@@ -379,6 +379,18 @@ The proofs that $ E(X) $ is an algebraic theory and a $ \lambda $-theory, use pr
   Let $ T $ be an algebraic theory and $ n $ a natural number. We can endow the $ T_n $ with a $ T $-algebra structure, by taking the substitution operator of $ T $ as the $ T $-action. Since this commutes with the substitution operator and the projections, $ T_n $ is a $ T $-algebra.
 \end{example}
 
+\subsection{The initial presheaf}
+\begin{example}
+  Let $ T $ be an algebraic theory. We can construct a $ T $-presheaf $ P $, with $ P_n = \emptyset $. Then $ \bullet : P_m \times T_n^m \to P_m $ is trivial, and the presheaf laws hold trivially.
+\end{example}
+
+\begin{lemma}
+  This is indeed the initial presheaf.
+\end{lemma}
+\begin{proof}
+  Let $ Q $ be a $ T $-presheaf. For all $ n $, since $ P_n $ is empty, there is only one possible function $ P_n \to Q_n $. These functions trivially satisfy the presheaf morphism laws, so they constitute the unique presheaf morphism $ P \to Q $.
+\end{proof}
+
 \subsection{The theory presheaf}
 \begin{example}
   Let $ T $ be an algebraic theory. We can endow $ T $ with a $ T $-presheaf structure, by taking the substitution operator of $ T $ as the action on $ T $. Since this commutes with the substitution operator and the projections, $ T $ is a $ T $-presheaf.

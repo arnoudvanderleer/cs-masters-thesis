@@ -473,27 +473,27 @@ For convenience, the lemma below works with pointwise left Kan extension using c
 \end{corollary}
 
 Now, there is also another (classically equivalent) definition of the category of retracts:
-\begin{definition}
-  Let $ Y: C \to P C $ be the Yoneda embedding of $ C $ into its category of presheaves. We define the category $ \hat \R $ as the full subcategory of $ P C $ consisting of objects $ F : P C $ such that there exists an object $ c: C $ and a retraction of $ Y(c) $ onto $ F $. Note that the existence of $ c $ and the retraction is \textit{mere existence} (see the chapter on Univalent Foundations) because we need this to be a subcategory of $ P C $.
+\begin{definition}\label{def:karoubi'}
+  Let $ Y: C \to P C $ be the Yoneda embedding of $ C $ into its category of presheaves. We define the category $ \hat C $ as the full subcategory of $ P C $ consisting of objects $ F : P C $ such that there exists an object $ c: C $ and a retraction of $ Y(c) $ onto $ F $. Note that the existence of $ c $ and the retraction is \textit{mere existence} (see the chapter on Univalent Foundations) because we need this to be a subcategory of $ P C $.
 \end{definition}
 
-\begin{lemma}
-  $ \hat \R $ is the Rezk completion of $ \R $.
+\begin{lemma}\label{lem:retracts-rezk}
+  $ \hat C $ is the Rezk completion of $ \overline C $.
 \end{lemma}
 \begin{proof}
-  First of all, note that $ \hat \R $ is univalent, since it is a presheaf category (see Theorem 4.5 in \cite{univalent-categories}). So we must show that we have a weak equivalence from $ \R $ to $ \hat \R $.
+  First of all, note that $ \hat C $ is univalent, since it is a presheaf category (see Theorem 4.5 in \cite{univalent-categories}). So we must show that we have a weak equivalence from $ \overline C $ to $ \hat C $.
 
-  Secondly, by Corollary \ref{cor:karoubi-presheaf} we have an adjoint equivalence $ {\op{\iota_C}}_*: P \R \xrightarrow \sim P C $ and by Lemma \ref{lem:Yoneda-restriction-commutes}, the following diagram 2-commutes:
+  Secondly, by Corollary \ref{cor:karoubi-presheaf} we have an adjoint equivalence $ {\op{\iota_C}}_*: P \overline C \xrightarrow \sim P C $ and by Lemma \ref{lem:Yoneda-restriction-commutes}, the following diagram 2-commutes:
   \begin{center}
     \begin{tikzcd}
-      C \arrow[r, "\iota_C"] \arrow[d, "Y"] & \R \arrow[d, "Y"]\\
-      P C & P \R \arrow[l, "\sim"', "{\op{\iota_C}}_*"]
+      C \arrow[r, "\iota_C"] \arrow[d, "Y"] & \overline C \arrow[d, "Y"]\\
+      P C & P \overline C \arrow[l, "\sim"', "{\op{\iota_C}}_*"]
     \end{tikzcd}
   \end{center}
 
-  By Lemma \ref{lem:karoubi-is-retract}, every object of $ \R $ is a retract of some object in $ c $. Therefore, every object in the image of $ \R $ inside $ P C $ is a retract of some object in the image of $ C $, so we can turn $ Y \bullet {\op{\iota_C}}_* : \R \to P C $ into a fully faithful embedding into $ \hat \R $.
+  By Lemma \ref{lem:karoubi-is-retract}, every object of $ \overline C $ is a retract of some object in $ c $. Therefore, every object in the image of $ \overline C $ inside $ P C $ is a retract of some object in the image of $ C $, so we can turn $ Y \bullet {\op{\iota_C}}_* : \overline C \to P C $ into a fully faithful embedding into $ \hat C $.
 
-  Now, to show that it is essentially surjective, take an object $ F : \hat \R $. That is, take a retract \begin{tikzcd} F \arrow[r, shift left, "s"] & Y(c) \arrow[l, shift left, "r"] \end{tikzcd}. Note that $ r \cdot s $ is an idempotent on $ Y(c) $. Since $ Y $ is a fully faithful embedding, it gives an equivalence on the hom-sets, so we have an element $ e : C(c, c) $ that maps to $ r \cdot s : P C (Y(c), Y(c)) $. We will show that $ (c, e) $ is our preimage in $ \R $ of $ F $.
+  Now, to show that it is essentially surjective, take an object $ F : \hat C $. That is, take a retract \begin{tikzcd} F \arrow[r, shift left, "s"] & Y(c) \arrow[l, shift left, "r"] \end{tikzcd}. Note that $ r \cdot s $ is an idempotent on $ Y(c) $. Since $ Y $ is a fully faithful embedding, it gives an equivalence on the hom-sets, so we have an element $ e : C(c, c) $ that maps to $ r \cdot s : P C (Y(c), Y(c)) $. We will show that $ (c, e) $ is our preimage in $ \overline C $ of $ F $.
 
   Also, $ (c, e) $ is a retract of $ \iota_C(c) $ with section and retraction $ e $. Therefore, $ \op{\iota_C} \bullet Y(c, e) $ is a retract of $ \op{\iota_C} \bullet Y (\iota_C (c)) $ with section and retraction $ \op{\iota_C} \bullet Y(e) $. Composing these gives an idempotent
   \[ \op{\iota_C} \bullet Y(e): d \mapsto f \mapsto f \cdot e \]
@@ -505,11 +505,11 @@ Now, there is also another (classically equivalent) definition of the category o
 \end{proof}
 
 \begin{remark}
-  As shown above, $ \R $ and $ \hat \R $ have a very strong relation. In classical mathematics, they are even equivalent. However, since $ \R $ is not univalent, we do not have a full equivalence in univalent foundations and our choice of definition will have consequences. One one hand, $ \hat \R $ is univalent. On the other hand, the objects of $ \R $ are uniquely associated with one idempotent morphism in $ C $.
+  As shown above, $ \overline C $ and $ \hat C $ have a very strong relation. In classical mathematics, they are even equivalent. However, since $ \overline C $ is not univalent, we do not have a full equivalence in univalent foundations and our choice of definition will have consequences. One one hand, $ \hat C $ is univalent. On the other hand, every object of $ \overline C $ is uniquely associated with one idempotent morphism in $ C $.
 
-  In this thesis, I will choose to interpret the `category of retracts' to mean $ \R $. This is because Dana Scott and Paul Taylor perform most of their constructions explicitly using the (idempotent) morphisms of $ C $, which is closest to working in $ \R $.
+  In this thesis, I will choose to interpret the `category of retracts' to mean $ \overline C $. This is because Dana Scott and Paul Taylor perform most of their constructions explicitly using the (idempotent) morphisms of $ C $, which is closest to working in $ \overline C $.
 
-  It is however very well possible that most of the proofs can be made to work in $ \hat \R $ as well. For future research, it would be interesting to see what the differences are between working in $ \R $ and $ \hat \R $ for these proofs.
+  It is however very well possible that most of the proofs can be made to work in $ \hat C $ as well. For future research, it would be interesting to see what the differences are between working in $ \overline C $ and $ \hat C $ for these proofs.
 \end{remark}
 
 \section{Monoids as categories}\label{sec:monoid-category}
