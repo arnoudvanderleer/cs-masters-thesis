@@ -178,6 +178,45 @@ Given an object in a category $ c: C $, the morphisms to and from $ c $ constitu
 The \textit{coslice category}\index{slice category!co-} $ c \downarrow C $ is similar, but with the morphisms \textit{from} $ c $ instead of \textit{to} $ c $:
 \[ (c \downarrow C)_0 = \sum_{c^\prime: C} C(c, c^\prime). \]
 
+% Now, if we have an object in a slice category, we can again look at the slice of the slice category over that object. However, this gives us nothing new:
+% \begin{lemma}
+%   Let $ (d, f) $ be an object in the slice category $ (C \downarrow c) $. The slice category $ ((C \downarrow c) \downarrow (d, f)) $ is equivalent to $ (C \downarrow d) $.
+% \end{lemma}
+% \begin{proof}
+%   An object of $ ((e, g), \alpha) : ((C \downarrow c) \downarrow (d, f)) $ is equivalent to an object $ (e, g) : (C \downarrow c) $, together with a morphism $ \alpha: (C \downarrow c)((e, g), (d, f)) $. That is, a morphism $ \alpha: C(e, d) $ such that the obvious triangle commutes (shown in the diagram below on the far left).
+
+%   Then a morphism between $ ((e, g), \alpha) $ and $ ((e^\prime, g^\prime), \alpha^\prime) $ is a morphism $ \beta $ between $ (e, g) $ and $ (e^\prime, g^\prime) $ that commutes with $ \alpha $ and $ \alpha^\prime $. Note that a morphism between $ (e, g) $ and $ (e^\prime, g^\prime) $ is a morphism between $ e $ and $ e^\prime $ that commutes with $ g $ and $ g^\prime $.
+%   \begin{center}
+%     \begin{tikzcd}
+%       e \arrow[rdd, "g"'] \arrow[rd, "\alpha"] \arrow[rr, "\beta"] && e^\prime \arrow[ldd, "g^\prime"] \arrow[ld, "\alpha^\prime"']\\
+%       & d \arrow[d, "f" description]\\
+%       & c
+%     \end{tikzcd}
+%     $ \Leftrightarrow $
+%     \begin{tikzcd}
+%       e \arrow[rd, "\alpha"] \arrow[rr, "\beta"] && e^\prime \arrow[ld, "\alpha^\prime"']\\
+%       & d
+%     \end{tikzcd}
+%   \end{center}
+
+%   Now, note that $ g $ and $ g^\prime $ are completely determined by $ g = \alpha \cdot f $ and $ g^\prime = \alpha^\prime \cdot f $. Also, if $ \beta $ commutes with $ \alpha $ and $ \alpha^\prime $, it automatically also commutes with $ g $ and $ g^\prime $. Therefore, as shown above, we have a correspondence between objects and morphisms
+%   \[ \beta: ((e, g), \alpha) \to ((e^\prime, g^\prime), \alpha^\prime) \Leftrightarrow \beta: (e, \alpha), (e^\prime, \alpha^\prime). \]
+% \end{proof}
+
+% Also, it turns out that we can derive some structure of the slice categories from the original category:
+% \begin{lemma}
+%   For $ (d, f), (d^\prime, f^\prime) : (C \downarrow c) $, their product in the slice category is given by their pullback / fibered product $ d \times_c d^\prime $, together with the induced morphism $ g: d \times_c d^\prime \dasharrow c $.
+% \end{lemma}
+% \begin{proof}
+%   Consider the diagram below. The fibered product gives `projections' $ h $ and $ h^\prime $. Also, if we have some $ (e, \alpha) : (C \downarrow c) $, together with morphisms $ \beta : (e, \alpha) \to (d, f) $ and $ \beta^\prime : (e, \alpha) \to (d^\prime, f^\prime) $. Then $ \beta $ and $ \beta^\prime $ commute with $ f $ and $ f^\prime $, so by the universal property of the fibred product, there exists a unique morphism $ \gamma : e \to d \times_c d^\prime $ that makes the triangles with $ \beta $ and $ h $, and with $ \beta^\prime $ and $ h^\prime $ commute. Then $ \gamma $ commutes with $ \alpha $ and $ g $ as well, so it is a morphism in $ (C \downarrow c) $. This shows that $ (d \times_c d^\prime, g) $ has the universal property of the product in $ (C \downarrow c) $.
+%   \begin{center}
+%     \begin{tikzcd}
+%       e \arrow[rd, "\beta"] \arrow[rr, "\beta^\prime", bend left] \arrow[rrd, "\alpha"', bend right=49, shift right] \arrow[r, dashed, "\gamma"] & d \times_c d^\prime \arrow[r, "h^\prime"'] \arrow[d, "h"] \arrow[rd, dashed, "g"] & d^\prime \arrow[d, "f^\prime"] \\
+%       & d \arrow[r, "f"] & c
+%     \end{tikzcd}
+%   \end{center}
+% \end{proof}
+
 \section{Dependent products and sums}\label{sec:dependent-products}
 The following is based loosely on Section 4.1 of \cite{taylor}.
 
@@ -237,7 +276,7 @@ This, again, suggests an adjunction which we will use as a definition.
 \end{definition}
 
 However, note that the conversion from an external to an internal representation in $ \SET $ already contained a dependent sum, which is no coincidence. It turns out that in practice, we will never have a hard time obtaining dependent sums:
-\begin{lemma}
+\begin{lemma}\label{lem:sum-postcomposition}
   Let $ \alpha : C(B, A) $ be a morphism in a category. If the pullback functor $ \alpha^*: (C \downarrow A) \to (C \downarrow B) $ exists, it has a left adjoint given by postcomposition with $ \alpha $.
 \end{lemma}
 \begin{proof}
@@ -472,7 +511,7 @@ For convenience, the lemma below works with pointwise left Kan extension using c
   \[ [\op C, \SET] \cong [\overline{\op C}, \SET] \cong [\op{\overline C}, \SET]. \]
 \end{corollary}
 
-Now, there is also another (classically equivalent) definition of the category of retracts:
+Now, there is also another (classically equivalent) definition of the Karoubi envelope:
 \begin{definition}\label{def:karoubi'}
   Let $ Y: C \to P C $ be the Yoneda embedding of $ C $ into its category of presheaves. We define the category $ \hat C $ as the full subcategory of $ P C $ consisting of objects $ F : P C $ such that there exists an object $ c: C $ and a retraction of $ Y(c) $ onto $ F $. Note that the existence of $ c $ and the retraction is \textit{mere existence} (see the chapter on Univalent Foundations) because we need this to be a subcategory of $ P C $.
 \end{definition}
@@ -507,7 +546,7 @@ Now, there is also another (classically equivalent) definition of the category o
 \begin{remark}
   As shown above, $ \overline C $ and $ \hat C $ have a very strong relation. In classical mathematics, they are even equivalent. However, since $ \overline C $ is not univalent, we do not have a full equivalence in univalent foundations and our choice of definition will have consequences. One one hand, $ \hat C $ is univalent. On the other hand, every object of $ \overline C $ is uniquely associated with one idempotent morphism in $ C $.
 
-  In this thesis, I will choose to interpret the `category of retracts' to mean $ \overline C $. This is because Dana Scott and Paul Taylor perform most of their constructions explicitly using the (idempotent) morphisms of $ C $, which is closest to working in $ \overline C $.
+  In this thesis, I will choose to interpret the `category of retracts' or `Karoubi envelope' to mean $ \overline C $. This is because Dana Scott and Paul Taylor perform most of their constructions explicitly using the (idempotent) morphisms of $ C $, which is closest to working in $ \overline C $.
 
   It is however very well possible that most of the proofs can be made to work in $ \hat C $ as well. For future research, it would be interesting to see what the differences are between working in $ \overline C $ and $ \hat C $ for these proofs.
 \end{remark}
