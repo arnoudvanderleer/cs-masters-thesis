@@ -176,9 +176,9 @@ In fact, $ \Delta_X : C \to C / X $ is a functor, with $ \Delta_X(f) = \id X \ti
 \end{proof}
 
 Now, Hyland shows the following:
-\begin{lemma}
+\begin{theorem}\label{thm:restrict-sum-product}
   For $ (Y, f) : \R(X) $, we can restrict $ \sum_f $ and $ \prod_f $ to functors from $ \R(Y) $ to $ \R(X) $.
-\end{lemma}
+\end{theorem}
 \begin{proof}
   This proof proceeds by reducing, step by step, to a known case.
 
@@ -246,38 +246,36 @@ Now, Hyland shows the following:
   exhibit $ L \times L $ as a retract of $ L $.
 \end{proof}
 
-% \begin{remark}
-%   Now, recall that according to Hyland, Taylor endows the category of retracts $ \R $ with a class of display maps $ D $, such that $ (\R \downarrow_D X) $ consists exactly of the retracts of $ \Delta_X U $.
+\begin{remark}
+  Now, recall that according to Hyland, Taylor endows the category of retracts $ \R $ with a class of display maps $ D $, such that $ (\R \downarrow_D X) $ consists exactly of the retracts of $ \Delta_X U $.
 
-%   Hyland then claims that the fact that $ \R $ is cartesian closed relative to this class of display maps (which Taylor shows in his PhD thesis) follows from the theorem above.
+  Hyland then claims that the fact that $ \R $ is cartesian closed relative to this class of display maps follows from the theorem above. Recall that Taylor already shows relative cartesian closedness directly, which still works in univalent foundations if we assume the axiom of choice.
 
-%   The proof of this recalls that $ \R $ is a full subcategory of $ \Pshf L $, and that for $ X : \R $, all elements of $ \R(X) $ (i.e. all $ X $-retracts of $ X \times L $) are also elements of $ \R $. This uses Definition \ref{def:karoubi'}, the alternative definition of the category $ \hat \R $ of retracts as the full subcategory of $ P L(1) $ consisting of the retracts of all $ Y(c) : P L(1) $ for $ c: L(1) $.
+  Recall that we have a weak equivalence $ \varphi : \R \xrightarrow \sim \hat \R $ (Lemma \ref{lem:retracts-rezk}) and one can imagine that we can extend this to weak equivalences $ \psi_X : (\R \downarrow_D X) \xrightarrow \sim (\hat \R \downarrow_D \varphi(X)) $. Hyland notes that for $ X : \hat \R $, $ \R(\varphi(X)) $ is equivalent to $ (\hat \R \downarrow_D \varphi(X)) $. Implicitly, for $ f: \R(X, Y) $, he wants to lift the functors $ \sum_f $, $ f^* $ and $ \prod_f $ along the equivalences $ \psi $:
+  \begin{center}
+    \begin{tikzcd}[column sep = .5in, row sep = .5in]
+      (\R \downarrow_D X)
+        \arrow[d, "\psi_X"]
+        \arrow[r, dashed, bend left, "\sum_f"']
+        \arrow[r, dashed, bend right, "\prod_f"]
+      & (\R \downarrow_D Y)
+        \arrow[d, "\psi_Y"]
+        \arrow[l, dashed, "f^*" description]\\
+      \R(\varphi(X))
+        \arrow[r, bend left, "\sum_{\varphi(f)}"']
+        \arrow[r, bend right, "\prod_{\varphi(f)}"]
+      & \R(\varphi(Y))
+        \arrow[l, "\varphi(f)^*" description]\\
+    \end{tikzcd}
+  \end{center}
+  For this to work, we need to turn the weak equivalences $ \psi_X $ into adjoint equivalences. In particular, we know that for every object $ A : \R(\varphi(X)) $, there merely exists a preimage $ \bar A : (\R \downarrow_D X) $ such that $ \psi_X(\bar A) \cong A $, and we need to construct a functor $ \psi_X^{-1}: \R(\varphi(X)) \to (\R \downarrow_D X) $.
 
-%   And indeed, we have a weak equivalence $ \R \hookrightarrow \hat R $. One could imagine similar weak equivalences $ (\R \downarrow_D X) \hookrightarrow \R(X) $. One could then attempt, for some $ f: \R(X) $, to pre- and postcompose the functors $ \sum_f $, $ f^* $ and $ \prod_f $ with this equivalence, to get these functors on the relative slices of $ \R $.
-%   \begin{center}
-%     \begin{tikzcd}
+  For Taylor's proof, we did a similar thing when we knew that for every object $ X : (\R \downarrow_D A) $, there existed some $ Y : \R^A $, and we needed to construct a pullback functor $ f^* : (\R \downarrow_D A) \to (\R \downarrow_D B) $. We could use the axiom of choice here because the objects of $ \R $ (and therefore also the objects of the relative slices $ (\R \downarrow_D A) $) form a set.
 
-%     \end{tikzcd}
-%   \end{center}
+  However, as mentioned in \cite{univalent-categories} halfway through the introduction, and as explained more thoroughly in \cite{hottbook}, Lemma 3.8.5, if $ \R(\varphi(X)) $ is not a set (and if $ L $ is nontrivial, it is never a set), then there is no axiom of choice which can turn the `for all \dots, there exists \dots' into a `there exists a function'.
 
-
-
-%   and its right adjoint $ \R(X) \to \R(Y) $ with these equivalences to get .
-
-%   However, for every $ \hat Y : \hat R $, we only have mere existence of a preimage $ Y : \R $.
-% \end{remark}
-% we can find an object $  $.
-
-% the definition of $ \hat \R $ as a full subcategory of $ P L(1) \cong \Pshf L $.
-
-% , and $ \iota: \R \hookrightarrow \Pshf L $ the embedding, $ \R(\iota(X)) $ is equivalent to $ (\R \downarrow_D X) $. This uses Definition \ref{def:karoubi'} of $ \hat \R $. By Lemma \ref{lem:retracts-rezk}, $ \R $ and $ \hat \R $ are weakly equivalent.
-% \begin{corollary}
-% \end{corollary}
-% \begin{proof}
-
-%   This stems from the idea that $ \Pshf L \cong P \R $, and that $ \R $ consists exactly of the retracts of $  $.
-%   However, without the axiom of choice, it is only equivalent to $ (\hat \R \downarrow_D X) $.
-% \end{proof}
+  Therefore, in univalent foundations, the relative cartesian closedness is not a corollary of Theorem \ref{thm:restrict-sum-product}.
+\end{remark}
 
 \section{Terms of a \texorpdfstring{$ \Lambda $}{Lambda}-algebra}
 Let $ A $ be an algebra for the initial $ \lambda $-theory $ \Lambda $. We will assume that $ \Lambda $ (and therefore, any $ \lambda $-theory) satisfies $ \beta $-equality.
