@@ -1,17 +1,17 @@
 \chapter{Previous work in categorical semantics}
 
-\begin{tabular}{|c|c|c|}\hline
-  $ K $ & $ \lambda xy.x $ & constant \\\hline
-  $ S $ & $ \lambda xyz.xz(yz) $ & \\\hline
-  $ I $ & $ \lambda x.x = SKK $ & identity \\\hline
-  $ Y $ & $ \lambda f.(\lambda x.f (xx))(\lambda x.f (xx)) $ & ﬁxpoint \\\hline
-  $ \bot $ & $ (\lambda x.xx)(\lambda x.xx) = (SII)(SII) = YI $ & bottom \\\hline
-  $ P $ & $ \lambda f gx.g(f x) = S(K(S(S(KS)K)))K $ & composition \\\hline
-  $ Q $ & $ \lambda f gax.ga(f ax) $ & ﬁbred composition \\\hline
-  $ \langle \rangle $ & $ \lambda xyz.zxy $ & pairing \\\hline
-  $ 0 $ & $ \lambda xy.x = K $ & left projection \\\hline
-  $ 1 $ & $ \lambda xy.y = KI $ & right projection \\\hline
-\end{tabular}
+% \begin{tabular}{|c|c|c|}\hline
+%   $ K $ & $ \lambda xy.x $ & constant \\\hline
+%   $ S $ & $ \lambda xyz.xz(yz) $ & \\\hline
+%   $ I $ & $ \lambda x.x = SKK $ & identity \\\hline
+%   $ Y $ & $ \lambda f.(\lambda x.f (xx))(\lambda x.f (xx)) $ & ﬁxpoint \\\hline
+%   $ \bot $ & $ (\lambda x.xx)(\lambda x.xx) = (SII)(SII) = YI $ & bottom \\\hline
+%   $ P $ & $ \lambda f gx.g(f x) = S(K(S(S(KS)K)))K $ & composition \\\hline
+%   $ Q $ & $ \lambda f gax.ga(f ax) $ & ﬁbred composition \\\hline
+%   $ \langle \rangle $ & $ \lambda xyz.zxy $ & pairing \\\hline
+%   $ 0 $ & $ \lambda xy.x = K $ & left projection \\\hline
+%   $ 1 $ & $ \lambda xy.y = KI $ & right projection \\\hline
+% \end{tabular}
 
 \section{The correspondence between categories and typed \texorpdfstring{$ \lambda $}{lambda}-calculi}\label{sec:lambek-correspondence}
 In \cite{curry}, page 413, Scott and Lambek argue that there is a correspondence between simply typed $ \lambda $-calculi and cartesian closed categories (categories with products and `function objects').
@@ -36,7 +36,7 @@ Given a term $ s: B_1 \to B_2 $ and a term $ t: B_1 $, both with free variables 
 Given a term $ t: B $ with free variables $ x_1: A_1, \dots, x_n: A_n $, the abstraction $ (\lambda x_n, t): A_n \to B $ corresponds to using the adjunction corresponding to the exponential object of $ A_n $:
 \[ C(A_1 \times \dots \times A_{n-1} \times A_n, B) \simeq C(A_1 \times \dots \times A_{n-1}, B^{A_n}). \]
 
-\section{The category of retracts}
+\section{The category of retracts}\label{sec:retracts-category}
 
 The next sections make extensive use of a category called $ \R $, which Hyland calls the `category of retracts'. In this section, we will define the category, and show some properties about it.
 
@@ -61,7 +61,7 @@ Also, note that by replacing the $ x_i $ by $ x_{n + i} $ and the $ \iota_{0, 1}
 
 \begin{remark}
   Hyland instead defines $ \R $ as
-  \[ \R_0 = \{ A : L_1 \mid A \bullet A = A \} \quad \text{and} \R(A, B) = \{ f : L_1 \mid B \bullet f \bullet A = f \}, \]
+  \[ \R_0 = \{ A : L_1 \mid A \bullet A = A \} \quad \text{and} \quad \R(A, B) = \{ f : L_1 \mid B \bullet f \bullet A = f \}, \]
   writing $ s \bullet t $ instead of $ s \bullet (t) $ for $ s, t : L_1 $. Note that the following diagram commutes:
   \begin{center}
     \begin{tikzcd}
@@ -114,7 +114,7 @@ In the next chapter, the `universal object' $ U : \R $, given by the identity $ 
 Note that $ \R $ has many (isomorphic, but not equal for nontrivial $ L $) terminal objects, given by $ I_c := \lambda x_1, \iota_{0, 1}(c) : \R $ for any $ c: L_0 $. These are terminal because for $ f: A \to I_c $, we have $ f = I_c \circ f = I_c $. Note that $ \varphi(I_c)_n = \{ \iota_{0, n}(c) \} $. We will choose $ I = \lambda x_1 x_2, x_2 : \R $ as our main example of the terminal object.
 
 We might wonder whether $ \R $ also has an initial object $ O $. However, for any $ c: L_0 $, we would have a constant morphism
-\[ I_c = \lambda x_1, \iota_{0, 1}(c) : \R(A, U), \]
+\[ I_c = \lambda x_1, \iota_{0, 1}(c) : \R(O, U), \]
 so if $ L $ is nontrivial, $ \R $ has no initial object.
 
 $ \R $ has binary products with projections and product morphisms
@@ -130,8 +130,8 @@ which is universal because we can lift a morphism $ f: \R(A \times B, C) $ to a 
 Note that for $ g: \R(A, C^B) $, the inverse $ \psi^{-1}(g) $ is given by
 \[ \epsilon \circ \langle g \circ \pi_1, B \circ \pi_2 \rangle = \lambda x_1, g (\pi_1 x_1) (\pi_2 x_1): \R(A \times B, C). \]
 Also note that
-\[ \lambda x_1, C \circ x_1 \circ B = C^B = \id{C^B} = \psi(\epsilon_{BC}). \]
-The first representation shows that $ \varphi(C^B)_0 = \R(B, C) $, as we would expect.
+\[ \psi(\epsilon_{BC}) = \lambda x_1, C \circ x_1 \circ B = C^B = \id{C^B}. \]
+Note that $ \varphi(C^B)_0 = \R(B, C) $, as we would expect.
 
 Now, we might wonder whether there exists some $ A: \R $ such that $ \varphi(A)_0 = \emptyset $. However, for any $ c : L_0 $, we have $ A c : \varphi(A)_0 $, because
 \[ A c = (A \circ A) c = A (A c). \]

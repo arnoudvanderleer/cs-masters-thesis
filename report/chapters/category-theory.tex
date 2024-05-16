@@ -178,44 +178,75 @@ Given an object in a category $ c: C $, the morphisms to and from $ c $ constitu
 The \textit{coslice category}\index{slice category!co-} $ c \downarrow C $ is similar, but with the morphisms \textit{from} $ c $ instead of \textit{to} $ c $:
 \[ (c \downarrow C)_0 = \sum_{c^\prime: C} C(c, c^\prime). \]
 
-% Now, if we have an object in a slice category, we can again look at the slice of the slice category over that object. However, this gives us nothing new:
-% \begin{lemma}
-%   Let $ (d, f) $ be an object in the slice category $ (C \downarrow c) $. The slice category $ ((C \downarrow c) \downarrow (d, f)) $ is equivalent to $ (C \downarrow d) $.
-% \end{lemma}
-% \begin{proof}
-%   An object of $ ((e, g), \alpha) : ((C \downarrow c) \downarrow (d, f)) $ is equivalent to an object $ (e, g) : (C \downarrow c) $, together with a morphism $ \alpha: (C \downarrow c)((e, g), (d, f)) $. That is, a morphism $ \alpha: C(e, d) $ such that the obvious triangle commutes (shown in the diagram below on the far left).
+Now, if we have an object in a slice category, we can again look at the slice of the slice category over that object. However, this gives us nothing new:
+\begin{lemma}
+  Let $ (d, f) $ be an object in the slice category $ (C \downarrow c) $. The slice category $ ((C \downarrow c) \downarrow (d, f)) $ is equivalent to $ (C \downarrow d) $.
+\end{lemma}
+\begin{proof}
+  An object of $ ((e, g), \alpha) : ((C \downarrow c) \downarrow (d, f)) $ is an object $ (e, g) : (C \downarrow c) $, together with a morphism $ \alpha: (C \downarrow c)((e, g), (d, f)) $. That is, a morphism $ \alpha: C(e, d) $ such that the obvious triangle commutes (shown in the diagram below on the far left).
 
-%   Then a morphism between $ ((e, g), \alpha) $ and $ ((e^\prime, g^\prime), \alpha^\prime) $ is a morphism $ \beta $ between $ (e, g) $ and $ (e^\prime, g^\prime) $ that commutes with $ \alpha $ and $ \alpha^\prime $. Note that a morphism between $ (e, g) $ and $ (e^\prime, g^\prime) $ is a morphism between $ e $ and $ e^\prime $ that commutes with $ g $ and $ g^\prime $.
-%   \begin{center}
-%     \begin{tikzcd}
-%       e \arrow[rdd, "g"'] \arrow[rd, "\alpha"] \arrow[rr, "\beta"] && e^\prime \arrow[ldd, "g^\prime"] \arrow[ld, "\alpha^\prime"']\\
-%       & d \arrow[d, "f" description]\\
-%       & c
-%     \end{tikzcd}
-%     $ \Leftrightarrow $
-%     \begin{tikzcd}
-%       e \arrow[rd, "\alpha"] \arrow[rr, "\beta"] && e^\prime \arrow[ld, "\alpha^\prime"']\\
-%       & d
-%     \end{tikzcd}
-%   \end{center}
+  Then a morphism between $ ((e, g), \alpha) $ and $ ((e^\prime, g^\prime), \alpha^\prime) $ is a morphism $ \beta $ between $ (e, g) $ and $ (e^\prime, g^\prime) $ that commutes with $ \alpha $ and $ \alpha^\prime $. Note that a morphism between $ (e, g) $ and $ (e^\prime, g^\prime) $ is a morphism between $ e $ and $ e^\prime $ that commutes with $ g $ and $ g^\prime $.
+  \begin{center}
+    \begin{tikzcd}
+      e \arrow[rdd, "g"'] \arrow[rd, "\alpha"] \arrow[rr, "\beta"] && e^\prime \arrow[ldd, "g^\prime"] \arrow[ld, "\alpha^\prime"']\\
+      & d \arrow[d, "f" description]\\
+      & c
+    \end{tikzcd}
+    $ \Leftrightarrow $
+    \begin{tikzcd}
+      e \arrow[rd, "\alpha"] \arrow[rr, "\beta"] && e^\prime \arrow[ld, "\alpha^\prime"']\\
+      & d
+    \end{tikzcd}
+  \end{center}
 
-%   Now, note that $ g $ and $ g^\prime $ are completely determined by $ g = \alpha \cdot f $ and $ g^\prime = \alpha^\prime \cdot f $. Also, if $ \beta $ commutes with $ \alpha $ and $ \alpha^\prime $, it automatically also commutes with $ g $ and $ g^\prime $. Therefore, as shown above, we have a correspondence between objects and morphisms
-%   \[ \beta: ((e, g), \alpha) \to ((e^\prime, g^\prime), \alpha^\prime) \Leftrightarrow \beta: (e, \alpha), (e^\prime, \alpha^\prime). \]
-% \end{proof}
+  Now, note that $ g $ and $ g^\prime $ are completely determined by $ g = \alpha \cdot f $ and $ g^\prime = \alpha^\prime \cdot f $, so we can leave them out. Also, if $ \beta $ commutes with $ \alpha $ and $ \alpha^\prime $, it automatically also commutes with $ g $ and $ g^\prime $. Therefore, as shown above, we have a correspondence between objects and morphisms
+  \[ \beta: ((e, g), \alpha) \to ((e^\prime, g^\prime), \alpha^\prime) \Leftrightarrow \beta: (e, \alpha) \to (e^\prime, \alpha^\prime). \]
+\end{proof}
 
-% Also, it turns out that we can derive some structure of the slice categories from the original category:
-% \begin{lemma}
-%   For $ (d, f), (d^\prime, f^\prime) : (C \downarrow c) $, their product in the slice category is given by their pullback / fibered product $ d \times_c d^\prime $, together with the induced morphism $ g: d \times_c d^\prime \dasharrow c $.
-% \end{lemma}
-% \begin{proof}
-%   Consider the diagram below. The fibered product gives `projections' $ h $ and $ h^\prime $. Also, if we have some $ (e, \alpha) : (C \downarrow c) $, together with morphisms $ \beta : (e, \alpha) \to (d, f) $ and $ \beta^\prime : (e, \alpha) \to (d^\prime, f^\prime) $. Then $ \beta $ and $ \beta^\prime $ commute with $ f $ and $ f^\prime $, so by the universal property of the fibred product, there exists a unique morphism $ \gamma : e \to d \times_c d^\prime $ that makes the triangles with $ \beta $ and $ h $, and with $ \beta^\prime $ and $ h^\prime $ commute. Then $ \gamma $ commutes with $ \alpha $ and $ g $ as well, so it is a morphism in $ (C \downarrow c) $. This shows that $ (d \times_c d^\prime, g) $ has the universal property of the product in $ (C \downarrow c) $.
-%   \begin{center}
-%     \begin{tikzcd}
-%       e \arrow[rd, "\beta"] \arrow[rr, "\beta^\prime", bend left] \arrow[rrd, "\alpha"', bend right=49, shift right] \arrow[r, dashed, "\gamma"] & d \times_c d^\prime \arrow[r, "h^\prime"'] \arrow[d, "h"] \arrow[rd, dashed, "g"] & d^\prime \arrow[d, "f^\prime"] \\
-%       & d \arrow[r, "f"] & c
-%     \end{tikzcd}
-%   \end{center}
-% \end{proof}
+Also, it turns out that we can derive some structure of the slice categories from the original category:
+\begin{lemma}
+  For $ (d, f), (d^\prime, f^\prime) : (C \downarrow c) $, their product in the slice category is given by their pullback / fibered product $ d \times_c d^\prime $, together with the induced morphism $ g: d \times_c d^\prime \dasharrow c $.
+\end{lemma}
+\begin{proof}
+  Consider the diagram below. The fibered product gives `projections' $ h $ and $ h^\prime $. Also, if we have some $ (e, \alpha) : (C \downarrow c) $, together with morphisms $ \beta : (e, \alpha) \to (d, f) $ and $ \beta^\prime : (e, \alpha) \to (d^\prime, f^\prime) $. Then $ \beta $ and $ \beta^\prime $ commute with $ f $ and $ f^\prime $, so by the universal property of the fibred product, there exists a unique morphism $ \gamma : e \to d \times_c d^\prime $ that makes the triangles with $ \beta $ and $ h $, and with $ \beta^\prime $ and $ h^\prime $ commute. Then $ \gamma $ commutes with $ \alpha $ and $ g $ as well, so it is a morphism in $ (C \downarrow c) $. This shows that $ (d \times_c d^\prime, g) $ has the universal property of the product in $ (C \downarrow c) $.
+  \begin{center}
+    \begin{tikzcd}
+      e \arrow[rd, "\beta"] \arrow[rr, "\beta^\prime", bend left] \arrow[rrd, "\alpha"', bend right=49, shift right] \arrow[r, dashed, "\gamma"] & d \times_c d^\prime \arrow[r, "h^\prime"'] \arrow[d, "h"] \arrow[rd, dashed, "g"] & d^\prime \arrow[d, "f^\prime"] \\
+      & d \arrow[r, "f"] & c
+    \end{tikzcd}
+  \end{center}
+\end{proof}
+
+For a category $ C $ with products, Hyland introduces the notation $ \Delta_X Y $ for the element $ (X \times Y, p_1) : (C \downarrow X) $, and we will follow his example in this.
+
+In fact, $ \Delta_X : C \to C / X $ is a functor, with $ \Delta_X(f) = \id X \times f $ for $ f: C(Y, Y^\prime) $. This functor preserves the terminal object, products and pullbacks:
+\begin{lemma}\label{lem:delta-limits}
+  $ \Delta_X $ preserves all limits.
+\end{lemma}
+\begin{proof}
+  Take a diagram $ ((A_i)_i, (f_j)_j) $ in $ C $. Suppose that this has a limit $ (L, (g_i)_i) : C $. Now, consider an object $ (B, q) : (C \downarrow X) $, together with morphisms $ h_i : (C \downarrow X)((B, q), \Delta_X A_i) $, that commute with the $ \Delta_X f_j $:
+  \begin{center}
+    \begin{tikzcd}
+      & B \arrow[ldd, "h_{m_j}"'] \arrow[rdd, "h_{n_j}"]\\
+      & X \times L \arrow[ld, "\Delta_X g_{m_j}"] \arrow[rd, "\Delta_X g_{n_j}"']\\
+      X \times A_{m_j} \arrow[rr, "\Delta_X f_j"'] & & X \times A_{n_j}
+    \end{tikzcd}
+  \end{center}
+  Then the morphisms in $ (C \downarrow X)((B, q), \Delta_X L) $, commuting with the $ \Delta_X g_j $ and $ h_j $ are the morphisms in $ C(B, X \times L) \cong C(B, X) \times C(B, L) $ that commute with the projections to $ X $ and the $ \id X \times g_j $ and $ h_j $. Since the morphisms in $ C(B, X) $ commuting with $ q $ and $ \id X $ are exactly $ q $, we can forget about this component, and the morphisms we are looking for correspond to the morphisms in $ C(B, L) $ that commute with the $ g_j $ and $ h_j \cdot p_1 $. Since $ (L, (g_j)_j) $ is a limit, this is a unique morphism.
+\end{proof}
+
+\begin{lemma}\label{lem:delta-exponentials}
+  $ \Delta_X $ preserves exponential objects:
+\end{lemma}
+\begin{proof}
+  See \cite{borceux-3}, Lemma 5.8.2. This lemma shows this via the following equivalences:
+  \begin{align*}
+    (C \downarrow X)((A, f), \Delta_X Y^Z) &\cong C(A, Y^Z)\\
+    &\cong C(A \times Z, Y)\\
+    &\cong (C \downarrow X)((A \times X \times Z, \langle f, p_1 \rangle), \Delta_X Y)\\
+    &\cong (C \downarrow X)((A, f) \times \Delta_X Z, \Delta_X Y)\\
+  \end{align*}
+\end{proof}
 
 \section{Dependent products and sums}\label{sec:dependent-products}
 The following is based loosely on Section 4.1 of \cite{taylor}.
@@ -307,6 +338,43 @@ Apart from having dependent sums and products, there also is the following theor
 \begin{proof}
   See the end of Section 1.3 of \cite{freyd}.
 \end{proof}
+
+\begin{remark}\label{rem:pullback-of-projection}
+  Note that for $ X, Y, Z : C $ and $ f: C(Y, X) $, the following diagram shows that $ f^* \Delta_X Z \cong \Delta_Y Z $:
+  \begin{center}
+    \begin{tikzcd}
+      Y \times Z \arrow[d, "p_1"] \arrow[r, "f \times \id Z"] & X \times Z \arrow[d, "p_1"] \arrow[r, "p_2"] & Z \arrow[d, "!"]\\
+      Y \arrow[r, "f"] & X \arrow [r, "!"] & T
+    \end{tikzcd}
+  \end{center}
+\end{remark}
+
+\begin{lemma}\label{lem:constant-dependent-product}
+  For $ W, X, Z : C $ and $ p_1 : X \times Z \to X $,
+  \[ \prod_{p_1} \Delta_{X \times Z} W \cong \Delta_X W^Z \]
+\end{lemma}
+\begin{proof}
+  First of all, note that $ (C \downarrow X \times Z) \cong ((C \downarrow X) \downarrow \Delta_X Z) $. Also note that the composite morphism $ (X \times Z) \times W \xrightarrow{p_1} X \times Z \xrightarrow{p_1} X $ is the element $ \Delta_X (W \times Z) : (C \downarrow X) $.
+
+  By Proposition 1.34 in \cite{freyd}, $ \prod_{p_1} \Delta_{X \times Z} W $ is given as the following pullback:
+  \begin{center}
+    \begin{tikzcd}
+      \prod_{p_1} \Delta_{X \times Z} W \arrow[r] \arrow[d] & (\Delta_X Z \times W)^{\Delta_X Z} \arrow[d, "(\Delta_X p_1)^{\Delta_X Z}"]\\
+      X \arrow[r] & (\Delta_X Z)^{\Delta_X Z}
+    \end{tikzcd}
+  \end{center}
+
+  By Lemma \ref{lem:delta-exponentials}, $ \Delta_X $ preserves exponential objects, so the morphism on the right is $ \Delta_X p_1^Z : (C \downarrow X)(\Delta_X (Z \times W)^Z, \Delta_X Z^Z) $. However, we have an isomorphism $ (Z \times W)^Z \cong Z^Z \times Z^W $, and then the morphism on the right becomes
+  \[ \Delta_X p_1 : (C \downarrow X)(\Delta_X(Z^Z \times Z^W), \Delta_X Z^Z) \]
+  We also have an isomorphism $ X \cong \Delta_X T $. Then by Lemma \ref{lem:delta-limits} and Remark \ref{rem:pullback-of-projection}, the pullback of this diagram is $ \Delta_X W^Z $:
+  \begin{center}
+    \begin{tikzcd}
+      \Delta_X W^Z \arrow[r] \arrow[d] & \Delta_X (Z^Z \times W^Z) \arrow[d, "\Delta_X p_1"]\\
+      \Delta_X T \arrow[r] & \Delta_X Z^Z
+    \end{tikzcd}
+  \end{center}
+\end{proof}
+
 
 \section{(Weakly) terminal objects}
 \begin{definition}

@@ -38,7 +38,7 @@ Write $ i: \op{L_1} \hookrightarrow \op{\mathbf L} $ and $ j: \op{\mathbf L} \ho
 \end{center}
 The two equivalences in this diagram are due to Lemma \ref{lem:lawvere-presheaf} and Corollary \ref{cor:karoubi-presheaf}.
 
-\begin{lemma}
+\begin{lemma}\label{lem:equivalent-presheaf-cats}
   The precomposition functors $ i_* $ and $ j_* $ are adjoint equivalences.
 \end{lemma}
 \begin{proof}
@@ -61,22 +61,24 @@ The two equivalences in this diagram are due to Lemma \ref{lem:lawvere-presheaf}
 \begin{proof}
   Note:
   \[ (Y \bullet j_*)(A)(n) = (j \bullet (Y(A)))(n) = Y(A)(j(n)) = \R(U^n, A) \]
-  \[ (\iota \bullet \sim)(A)(n) = \{ a : L_n \mid A a = a \} \]
+  \[ (\iota \bullet \sim)(A)(n) = \{ a : L_n \mid \iota_{0, n}(A) a = a \} \]
 
-  By Scott's representation theorem, we have $ \mathbb R(U^n, U) \cong L_n, $ via
-  \[ f \mapsto \iota_{0, n}(f) ((((c, x_1), x_2), \dots), x_n). \]
+  By Scott's representation theorem, we have $ \varphi_n: \R(U^n, U) \xrightarrow \sim L_n, $ given by
+  \[ \varphi_n(f) = \iota_{0, n}(f) ((((c, x_1), x_2), \dots), x_n). \]
   Restricting this equivalence to the morphisms to $ A $ yields
   \[ \R(U^n, A) \cong \{ a : L_n \mid A a = a \}. \]
   Of course, this is natural in $ A $, since for $ g: \R(A, B) $, postcomposing elements of $ \R(U^n, A) $ by $ g $ is equivalent to applying $ g $ to the elements of $ \{ a : L_n \mid A a = a \} $.
 
-  \TODO: Check naturality in $ n $.
+  Lastly, for $ f : L_m^n $, the presheaf actions
+  \[ (Y \bullet j_*)(A)(f) : \R(U^n, A) \to \R(U^m, A) \]
+  and
+  \[ (\iota \bullet \sim)(A)(f) : \{ a : L_n \mid \iota_{0, n}(A) a = a \} \to \{ a : L_m \mid \iota_{0, n}(A) a = a \} \]
+  are in fact given by the substitution operations $ \bullet $ in $ E(U) $ and $ L $. Since Scott's representation theorem shows that $ E(U) $ is isomorphic to $ L $ as a $ \lambda $-theory, these substitutions are compatible with the $ \varphi_n $, which shows naturality in $ n $.
 \end{proof}
 
 \section{Locally cartesian closedness of the category of retracts}
 
 Recall that Paul Taylor constructed a category of `dependent retracts' $ \R^A $, and then defined a class of display maps for $ \R $ in such a way that it gives a weak equivalence $ \sum_A : \R^A \xrightarrow{\sim} (\R \downarrow_D A) $. I.e., a map $ f: \R(X, A) $ is defined to be a display map if it is isomorphic to something in the image of the functor $ \sum_A $. We saw that these display maps can also be characterized as the retracts of the projection $ p_1: A \times U \to A $ in $ (\R \downarrow A) $.
-
-For a category $ C $ with products, Hyland introduces the notation $ \Delta_X Y $ for the element $ (X \times Y, p_1) : (C \downarrow X) $, and we will follow his example in this.
 
 Now, noticing that we can embed $ \R $ as a full subcategory in $ \Pshf L $, Hyland attempts to do a similar thing for $ \Pshf L $. Noting that the universal object $ U : \R $ is embedded as the theory presheaf $ L : \Pshf L $, he defines a full subcategory $ \R(A) \subseteq (\Pshf L \downarrow A) $, consisting precisely of the retracts of $ \Delta_A L $ in $ (\Pshf L \downarrow A) $.
 
@@ -109,71 +111,6 @@ Recall that $ \Pshf L $ is isomorphic to the presheaf category $ P \mathbf L $, 
     \arrow[from=B, to=C, symbol=\dashv]
   \end{tikzcd}
 \end{center}
-
-\begin{remark}\label{rem:pullback-of-projection}
-  Note that for $ X, Y, Z : C $ and $ f: C(Y, X) $, the following diagram shows that $ f^* \Delta_X Z \cong \Delta_Y Z $:
-  \begin{center}
-    \begin{tikzcd}
-      Y \times Z \arrow[d, "p_1"] \arrow[r, "f \times \id Z"] & X \times Z \arrow[d, "p_1"] \arrow[r, "p_2"] & Z \arrow[d, "!"]\\
-      Y \arrow[r, "f"] & X \arrow [r, "!"] & T
-    \end{tikzcd}
-  \end{center}
-\end{remark}
-
-In fact, $ \Delta_X : C \to C / X $ is a functor, with $ \Delta_X(f) = \id X \times f $ for $ f: C(Y, Y^\prime) $. This functor preserves the terminal object, products and pullbacks:
-\begin{lemma}\label{lem:delta-limits}
-  $ \Delta_X $ preserves all limits.
-\end{lemma}
-\begin{proof}
-  Take a diagram $ ((A_i)_i, (f_j)_j) $ in $ C $. Suppose that this has a limit $ (L, (g_i)_i) : C $. Now, consider an object $ (B, q) : (C \downarrow X) $, together with morphisms $ h_i : (C \downarrow X)((B, q), \Delta_X A_i) $, that commute with the $ \Delta_X f_j $:
-  \begin{center}
-    \begin{tikzcd}
-      & B \arrow[ldd, "h_{m_j}"'] \arrow[rdd, "h_{n_j}"]\\
-      & X \times L \arrow[ld, "\Delta_X g_{m_j}"] \arrow[rd, "\Delta_X g_{n_j}"']\\
-      X \times A_{m_j} \arrow[rr, "\Delta_X f_j"'] & & X \times A_{n_j}
-    \end{tikzcd}
-  \end{center}
-  Then the morphisms in $ (C \downarrow X)((B, q), \Delta_X L) $, commuting with the $ \Delta_X g_j $ and $ h_j $ are the morphisms in $ C(B, X \times L) \cong C(B, X) \times C(B, L) $ that commute with the projections to $ X $ and the $ \id X \times g_j $ and $ h_j $. Since the morphisms in $ C(B, X) $ commuting with $ q $ and $ \id X $ are exactly $ q $, we can forget about this component, and the morphisms we are looking for correspond to the morphisms in $ C(B, L) $ that commute with the $ g_j $ and $ h_j \cdot p_1 $. Since $ (L, (g_j)_j) $ is a limit, this is a unique morphism.
-\end{proof}
-
-\begin{lemma}\label{lem:delta-exponentials}
-  $ \Delta_X $ preserves exponential objects:
-\end{lemma}
-\begin{proof}
-  See \cite{borceux-3}, Lemma 5.8.2. This lemma shows this via the following equivalences:
-  \begin{align*}
-    (C \downarrow X)((A, f), \Delta_X Y^Z) &\cong C(A, Y^Z)\\
-    &\cong C(A \times Z, Y)\\
-    &\cong (C \downarrow X)((A \times X \times Z, \langle f, p_1 \rangle), \Delta_X Y)\\
-    &\cong (C \downarrow X)((A, f) \times \Delta_X Z, \Delta_X Y)\\
-  \end{align*}
-\end{proof}
-
-\begin{lemma}\label{lem:constant-dependent-product}
-  For $ W, X, Z : C $ and $ p_1 : X \times Z \to X $,
-  \[ \prod_{p_1} \Delta_{X \times Z} W = \Delta_X W^Z \]
-\end{lemma}
-\begin{proof}
-  First of all, note that $ (C \downarrow X \times Z) \cong ((C \downarrow X) \downarrow \Delta_X Z) $. Also note that the composite morphism $ (X \times Z) \times W \xrightarrow{p_1} X \times Z \xrightarrow{p_1} X $ is the element $ \Delta_X (W \times Z) : (C \downarrow X) $.
-
-  By Proposition 1.34 in \cite{freyd}, $ \prod_{p_1} \Delta_{X \times Z} W $ is given as the following pullback:
-  \begin{center}
-    \begin{tikzcd}
-      \prod_{p_1} \Delta_{X \times Z} W \arrow[r] \arrow[d] & (\Delta_X Z \times W)^{\Delta_X Z} \arrow[d, "(\Delta_X p_1)^{\Delta_X Z}"]\\
-      X \arrow[r] & (\Delta_X Z)^{\Delta_X Z}
-    \end{tikzcd}
-  \end{center}
-
-  By Lemma \ref{lem:delta-exponentials}, $ \Delta_X $ preserves exponential objects, so the morphism on the right is $ \Delta_X p_1^Z : (C \downarrow X)(\Delta_X (Z \times W)^Z, \Delta_X Z^Z) $. However, we have an isomorphism $ (Z \times W)^Z \xrightarrow \sim Z^Z \times Z^W $, and then the morphism on the right becomes
-  \[ \Delta_X p_1 : (C \downarrow X)(\Delta_X(Z^Z \times Z^W), \Delta_X Z^Z) \]
-  We also have an isomorphism $ X \cong \Delta_X T $. Then by Lemma \ref{lem:delta-limits} and Remark \ref{rem:pullback-of-projection}, the pullback of this diagram is $ \Delta_X W^Z $:
-  \begin{center}
-    \begin{tikzcd}
-      \Delta_X W^Z \arrow[r] \arrow[d] & \Delta_X (Z^Z \times W^Z) \arrow[d, "p_1"]\\
-      \Delta_X T \arrow[r] & \Delta_X Z^Z
-    \end{tikzcd}
-  \end{center}
-\end{proof}
 
 Now, Hyland shows the following:
 \begin{theorem}\label{thm:restrict-sum-product}
@@ -284,7 +221,7 @@ The $ \Lambda $-algebra structure gives the terms of $ A $ quite a lot of behavi
 \[ a b = (x_1 x_2) \bullet (a, b) \]
 and composition as
 \[ a \circ b = (x_1 \circ x_2) \bullet (a, b) \]
-for $ a, b : A $, with $ x_1 \circ x_2 = \lambda x_3, x_1 (x_2 x_3) : \Lambda_2 $.
+and the same for the other constructions at the start of Section \ref{sec:retracts-category}.
 
 \begin{remark}
   Recall that in Example \ref{ex:free-monoid-theory}, we constructed an algebraic theory $ T $ with a monoid structure. This allowed us to define a monoid operation on $ T $-algebras as well. We then were able to transfer associativity of the operation on the $ T_n $ to associativity of the operation on the algebras. In exactly the same way, the function composition on $ A $ is associative because composition on $ \Lambda_n $ is associative.
@@ -331,7 +268,7 @@ for $ a, b : A $, with $ x_1 \circ x_2 = \lambda x_3, x_1 (x_2 x_3) : \Lambda_2 
 
 The fundamental theorem states that there is an adjoint equivalence
 \[ \LamTh \cong \Alg \Lambda. \]
-We will prove this by showing that there is a weak equivalence.
+We will prove this by showing that there is a weak equivalence. Using the fact that $ \LamTh $ is
 
 
 \subsection{The functor}
@@ -340,47 +277,63 @@ We will prove this by showing that there is a weak equivalence.
   For all $ n $, we have a functor from lambda theories to $ \Lambda $-algebras. It sends the $ \lambda $-theory $ L $ to the $ L $-algebra $ L_n $ and then turns this into a $ \Lambda $-algebra via the morpism $ \Lambda \to L $. It sends morphisms $ f: L \to L^\prime $ to the algebra morphism $ f_n : L_n \to L^\prime_n $.
 \end{definition}
 
+Here, we are mostly interested in the case $ n = 0 $.
 
 \subsection{Lifting \texorpdfstring{$ \Lambda $}{Lambda}-algebras}
 
 \begin{definition}[The monoid of a $ \Lambda $-algebra]
-  Now we make $ A_1 $ into a monoid under composition $ \circ $ with unit $ \mathbf 1_1 $. The fact that this is a monoid follows from the remarks in the last section.
+  We make $ A_1 $, the `functional elements' of $ A $, into a monoid under composition $ \circ $ with unit $ \mathbf 1_1 $. The fact that this is a monoid follows from the remarks in the last section.
 \end{definition}
 
 Recall that we have an equivalence $ [\op{C_{A_1}}, \SET] \cong \RAct{A_1} $.
 
+\begin{remark}
+  Note that, like in the last chapter, we can take the Karoubi envelope $ \R_A $ of $ C_{A_1} $, which yields the following diagram:
+  \begin{center}
+    \begin{tikzcd}
+      & C_{A_1} \arrow[d, hookrightarrow, "Y"] \arrow[r, hookrightarrow, "\iota_{C_{A_1}}"] & \R_A \arrow[d, hookrightarrow, "Y"]\\
+      \RAct{A_1} & P C_{A_1} \arrow[l, "\sim"] & P \R_A \arrow[l, "\sim"]
+    \end{tikzcd}
+  \end{center}
+  Explicitly, this gives the embedding $ \R_A(U, -): \R_A \hookrightarrow \RAct{A_1} $ given by
+  \[ X \mapsto \R_A(U, X) = \{ x : A \mid X \circ x = x \}. \]
+  Actually, we can repeat almost the entirety of Section \ref{sec:retracts-category} for $ \R_A $. In particular, $ \R_A $ has products
+  \[ A \times B = \langle x_1 \circ \pi_1, x_2 \circ \pi_2 \rangle \bullet (A, B) \]
+  and exponential objects
+  \[ B^A = (\lambda x_3, x_1 \circ x_3 \circ x_2) \bullet (B, A) \]
+  with isomorphism
+  \[ \psi: \R_A(C \times A, B) \xrightarrow \sim \R_A(C, B^A) \]
+  given by
+  \[ \psi(f) = (\lambda x_2, x_1 (\pi_1 x_2) (\pi_2 x_2)) \bullet f \quad \text{and} \quad \psi^{-1}(f) = (\lambda x_2 x_3, x_1 (x_2, x_3)) \bullet f. \]
+\end{remark}
+
+\begin{remark}
+  Also, note that if $ A = L_0 $ for some $ \lambda $-theory $ L $, then the monoid $ A_1 $ is equivalent to the monoid $ L_1 $, and $ \R_A $ is equivalent to our familiar category of retracts $ \R $. From Lemma \ref{lem:equivalent-presheaf-cats}, it follows that $ \RAct{A_1} $ is equivalent to $ \Pshf L $. This might motivate some of the following constructions.
+\end{remark}
+
 \begin{definition}
-  Now, composition $ \circ $ gives a right $ A_1 $-action on the $ A_n $, so we have $ A_n : \RAct{A_1} $.
+  Now, composition $ \circ $ gives a right $ A_1 $-action on the $ A_n $, so we have $ A_n : \RAct{A_1} $ (note that this is the image of $ \mathbf 1_n : \R_A $ under the embeddding into $ \RAct{A_1} $).
 \end{definition}
 
 \begin{lemma}
-  We have $ U_{A_1}^{U_{A_1}} \cong A_2 $ in $ \RAct{A_1} $.
+  $ A_2 $ is the exponential object $ A_1^{A_1} $ in $ \RAct{A_1} $.
 \end{lemma}
 \begin{proof}
-  Recall that $ U_{A_1}^{U_{A_1}} $ consists of the set of $ A_1 $-equivariant morphisms $ U_{A_1} \times U_{A_1} \to U_{A_1} $.
-
-  We have a bijection $ \varphi: A_2 \xrightarrow{\sim} U_{A_1}^{U_{A_1}} $, given by
-  \[ \varphi(a)(b, b^\prime) = (\lambda x_4, x_1 (x_2 x_4) (x_3 x_4)) \bullet (a, b, b^\prime), \]
-  \TODO: relate to product in category of retracts.
-
-  with an inverse given by
-  \[ \varphi^{-1}(f) = \lambda x_1 x_2, f(p_1, p_2)(\lambda x_3, x_3 x_1 x_2) \]
-  \TODO: Make more explicitly that we use $ \bullet $ here.
-  for $ p_i = \lambda x_1, x_1 (\lambda x_2 x_3, x_{i + 1}) $. Note that for terms $ c_1, c_2 $, we have $ p_i (\lambda x_1, x_1 c_1 c_2) = c_i $.
-
-  This is an inverse, because given $ f: U_{A_1}^{U_{A_1}} $ and $ (a_1, a_2): U_{A_1} \times U_{A_1} $, we have
-  \[ \varphi(\psi(f))(a_1, a_2) = f(p_1, p_2) \circ q = f(p_1 \circ q, p_2 \circ q) = f(a_1, a_2) \]
-  for $ q = \lambda x_1, (\lambda x_2, x_2 (a_1 x_1) (a_2 x_1)) $. In the last step of this proof, we use, among other things, the fact that the $ a_i : A_1 $ and therefore $ \lambda x_1, a_i x_1 = a_i $.
-
-  Some straightforward rewriting shows that for $ a: A_2 $, we have $ \psi(\varphi(a)) = a $. In the last step of this proof, we use the fact that $ a : A_2 $ and therefore $ \lambda x_1 x_2, a x_1 x_2 = a $.
-
-  Therefore, $ \varphi $ is a bijection and, as it turns out, an isomorphism.
+  Note that the embedding $ \R_A \hookrightarrow \RAct{A_1} $ is the composition of a Yoneda embedding and two adjoint equivalences. These all preserve exponential objects (\TODO: Citation needed). Since $ A_1 $ is the image of $ \mathbf 1_1 : \R_A $, the exponential $ A_1^{A_1} $ is $ A_2 $, the image of $ \mathbf 1_1^{\mathbf 1_1} = \lambda x_1 x_2, x_1 x_2 $.
 \end{proof}
 
-\begin{definition}[Construction of the $ \lambda $-theory]
-  Since $ \RAct{A_1} $ has products, the algebraic theory $ E(U_{A_1}) $ exists.
+\begin{remark}
+  Hyland shows this by explicitly constructing an isomorphism $ \psi $ between $ A_2 $ and the `familiar' exponential object in $ \RAct{A_1} $ (the set of $ A_1 $-equivariant morphisms $ U_{A_1} \times U_{A_1} \to U_{A_1} $), given by
+  \[ \varphi(f) = (b, b^\prime) \mapsto (\lambda x_4, x_1 (x_2 x_4) (x_3 x_4)) \bullet (f, b, b^\prime), \]
+  treating $ f : A_2 $ as a function in two elements, and simultaneously composing it with the functions $ b, b^\prime : A_1 $ in one argument. It has an inverse
+  \[ \varphi^{-1}(g) = (\lambda x_2 x_3, x_1 (x_2, x_3)) \bullet (g(\pi_1, \pi_2)). \]
+  Note that the first pair $ (x_2, x_3) $ is a $ \lambda $-term, whereas the second pair $ (\pi_1, \pi_2) $ is a pair in $ U_{A_1} \times U_{A_1} $.
+\end{remark}
 
-  Recall that $ A_2 \subseteq A_1 $ and that $ a \mapsto \mathbf 1_2 \circ a $ gives a function from $ A_1 $ to $ A_2 $, which is, by definition, the identity on $ A_2 $. This gives $ E(U_{A_1}) $ a $ \lambda $-theory structure with $ \beta $-equality.
+\begin{definition}[Construction of the $ \lambda $-theory]
+  Now, note that, like before, $ \mathbf 1_1 $ is a retract of $ \mathbf 1_2 $ in $ \R_A $. The embedding into $ \RAct{A_1} $ turns this into the embedding as a subset $ A_2 \subseteq A_1 $ and a retraction $ r: A_1 \to A_2 $, given by precomposition with $ \mathbf 1_2 $.
+
+  Therefore, $ U_{A_1} $ is a reflexive object in $ \RAct{A_1} $, and we get an $ \lambda $-theory $ E(U_{A_1}) $.
 \end{definition}
 
 
