@@ -687,7 +687,7 @@ Let $ \varphi: M \to M^\prime $ be a morphism of monoids.
 Remember that sets with a right monoid action are equivalent to presheaves on the monoid category. Also, $ \varphi $ is equivalent to a functor between the monoid categories. The following is a specific case of the concepts in the section about Kan extension:
 
 \begin{lemma}
-  We get a \iindex{restriction of scalars} functor $ \varphi_* $ from sets with a right $ M^\prime $-action to sets with a right $ M $-action.
+  We get a \iindex{restriction of scalars} functor $ \varphi^* $ from sets with a right $ M^\prime $-action to sets with a right $ M $-action.
 \end{lemma}
 \begin{proof}
   Given a set $ X $ with right $ M^\prime $-action, take the set $ X $ again, and give it a right $ M $-action, sending $ (x, m) $ to $ x \varphi(m) $.
@@ -695,10 +695,10 @@ Remember that sets with a right monoid action are equivalent to presheaves on th
   On morphisms, send an $ M^\prime $-equivariant morphism $ f: X \to X^\prime $ to the $ M $-equivariant morphism $ f: X \to X^\prime $.
 \end{proof}
 
-Since $ \SET $ has colimits, and restriction of scalars corresponds to precomposition of presheaves (on $ C_{M^\prime} $), we can give it a left adjoint. This is the (pointwise) left Kan extension, which boils down to:
+Since $ \SET $ has colimits, and restriction of scalars corresponds to precomposition of presheaves (on $ C_{M^\prime} $), we can give it a left adjoint. This is the (pointwise) left Kan extension, which boils down to a very concrete definition, reminiscent of a tensor product:
 
-\begin{lemma}
-  We get an \iindex{extension of scalars} functor $ \varphi^* $ from sets with a right $ M $-action to sets with a right $ M^\prime $-action.
+\begin{lemma}\label{lem:scalar-extension}
+  We get an \iindex{extension of scalars} functor $ \varphi_* $ from sets with a right $ M $-action to sets with a right $ M^\prime $-action.
 \end{lemma}
 \begin{proof}
   Given a set $ X $ with right $ M $-action. Take $ Y = X \times M^\prime / \sim $ with the relation $ (x m, m^\prime) \sim (x, f(m) \cdot m^\prime) $ for $ m: M $. This has a right $ M^\prime $-action given by $ (x, m^\prime)n^\prime = (x, m^\prime n^\prime) $.
@@ -707,7 +707,7 @@ Since $ \SET $ has colimits, and restriction of scalars corresponds to precompos
 \end{proof}
 
 \begin{lemma}\label{lem:scalar-extension-monoid-monoid-action}
-  For $ U_M $ the set $ M $ with right $ M $-action, we have $ \varphi^*(U_M) \cong U_{M^\prime} $.
+  For $ U_M $ the set $ M $ with right $ M $-action, we have $ \varphi_*(U_M) \cong U_{M^\prime} $.
 \end{lemma}
 \begin{proof}
   The proof relies on the fact that for all $ m: U_M $ and $ m^\prime : M^\prime $, we have
@@ -718,18 +718,18 @@ Consider the category $ D $ with $ D_0 = M^\prime $ and
 \[ D(m^\prime, \overline m^\prime) = \{ m: M \mid \varphi(m) \cdot m^\prime = \overline m^\prime \}. \]
 
 \begin{lemma}\label{lem:scalar-extension-terminal}
-  Suppose that $ D $ has a weakly terminal element. Then for $ I_M $ the terminal object in the category of sets with a right $ M $-action, we have $ \varphi^*(I_M) \cong I_{M^\prime} $.
+  Suppose that $ D $ has a weakly terminal element. Then for $ I_M $ the terminal object in the category of sets with a right $ M $-action, we have $ \varphi_*(I_M) \cong I_{M^\prime} $.
 \end{lemma}
 \begin{proof}
   If $ D $ has a weakly terminal object, there exists $ m_0 : M^\prime $ such that for all $ m^\prime: M^\prime $, there exists $ m: M $ such that $ \varphi(m) \cdot m^\prime = m_0 $.
 
-  The proof relies on the fact that every element of $ \varphi^*(I_M) $ is given by some $ (\star, m^\prime) $, but then
+  The proof relies on the fact that every element of $ \varphi_*(I_M) $ is given by some $ (\star, m^\prime) $, but then
   \[ (\star, m^\prime) = (\star \cdot m, m^\prime) \sim (\star, \varphi(m) \cdot m^\prime) = (\star, \overline{m^\prime}), \]
-  so $ \varphi^*(I_M) $ has exactly $ 1 $ element.
+  so $ \varphi_*(I_M) $ has exactly $ 1 $ element.
 \end{proof}
 
 \begin{remark}
-  For $ \varphi^* $ to preserve terminal objects, we actually only need $ D $ to be connected. The fact that $ \varphi^*(I_M) $ is a quotient by a symmetric and transitive relation then allows us to `walk' from any $ (\star, m^\prime_1) $ to any other $ (\star, m^\prime_2) $ in small steps.
+  For $ \varphi_* $ to preserve terminal objects, we actually only need $ D $ to be connected. The fact that $ \varphi_*(I_M) $ is a quotient by a symmetric and transitive relation then allows us to `walk' from any $ (\star, m^\prime_1) $ to any other $ (\star, m^\prime_2) $ in small steps.
 \end{remark}
 
 For any $ m^\prime_1, m^\prime_2: M^\prime $, consider the category $ D_{m^\prime_1, m^\prime_2} $, given by
@@ -738,16 +738,16 @@ and
 \[ D_{m^\prime_1, m^\prime_2}((m^\prime, m_1, m_2), (\overline m^\prime, \overline m_1, \overline m_2)) = \{ m: M \mid \varphi(m) \cdot m^\prime = \overline m^\prime, m_i = \overline m_i \cdot m \}. \]
 
 \begin{lemma}\label{lem:scalar-extension-product}
-  Suppose that $ D_{m^\prime_1, m^\prime_2} $ has a weakly terminal object for all $ m^\prime_1, m^\prime_2: M^\prime $. Then for sets $ A $ and $ B $ with right $ M $-action, we have $ \varphi^*(A \times B) \cong \varphi^*(A) \times \varphi^*(B) $.
+  Suppose that $ D_{m^\prime_1, m^\prime_2} $ has a weakly terminal object for all $ m^\prime_1, m^\prime_2: M^\prime $. Then for sets $ A $ and $ B $ with right $ M $-action, we have $ \varphi_*(A \times B) \cong \varphi_*(A) \times \varphi_*(B) $.
 \end{lemma}
 \begin{proof}
-  Now, any element in $ \varphi^*(A) \times \varphi^*(B) = (A \times M^\prime / \sim) \times (B \times M^\prime / \sim) $ is given by some $ (a, m^\prime_1, b, m^\prime_2) $.
+  Now, any element in $ \varphi_*(A) \times \varphi_*(B) = (A \times M^\prime / \sim) \times (B \times M^\prime / \sim) $ is given by some $ (a, m^\prime_1, b, m^\prime_2) $.
 
   The fact that $ D_{m^\prime_1, m^\prime_2} $ has a weakly terminal object means that we have some $ \overline m^\prime: M^\prime $ and $ \overline m_1, \overline m_2: M $ with $ m_i^\prime = \varphi(\overline m_i) \cdot \overline m^\prime $. Therefore,
   \[ (a, m^\prime_1, b, m^\prime_2) = (a, \varphi(\overline m_1) \cdot \overline m^\prime, b, \varphi(\overline m_2) \cdot \overline m^\prime) \sim (a \overline m_1, \overline m^\prime, b \overline m_2, \overline m^\prime), \]
-  so this is equivalent to some element in $ \varphi^*(A \times B) = (A \times B \times M^\prime / \sim) $. Note that this trivially respects the right $ M^\prime $-action.
+  so this is equivalent to some element in $ \varphi_*(A \times B) = (A \times B \times M^\prime / \sim) $. Note that this trivially respects the right $ M^\prime $-action.
 
-  The fact that $ (\overline m^\prime, \overline m_1, \overline m_2) $ is weakly terminal also means that for all $ m^\prime: M^\prime $ and $ m_1, m_2: M $ with $ m_i^\prime = \varphi(m_i) \cdot m^\prime $, there exists $ m: M $ such that $ \varphi(m) \cdot m^\prime = \overline m^\prime $ and $ m_i = \overline m_i \cdot m $. This means that the equivalence that we established is actually well-defined: equivalent elements in $ \varphi^*(A) \times \varphi^*(B) $ are sent to equivalent elements in $ \varphi^*(A \times B) $.
+  The fact that $ (\overline m^\prime, \overline m_1, \overline m_2) $ is weakly terminal also means that for all $ m^\prime: M^\prime $ and $ m_1, m_2: M $ with $ m_i^\prime = \varphi(m_i) \cdot m^\prime $, there exists $ m: M $ such that $ \varphi(m) \cdot m^\prime = \overline m^\prime $ and $ m_i = \overline m_i \cdot m $. This means that the equivalence that we established is actually well-defined: equivalent elements in $ \varphi_*(A) \times \varphi_*(B) $ are sent to equivalent elements in $ \varphi_*(A \times B) $.
 
   Therefore, we have an isomorphism $ \psi: \varphi^*(A) \times \varphi^*(B) \xrightarrow{\sim} \varphi^*(A \times B) $. Now we only need to show that the projections are preserved by this isomorphism. To that end, take $ x = (a, m^\prime_1, b, m^\prime_2) \sim (a \overline m_1, \overline m^\prime, b \overline m_2, \overline m^\prime) : \varphi^*(A) \times \varphi^*(B) $. We have
   \[ \varphi^*(\pi_1)(\psi(x)) = (a \overline m_1, \overline m^\prime) = \pi^\prime_1(x). \]
