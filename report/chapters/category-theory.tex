@@ -11,47 +11,6 @@ For composition of morphisms $ f: C(c, d) $ and $ g: C(d, e) $, I will write $ f
 
 For composition of functors $ F: A \to B $ and $ G: B \to C $, I will write $ F \bullet G $.
 
-\section{Yoneda}
-We can embed a category $ C $ into the functor category $ P C = [\op C, \SET] $ as follows (see \cite{Kashiwara}, Section 1.4):
-\begin{definition}
-  The \iindex{Yoneda embedding} $ Y : C \hookrightarrow P C $ is given on objects by $ Y(c) = C(-, c) $:
-  \[ Y(c)(d) = C(d, c) \quad \text{and} \quad Y(c)(f)(g) = f \cdot g \]
-  for $ d: C $, $ f: C(d, d^\prime) $ and $ g: C(d^\prime, c) $. It sends a morphism $ f: C(c, c^\prime) $ to the natural transformation $ Y(f): C(-, c) \Rightarrow C(-, c^\prime) $ given by
-  \[ Y(f)(d)(g) = g \cdot f \]
-  for $ d: C $ and $ g: C(d, c) $.
-\end{definition}
-
-For a functor between categories $ f: C \to D $, given the Yoneda embeddings $ Y_C : C \to P C $ and $ Y_D : D \to P D $ (we will often omit the subscript $ C $ and $ D $), we can create a diagram
-\begin{center}
-  \begin{tikzcd}
-    C \arrow[r, "f"] \arrow[d, hookrightarrow, "Y"] & D \arrow[d, hookrightarrow, "Y"]\\
-    P C & P D \arrow[l, "\op f_*"]
-  \end{tikzcd}
-\end{center}
-Note that the arrows in this diagram are functors, so objects in a category, instead of elements of a set. Therefore, it does not make sense to talk about `equality' of the morphisms along the different paths, but we rather talk about isomorphism in the functor category $ [C, P C] $. If we have such an isomorphism, we say the diagram `2-commutes':
-\begin{lemma}\label{lem:Yoneda-restriction-commutes}
-  If $ f: C \to D $ is a fully faithful functor, the diagram above 2-commutes.
-\end{lemma}
-\begin{proof}
-  For $ c, d : C $, since $ f $ is fully faithful, we have isomorphisms of sets, given by
-  \[ Y(c)(d) = C(d, c) \xrightarrow[f_{d, c}]{\sim} D(f(d), f(c)) = \op f_*(Y(f(c)))(d). \]
-  Also, for $ g: C(d^\prime, d) $, the following diagram commutes
-  \begin{center}
-    \begin{tikzcd}
-      Y(c)(d) \arrow[d, "g \cdot -"] \arrow[r, "f_{d, c}"] & \op f_*(Y(f(c)))(d) \arrow[d, "f_{d^\prime, d}(g) \cdot -"]\\
-      Y(c)(d^\prime) \arrow[r, "f_{d^\prime, c}"] & \op f_*(Y(f(c)))(d^\prime)
-    \end{tikzcd}
-  \end{center}
-  so the isomorphism is natural in $ d $ and we have $ Y(c) \cong \op f_*(Y(f(c))) $ in $ P C $. Lastly, for $ g: C(c, c^\prime) $ and $ d: C $, the following diagram commutes
-  \begin{center}
-    \begin{tikzcd}
-      Y(c)(d) \arrow[d, "- \cdot g"] \arrow[r, "f_{d, c}"] & \op f_*(Y(f(c)))(d) \arrow[d, "- \cdot f_{c, c^\prime}(g)"]\\
-      Y(c^\prime)(d) \arrow[r, "f_{d, c^\prime}"] & \op f_*(Y(f(c^\prime)))(d)
-    \end{tikzcd}
-  \end{center}
-  so the isomorphism is natural in $ c $ and we have $ Y \cong f \bullet Y \bullet \op f_* $ in $ [C, P C] $.
-\end{proof}
-
 \section{Universal Arrows}
 
 One concept in category theory that can be used to describe a lot of limits and adjunctions is that of a universal arrow (see for example \cite{MacLane}, Part III)
@@ -138,6 +97,69 @@ In other words, we have functors $ X \mapsto X \times Y $ and $ Z \mapsto (Y \to
   \[ C(d^\prime \times c, d) \cong C(d^\prime, d^c). \]
   Then $ d^c $ is still called an exponential object.
 \end{remark}
+
+\section{Yoneda}
+We can embed a category $ C $ fully faithfully into the functor category $ P C = [\op C, \SET] $ as follows (see \cite{Kashiwara}, Section 1.4):
+\begin{definition}
+  The \iindex{Yoneda embedding} $ Y : C \hookrightarrow P C $ is given on objects by $ Y(c) = C(-, c) $:
+  \[ Y(c)(d) = C(d, c) \quad \text{and} \quad Y(c)(f)(g) = f \cdot g \]
+  for $ d: C $, $ f: C(d, d^\prime) $ and $ g: C(d^\prime, c) $. It sends a morphism $ f: C(c, c^\prime) $ to the natural transformation $ Y(f): C(-, c) \Rightarrow C(-, c^\prime) $ given by
+  \[ Y(f)(d)(g) = g \cdot f \]
+  for $ d: C $ and $ g: C(d, c) $.
+\end{definition}
+
+Now, this embedding has a couple of properties:
+\begin{lemma}
+  For any $ c: C $ and $ F : PC $, we have an equivalence $ PC(Y(c), F) \simeq F(c) $, and this equivalence is natural in $ c $ and $ F $.
+\end{lemma}
+\begin{proof}
+  See \cite{Kashiwara}, Proposition 1.4.3.
+\end{proof}
+
+\begin{lemma}
+  The Yoneda embedding functor preserves limits.
+\end{lemma}
+\begin{proof}
+  See \cite{borceux}, Volume 1, Proposition 2.15.5.
+\end{proof}
+
+\begin{lemma}
+  The Yoneda embedding functor preserves exponential objects (\cite{stackexchange:yoneda-exponentials}).
+\end{lemma}
+\begin{proof}
+
+\end{proof}
+
+For a functor between categories $ f: C \to D $, given the Yoneda embeddings $ Y_C : C \to P C $ and $ Y_D : D \to P D $ (we will often omit the subscript $ C $ and $ D $), we can create a diagram
+\begin{center}
+  \begin{tikzcd}
+    C \arrow[r, "f"] \arrow[d, hookrightarrow, "Y"] & D \arrow[d, hookrightarrow, "Y"]\\
+    P C & P D \arrow[l, "\op f_*"]
+  \end{tikzcd}
+\end{center}
+Note that the arrows in this diagram are functors, so objects in a category, instead of elements of a set. Therefore, it does not make sense to talk about `equality' of the morphisms along the different paths, but we rather talk about isomorphism in the functor category $ [C, P C] $. If we have such an isomorphism, we say the diagram `2-commutes':
+\begin{lemma}\label{lem:Yoneda-restriction-commutes}
+  If $ f: C \to D $ is a fully faithful functor, the diagram above 2-commutes.
+\end{lemma}
+\begin{proof}
+  For $ c, d : C $, since $ f $ is fully faithful, we have isomorphisms of sets, given by
+  \[ Y(c)(d) = C(d, c) \xrightarrow[f_{d, c}]{\sim} D(f(d), f(c)) = \op f_*(Y(f(c)))(d). \]
+  Also, for $ g: C(d^\prime, d) $, the following diagram commutes
+  \begin{center}
+    \begin{tikzcd}
+      Y(c)(d) \arrow[d, "g \cdot -"] \arrow[r, "f_{d, c}"] & \op f_*(Y(f(c)))(d) \arrow[d, "f_{d^\prime, d}(g) \cdot -"]\\
+      Y(c)(d^\prime) \arrow[r, "f_{d^\prime, c}"] & \op f_*(Y(f(c)))(d^\prime)
+    \end{tikzcd}
+  \end{center}
+  so the isomorphism is natural in $ d $ and we have $ Y(c) \cong \op f_*(Y(f(c))) $ in $ P C $. Lastly, for $ g: C(c, c^\prime) $ and $ d: C $, the following diagram commutes
+  \begin{center}
+    \begin{tikzcd}
+      Y(c)(d) \arrow[d, "- \cdot g"] \arrow[r, "f_{d, c}"] & \op f_*(Y(f(c)))(d) \arrow[d, "- \cdot f_{c, c^\prime}(g)"]\\
+      Y(c^\prime)(d) \arrow[r, "f_{d, c^\prime}"] & \op f_*(Y(f(c^\prime)))(d)
+    \end{tikzcd}
+  \end{center}
+  so the isomorphism is natural in $ c $ and we have $ Y \cong f \bullet Y \bullet \op f_* $ in $ [C, P C] $.
+\end{proof}
 
 \section{Fibrations}
 Let $ P : E \to B $ be a functor. In this case, we will view this as the category $ E $ `lying over' the category $ B $, with for every point $ b: B $, a slice $ E_b = P^{-1}(B) $ lying `above' $ b $.
@@ -239,7 +261,7 @@ In fact, $ \Delta_X : C \to C / X $ is a functor, with $ \Delta_X(f) = \id X \ti
   $ \Delta_X $ preserves exponential objects:
 \end{lemma}
 \begin{proof}
-  See \cite{borceux-3}, Lemma 5.8.2. This lemma shows this via the following equivalences:
+  See \cite{borceux}, Volume 3, Lemma 5.8.2. This lemma shows this via the following equivalences:
   \begin{align*}
     (C \downarrow X)((A, f), \Delta_X Y^Z) &\cong C(A, Y^Z)\\
     &\cong C(A \times Z, Y)\\
@@ -724,7 +746,7 @@ Consider the category $ D $ with $ D_0 = M^\prime $ and
   If $ D $ has a weakly terminal object, there exists $ m_0 : M^\prime $ such that for all $ m^\prime: M^\prime $, there exists $ m: M $ such that $ \varphi(m) \cdot m^\prime = m_0 $.
 
   The proof relies on the fact that every element of $ \varphi_*(I_M) $ is given by some $ (\star, m^\prime) $, but then
-  \[ (\star, m^\prime) = (\star \cdot m, m^\prime) \sim (\star, \varphi(m) \cdot m^\prime) = (\star, \overline{m^\prime}), \]
+  \[ (\star, m^\prime) = (\star \cdot m, m^\prime) \sim (\star, \varphi(m) \cdot m^\prime) = (\star, m_0), \]
   so $ \varphi_*(I_M) $ has exactly $ 1 $ element.
 \end{proof}
 
