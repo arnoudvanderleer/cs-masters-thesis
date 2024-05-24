@@ -29,11 +29,16 @@ Note that if we consider $ L_1 $ as a monoid, with operation $ \bullet $ and uni
 
 Note that the composition of the first two morphisms sends the object of the category $ L_1 $ to $ (\lambda x_1, x_1) : \R $, which is exactly the usual embedding of $ L_1 $ into its Karoubi envelope.
 
-Write $ i: \op{L_1} \hookrightarrow \op{\mathbf L} $ and $ j: \op{\mathbf L} \hookrightarrow \op \R $ for the embeddings on the opposite categories. By Corollary \ref{cor:surjective-precomposition}, the first two morphisms in this sequence yield the following sequence of essentially surjective functors on the presheaf categories:
+Write $ i: \op{L_1} \hookrightarrow \op{\mathbf L} $ and $ j: \op{\mathbf L} \hookrightarrow \op \R $ for the embeddings on the opposite categories. By Corollary \ref{cor:surjective-precomposition}, the first two functors in this sequence essentially yield surjective functors on the presheaf categories:
 \begin{center}
   \begin{tikzcd}
-    \mathbf R \arrow[r, hookrightarrow] \arrow[d, hookrightarrow, "Y"] & \Pshf L \arrow[d, "\sim"]\\
-    P \R \arrow[r, twoheadrightarrow, "j_*"] \arrow[rr, bend right, "\sim"] & P \mathbf L \arrow[r, twoheadrightarrow, "i_*"] & P C_{L_1}
+    C_{L_1} \arrow[d, "Y", hook] &
+    \mathbf L \arrow[l, "\op i"'] \arrow[d, "Y", hook] &
+    \mathbf R \arrow[rd, hook] \arrow[d, "Y", hook] \arrow[l, "\op j"']\\
+    P C_{L_1} &
+    P \mathbf L \arrow[l, "i_*"', two heads] &
+    P \R \arrow[l, "j_*"', two heads] \arrow[ll, "\sim"', bend left] &
+    \Pshf L \arrow[ll, "\sim", bend left]
   \end{tikzcd}
 \end{center}
 The two equivalences in this diagram are due to Lemma \ref{lem:lawvere-presheaf} and Corollary \ref{cor:karoubi-presheaf}.
@@ -56,7 +61,7 @@ The two equivalences in this diagram are due to Lemma \ref{lem:lawvere-presheaf}
 \end{proof}
 
 \begin{lemma}
-  The square in the diagram above 2-commutes.
+  The embeddings of $ \R $ into $ \Pshf L $ and $ P \R $ commute with the equivalence between these categories.
 \end{lemma}
 \begin{proof}
   Note:
@@ -214,262 +219,73 @@ Now, Hyland shows the following:
   Therefore, in univalent foundations, the relative cartesian closedness is not a corollary of Theorem \ref{thm:restrict-sum-product}.
 \end{remark}
 
-\section{Terms of a \texorpdfstring{$ \Lambda $}{Lambda}-algebra}
-Let $ A $ be an algebra for the initial $ \lambda $-theory $ \Lambda $. We will assume that $ \Lambda $ (and therefore, any $ \lambda $-theory) satisfies $ \beta $-equality.
+\section{The `Fundamental Theorem' of the \texorpdfstring{$ \lambda $}{lambda}-calculus}
 
-The $ \Lambda $-algebra structure gives the terms of $ A $ quite a lot of behaviour. For example, we can define `function application' as
-\[ a b = (x_1 x_2) \bullet (a, b) \]
-and composition as
-\[ a \circ b = (x_1 \circ x_2) \bullet (a, b) \]
-and the same for the other constructions at the start of Section \ref{sec:retracts-category}.
+The final theorem that Hyland works towards in his paper constructs an equivalence between $ \lambda $-calculi and $ \Lambda $-algebras. First, we will give an elementary version of Hyland's proof. Then we will provide an expanded version of Hyland's proof. And afterwards we will show it in a third, somewhat unrelated way.
 
-\begin{remark}
-  Recall that in Example \ref{ex:free-monoid-theory}, we constructed an algebraic theory $ T $ with a monoid structure. This allowed us to define a monoid operation on $ T $-algebras as well. We then were able to transfer associativity of the operation on the $ T_n $ to associativity of the operation on the algebras. In exactly the same way, the function composition on $ A $ is associative because composition on $ \Lambda_n $ is associative.
-\end{remark}
+We will assume that $ \Lambda $ (and therefore, any $ \lambda $-theory) satisfies $ \beta $-equality.
 
-\begin{definition}
-  We can consider the sets of elements of $ A $ that behave like functions in $ n $ variables:
-  \[ A_n = \{ a : A \mid (\lambda x_2 x_3 \dots x_{n + 1}, x_1 x_2 x_3 \dots x_{n + 1}) \bullet a = a \}. \]
-\end{definition}
-
-\begin{definition}
-  Take $ \mathbf 1_n = (\lambda x_1 \dots x_n, x_1 \dots x_n) \bullet () : A $.
-\end{definition}
-
-\begin{remark}
-  Some straightforward rewriting, shows that for all $ a : A $,
-  \[ \mathbf 1_n \circ a = (\lambda x_2 x_3 \dots x_{n + 1}, x_1 x_2 \dots x_{n + 1}) \bullet a. \]
-  In other words, $ A_n = \{ a : A \mid \mathbf 1_n \circ a = a \} $.
-\end{remark}
-
-\begin{remark}
-  Also note that $ \mathbf 1_n \circ a \circ \mathbf 1_n = \mathbf 1_n \circ a $, so for $ a : A_n $, $ a \circ \mathbf 1_n = a $.
-\end{remark}
-
-\begin{lemma}
-  For $ t: \Lambda_{m + n} $ and $ a_1, \dots, a_m: A $, we have $ (\lambda^n t) \bullet (a_1, \dots, a_m) : A $ and we have
-  \[ \mathbf 1_n \circ ((\lambda^n t) \bullet (a_1, \dots, a_m)) = (\lambda^n t) \bullet (a_1, \dots, a_m), \]
-  so $ (\lambda^n t) \bullet (a_1, \dots, a_m) : A_n $.
-\end{lemma}
-\begin{proof}
-  This follows by straightforward rewriting.
-\end{proof}
-
-\begin{corollary}
-  By the previous remark,
-  \[ ((\lambda^n t) \bullet (a_1, \dots, a_m)) \circ \mathbf 1_n = (\lambda^n t) \bullet (a_1, \dots, a_m). \]
-\end{corollary}
-\begin{corollary}
-  In particular, $ \mathbf 1_m \circ \mathbf 1_n = \mathbf 1_{\max(m, n)} $. From this, it follows that $ A_m \subseteq A_n $ for $ m \leq n $. It also follows that $ a \mapsto \mathbf 1_n \circ a $ gives a function from $ A $ to $ A_n $ (and also from $ A_m \subseteq A $ to $ A_n $).
-\end{corollary}
-
-
-\section{The Fundamental Theorem of the \texorpdfstring{$ \lambda $-}{lambda }calculus}
-
-The fundamental theorem states that there is an adjoint equivalence
-\[ \LamTh \cong \Alg \Lambda. \]
-We will prove this by showing that there is a weak equivalence. Using the fact that $ \LamTh $ is
-
-
-\subsection{The functor}
-
+In both cases, one part of the equivalence is very easy:
 \begin{definition}
   For all $ n $, we have a functor from lambda theories to $ \Lambda $-algebras. It sends the $ \lambda $-theory $ L $ to the $ L $-algebra $ L_n $ and then turns this into a $ \Lambda $-algebra via the morpism $ \Lambda \to L $. It sends morphisms $ f: L \to L^\prime $ to the algebra morphism $ f_n : L_n \to L^\prime_n $.
 \end{definition}
+Here we are only interested in the case $ n = 0 $.
 
-Here, we are mostly interested in the case $ n = 0 $.
+\subsection{An elementary version of Hyland's proof}
+We will use Lemma \ref{lem:univalen-category-equivalence}, by showing that $ L \mapsto L_0 $ is a weak equivalence.
 
-\subsection{Lifting \texorpdfstring{$ \Lambda $}{Lambda}-algebras}
+First of all, let $ A $ be an algebra for the initial $ \lambda $-theory $ \Lambda $.
 
-\begin{definition}[The monoid of a $ \Lambda $-algebra]
-  We make $ A_1 $, the `functional elements' of $ A $, into a monoid under composition $ \circ $ with unit $ \mathbf 1_1 $. The fact that this is a monoid follows from the remarks in the last section.
-\end{definition}
-
-Recall that we have an equivalence $ [\op{C_{A_1}}, \SET] \cong \RAct{A_1} $.
-
-In particular, we have a set with right $ A_1 $-action, given by $ A_1 $ itself. We will call this set with right $ A_1 $-action $ U_A $.
+The $ \Lambda $-algebra structure gives the terms of $ A $ quite a lot of interesting behaviour. For example, we can define `function application' and composition as
+\[ a b = (x_1 x_2) \bullet (a, b) \quad \text{and} \quad a \circ b = (x_1 \circ x_2) \bullet (a, b), \]
+and the same for the other constructions at the start of Section \ref{sec:retracts-category}.
 
 \begin{remark}
-  Note that, like in the last chapter, we can take the Karoubi envelope $ \R_A $ of $ C_{A_1} $, which yields the following diagram:
-  \begin{center}
-    \begin{tikzcd}
-      & C_{A_1} \arrow[d, hookrightarrow, "Y"] \arrow[r, hookrightarrow, "\iota_{C_{A_1}}"] & \R_A \arrow[d, hookrightarrow, "Y"]\\
-      \RAct{A_1} & P C_{A_1} \arrow[l, "\sim"] & P \R_A \arrow[l, "\sim"]
-    \end{tikzcd}
-  \end{center}
-  Explicitly, this gives the embedding $ \R_A(\mathbf 1_1, -): \R_A \hookrightarrow \RAct{A_1} $ given by
-  \[ X \mapsto \R_A(\mathbf 1_1, X) = \{ x : A \mid X \circ x = x \}. \]
-  Now, we can repeat almost the entirety of Section \ref{sec:retracts-category} for $ \R_A $. In particular, $ \R_A $ has "universal object"
-  \[ U = \mathbf 1_1, \]
-  products
-  \[ A \times B = \langle x_1 \circ \pi_1, x_2 \circ \pi_2 \rangle \bullet (A, B) \]
-  and exponential objects
-  \[ B^A = (\lambda x_3, x_1 \circ x_3 \circ x_2) \bullet (B, A) \]
-  with the isomorphism $ \psi: \R_A(C \times A, B) \xrightarrow \sim \R_A(C, B^A) $
-  given by
-  \[ \psi(f) = (\lambda x_2 x_3, x_1 (x_2, x_3)) \bullet f \quad \text{and} \quad \psi^{-1}(f) = (\lambda x_2, x_1 (\pi_1 x_2) (\pi_2 x_2)) \bullet f. \]
+  Recall that in Example \ref{ex:free-monoid-theory}, we constructed an algebraic theory $ T $ encapsulating the structure of a monoid. This allowed us to define a monoid operation on $ T $-algebras as well. We then were able to transfer associativity of the operation on the $ T_n $ to associativity of the operation on the algebras. In exactly the same way, the function composition on $ A $ is associative because composition on $ \Lambda_n $ is associative. Similarly, we can show that $ \pi_1 (a, b) = a $, that $ \pi_2 \circ \langle a, b \rangle = (\lambda x_2, x_1 x_2) \bullet b $ etc.
 \end{remark}
 
-\begin{remark}\label{rem:ract-presheaf-equivalence}
-  Also, note that if $ A = L_0 $ for some $ \lambda $-theory $ L $, then the monoid $ A_1 $ is equivalent to the monoid $ L_1 $, and $ \R_A $ is equivalent to our familiar category of retracts $ \R $. From Lemma \ref{lem:equivalent-presheaf-cats}, it follows that $ \RAct{A_1} $ is equivalent to $ \Pshf L $. This might motivate some of the following constructions.
-\end{remark}
-
+In fact, we can repeat almost the entirety of Section \ref{sec:retracts-category} for $ A $ instead of for $ L_0 $:
 \begin{definition}
-  Composition $ \circ $ gives a right $ A_1 $-action on the $ A_n $, so we have $ A_n : \RAct{A_1} $ (note that this is the image of $ \mathbf 1_n : \R_A $ under the embeddding into $ \RAct{A_1} $).
+  We define the `category of retracts' of $ A $ as the category $ \R_A $ given by
+  \[ (\R_A)_0 = \{ X : A \mid X \circ X = X \} \quad \text{and} \quad \R_A(X, Y) = \{ f : A \mid Y \circ f \circ X = f \}. \]
 \end{definition}
+Just like in Section \ref{sec:retracts-category}, $ \R_A $ has `universal object' and terminal object
+\[ U = (\lambda x_1, x_1) \bullet () \quad \text{and} \quad I = (\lambda x_1, c_1), \]
+products
+\[ A \times B = \langle A \circ \pi_1, B \circ \pi_2 \rangle \]
+and exponential objects
+\[ B^A = (\lambda x_3, x_1 \circ x_3 \circ x_2) \bullet (B, A) \]
+with the isomorphism $ \psi: \R_A(C \times A, B) \xrightarrow \sim \R_A(C, B^A) $
+given by
+\[ \psi(f) = (\lambda x_2 x_3, x_1 (x_2, x_3)) \bullet f \quad \text{and} \quad \psi^{-1}(f) = (\lambda x_2, x_1 (\pi_1 x_2) (\pi_2 x_2)) \bullet f. \]
 
-\begin{lemma}
-  $ A_2 $ is the exponential object $ A_1^{A_1} $ in $ \RAct{A_1} $.
-\end{lemma}
-\begin{proof}
-  Note that the embedding $ \R_A \hookrightarrow \RAct{A_1} $ is the composition of a Yoneda embedding and two adjoint equivalences. These all preserve exponential objects (\TODO: Citation needed). Since $ A_1 $ is the image of $ \mathbf 1_1 : \R_A $, the exponential $ A_1^{A_1} $ is $ A_2 $, the image of $ \mathbf 1_1^{\mathbf 1_1} = \lambda x_1 x_2, x_1 x_2 $.
-\end{proof}
+Therefore, we have a $ \lambda $-theory $ E_{\R_A}(U) $.
 
 \begin{remark}
-  Hyland shows this by explicitly constructing an isomorphism $ \psi $ between $ A_2 $ and the `familiar' exponential object in $ \RAct{A_1} $ (the set of $ A_1 $-equivariant morphisms $ U_A \times U_A \to U_A $), given by
-  \[ \psi(f) = (b, b^\prime) \mapsto (\lambda x_4, x_1 (x_2 x_4) (x_3 x_4)) \bullet (f, b, b^\prime), \]
-  treating $ f : A_2 $ as a function in two variables, and simultaneously composing it with the functions $ b, b^\prime : A_1 $. It has an inverse
-  \[ \psi^{-1}(g) = (\lambda x_2 x_3, x_1 (x_2, x_3)) \bullet (g(\pi_1, \pi_2)). \]
-  Note that the first pair $ (x_2, x_3) $ is a $ \lambda $-term, whereas the second pair $ (\pi_1, \pi_2) $ is a pair in $ U_A \times U_A $.
+  Note that if $ A = L_0 $, then the construction of $ \R_A $ and $ \R $ coincide, so we have an almost trivial equivalence $ \R_A \cong \R $, and an isomorphism $ E_{\R}(U) \cong E_{\R_A}(U) $.
 \end{remark}
 
-\begin{definition}[Construction of the $ \lambda $-theory]
-  Now, note that, like before, $ \mathbf 1_1 $ is a retract of $ \mathbf 1_2 $ in $ \R_A $. When we embed these into $ \RAct{A_1} $, we see that we have a subset $ A_2 \subseteq A_1 $ and a retraction $ r: A_1 \to A_2 $, given by precomposition with $ \mathbf 1_2 $.
+The following lemma shows that our functor is essentially surjective:
 
-  Therefore, $ \mathbf 1_1 $ and $ U_A $ are reflexive objects in $ \R_A $ and $ \RAct{A_1} $, and we get isomorphic $ \lambda $-theories $ E(\mathbf 1_1) $ and $ E(U_A) $.
-\end{definition}
-
-\subsection{Lifting algebra morphisms}
-
-Now, take a morphism $ F: \Alg{\Lambda}(A, B) $. Recall that $ \circ $, the structure on $ \mathbf R_A $ and $ \mathbf R_B $, and their products and exponential objects are given by $ f \bullet (a_1, \dots, a_n) $ for some $ f: \Lambda_n $ and $ a_1, \dots, a_n : A $. Since we have $ F(f \bullet (a_1, \dots, a_n)) = f \bullet (F(a_1), \dots, F(a_n)) $, $ F $ gives a functor $ F: \R_A \to \R_B $ that preserves the terminal object, the object $ \mathbf 1_1 $, the products, their projections, the exponential objects and the natural isomorphisms $ \R_A(C, B^A) \cong \R_A(C \times A, B) $. This induces a $ \lambda $-theory morphism $ E(\mathbf 1_1) \to E(\mathbf 1_1) $ between the endomorphism theories of $ \mathbf 1_1 : A $ and $ \mathbf 1_1 : B $.
-
-\begin{remark}
-  Instead of in $ \R_A $ and $ \R_B $, Hyland tries to do the above in the `presheaf' categories $ \RAct{A_1} $ and $ \RAct{B_1} $. $ F $ induces a monoid morphism $ A_1 \to B_1 $, which gives a functor $ C_{A_1} \to C_{B_1} $. Precomposing with this, we get a functor $ \RAct{B_1} \to \RAct{A_1} $, and we only get the functor $ \RAct{A_1} \to \RAct{B_1} $ in the right direction after taking a Left Kan extension (the "tensor product": see Lemma \ref{lem:scalar-extension}).
-\end{remark}
-
-\begin{lemma}
-  The functors on $ \R_A $ and $ \RAct{A_1} $ induced by $ F $ commute with the embedding of $ \R_A $ and $ \R_B $ into $ \RAct{A_1} $ and $ \RAct{B_1} $. In other words, the diagram below $ 2 $-commutes:
-  \begin{center}
-    \begin{tikzcd}
-      \R_A \arrow[r, "F"] \arrow[d, "{\R_A(\mathbf 1_1, -)}"] & \R_B \arrow[d, "{\R_B(\mathbf 1_1, -)}"]\\
-      \RAct{A_1} \arrow[r, "F_*"] & \RAct{B_1}
-    \end{tikzcd}
-  \end{center}
+\begin{lemma}\label{lem:elementary-essentially-surjective}
+  We have a $ \Lambda $-algebra isomorphism $ \epsilon_A : E_{\R_A}(U)_0 \xrightarrow \sim A $.
 \end{lemma}
 \begin{proof}
-  Given $ X : \R_A $, we need to show that we have a natural isomorphism of sets with a right $ B_1 $-action $ \psi: \R_B(\mathbf 1_1, F(X)) \xrightarrow \sim F_*(\R_A(\mathbf 1_1, X)) $, that is, we need
-  \[ \psi: \{ f : B \mid F(X) \circ f = f \} \xrightarrow \sim \{ f : A \mid X \circ f = f \} \times B_1 / \sim \]
-  with the equivalence relation on the latter given by $ (f, F(a) \circ b) \sim (f \circ a, b) $ for all $ f : \R_A(\mathbf 1_1, X) $, $ b : B_1 $ and $ a : A_1 $. We can take $ \psi $ to be
-  \[ \psi(f) = (X, f) \quad \text{and} \quad \psi^{-1}(f, b) = F(f) \circ b, \]
-  which is $ B_1 $-equivariant and natural in $ X $.
-  % We have
-  % \[ \psi^{-1}(\psi(f)) = \psi^{-1}(X, f) = F(X) \circ f = f \]
-  % \[ \psi(\psi^{-1}(f, b)) = \psi(F(f) \circ b) = (X, F(f) \circ b) = (X \circ f, b) = (f, b) \]
-  % We need to show that this is natural in $ X $. Therefore, take $ g : \R_A(X, Y) $. Then $ \R_B(\mathbf 1_1, F(g)) $ is given by postcomposition with $ F(g) $. Also, $ F_*(\R_A(\mathbf 1_1, g)) $ is given by postcomposing with $ g $ on the component $ \R_A(\mathbf 1_1, g) $. Then
-  % \[ \psi(F(g) \circ f) = (Y, F(g) \circ f) = (Y \circ g, f) = (g \circ X, f) \]
-\end{proof}
-
-For completeness' sake, the rest of this section will describe Hyland's reasoning a bit more:
-\begin{lemma}
-  The extension of scalars $ F_* $ sends $ U_A $ to $ U_A $ and preserves finite products.
-\end{lemma}
-\begin{proof}
-  By Lemma \ref{lem:scalar-extension-monoid-monoid-action}, we have $ F_*(U_A) \cong U_A $.
-
-  We will show that $ F_* $ preserves binary products and the terminal object.
-
-  We use Lemma \ref{lem:scalar-extension-terminal} to show that $ F_* $ preserves the terminal object. We take (very similar to the terminal object in $ \R $):
-  \[ a_0 = (\lambda x_1 x_2, x_2) \bullet () : A_1 \quad \text{and} \quad b_0 = (\lambda x_1 x_2, x_2) \bullet () : B_1 \]
-  and $ a_0 $ is weakly terminal because for all $ a : B_1 $, we have $ F(a_0) \circ a = b_0 $.
-
-  We use Lemma \ref{lem:scalar-extension-product} to show that $ F_* $ also preserves the product. Therefore, given $ a_1, a_2 : B_1 $. Take $ b = \langle x_1, x_2 \rangle \bullet (a_1, a_2) $, together with the familiar projections $ \pi_i \bullet () : A_1 $. We have $ a_i = F(\pi_i) \circ a $.
-
-  Now, for some $ b^\prime: B_1 $ and $ \pi_1^\prime, \pi_2^\prime: A_1 $ such that $ a_i = F(\pi_i^\prime) \circ b^\prime $, take $ m = \langle \pi_1^\prime, \pi_2^\prime \rangle $. Then $ \pi_i \circ m = \pi_i^\prime $ and $ F(m) \circ a^\prime = a $, so $ (a, \pi_1, \pi_2) $ is weakly terminal and $ F_* $ preserves binary products.
-
-  Since any finite product is (isomorphic to) a construction with a repeated binary product and the terminal object, the fact that $ F_* $ preserves binary products and the terminal object shows that $ F_* $ preserves all finite products.
-\end{proof}
-
-Now, we can start defining our lift of $ F $:
-\begin{definition}
-  We can send an element $ g: E(U_A)_n = \RAct{A}(U_A^n, U_A) $ to
-  \[ F_*(g): \RAct{A^\prime}(f(U_A^n), f(U_A)) \cong \RAct{A^\prime}((U_{A^\prime})^n, U_{A^\prime}) = E(U_{A^\prime})_n \]
-  so we have a morphism $ \bar F: \LamTh(E(U_A), E(U_{A^\prime})) $.
-\end{definition}
-
-\begin{remark}
-  The fact that $ \bar F $ preserves the variables and substitution is not very hard, since these are just defined in terms of finite products of $ U_A $ and $ \bar F $ preserves finite products and $ U_A $.
-
-  However, showing that it is a $ \lambda $-theory morphism is a different matter. Hyland claims
-  \begin{quote}
-    $ F $ preserves $ \mathbf 1_n $, which determines the function space as a retract of the universal. So $ \bar F $ preserves the retract and the result follows.
-  \end{quote}
-  Although this covers the core of the argument, it is very complicated to actually verify that this works, because we need to pass through a lot of isomorphisms, and check that they work nicely together:
-  \begin{align*}
-    \alpha_A: \RAct{A_1}(X \times Y, Z) &\xrightarrow{\sim} \RAct{A}(X, Z^Y);\\
-    \beta: F_*(U_A) &\xrightarrow{\sim} U_{A^\prime};\\
-    \bar \gamma: F_*(A \times B) &\xrightarrow{\sim} F_*(A) \times F_*(B);\\
-    \gamma_n: F_*(X^n) &\xrightarrow{\sim} F_*(X)^n;\\
-    % \delta: F_*(X^Y) &\xrightarrow{\sim} F_*(X)^{F_*(Y)};\\
-    \delta_A: U_A^{U_A} &\xrightarrow{\sim} A_2.
-  \end{align*}
-  % with $ \gamma_{n + 1} = \bar{\gamma} \cdot (\gamma_n \times \id X) $.
-  % Then, for $ s: E(U_A)_{n + 1} $, we have $ \lambda_A(s) = \alpha_A(s) \cdot \delta_A \cdot \pi_A : \RAct{A_1}(U_A^n, U_A) $ for the projection $ \pi_A: A_2 \to U_A $. However, note that $ f^*(\lambda_A(s)): \RAct{A^\prime_1}(f^*(U_{A^\prime}^n), f^*(U_{A^\prime})) $. To compare this to $ \lambda_{A^\prime}(\dots) $, we actually need to take
-  % \[ (\beta^{-1})^n \cdot \gamma_n^{-1} \cdot f^*(\lambda_A(s)) \cdot \beta : \RAct{A^\prime_1}(U_A^n, U_A). \]
-  % On the other hand, we also have $ f^*(s): \RAct{A^\prime_1}(f^*(U_A^{n + 1}), f^*(U_A)) $ and we cannot apply $ \lambda_{A^\prime} $ directly. Instead, the term that we end up with is
-  % \[ \lambda_{A^\prime}((\beta^{-1})^{n + 1} \cdot \gamma_{n + 1}^{-1} \cdot f^*(s) \cdot \beta): \RAct{A^\prime_1}(U_A^n, U_A). \]
-  % So the equality that we need to prove is (using functoriality of $ f^* $ and naturality of $ \alpha_{A^\prime} $):
-  % \begin{align*}
-  %   &(\beta^{-1})^n \cdot \gamma_n^{-1} \cdot f^*(\alpha_A(s)) \cdot f^*(\delta_A \cdot \pi_A) \cdot \beta\\
-  %   &= (\beta^{-1})^n \cdot \gamma_n^{-1} \cdot \alpha_{A^\prime}((\id X^n \times \beta^{-1}) \cdot \bar{\gamma}^{-1} \cdot f^*(s)) \cdot \beta^{U_A} \cdot \delta_{A^\prime} \cdot \pi_{A^\prime}.
-  % \end{align*}
-  % Because of the complicated definition of each of these terms, I was unable to verify the correctness of this statement (and the similar statement about $ \rho: E(U_A)_n \to E(U_A)_{n + 1} $) within a day, even though I am willing to believe Hyland's claim.
-  % \TODO
-
-  % Given a morphism $ t: X \times Y \to Z $, $ \alpha_{A_1}(t): X \to (U_A \times Y \to Z) $ is given by
-  % \[ \alpha(t)(x)(a, y) = t(x a, y) \]
-
-  % Also, $ \beta: f^*(U_A) \xrightarrow{\sim} U_{A^\prime} $ is given, for $ a: A_1 $ and $ a^\prime : A^\prime_1 $, by
-  % \[ \beta(a, a^\prime) = f(a) a^\prime \quad \text{and} \quad \beta^{-1}(a^\prime) = (1, a^\prime). \]
-
-  % Given a morphism $ s: X \to Y $, we have $ f^*(s): f^*(X) \to f^*(Y) $ given by
-  % \[ f^*(s)(x, a^\prime) = (s(x), a^\prime). \]
-
-  % Finally, we have
-  % \[ \delta(s) = \lambda x_1 x_2, s(p_1, p_2)(\lambda x_3, x_3 x_1 x_2) \]
-  % with $ p_i = \lambda x_1, x_1 (\lambda x_2 x_3, x_{i + 1}) $.
-
-  % For some $ s: U_A^{n + 1} \to U_A $, the left hand side sends $ (a, (a^\prime_1, \dots, a^\prime_n)): f^*(U_A^n) $ to
-  % \begin{align*}
-  %   &\lambda x_1 x_2, f(s((a_i p_1)_i, p_2)) (\lambda x_3, x_3 x_1 x_2) \circ a^\prime\\
-  %   &= \lambda x_1 x_2, f(s((a_i p_1)_i, p_2)) (\lambda x_3, x_3 a^\prime (x_1) x_2)
-  % \end{align*}
-  % and the right hand side sends it to
-  % \begin{align*}
-  %   \lambda x_1 x_2, \lambda x_3, (f(s((a_i p_1)_i, p_2))((\lambda x_4, x_4 (a^\prime p_1 (\lambda x_3, x_3 x_1 x_2)) (p_2 (\lambda x_3, x_3 x_1 x_2)))(x_3)))
-  % \end{align*}
-\end{remark}
-
-\subsection{Essentially surjective}
-
-\begin{lemma}
-  We have an isomorphism of $ \Lambda $-algebras $ \epsilon: E(\mathbf 1_1)_0 \xrightarrow \sim A $.
-\end{lemma}
-\begin{proof}
-  Take $ c_n = (\lambda x_{n + 1}, x_{n + 1}): \Lambda_n $. Note that $ E(\mathbf 1_1)_0 $ is given by $ \{ a : A \mid (\lambda x_2, x_1 c_2) \bullet a = a \} $. Therefore, we have a bijection given by
+  Take $ c_n = (\lambda x_{n + 1}, x_{n + 1}): \Lambda_n $. Note that
+  \[ E(U)_0 = \{ f : A \mid (\lambda x_2, x_1 c_2) \bullet f = f \}. \]
+  Therefore, we have a bijection given by
   \[ \epsilon(a) = (x_1 c_1) \bullet a \quad \text{and} \quad \epsilon^{-1}(a) = (\lambda x_2, x_1) \bullet a. \]
-  Now, to show that this is an isomorphism of $ \Lambda $-algebras, recall that $ \bullet: \R_A(U^n, U) \times \R_A(I, U)^n \to \R_A(U) $ is given by precomposition with the product morphism and that the $ \Lambda $-algebra structure on $ E(\mathbf 1_1)_0 $ is given by the embedding $ f \mapsto \iota_\Lambda(f) \bullet_A () $ of $ \Lambda $ into $ E(\mathbf 1_1)_0 $. We have for all $ f: \Lambda_n $, and all $ a : E(\mathbf 1_1)_0^n $,
+  Now, to show that this is an isomorphism of $ \Lambda $-algebras, recall that $ \bullet: \R_A(U^n, U) \times \R_A(I, U)^n \to \R_A(U) $ is given by precomposition with the product morphism and that the $ \Lambda $-algebra structure on $ E(U)_0 $ is given by the embedding of $ \Lambda $ into $ E(U)_0 $, given by $ f \mapsto {\iota_\Lambda}_n(f) \bullet_A () $ for some collection $ ({\iota_\Lambda}_n: \Lambda_n \to \Lambda_0)_n $ (from now on, we will drop the $ n $ and just write $ \iota_\Lambda $). We have for all $ f: \Lambda_n $, and all $ a : E(U)_0^n $,
   \begin{align*}
-    \epsilon(f \bullet_{E(\mathbf 1_1)} a)
+    \epsilon(f \bullet_{E(U)} a)
     &= ((\iota_\Lambda(f) \bullet_A ()) \circ \langle a_1, \dots, a_n \rangle)(c_n)\\
     &= (\iota_{0, n}(\iota_\Lambda(f)) ((\dots((c_n, x_1 c_n), x_2 c_n), \dots), x_n c_n)) \bullet_A a\\
     &= (\iota_{0, n}(\iota_\Lambda(f)) ((\dots((c_n, x_1), x_2), \dots), x_n)) \bullet_A (\epsilon(a_i))_i,
   \end{align*}
-  writing $ \bar x_n $ for $ ((\dots((c_n, x_1), x_2), \dots), x_n) $, and leaving out the $ \iota_{0, n} $, all we need to do is show that for all $ f: \Lambda_n $,
-  \[ \iota_\Lambda(f) \bar x_n = f. \]
-  We will do this by structural induction on $ f $.
+  and we want this to equal $ f \bullet_A (\epsilon(a_i))_i $. Writing $ \bar x_n $ for $ ((\dots((c_n, x_1), x_2), \dots), x_n) $, and leaving out the $ \iota_{0, n} $, all we need to do is show that for all $ f: \Lambda_n $, we have $ \iota_\Lambda(f) \bar x_n = f $. We will do this by structural induction on $ f $.
   \begin{itemize}
     \item If $ f = x_{n, i} $, we have $ \iota_\Lambda(f) = \pi_2 \circ \underbrace{\pi_1 \circ \dots \circ \pi_1}_{n - i} $, and
-      \[ (\pi_2 \circ \pi_1 \circ \dots \circ \pi_1) \bar x_n = x_{n, i}. \]
+      \[ \iota_\Lambda(f) \bar x_n = (\pi_2 \circ \pi_1 \circ \dots \circ \pi_1) \bar x_n = x_{n, i}. \]
     \item If $ f = \lambda x_{n + 1}, g $ for some $ g: \Lambda_{n + 1} $, we have
       \[ \iota_\Lambda(f) = (\lambda x_1 x_2, \iota_{0, 2}(\iota_\Lambda(g)) (x_1, x_2)), \]
       and if the induction hypothesis holds for $ g $, then
@@ -495,67 +311,369 @@ Now, we can start defining our lift of $ F $:
   \end{itemize}
 \end{proof}
 
-Hyland shows the same fact in a slightly higher-level way.
-
-For his proof, we already need the unit of the adjunction. The quest for this counit boils down to a version of Scott's representation theorem.
-\begin{lemma}
-  For a $ \lambda $-theory $ L $, we can define an (iso)morphism
-  \[ \eta: \LamTh(L, E(U_{L_0})). \]
+Now, take a morphism $ F: \Alg{\Lambda}(A, B) $. Recall that $ \circ $, the categories $ \mathbf R_A $ and $ \mathbf R_B $, and their products and exponential objects are given using $ f \bullet (a_1, \dots, a_n) $ for some $ f: \Lambda_n $ and $ a_1, \dots, a_n : A $. Since we have $ F(f \bullet (a_1, \dots, a_n)) = f \bullet (F(a_1), \dots, F(a_n)) $, $ F $ gives a functor $ F: \R_A \to \R_B $, such that
+\[ F(I) = I, F(U) = U, F(A \times B) = F(A) \times F(B) \quad \text{and} \quad F(A^B) = F(A)^{F(B)}, \]
+and the same for the product projections and the the natural isomorphisms $ \R_A(C, B^A) \cong \R_A(C \times A, B) $. In particular, we have for all $ f: \R_A(U^n, U) $,
+\[ F(f) : \R_B(F(U^n), F(U)) = \R_B(U^n, U). \]
+Therefore, $ F $ gives a $ \Lambda $-theory morphism between the endomorphism theories of $ U: \R_A $ and $ U: \R_B $. This allows us to show:
+\begin{lemma}\label{lem:elementary-full}
+  The functor is full.
 \end{lemma}
 \begin{proof}
-  Note that for $ \R $ the category of retracts of $ L $,
-  \[ \mathbf R \xrightarrow \sim \mathbf R_{L_0} \xrightarrow{Y} P \R_{L_0} \xrightarrow \sim P C_{{L_0}_1} \xrightarrow \sim \RAct{{L_0}_1} \]
-  is a fully faithful functor that preserves finite products and exponential objects, and that $ U_{L_0} $ is the image of $ U = (\lambda x_1, x_1) $ under this embedding, so we have an isomorphism $ E(U) \cong E(U_{L_0}) $. Then $ \eta $ arises by composing this with the isomorphism from Scott's representation theorem (Theorem \ref{thm:Scott})
-  \[ \eta: L \xrightarrow \sim E(U) \xrightarrow \sim E(U_{L_0}). \]
-  Note that on the terms without free variables, this becomes
-  \[ \eta_0:
-    L_0
-      \xrightarrow{f \mapsto (\lambda x_1, \iota_{0, 1}(f))}
-    \R(I, U)
-      \xrightarrow{f \mapsto (I \mapsto f)}
-    \RAct{(L_0)_1}(\{I\}, (L_0)_1),
+  For any $ \lambda $-theory $ L $, Theorem \ref{thm:Scott} gives an isomorphism of $ \lambda $-theories $ \eta_L: L \xrightarrow \sim E_{\R_{L_0}}(U) $, with
+  \[ {\eta_L}_0(f) = \lambda x_1, \iota_{0, 1}(f) \quad \text{and} \quad {\eta_L^{-1}}_0(g) = g(\lambda x_1, x_1). \]
+
+  Now, for $ L, L^\prime: \LamTh $ and $ F: \Alg{\Lambda}(L_0, L^\prime_0) $, we have
+  \[ \eta_L \cdot F \cdot \eta_{L^\prime}^{-1} : \LamTh(L, L^\prime), \]
+  and we have for all $ s : L_0 $,
+  \[ ({\eta_L}_0 \cdot F \cdot {\eta_{L^\prime}^{-1}}_0)(s) = (\lambda x_1, \iota_{0, 1}(F(s))) (\lambda x_1, x_1) = F(s), \]
+  which shows that the functor is full.
+\end{proof}
+
+Now, we only have to show:
+\begin{lemma}\label{lem:elementary-faithful}
+  The functor is faithful.
+\end{lemma}
+\begin{proof}
+  Take morphisms $ F, G: \LamTh(L, L^\prime) $. Suppose that $ F_0 = G_0 $. Then, for all $ s: L_n $, we have
+  \[ F_n(s) = \rho^n(F_0(\lambda^n(s))) = \rho^n(G_0(\lambda^n(s))) = G_n(s), \]
+  so $ F = G $.
+\end{proof}
+
+Summarizing,
+\begin{theorem}
+  The functor that sends $ L : \LamTh $ to $ L_0 : \Alg{\Lambda} $, is an adjoint equivalence.
+\end{theorem}
+\begin{proof}
+  By Lemma \ref{lem:elementary-full} and Lemma \ref{lem:elementary-faithful}, the functor is fully faithful. By Lemma \ref{lem:elementary-essentially-surjective}, it is essentially surjective, so it is a weak equivalence. Since $ \LamTh $ and $ \Alg{\Lambda} $ are univalent categories, Lemma \ref{lem:univalen-category-equivalence} shows that $ F $ is an adjoint equivalence.
+\end{proof}
+
+\subsection{Hyland's proof}
+
+\subsubsection{Terms of a \texorpdfstring{$ \Lambda $}{Lambda}-algebra}
+
+\begin{definition}
+  Take $ \mathbf 1_n = (\lambda x_1 \dots x_n, x_1 \dots x_n) \bullet () : A $.
+\end{definition}
+
+\begin{remark}
+  Note that we have $ \mathbf 1_1 = U : \R_A $.
+\end{remark}
+
+\begin{definition}
+  In this section, we consider sets of elements of $ A $ that behave like functions in $ n $ variables:
+  \[ A_n = \{ a : A \mid (\lambda x_2 x_3 \dots x_{n + 1}, x_1 x_2 x_3 \dots x_{n + 1}) \bullet a = a \}. \]
+\end{definition}
+
+\begin{remark}
+  Some straightforward rewriting, shows that
+  \[ A_n = \{ a : A \mid \mathbf 1_n \circ a = a \}. \]
+\end{remark}
+
+\begin{remark}
+  Also note that $ \mathbf 1_n \circ a \circ \mathbf 1_n = \mathbf 1_n \circ a $, so for $ a : A_n $, $ a \circ \mathbf 1_n = a $.
+\end{remark}
+
+The following shows that `functions in $ n $ variables' are indeed all in $ A_n $:
+\begin{lemma}
+  For $ t: \Lambda_{m + n} $ and $ a_1, \dots, a_m: A $, we have $ (\lambda^n t) \bullet (a_1, \dots, a_m) : A $ and we have
+  \[ \mathbf 1_n \circ ((\lambda^n t) \bullet (a_1, \dots, a_m)) = (\lambda^n t) \bullet (a_1, \dots, a_m), \]
+  so $ (\lambda^n t) \bullet (a_1, \dots, a_m) : A_n $.
+\end{lemma}
+\begin{proof}
+  This follows by straightforward rewriting.
+\end{proof}
+
+\begin{corollary}
+  By the previous remark,
+  \[ ((\lambda^n t) \bullet (a_1, \dots, a_m)) \circ \mathbf 1_n = (\lambda^n t) \bullet (a_1, \dots, a_m). \]
+\end{corollary}
+\begin{corollary}
+  In particular, $ \mathbf 1_m \circ \mathbf 1_n = \mathbf 1_{\max(m, n)} $. From this, it follows that $ A_m \subseteq A_n $ for $ m \leq n $. It also follows that $ a \mapsto \mathbf 1_n \circ a $ gives a function from $ A $ to $ A_n $ (and also from $ A_m \subseteq A $ to $ A_n $).
+\end{corollary}
+
+\begin{definition}[The monoid of a $ \Lambda $-algebra]
+  We make $ A_1 $, the `functional elements' of $ A $, into a monoid under composition $ \circ $ with unit $ \mathbf 1_1 $. The fact that this is a monoid follows from the remarks above.
+\end{definition}
+
+Recall that we have an equivalence $ [\op{C_{A_1}}, \SET] \cong \RAct{A_1} $.
+
+\begin{remark}\label{rem:ract-presheaf-equivalence}
+  Note that, like in the last chapter, $ \R_A $ pops up as the Karoubi envelope of the monoid category $ C_{A_1} $, and fits into the following diagram:
+  \begin{center}
+    \begin{tikzcd}
+      & C_{A_1} \arrow[d, hookrightarrow, "Y"] \arrow[r, hookrightarrow, "\iota_{C_{A_1}}"] & \R_A \arrow[d, hookrightarrow, "Y"]\\
+      \RAct{A_1} & P C_{A_1} \arrow[l, "\sim"] & P \R_A \arrow[l, "\sim"]
+    \end{tikzcd}
+  \end{center}
+  Explicitly, this gives the embedding $ \R_A(\mathbf 1_1, -): \R_A \hookrightarrow \RAct{A_1} $ given by
+  \[ X \mapsto \R_A(\mathbf 1_1, X) = \{ x : A \mid X \circ x = x \}. \]
+  Also, note that if $ A = L_0 $ for some $ \lambda $-theory $ L $, then the monoid $ A_1 $ is equivalent to the monoid $ L_1 $, and $ \R_A $ is equivalent to our familiar category of retracts $ \R $. Using \ref{lem:equivalent-presheaf-cats}, we have the following 2-commutative diagram:
+  \begin{center}
+    \begin{tikzcd}
+      &
+      C_{{L_0}_1} \arrow[dd, "Y" description, hook] \arrow[rrr, "\iota_{C_{{L_0}_1}}" description, hook] \arrow[rd, "\sim" description, no head] & & & \R_{L_0} \arrow[dd, "Y" description, hook] \arrow[rd, "\sim" description, no head] & & \\
+      &
+      & C_{L_1} \arrow[dd, "Y" description, hook] \arrow[r, hook] & \mathbf L \arrow[rr, hook] \arrow[dd, "Y" description, hook] & & \mathbf R \arrow[dd, "Y" description, hook] \arrow[rdd, hook] & \\
+      \RAct{{L_0}_1} &
+      P C_{{L_0}_1} \arrow[l, "\sim"'] \arrow[rd, "\sim" description, no head] & & & P \R_{L_0} \arrow[lll, "\sim" description] \arrow[rd, "\sim" description, no head] & & \\
+      &
+      & P C_{L_1} & P \mathbf L \arrow[l, "\sim" description] & & P \R \arrow[ll, "\sim" description] & \Pshf L \arrow[lll, "\sim" description, bend left]
+    \end{tikzcd}
+  \end{center}
+\end{remark}
+
+\subsubsection{Constructing a theory from an algebra}
+
+\begin{definition}
+  Composition $ \circ $ gives a right $ A_1 $-action on the $ A_n $, so we have $ A_n : \RAct{A_1} $. In particular, $ A_1 $ acts on itself, and we will call this set with right $ A_1 $-action $ U_A $.
+\end{definition}
+
+\begin{lemma}
+  $ A_2 $ is isomorphic to the exponential object $ U_A^{U_A} $ in $ \RAct{A_1} $.
+\end{lemma}
+\begin{proof}
+  Recall that $ U_A^{U_A} $ is the set of $ A_1 $-equivariant morphisms $ U_A \times U_A \to U_A $. We have an isomorphism $ \psi: A_2 \xrightarrow \sim U_A^{U_A} $, given by
+  \[ \psi(f) = (b, b^\prime) \mapsto (\lambda x_4, x_1 (x_2 x_4) (x_3 x_4)) \bullet (f, b, b^\prime), \]
+  treating $ f : A_2 $ as a function in two variables, and simultaneously composing it with the functions $ b, b^\prime : A_1 $. It has an inverse
+  \[ \psi^{-1}(g) = (\lambda x_2 x_3, x_1 (x_2, x_3)) \bullet (g(\pi_1, \pi_2)). \]
+  Note that the first pair $ (x_2, x_3) $ is a $ \lambda $-term, whereas the second pair $ (\pi_1, \pi_2) $ is a pair in $ U_A \times U_A $.
+
+  For $ f: U_A^{U_A} $ and $ (a_1, a_2): U_A \times U_A $, we have
+  \[
+    \psi(\psi^{-1}(f))(a_1, a_2)
+    = f(\pi_1, \pi_2) \circ \langle a_1, a_2 \rangle
+    = f(\pi_1 \circ \langle a_1, a_2 \rangle, \pi_2 \circ \langle a_1, a_2 \rangle)
+    = f(a_1, a_2).
   \]
-  so $ \eta_0(f) = (I \mapsto (\lambda x_1, \iota_{0, 1}(f))) $.
+  Here we use the $ A_1 $-equivariance of $ f $. In the last step of this proof, we use, among other things, the fact that the $ a_i : A_1 $ and therefore $ \lambda x_1, a_i x_1 = a_i $.
+
+  Some straightforward rewriting shows that for $ a: A_2 $, we have $ \psi^{-1}(\psi(a)) = a $. In the last step of this proof, we use the fact that $ a : A_2 $ and therefore $ \lambda x_1 x_2, a x_1 x_2 = a $.
+
+  Therefore, $ \psi $ is a bijection and, as it turns out, an isomorphism.
 \end{proof}
 
-Alternatively, we can use Hyland's version of the representation theorem:
+\begin{remark}
+  Recall that the embedding $ \R_A \hookrightarrow \RAct{A_1} $ is the composition of a Yoneda embedding and two adjoint equivalences. These all preserve exponential objects (\TODO: Citation needed). Now, note that $ A_1 $ is the image of $ U : \R_A $, so the exponential $ U_A^{U_A} $ is $ A_2 $, the image of $ U^U = \lambda x_1 x_2, x_1 x_2 = \mathbf 1_2 $.
+\end{remark}
+
+\begin{definition}[Construction of the $ \lambda $-theory]
+  Recall that $ A_2 \subseteq U_A $, and that we have a retraction $ a \mapsto \mathbf 1_2 \circ a : U_A \to A_2 $.
+
+  Therefore, $ U_A $ is a reflexive object in $ \RAct{A_1} $, and we get a $ \lambda $-theory $ E(U_A) $.
+\end{definition}
+
+\begin{remark}
+  The cartesian closed embedding of $ \R_A $ into $ \RAct{A_1} $ sends $ U $ to $ U_A $. It sends the retraction $ U^U: \R_A(U, U^U) $ exactly to the retraction $ a \mapsto \mathbf 1_2 \circ a: \RAct{A_1}(U_A, A_2) $. Therefore, we have a $ \lambda $-theory isomorphism $ E_{\R_A}(U) \cong E_{\RAct{A_1}}(U_A) $.
+\end{remark}
+
+\subsubsection{Constructing a theory morphism from an algebra morphism}
+
+Take a morphism $ F: \Alg{\Lambda}(A, B) $. Note that $ F $ preserves $ \circ $ and the $ \mathbf 1_n $. Therefore, it induces a monoid morphism $ A_1 \to B_1 $, which gives a functor $ C_{A_1} \to C_{B_1} $. Precomposing with this, we get a functor $ \RAct{B_1} \to \RAct{A_1} $.
+
+To get a morphism $ E_{\RAct{A_1}}(U_A) \to E_{\RAct{B_1}}(U_B) $ however, we need a functor $ \RAct{A_1} \to \RAct{B_1} $, which we obtain by Left Kan extension: see Lemma \ref{lem:scalar-extension} (the ``tensor product'').
+
+Hyland gives a very high-level argument why $ F_* $ induces a morphism $ \bar F : \LamTh(E_{\RAct{A_1}}(U_A), E_{\RAct{B_1}}(U_B)) $, which we will discuss a bit more here.
+
 \begin{lemma}
-  For a $ \lambda $-theory $ L $, we can define an (iso)morphism
-  \[ \eta: \LamTh(L, E(U_{L_0})). \]
+  The extension of scalars $ F_* $ sends $ U_A $ to $ U_A $ and preserves finite products.
 \end{lemma}
 \begin{proof}
-  Note that we have a chain of equivalences (Lemma \ref{lem:equivalent-presheaf-cats} and Remark \ref{rem:ract-presheaf-equivalence})
-  \[ \Pshf L \xrightarrow \sim P \mathbf L \xrightarrow \sim P C_{L_1} \xrightarrow \sim \RAct{L_1} \xrightarrow \sim \RAct{{L_0}_1} \]
-  and $ U_{L_0} $ is isomorphic to the image of the theory presheaf $ L $ under this equivalence. Then $ \eta $ arises by combining this with the isomorphism from Scott's representation theorem (Theorem \ref{thm:representation-theorem})
-  \[ \eta: L \xrightarrow \sim E(L) \xrightarrow \sim E(U_{L_0}). \]
-  Note that on the terms without free variables, this becomes
-  \[ \eta_0:
-    L_0
-      \xrightarrow{f \mapsto (\star \mapsto \iota_{0, n}(f))_n}
-    \Pshf L(I, L)
-      \xrightarrow{F \mapsto (\star \mapsto (\lambda x_1, F_1(\star)))}
-    \RAct{(L_0)_1}(\{\star\}, (L_0)_1),
+  By Lemma \ref{lem:scalar-extension-monoid-monoid-action}, we have $ F_*(U_A) \cong U_A $.
+
+  We will show that $ F_* $ preserves binary products and the terminal object, because from this it follows that $ F_* $ preserves all finite products.
+
+  We use Lemma \ref{lem:scalar-extension-terminal} to show that $ F_* $ preserves the terminal object. We take (very similar to the terminal object in $ \R $):
+  \[ a_0 = (\lambda x_1 x_2, x_2) \bullet () : A_1 \quad \text{and} \quad b_0 = (\lambda x_1 x_2, x_2) \bullet () : B_1 \]
+  and $ a_0 $ is weakly terminal because for all $ a : B_1 $, we have $ F(a_0) \circ a = b_0 $.
+
+  We use Lemma \ref{lem:scalar-extension-product} to show that $ F_* $ also preserves the product. Therefore, given $ a_1, a_2 : B_1 $. Take $ b = \langle a_1, a_2 \rangle $, together with the familiar projections $ \pi_i : A_1 $. We have $ a_i = F(\pi_i) \circ a $.
+
+  Now, for some $ b^\prime: B_1 $ and $ \pi_1^\prime, \pi_2^\prime: A_1 $ such that $ a_i = F(\pi_i^\prime) \circ b^\prime $, take $ m = \langle \pi_1^\prime, \pi_2^\prime \rangle $. Then $ \pi_i \circ m = \pi_i^\prime $ and $ F(m) \circ a^\prime = a $, so $ (a, \pi_1, \pi_2) $ is weakly terminal and $ F_* $ preserves binary products.
+
+  Since any finite product is (isomorphic to) a construction with a repeated binary product and the terminal object, the fact that $ F_* $ preserves binary products and the terminal object shows that $ F_* $ preserves all finite products.
+\end{proof}
+
+Now, we can start defining our lift of $ F $:
+\begin{definition}
+  We can send an element $ g: E(U_A)_n = \RAct{A}(U_A^n, U_A) $ to
+  \[ F_*(g): \RAct{A^\prime}(f(U_A^n), f(U_A)) \cong \RAct{A^\prime}((U_{A^\prime})^n, U_{A^\prime}) = E(U_{A^\prime})_n \]
+  so we have a morphism $ \bar F: \LamTh(E(U_A), E(U_{A^\prime})) $.
+\end{definition}
+
+\begin{remark}
+  The fact that $ \bar F $ preserves the variables and substitution is not very hard, since these are just defined in terms of finite products of $ U_A $ and $ \bar F $ preserves finite products and $ U_A $.
+
+  However, showing that it is a $ \lambda $-theory morphism is a different matter. Hyland claims
+  \begin{quote}
+    $ F $ preserves $ \mathbf 1_n $, which determines the function space as a retract of the universal. So $ \bar F $ preserves the retract and the result follows.
+  \end{quote}
+  Although this covers the core of the argument, it is very complicated to actually verify that this works, because we need to pass through a lot of isomorphisms, and check that they work nicely together:
+  \begin{align*}
+    \alpha_A: \RAct{A_1}(X \times Y, Z) &\xrightarrow{\sim} \RAct{A_1}(X, Z^Y);\\
+    \beta: F_*(U_A) &\xrightarrow{\sim} U_{A^\prime};\\
+    \bar \gamma: F_*(A \times B) &\xrightarrow{\sim} F_*(A) \times F_*(B);\\
+    \gamma_n: F_*(X^n) &\xrightarrow{\sim} F_*(X)^n;\\
+    % \delta: F_*(X^Y) &\xrightarrow{\sim} F_*(X)^{F_*(Y)};\\
+    \delta_A: U_A^{U_A} &\xrightarrow{\sim} A_2.
+  \end{align*}
+  Since we already motivated this in a different way, we will leave it as an exercise for the enthousiastic reader.
+  % with $ \gamma_{n + 1} = \bar{\gamma} \cdot (\gamma_n \times \id X) $.
+  % Then, for $ s: E(U_A)_{n + 1} $, we have $ \lambda_A(s) = \alpha_A(s) \cdot \delta_A \cdot \pi_A : \RAct{A_1}(U_A^n, U_A) $ for the projection $ \pi_A: A_2 \to U_A $. However, note that $ f^*(\lambda_A(s)): \RAct{A^\prime_1}(f^*(U_{A^\prime}^n), f^*(U_{A^\prime})) $. To compare this to $ \lambda_{A^\prime}(\dots) $, we actually need to take
+  % \[ (\beta^{-1})^n \cdot \gamma_n^{-1} \cdot f^*(\lambda_A(s)) \cdot \beta : \RAct{A^\prime_1}(U_A^n, U_A). \]
+  % On the other hand, we also have $ f^*(s): \RAct{A^\prime_1}(f^*(U_A^{n + 1}), f^*(U_A)) $ and we cannot apply $ \lambda_{A^\prime} $ directly. Instead, the term that we end up with is
+  % \[ \lambda_{A^\prime}((\beta^{-1})^{n + 1} \cdot \gamma_{n + 1}^{-1} \cdot f^*(s) \cdot \beta): \RAct{A^\prime_1}(U_A^n, U_A). \]
+  % So the equality that we need to prove is (using functoriality of $ f^* $ and naturality of $ \alpha_{A^\prime} $):
+  % \begin{align*}
+  %   &(\beta^{-1})^n \cdot \gamma_n^{-1} \cdot f^*(\alpha_A(s)) \cdot f^*(\delta_A \cdot \pi_A) \cdot \beta\\
+  %   &= (\beta^{-1})^n \cdot \gamma_n^{-1} \cdot \alpha_{A^\prime}((\id X^n \times \beta^{-1}) \cdot \bar{\gamma}^{-1} \cdot f^*(s)) \cdot \beta^{U_A} \cdot \delta_{A^\prime} \cdot \pi_{A^\prime}.
+  % \end{align*}
+  % Because of the complicated definition of each of these terms, I was unable to verify the correctness of this statement (and the similar statement about $ \rho: E(U_A)_n \to E(U_A)_{n + 1} $) within a day, even though I am willing to believe Hyland's claim.
+
+  % Given a morphism $ t: X \times Y \to Z $, $ \alpha_{A_1}(t): X \to (U_A \times Y \to Z) $ is given by
+  % \[ \alpha(t)(x)(a, y) = t(x a, y) \]
+
+  % Also, $ \beta: f^*(U_A) \xrightarrow{\sim} U_{A^\prime} $ is given, for $ a: A_1 $ and $ a^\prime : A^\prime_1 $, by
+  % \[ \beta(a, a^\prime) = f(a) a^\prime \quad \text{and} \quad \beta^{-1}(a^\prime) = (1, a^\prime). \]
+
+  % Given a morphism $ s: X \to Y $, we have $ f^*(s): f^*(X) \to f^*(Y) $ given by
+  % \[ f^*(s)(x, a^\prime) = (s(x), a^\prime). \]
+
+  % Finally, we have
+  % \[ \delta(s) = \lambda x_1 x_2, s(p_1, p_2)(\lambda x_3, x_3 x_1 x_2) \]
+  % with $ p_i = \lambda x_1, x_1 (\lambda x_2 x_3, x_{i + 1}) $.
+
+  % For some $ s: U_A^{n + 1} \to U_A $, the left hand side sends $ (a, (a^\prime_1, \dots, a^\prime_n)): f^*(U_A^n) $ to
+  % \begin{align*}
+  %   &\lambda x_1 x_2, f(s((a_i p_1)_i, p_2)) (\lambda x_3, x_3 x_1 x_2) \circ a^\prime\\
+  %   &= \lambda x_1 x_2, f(s((a_i p_1)_i, p_2)) (\lambda x_3, x_3 a^\prime (x_1) x_2)
+  % \end{align*}
+  % and the right hand side sends it to
+  % \begin{align*}
+  %   \lambda x_1 x_2, \lambda x_3, (f(s((a_i p_1)_i, p_2))((\lambda x_4, x_4 (a^\prime p_1 (\lambda x_3, x_3 x_1 x_2)) (p_2 (\lambda x_3, x_3 x_1 x_2)))(x_3)))
+  % \end{align*}
+\end{remark}
+
+\begin{lemma}
+  For $ F = \id A $, we have $ \bar F = \id{E(U_A)} $.
+\end{lemma}
+\begin{proof}
+  By the reasoning set forth in Lemma \ref{lem:elementary-faithful}, we only need to check $ \bar F_0 $. Given $ s : \RAct{A_1}(I, U_A) $, we have
+  \[ \bar F_0(s) = \gamma^{-1} \cdot F_*(s) \cdot \beta: \RAct{A_1}(I, U_A) \]
+  for $ \gamma: F_*(I) \cong I $ and $ \beta: F_*(U_A) \cong U_A $. Then
+  \[
+    \bar{\id A}(s)(\star) = s(\star) \circ ((\lambda x_1 x_2, x_2) \bullet ()) = s(\star \circ ((\lambda x_1 x_2, x_2) \bullet ())),
   \]
-  so $ \eta_0(f) = (\star \mapsto (\lambda x_1, \iota_{0, 1}(f))) $, which luckily coincides with the $ \eta_0 $ given above.
+  so $ \bar{\id A}_0(s) = s $ and we can conclude that $ \bar{\id A} = \id{E(U_A)} $.
 \end{proof}
 
 \begin{lemma}
-  We have a bijection $ \epsilon_A : E(U_A)_0 \cong A $, sending $ s $ to $ x_1 (\lambda x_2, x_2) \bullet (s(\star)) $.
+  For $ F : \Alg{\Lambda}(A, B) $ and $ G: \Alg{\Lambda}(B, C) $, we have $ \bar F \cdot \bar G = \overline{F \cdot G} $.
 \end{lemma}
 \begin{proof}
-  In Lemma \ref{lem:global-action-elements}, we showed that $ E(U_A)_0 $ corresponds to the set of $ A_1 $-equivariant elements of $ U_A $, sending $ s $ to $ s(\star) $. Now, for an $ A_1 $-equivariant element $ a $,
-  \[ (\lambda x_2, x_1 (\lambda x_3, x_3)) \bullet a = a \circ ((\lambda x_1 x_2, x_2) \bullet ()) = a \]
-  so we can send $ a $ to $ A $ as $ (x_1 (\lambda x_2, x_2)) \bullet a $ and it has (two-sided) inverse $ (\lambda x_2, x_1) \bullet a $.
+  Again, we only have to check at the terms without free variables. Given $ s : \RAct{A_1}(I, U_A) $, we have
+  \[ (\bar F \cdot \bar G)(s) = \gamma_G^{-1} \cdot G_*(\gamma_F^{-1} \cdot F_*(s) \cdot \beta_F) \cdot \beta_G: \RAct{C_1}(I, U_C) \]
+  for $ \gamma: F_*(I) \cong I $ and $ \beta: F_*(U_A) \cong U_A $. Then
+  \begin{align*}
+    (\bar F \cdot \bar G)(s)(\star)
+    &= G(F(s(\star)) \circ ((\lambda x_1 x_2, x_2) \bullet_B ())) \circ ((\lambda x_1 x_2, x_2) \bullet_C ())\\
+    &= G(F(s(\star \circ ((\lambda x_1 x_2, x_2) \bullet_A ()) \circ ((\lambda x_1 x_2, x_2) \bullet_A ()))))\\
+    &= G(F(s(\star)))\\
+    &= (F \cdot G)^{-1}(s(\star \circ ((\lambda x_1 x_2, x_2) \bullet_A ())))\\
+    &= \overline(F \cdot G)(s)(\star)
+  \end{align*}
+  so $ (\bar F \cdot \bar G)_0(s) = (\overline{F \cdot G})_0(s) $ and we can conclude that $ \bar F \cdot \bar G = \overline{F \cdot G} $.
 \end{proof}
+
+\begin{definition}
+  We get a functor from $ \Alg{\Lambda} $ to $ \LamTh $, sending objects $ A $ to $ E_{\RAct{A_1}}(U_A) $ and morphisms $ F: \Alg{\Lambda}(A, B) $ to $ \bar F: E(U_A) \to E(U_B) $.
+\end{definition}
+
+\begin{remark}
+  Note that for $ X : \R_A $, we have a natural isomorphism of sets with a right $ B_1 $-action
+  \[ \psi: \{ f : B \mid F(X) \circ f = f \} \xrightarrow \sim \{ f : A \mid X \circ f = f \} \times B_1 / \sim \]
+  given by
+  \[ \psi(f) = (X, f) \quad \text{and} \quad \psi^{-1}(f, b) = F(f) \circ b. \]
+  % which is $ B_1 $-equivariant and natural in $ X $.
+  % We have
+  % \[ \psi^{-1}(\psi(f)) = \psi^{-1}(X, f) = F(X) \circ f = f \]
+  % \[ \psi(\psi^{-1}(f, b)) = \psi(F(f) \circ b) = (X, F(f) \circ b) = (X \circ f, b) = (f, b) \]
+  % We need to show that this is natural in $ X $. Therefore, take $ g : \R_A(X, Y) $. Then $ \R_B(\mathbf 1_1, F(g)) $ is given by postcomposition with $ F(g) $. Also, $ F_*(\R_A(\mathbf 1_1, g)) $ is given by postcomposing with $ g $ on the component $ \R_A(\mathbf 1_1, g) $. Then
+  % \[ \psi(F(g) \circ f) = (Y, F(g) \circ f) = (Y \circ g, f) = (g \circ X, f) \]
+
+  Therefore, the following diagram $ 2 $-commutes:
+  \begin{center}
+    \begin{tikzcd}
+      \R_A \arrow[r, "F"] \arrow[d, "{\R_A(\mathbf 1_1, -)}"] & \R_B \arrow[d, "{\R_B(\mathbf 1_1, -)}"]\\
+      \RAct{A_1} \arrow[r, "F_*"] & \RAct{B_1}
+    \end{tikzcd}
+  \end{center}
+  Since $ F $ preserves all the structure of $ \R_A $, as do the embeddings of $ \R_A $ and $ \R_B $ into $ \RAct{A_1} $ and $ \RAct{B_1} $, one would expect $ F_* $ to preserves the structure of the full subcategory $ \R_A $ of $ \RAct{A_1} $, including $ U_A $, its finite products and their exponentials. This is another way to argue that $ \bar F $ is indeed a morphism of $ \lambda $-theories.
+\end{remark}
+
+\subsubsection{The unit}
+
+Definining the unit of the adjunction boils down to a version of Scott's representation theorem.
+
+\begin{lemma}
+  For a $ \lambda $-theory $ L $, we can define a $ \lambda $-theory isomorphism
+  \[ \eta: L \xrightarrow{\sim} E(U_{L_0}). \]
+\end{lemma}
+\begin{proof}
+  Recall from Remark \ref{rem:ract-presheaf-equivalence} that we have a chain of equivalences
+  \[ \Pshf L \xrightarrow \sim P \mathbf L \xrightarrow \sim P C_{L_1} \xrightarrow \sim P C_{{L_0}_1} \xrightarrow \sim \RAct{{L_0}_1}. \]
+  It sends the presheaf $ L^n $ to the set $ L_1^n $ with a right action sending $ s: L_1^n $ and $ t: (L_0)_1 $ to $ (s_i \bullet_L \rho(t))_i : L_1^n $. We have an isomorphism $ s \mapsto (\lambda(s_i))_i: (L_1)^n \to U_{L_0} $, with inverse $ (\rho_i)_i : s \mapsto (\rho(s_i))_i $.
+
+  Then $ \eta $ arises by combining this with the isomorphism from Scott's representation theorem (Theorem \ref{thm:representation-theorem})
+  \[ \eta: L \xrightarrow \sim E_{\Pshf L}(L) \xrightarrow \sim E_{\RAct{{L_0}_1}}(U_{L_0}). \]
+  It is quite easy to work out that we can make this explicit as
+  \[ \eta_n:
+    L_n
+      \xrightarrow{f \mapsto ((s : \Pshf{L_m^n}) \mapsto f \bullet s)_m}
+    \Pshf L(L^n, L)
+      \xrightarrow{f \mapsto f_1}
+    \RAct{(L_0)_1}(L_1^n, L_1),
+      \xrightarrow{\lambda \circ - \circ (\rho_i)_i}
+    \RAct{(L_0)_1}(U_{L_0}^n, U_{L_0}),
+  \]
+  so $ \eta_n(f)(s) = \lambda(f \bullet (\rho(s_i))_i) $ for $ f: L_n $ and $ s: U_{L_0}^n $.
+\end{proof}
+
+\begin{remark}
+  Note that we can do the same with Scott's version of his representation theorem, using the chain of equivalences and an embedding
+  \[ \mathbf R \xrightarrow \sim \mathbf R_{L_0} \xrightarrow{Y} P \R_{L_0} \xrightarrow \sim P C_{{L_0}_1} \xrightarrow \sim \RAct{{L_0}_1}, \]
+  Here, it is a bit harder to get an explicit formula for $ \eta $, because we need to do a bit more conversion between $ U_A^n $ and the image of $ U^n $ after the embedding $ \varphi: \mathbb R \hookrightarrow \RAct{{L_0}_1} $. If we quickly define $ \lambda $-terms
+  \[ \langle x_i \rangle_i = \langle x_1, \dots, x_n \rangle = \langle \langle \dots \langle (\lambda x_{n + 1} x_{n + 2}, x_{n + 2}), x_1 \rangle, \dots\rangle, x_n \rangle \]
+  and corresponding tuples $ (x_i)_i $ and projections $ \pi_i $, we have
+  \[ L_n \xrightarrow{f \mapsto \lambda(f \bullet (\pi_i x_1)_i)} \mathbb R(U^n, U) \xrightarrow{f \mapsto f \circ -} \RAct{{L_0}_1}(\varphi(U^n), U_{L_0}) \xrightarrow{(s \mapsto \langle s_i \rangle_i) \circ -} \RAct{{L_0}_1}(U_{L_0}^n, U_{L_0}). \]
+  and in the end, we obtain the very same explicit formula
+  \[ \eta_n(f)(s) = \iota_{0, n}(f)(x_i)_i \circ (\langle s_i \rangle_i) = \lambda(f \bullet (\rho(s_i))_i). \]
+\end{remark}
+
+\begin{lemma}
+  $ \eta $ is natural in $ L $.
+\end{lemma}
+\begin{proof}
+  \TODO
+\end{proof}
+
+\subsubsection{The counit}
+
+\begin{definition}
+  For $ A : \Alg \Lambda $, we define a bijection $ \epsilon_A : E_{\RAct{A_1}}(U_A)_0 \cong A $ as
+  \[ \epsilon_A(s) = x_1 (\lambda x_2, x_2) \bullet (s(\star)) \quad \text{and} \quad \epsilon_A^{-1}(a)(\star) = (\lambda x_2, x_1) \bullet a. \]
+  These are inverses because $ s(\star) $ is $ A_1 $-equivariant (Lemma \ref{lem:global-action-elements}), and then
+  \[ (\lambda x_2, x_1 (\lambda x_3, x_3)) \bullet s(\star) = s(\star) \circ ((\lambda x_1 x_2, x_2) \bullet ()) = s(\star). \]
+\end{definition}
 
 We want to show that $ \epsilon_A $ is an isomorphism of $ \Lambda $-algebras. We use Lemma \ref{lem:make-is-lambda-algebra-morphism} for this, so we need to show that it preserves the application and the $ \Lambda $-definable constants.
 
 \begin{lemma}
-  For $ \epsilon_A $ as above, we have for all $ a, b: E(U_A)_0 $, we have
+  We have for all $ a, b: E(U_A)_0 $,
   \[ \epsilon_A((x_1 x_2) \bullet (a, b)) = (x_1 x_2) \bullet (\epsilon_A(a), \epsilon_A(b)). \]
 \end{lemma}
 \begin{proof}
-  For $ a, b: E(U_A)_0 $, we have, for the isomorphism $ \delta: \RAct{A_1}(U_A^{U_A}, A_2) $,
+  For $ a, b: E(U_A)_0 $, we have, using at some point the isomorphism $ \delta: \RAct{A_1}(U_A^{U_A}, A_2) $,
   \begin{align*}
     \epsilon_A((x_1 x_2) \bullet (a, b)) &= (x_1 (\lambda x_3, x_3) (x_2 (\lambda x_3, x_3))) \bullet (a(\star), b(\star))\\
     &= (x_1 x_2) \bullet (\epsilon_A(a), \epsilon_A(b))
@@ -564,11 +682,11 @@ We want to show that $ \epsilon_A $ is an isomorphism of $ \Lambda $-algebras. W
 \end{proof}
 
 \begin{lemma}\label{lem:counit-natural}
-  Let $ F: A \to B $ be a $ \Lambda $-algebra morphism. Then the following diagram commutes:
+  $ \epsilon $ is a natural transformation. I.e., for all $ F: \Alg{\Lambda}(A, B) $, the following diagram commutes:
   \begin{center}
     \begin{tikzcd}
-      E(U_A)_0 \arrow[d, "\epsilon_A"] \arrow[r, "\bar F_0"] & E(U_B)_0 \arrow[d, "\epsilon_A"]\\
-      A \arrow[r, "f"] & B
+      E(U_A)_0 \arrow[d, "\epsilon_A"] \arrow[r, "\bar F_0"] & E(U_B)_0 \arrow[d, "\epsilon_B"]\\
+      A \arrow[r, "F"] & B
     \end{tikzcd}
   \end{center}
 \end{lemma}
@@ -593,15 +711,15 @@ We want to show that $ \epsilon_A $ is an isomorphism of $ \Lambda $-algebras. W
 \end{proof}
 
 \begin{lemma}
-  For $ \epsilon_A $ as above, we have for all $ s: \Lambda_0 $,
+  We have for all $ s: \Lambda_0 $,
   \[ \epsilon_A(s \bullet ()) = s \bullet (). \]
 \end{lemma}
 \begin{proof}
-  Consider the following diagram, with $ F: \Alg \Lambda(\Lambda_0, A) $ given by $ s \mapsto s \bullet () $:
+  Consider the following diagram, with $ F: \Alg \Lambda(\Lambda_0, A) $ given by $ F(s) = s \bullet () $:
   \begin{center}
     \begin{tikzcd}
       E(U_{\Lambda_0})_0
-        \arrow[r, "(\bar F)_0"]
+        \arrow[r, "\bar F_0"]
         \arrow[d, "\epsilon_{\Lambda_0}"]
       & E(U_A)_0
         \arrow[d, "\epsilon_A"]\\
@@ -613,7 +731,7 @@ We want to show that $ \epsilon_A $ is an isomorphism of $ \Lambda $-algebras. W
   \end{center}
   By Lemma \ref{lem:counit-natural}, the square commutes. Also, note that $ \eta_0 \cdot \epsilon_{\Lambda_0} $ sends $ s : \Lambda_0 $ to
   \[ (x_1 (\lambda x_2, x_2)) \bullet (\lambda x_1, \iota_{0, 1}(s)) = s. \]
-  Recall that there exists a unique morphism $ \iota_\Lambda: \LamTh(\Lambda, E(U_A)) $, and that for all $ s: \Lambda_0 $, $ s \bullet () = \iota_\Lambda(s) \bullet () = \iota_\Lambda(s) $. Since we have $ \eta \cdot \bar F : \LamTh(\Lambda, E(U_A)) $, we must have $ \iota_\Lambda = \eta \cdot \bar F $ and
+  Recall that there exists a unique morphism $ \iota_\Lambda: \LamTh(\Lambda, E(U_A)) $, and that for all $ s: \Lambda_0 $, by definition $ s \bullet_{E(U_A)_0} () = \iota_\Lambda(s) \bullet_{E(U_A)} () = \iota_\Lambda(s) $. Since we have $ \eta \cdot \bar F : \LamTh(\Lambda, E(U_A)) $, we must have $ \iota_\Lambda = \eta \cdot \bar F $ and
   \begin{align*}
     \epsilon_A(s \bullet_{E(U_A)} ())
     &= \epsilon_A(\bar{F_0}(\eta_0(s)))\\
@@ -624,27 +742,20 @@ We want to show that $ \epsilon_A $ is an isomorphism of $ \Lambda $-algebras. W
   which concludes the proof.
 \end{proof}
 
-\subsection{Fully faithful}
+\subsubsection{The equivalence}
 
-\TODO
-
-\subsection{Adjoint equivalence}
-
-\begin{theorem}
-  There exists an adjoint equivalence between the category of $ \lambda $-theories, and the category of algebras of $ \Lambda $.
-\end{theorem}
+Now, Hyland leaves the following implicit:
+\begin{lemma}
+  $ \epsilon $ and $ \eta $ satisfy the zigzag identities.
+\end{lemma}
 \begin{proof}
-  We will show that the functor $ L \mapsto L_0 $ is an equivalence of categories.
 
-  It is essentially surjective, because $ L $ is isomorphic \TODO to $ E(U_A) $.
-
-  Now, given morphisms $ f, f^\prime: L \to L^\prime $. Suppose that $ f_0 = f^\prime_0 $. Suppose that $ L $ and $ L^\prime $ have $ \beta $-equality. Then, given $ l: L_n $, we have
-  \[ f_n(l) = \rho^n(\lambda^n(f_n(l))) = \rho^n(f_0(\lambda^n(l))) = \rho^n(f^\prime_0(\lambda^n(l))) = \rho^n(\lambda^n(f^\prime_n(l))) = f^\prime_n(l), \]
-  so the functor is faithful.
-
-  The functor is full because a $ \Lambda $-algebra morphism $ f: A \to A^\prime $ induces a functor $ f^*: \RAct{A^\prime} \to \RAct{A} $, and via left Kan extension we get a left adjoint $ f^*: \RAct{A} \to \RAct{A^\prime} $ with $ f^*(A_1) \cong A^\prime_1 $. Now, $ f^* $ preserves (finite) products, so we have maps $ \RAct{A}(A_1^n, A_1) \to \RAct{A^\prime}((A^\prime_1)^n, A^\prime_1) $ and so a map $ E(U_A) \to E(U_{A^\prime}) $. This map, when restricted to a map $ \RAct{A}(1, A_1) \to \RAct{A^\prime}(1, A_1) $, and transported along the isomorphism $ a \mapsto a I $ \TODO, is equal to $ f $ \TODO.
 \end{proof}
 
+Finally, we can state the fundamental theorem of the $ \lambda $-calculus:
+\begin{theorem}
+  There is an adjoint equivalence $ \LamTh \cong \Alg{\Lambda} $, sending a $ \lambda $-theory $ L $ to the $ \Lambda $-algebra $ L_0 $, with an inverse functor that sends a $ \Lambda $-algebra $ A $ to the theory $ E_{\RAct{A_1}}(U_A) $.
+\end{theorem}
 
 \section{An alternative proof for the fundamental theorem}
 
