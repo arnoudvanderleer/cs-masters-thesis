@@ -617,16 +617,16 @@ Definining the unit of the adjunction boils down to a version of Scott's represe
 
 \begin{lemma}
   For a $ \lambda $-theory $ L $, we can define a $ \lambda $-theory isomorphism
-  \[ \eta: L \xrightarrow{\sim} E(U_{L_0}). \]
+  \[ \eta_L: L \xrightarrow{\sim} E(U_{L_0}). \]
 \end{lemma}
 \begin{proof}
   Recall from Remark \ref{rem:ract-presheaf-equivalence} that we have a chain of equivalences
   \[ \Pshf L \xrightarrow \sim P \mathbf L \xrightarrow \sim P C_{L_1} \xrightarrow \sim P C_{{L_0}_1} \xrightarrow \sim \RAct{{L_0}_1}. \]
   It sends the presheaf $ L^n $ to the set $ L_1^n $ with a right action sending $ s: L_1^n $ and $ t: (L_0)_1 $ to $ (s_i \bullet_L \rho(t))_i : L_1^n $. We have an isomorphism $ s \mapsto (\lambda(s_i))_i: (L_1)^n \to U_{L_0} $, with inverse $ (\rho_i)_i : s \mapsto (\rho(s_i))_i $.
 
-  Then $ \eta $ arises by combining this with the isomorphism from Scott's representation theorem (Theorem \ref{thm:representation-theorem})
-  \[ \eta: L \xrightarrow \sim E_{\Pshf L}(L) \xrightarrow \sim E_{\RAct{{L_0}_1}}(U_{L_0}). \]
-  It is quite easy to work out that we can make this explicit as
+  Then $ \eta_L $ arises by combining this with the isomorphism from Scott's representation theorem (Theorem \ref{thm:representation-theorem})
+  \[ \eta_L: L \xrightarrow \sim E_{\Pshf L}(L) \xrightarrow \sim E_{\RAct{{L_0}_1}}(U_{L_0}). \]
+  It is quite easy to work out that we can make this explicit as (dropping the $ L $ and just writing $ \eta_L $)
   \[ \eta_n:
     L_n
       \xrightarrow{f \mapsto ((s : \Pshf{L_m^n}) \mapsto f \bullet s)_m}
@@ -651,10 +651,26 @@ Definining the unit of the adjunction boils down to a version of Scott's represe
 \end{remark}
 
 \begin{lemma}
-  $ \eta $ is natural in $ L $.
+  $ \eta $ is natural in $ L $. That is, for all $ F: \LamTh(L, L^\prime) $, the following diagram commutes:
+  \begin{center}
+    \begin{tikzcd}
+      L \arrow[r, "F"] \arrow[d, "\eta_L"] & L^\prime \arrow[d, "\eta_{L^\prime}"]\\
+      E_{\RAct{{L_0}_1}}(U_{L_0}) \arrow[r, "\bar{F_0}"] & E_{\RAct{{L^\prime_0}_1}}(U_{L^\prime_0})
+    \end{tikzcd}
+  \end{center}
 \end{lemma}
 \begin{proof}
-  \TODO
+  We must show
+  \[ \eta_L \cdot \bar{F_0} = F \cdot \eta_{L^\prime}. \]
+  Note that for all $ s : L_0 $,
+  \begin{align*}
+    \bar{F_0}_0(\eta_L(s))
+    &= \gamma_{F_0}^{-1} \cdot {F_0}_*(\star \mapsto (\lambda x_1, \iota_{0, 1}(s))) \cdot \beta_F\\
+    &= \star \mapsto F_0(\lambda x_1, \iota_{0, 1}(s)) \circ ((\lambda x_1 x_2, x_2) \bullet ())\\
+    &= \star \mapsto (\lambda x_1, \iota_{0, 1}(F_0(s)))\\
+    &= \eta_{L^\prime}(F_0(s))
+  \end{align*}
+  and by Lemma \ref{lem:elementary-full}, this concludes the proof.
 \end{proof}
 
 \subsubsection{The counit}
@@ -681,8 +697,9 @@ We want to show that $ \epsilon_A $ is an isomorphism of $ \Lambda $-algebras. W
   and this concludes the proof.
 \end{proof}
 
+To show that $ \epsilon $ preserves the $ \Lambda $-definable constants, we first need to show two properties of $ \epsilon $ and $ \eta $:
 \begin{lemma}\label{lem:counit-natural}
-  $ \epsilon $ is a natural transformation. I.e., for all $ F: \Alg{\Lambda}(A, B) $, the following diagram commutes:
+  $ \epsilon $ is natural in $ A $. That is, for all $ F: \Alg{\Lambda}(A, B) $, the following diagram commutes:
   \begin{center}
     \begin{tikzcd}
       E(U_A)_0 \arrow[d, "\epsilon_A"] \arrow[r, "\bar F_0"] & E(U_B)_0 \arrow[d, "\epsilon_B"]\\
@@ -710,6 +727,27 @@ We want to show that $ \epsilon_A $ is an isomorphism of $ \Lambda $-algebras. W
   which concludes the proof.
 \end{proof}
 
+\begin{lemma}\label{lem:zigzag}
+  $ \epsilon $ and $ \eta $ satisfy one of the zigzag identities.
+\end{lemma}
+\begin{proof}
+  In this case, the zigzag identity on $ L \mapsto L_0 $ boils down to the following diagram commuting for all $ L : \LamTh $:
+  \begin{center}
+    \begin{tikzcd}
+      L_0 \arrow[rr, "\id{L_0}"] \arrow[rd, "{\eta_L}_0"] & & L\\
+      & E(U_{L_0})_0 \arrow[ru, "\epsilon_{L_0}"]
+    \end{tikzcd}
+  \end{center}
+  Now, note that for all $ f : L_0 $,
+  \[
+    ({\eta_L}_0 \cdot \epsilon_{L_0})(f)
+    = (x_1 (\lambda x_2, x_2)) \bullet (\lambda x_1, \iota_{0, 1}(f))
+    = f,
+  \]
+  which shows that the diagram commutes.
+\end{proof}
+
+Now, finally, we are ready to show that $ \epsilon $ is an isomorphism of $ \Lambda $-algebras:
 \begin{lemma}
   We have for all $ s: \Lambda_0 $,
   \[ \epsilon_A(s \bullet ()) = s \bullet (). \]
@@ -729,8 +767,8 @@ We want to show that $ \epsilon_A $ is an isomorphism of $ \Lambda $-algebras. W
       & A
     \end{tikzcd}
   \end{center}
-  By Lemma \ref{lem:counit-natural}, the square commutes. Also, note that $ \eta_0 \cdot \epsilon_{\Lambda_0} $ sends $ s : \Lambda_0 $ to
-  \[ (x_1 (\lambda x_2, x_2)) \bullet (\lambda x_1, \iota_{0, 1}(s)) = s. \]
+  By Lemma \ref{lem:counit-natural}, the square commutes and by Lemma \ref{lem:zigzag}, we have $ \eta_0 \cdot \epsilon_{\Lambda_0} = \id{\Lambda_0} $.
+
   Recall that there exists a unique morphism $ \iota_\Lambda: \LamTh(\Lambda, E(U_A)) $, and that for all $ s: \Lambda_0 $, by definition $ s \bullet_{E(U_A)_0} () = \iota_\Lambda(s) \bullet_{E(U_A)} () = \iota_\Lambda(s) $. Since we have $ \eta \cdot \bar F : \LamTh(\Lambda, E(U_A)) $, we must have $ \iota_\Lambda = \eta \cdot \bar F $ and
   \begin{align*}
     \epsilon_A(s \bullet_{E(U_A)} ())
@@ -744,15 +782,7 @@ We want to show that $ \epsilon_A $ is an isomorphism of $ \Lambda $-algebras. W
 
 \subsubsection{The equivalence}
 
-Now, Hyland leaves the following implicit:
-\begin{lemma}
-  $ \epsilon $ and $ \eta $ satisfy the zigzag identities.
-\end{lemma}
-\begin{proof}
-
-\end{proof}
-
-Finally, we can state the fundamental theorem of the $ \lambda $-calculus:
+By Lemma 3.2 in \cite{nlab:adjoint_equivalence} and Lemma \ref{lem:zigzag}, $ \eta $ and $ \epsilon $ satisfy both zigazg identities, and we can state the fundamental theorem of the $ \lambda $-calculus:
 \begin{theorem}
   There is an adjoint equivalence $ \LamTh \cong \Alg{\Lambda} $, sending a $ \lambda $-theory $ L $ to the $ \Lambda $-algebra $ L_0 $, with an inverse functor that sends a $ \Lambda $-algebra $ A $ to the theory $ E_{\RAct{A_1}}(U_A) $.
 \end{theorem}
