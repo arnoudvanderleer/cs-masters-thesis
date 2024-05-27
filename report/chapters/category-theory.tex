@@ -695,7 +695,8 @@ Note that the initial set with $ M $-action is $ \{ \star \} $, with action $ \s
   The category $ C $ of sets with an $ M $-action has exponentials.
 \end{lemma}
 \begin{proof}
-  Given sets with $ M $-action $ X $ and $ Y $. Consider the set $ C(M \times X, Y) $ with an $ M $-action given by $ \phi m^\prime(m, x) = \phi(m^\prime m, x) $. This is the exponential object $ X^Y $, with the (universal) evaluation morphism $ X \times X^Y \to Y $ given by $ (x, \phi) \mapsto \phi(1, x) $.
+  Given sets with $ M $-action $ X $ and $ Y $. Consider the set $ C(M \times X, Y) $ with an $ M $-action given by $ \phi m^\prime(m, x) = \phi(m^\prime m, x) $. This is the exponential object $ X^Y $, with the (universal) evaluation morphism $ X \times X^Y \to Y $ given by $ (x, \phi) \mapsto \phi(1, x) $. Explicitly, we get a natural isomorphism $ \psi: \RAct M(Z \times Y, X) \xrightarrow \sim \RAct M(Z, X^Y) $ given by
+  \[ \psi(f)(z)(m, y) = f(z m, y) \quad \text{and} \quad \psi^{-1}(g)(z, y) = g(z)(1, y). \]
 \end{proof}
 
 \begin{definition}

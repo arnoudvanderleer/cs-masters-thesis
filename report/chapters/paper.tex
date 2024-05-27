@@ -219,9 +219,9 @@ Now, Hyland shows the following:
   Therefore, in univalent foundations, the relative cartesian closedness is not a corollary of Theorem \ref{thm:restrict-sum-product}.
 \end{remark}
 
-\section{The `Fundamental Theorem' of the \texorpdfstring{$ \lambda $}{lambda}-calculus}
+\section{An elementary proof of the `Fundamental Theorem'}
 
-The final theorem that Hyland works towards in his paper constructs an equivalence between $ \lambda $-calculi and $ \Lambda $-algebras. First, we will give an elementary version of Hyland's proof. Then we will provide an expanded version of Hyland's proof. And afterwards we will show it in a third, somewhat unrelated way.
+The final theorem that Hyland works towards in his paper constructs an equivalence between $ \lambda $-calculi and $ \Lambda $-algebras. In this section, we will provide an elementary proof of this theorem.
 
 We will assume that $ \Lambda $ (and therefore, any $ \lambda $-theory) satisfies $ \beta $-equality.
 
@@ -231,7 +231,6 @@ In both cases, one part of the equivalence is very easy:
 \end{definition}
 Here we are only interested in the case $ n = 0 $.
 
-\subsection{An elementary version of Hyland's proof}
 We will use Lemma \ref{lem:univalen-category-equivalence}, by showing that $ L \mapsto L_0 $ is a weak equivalence.
 
 First of all, let $ A $ be an algebra for the initial $ \lambda $-theory $ \Lambda $.
@@ -348,9 +347,11 @@ Summarizing,
   By Lemma \ref{lem:elementary-full} and Lemma \ref{lem:elementary-faithful}, the functor is fully faithful. By Lemma \ref{lem:elementary-essentially-surjective}, it is essentially surjective, so it is a weak equivalence. Since $ \LamTh $ and $ \Alg{\Lambda} $ are univalent categories, Lemma \ref{lem:univalen-category-equivalence} shows that $ F $ is an adjoint equivalence.
 \end{proof}
 
-\subsection{Hyland's proof}
+\section{Hyland's proof}
 
-\subsubsection{Terms of a \texorpdfstring{$ \Lambda $}{Lambda}-algebra}
+Hyland gives a more category theoretical proof. That means that there is more high-level intuition why things work the way they work, but on the flip side, there is a lot more details to check.
+
+\subsection{Terms of a \texorpdfstring{$ \Lambda $}{Lambda}-algebra}
 
 \begin{definition}
   Take $ \mathbf 1_n = (\lambda x_1 \dots x_n, x_1 \dots x_n) \bullet () : A $.
@@ -423,7 +424,7 @@ Recall that we have an equivalence $ [\op{C_{A_1}}, \SET] \cong \RAct{A_1} $.
   \end{center}
 \end{remark}
 
-\subsubsection{Constructing a theory from an algebra}
+\subsection{Constructing a theory from an algebra}
 
 \begin{definition}
   Composition $ \circ $ gives a right $ A_1 $-action on the $ A_n $, so we have $ A_n : \RAct{A_1} $. In particular, $ A_1 $ acts on itself, and we will call this set with right $ A_1 $-action $ U_A $.
@@ -467,7 +468,7 @@ Recall that we have an equivalence $ [\op{C_{A_1}}, \SET] \cong \RAct{A_1} $.
   The cartesian closed embedding of $ \R_A $ into $ \RAct{A_1} $ sends $ U $ to $ U_A $. It sends the retraction $ U^U: \R_A(U, U^U) $ exactly to the retraction $ a \mapsto \mathbf 1_2 \circ a: \RAct{A_1}(U_A, A_2) $. Therefore, we have a $ \lambda $-theory isomorphism $ E_{\R_A}(U) \cong E_{\RAct{A_1}}(U_A) $.
 \end{remark}
 
-\subsubsection{Constructing a theory morphism from an algebra morphism}
+\subsection{Constructing a theory morphism from an algebra morphism}
 
 Take a morphism $ F: \Alg{\Lambda}(A, B) $. Note that $ F $ preserves $ \circ $ and the $ \mathbf 1_n $. Therefore, it induces a monoid morphism $ A_1 \to B_1 $, which gives a functor $ C_{A_1} \to C_{B_1} $. Precomposing with this, we get a functor $ \RAct{B_1} \to \RAct{A_1} $.
 
@@ -611,7 +612,7 @@ Now, we can start defining our lift of $ F $:
   Since $ F $ preserves all the structure of $ \R_A $, as do the embeddings of $ \R_A $ and $ \R_B $ into $ \RAct{A_1} $ and $ \RAct{B_1} $, one would expect $ F_* $ to preserves the structure of the full subcategory $ \R_A $ of $ \RAct{A_1} $, including $ U_A $, its finite products and their exponentials. This is another way to argue that $ \bar F $ is indeed a morphism of $ \lambda $-theories.
 \end{remark}
 
-\subsubsection{The unit}
+\subsection{The unit}
 
 Definining the unit of the adjunction boils down to a version of Scott's representation theorem.
 
@@ -673,7 +674,7 @@ Definining the unit of the adjunction boils down to a version of Scott's represe
   and by Lemma \ref{lem:elementary-full}, this concludes the proof.
 \end{proof}
 
-\subsubsection{The counit}
+\subsection{The counit}
 
 \begin{definition}
   For $ A : \Alg \Lambda $, we define a bijection $ \epsilon_A : E_{\RAct{A_1}}(U_A)_0 \cong A $ as
@@ -780,15 +781,62 @@ Now, finally, we are ready to show that $ \epsilon $ is an isomorphism of $ \Lam
   which concludes the proof.
 \end{proof}
 
-\subsubsection{The equivalence}
+\subsection{The equivalence}
 
 By Lemma 3.2 in \cite{nlab:adjoint_equivalence} and Lemma \ref{lem:zigzag}, $ \eta $ and $ \epsilon $ satisfy both zigazg identities, and we can state the fundamental theorem of the $ \lambda $-calculus:
 \begin{theorem}
   There is an adjoint equivalence $ \LamTh \cong \Alg{\Lambda} $, sending a $ \lambda $-theory $ L $ to the $ \Lambda $-algebra $ L_0 $, with an inverse functor that sends a $ \Lambda $-algebra $ A $ to the theory $ E_{\RAct{A_1}}(U_A) $.
 \end{theorem}
 
-\section{An alternative proof for the fundamental theorem}
+\begin{remark}
+  Hyland remarks that the isomorphism $ U_A^{U_A} \cong A_2 $ can be generalized to isomorphisms $ U_A^{U_A^n} \cong A_{n + 1} $.
+  \begin{align*}
+    \RAct{A_1}(U_A^n, U_A)
+    &\cong \RAct{A_1}(I, U_A^{U_A^n})\\
+    &\cong \RAct{A_1}(I, A_{n + 1})\\
+    &\cong \{ f : A_{n + 1} \mid \forall a : A_1, f \circ a = f \}\\
+    &\cong A_n.
+  \end{align*}
+  % In particular, we can pick $ a = \lambda x_1, x_1 (\lambda x_2, x_2) $. Then we have an isomorphism from this subset of $ A_{n + 1} $ to $ A_n $, given by
+  % \[ f \mapsto (x_1 (\lambda x_2, x_2)) \bullet f \quad \text{and} \quad g \mapsto (\lambda x_2, x_1) \bullet g. \]
+  Explicitly, we get an isomorphism $ \psi: \RAct{A_1}(U_A^n, U_A) \xrightarrow \sim A_n $, given by
+  \[ \psi(f) = (\lambda x_2 \dots x_{n + 1}, x_1 (x_2, \dots, x_{n + 1})) \bullet (f (\pi_1, \dots, \pi_n)) \]
+  and
+  \[ \psi^{-1}(g)(a_1, \dots, a_n) = (\lambda x_{n + 2}, x_1 (x_2 x_{n + 2}) \dots (x_{n + 1} x_{n + 2})) \bullet (g, a_1, \dots, a_n). \]
+  Note that to show this, we need to use the $ A_1 $-equivariance of $ f $ at some point:
+  \begin{align*}
+    &f(\pi_2, \dots, \pi_{n + 1})((\lambda x_{n + 1}, x_{n + 1}), x_1, \dots, x_n)\\
+    &= (f(\pi_1, \dots, \pi_n) \circ \langle \pi_2, \dots, \pi_{n + 1} \rangle) ((\lambda x_{n + 2}, x_{n + 2}), x_1, \dots, x_n)\\
+    &= f(\pi_1, \dots, \pi_n) (x_1, \dots, x_n).\\
+  \end{align*}
+  This gives a $ \lambda $-theory structure on $ (A_n)_n $, with
+  \begin{align*}
+    y_{n, i} &= (\lambda x_1 \dots x_n, x_{n, i}) \bullet ();\\
+    f \bullet g &= (\lambda x_{m + 2} \dots x_{m + n + 1}, x_1 (x_2 x_{m + 2} \dots x_{m + n + 1}) \dots (x_{m + 1} x_{m + 2} \dots x_{m + n + 1})) \bullet (f, g_1, \dots, g_m);\\
+    \rho(f) &= \mathbf 1_m \circ f;\\
+    \lambda(h) &= f.
+  \end{align*}
+  for $ f: A_m $, $ g: A_n^m $ and $ h: A_{m + 1} $.
 
+  Then any $ F: \Alg \Lambda(A, B) $ gives functions $ F: A_n \to B_n $, and these give a $ \lambda $-theory morphism in $ \LamTh((A_n)_n, (B_n)_n) $.
+
+  The natural isomorphism $ \epsilon_A: A_0 \to A $ is just $ \id A $. Also, $ {\eta_L}_n : L_n \to (L_0)_n $ is given by $ \lambda^n $, with $ \rho^n $ as its inverse. The zigzag identities are trivial, so this gives another, very elemental proof of the fundamental theorem.
+  % \begin{align*}
+  %   \psi^{-1}(\psi(f))(b)
+  %   &= (\lambda x_{n + 2}, x_1 (x_2 x_{n + 2}) \dots (x_{n + 1} x_{n + 2})) \bullet (\psi(f), b_1, \dots, b_n)\\
+  %   &= (\lambda x_{n + 2}, x_1 (x_2 x_{n + 2}, \dots, x_{n + 1} x_{n + 2})) \bullet (f (\pi_1, \dots, \pi_n), b_1, \dots, b_n)\\
+  %   &= (x_1 \circ \langle x_2, \dots, x_{n + 1} \rangle) \bullet (f (\pi_1, \dots, \pi_n), b_1, \dots, b_n)\\
+  %   &= f (\pi_1, \dots, \pi_n) \circ \langle b_1, \dots, b_n \rangle\\
+  %   &= f (\pi_1 \circ \langle b_1, \dots, b_n \rangle, \dots, \pi_n \circ \langle b_1, \dots, b_n \rangle)\\
+  %   &= f (b_1, \dots, b_n).
+  % \end{align*}
+  % \begin{align*}
+  %   \psi(\psi^{-1}(g))
+  %   &= (\lambda x_2 \dots x_{n + 1}, x_1 (x_2, \dots, x_{n + 1})) \bullet ((\lambda x_{n + 2}, x_1 (x_2 x_{n + 2}) \dots (x_{n + 1} x_{n + 2})) \bullet (g, \pi_1, \dots, \pi_n))\\
+  %   &= (\lambda x_2 \dots x_{n + 1}, x_1 x_2 \dots x_{n + 1}) \bullet g\\
+  %   &= g.
+  % \end{align*}
+\end{remark}
 
 \section{Theory of extensions}
 
