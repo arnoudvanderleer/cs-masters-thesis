@@ -1,4 +1,19 @@
-\documentclass[a4paper]{amsbook}
+% Fix: From https://tex.stackexchange.com/a/508995/108670
+\RequirePackage{snapshot}
+\makeatletter
+\def\snap@providesfile#1[#2]{%
+  \wlog{File: #1 #2}%
+  \if\expandafter\snap@graphic@test\expanded{#2}@@\@nil
+    \snap@record@graphic#1\relax #2 (type ??)\@nil
+  \else
+    \expandafter\xdef\csname ver@#1\endcsname{#2}%
+  \fi
+  \endgroup
+}
+\makeatother
+
+\documentclass[twoside,a4paper,11pt]{memoir}
+\usepackage{document}
 
 \usepackage{tikz-cd}
 \usepackage{enumerate}
@@ -7,9 +22,7 @@
 \usepackage{stmaryrd}
 \usepackage{svg}
 \usepackage{subcaption}
-\usepackage{amssymb}
-
-\title{Semantics for the $ \lambda $-calculus}
+\usepackage{amsthm}
 
 \makeindex
 
@@ -43,6 +56,7 @@
 \newcommand\RAct[1]{\mathbf{RAct}_{#1}}
 \newcommand\TODO{\textbf{(TODO)} }
 
+% For the "symbol=" key in tikzcd
 \tikzset{%
     symbol/.style={%
         draw=none,
@@ -51,28 +65,42 @@
     }
 }
 
-\labelformat{section}{\thechapter.\thesection}
+% Add \@ _before_ the terminating period of the sentence (`UI\@. Test`)
+% to allow inter-sentence spacing when the sentence ends with a capital letter.
+
+\addbibresource{document.bib}
+
+\input{metadata}
 
 \begin{document}
 
-  \maketitle
+\frontmatter
+\thispagestyle{empty}
+\maketitle
+\makeformaltitlepages{\input{000-abstract}}
 
-  \setcounter{tocdepth}{4}
-  \tableofcontents
+% \include{010-preface}
 
-  \include{chapters/category-theory}
-  \include{chapters/univalent-foundations}
-  \include{chapters/algebraic-structures}
-  \include{chapters/previous-work}
-  \include{chapters/paper}
-  \include{chapters/formalization}
+\cleardoublepage\tableofcontents
+% \cleardoublepage\listoffigures
+% \cleardoublepage\listoftables
+\cleardoublepage\mainmatter{}
 
-  \bibliographystyle{alpha}
-  \bibliography{citations}
 
-  \appendix
-  \include{chapters/alternative-definitions}
+\include{category-theory}
+\include{univalent-foundations}
+\include{algebraic-structures}
+\include{previous-work}
+\include{paper}
+\include{formalization}
 
-  \printindex
+\printbibliography{}
+
+\appendix
+\def\chaptername{Appendix}
+
+% \include{alternative-definitions}
+
+\printindex
 
 \end{document}

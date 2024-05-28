@@ -1,0 +1,31 @@
+% !TEX root = document.tex
+
+\title{Universal algebra and the \texorpdfstring{$ \lambda $}{lambda}-calculus}
+\subtitle{Version of \today}
+%\subtitle{Master's Thesis}
+\author{Arnoud van der Leer}
+\authoremail{\url{a.a.vanderleer@student.tudelft.nl}}
+\birthplace{Leiderdorp, the Netherlands}
+\studentid{4485890}
+\coverpicture{
+  \centerline{
+    \Large
+    \begin{tikzcd}[
+      ampersand replacement=\&,
+      sep=scriptsize
+    ]
+      \&
+      C_{{L_0}_1} \arrow[dd, "Y" description, hook] \arrow[rrr, "\iota_{C_{{L_0}_1}}" description, hook] \arrow[rd, "\sim" description, no head] \& \& \& \R_{L_0} \arrow[dd, "Y" description, hook] \arrow[rd, "\sim" description, no head] \& \& \\
+      \&
+      \& C_{L_1} \arrow[dd, "Y" description, hook] \arrow[r, hook] \& \mathbf L \arrow[rr, hook] \arrow[dd, "Y" description, hook] \& \& \mathbf R \arrow[dd, "Y" description, hook] \arrow[rdd, hook] \& \\
+      \RAct{{L_0}_1} \&
+      P C_{{L_0}_1} \arrow[l, "\sim"'] \arrow[rd, "\sim" description, no head] \& \& \& P \R_{L_0} \arrow[lll, "\sim" description] \arrow[rd, "\sim" description, no head] \& \& \\
+      \&
+      \& P C_{L_1} \& P \mathbf L \arrow[l, "\sim" description] \& \& P \R \arrow[ll, "\sim" description] \& \Pshf L \arrow[lll, "\sim" description, bend left]
+    \end{tikzcd}
+  }
+}
+\colophon{\noindent
+  \copyright{} \the\year{} \: \theauthor. \\[1em]
+  Cover picture: A 2-commutative diagram featuring categories that appear in this thesis.
+}

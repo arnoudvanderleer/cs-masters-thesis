@@ -14,7 +14,7 @@
 % \end{tabular}
 
 \section{The correspondence between categories and typed \texorpdfstring{$ \lambda $}{lambda}-calculi}\label{sec:lambek-correspondence}
-In \cite{curry}, page 413, Scott and Lambek argue that there is a correspondence between simply typed $ \lambda $-calculi and cartesian closed categories (categories with products and `function objects').
+In \textcite{curry}, page 413, Scott and Lambek argue that there is a correspondence between simply typed $ \lambda $-calculi and cartesian closed categories (categories with products and `function objects').
 
 Types in the $ \lambda $-calculus correspond to objects in the category.
 
@@ -52,6 +52,14 @@ Although, actually, since every one of these starts with a $ \lambda $-abstracti
 Note that $ \pi_i (a_1, a_2) = a_i $ and $ \pi_i \circ \langle a_1, a_2 \rangle = \lambda x_1, a_i x_1 $, which is exactly what we would expect of a projection.
 
 Also, note that by replacing the $ x_i $ by $ x_{n + i} $ and the $ \iota_{0, 1}(a_i) $ by $ \iota_{n, 1}(a_i) $, we obtain definitions not only for elements of $ L_0 $, but for all $ L_n $.
+
+Later on, we will need not only pairs and their projects, but also $ n $-tuples with projections. Therefore, we define
+\begin{align*}
+  (a_i)_i = (a_1, \dots, a_n) &= ((\dots((c, a_1), a_2), \dots), a_n);\\
+  \langle a_i \rangle_i = \langle a_1, \dots, a_n \rangle &= \langle\langle\dots\langle\langle c, a_1\rangle, a_2\rangle, \dots\rangle, a_n\rangle;\\
+  \pi_{n, i} &= \pi_2 \circ \underbrace{\pi_1 \circ \dots \circ \pi_1}_{n - i}
+\end{align*}
+for some constant $ c $, which usually is someting like $ \lambda x_{n + 1}, x_{n + 1} $.
 
 \begin{definition}
   We define the category \index{R}$ \R $ as the Karoubi envelope of the monoid of the $ \lambda $-terms without free variables under composition. That is, the category of idempotent functions:
@@ -152,28 +160,28 @@ with
 \[ f \circ I = f \not = g = g \circ I, \]
 so the diagram does not commute, and $ Q $ is not a pullback of this cospan.
 
-Taylor notes (\cite{taylor}, Section 1.5) that the objects in $ \R $ have very strong properties with respect to fixpoints. One of the properties also arises via Lawvere's fixed point theorem (\cite{lawvere-fixpoints}, page 136): For all $ B: \R $, since $ B^U $ is a retract of $ U $, every endomorphism $ f: B \to B $ has a fixpoint. That is, there exists $ s: I \to B $ such that $ f \circ s = s $. Working out the proof even yields an explicit term:
+Taylor notes (\textcite{taylor}, Section 1.5) that the objects in $ \R $ have very strong properties with respect to fixpoints. One of the properties also arises via Lawvere's fixed point theorem (\textcite{lawvere-fixpoints}, page 136): For all $ B: \R $, since $ B^U $ is a retract of $ U $, every endomorphism $ f: B \to B $ has a fixpoint. That is, there exists $ s: I \to B $ such that $ f \circ s = s $. Working out the proof even yields an explicit term:
 \[ s = \lambda i, (\lambda x, f (x x)) (\lambda x, f (x x)). \]
 Indeed, $ s = \lambda i, f ((\lambda x, f (x x)) (\lambda x, f (x x))) = f \circ s $, and $ B \circ s = B \circ f \circ s = s = s \circ I $, so $ s : \R(I, B) $.
 
-From this, Taylor deduces (\cite{taylor}, \S 1.5.12) that $ \R $ does not have all coproducts if $ L $ is nontrivial, because suppose that $ \R $ has all coproducts. Then $ B = I + I $ is a `boolean algebra object': We define $ \bot, \top: I \to B $ to be the injections on the left and right components. Since $ \R $ is cartesian closed, binary products distribute over binary coproducts, so we have $ B \times B \cong ((I \times I) + (I \times I)) + ((I \times I) + (I \times I)) $, and note that $ I \times I \cong I $. Using the universal property of the coproduct, we can define $ \lnot: B \to B $ componentwise as $ \lnot = [\top, \bot] $, the coproduct arrow
+From this, Taylor deduces (\textcite{taylor}, \S 1.5.12) that $ \R $ does not have all coproducts if $ L $ is nontrivial, because suppose that $ \R $ has all coproducts. Then $ B = I + I $ is a `boolean algebra object': We define $ \bot, \top: I \to B $ to be the injections on the left and right components. Since $ \R $ is cartesian closed, binary products distribute over binary coproducts, so we have $ B \times B \cong ((I \times I) + (I \times I)) + ((I \times I) + (I \times I)) $, and note that $ I \times I \cong I $. Using the universal property of the coproduct, we can define $ \lnot: B \to B $ componentwise as $ \lnot = [\top, \bot] $, the coproduct arrow
 \begin{center}
-  \begin{tikzcd}[row sep = .3in]
+  \begin{tikzcd}[sep=large]
     I \arrow[r, "\bot"] \arrow[rd, "\top"'] & I + I \arrow[d, dashed, "{[\top, \bot]}"description] & I \arrow[l, "\top"'] \arrow[ld, "\bot"]\\
     & I + I &
   \end{tikzcd}
-  % \begin{tikzcd}[row sep = .3in]
+  % \begin{tikzcd}[sep=large]
   %   I \arrow[rrrd, "\bot"'] \arrow[r, "\bot"] & I + I \arrow[rrd, "{[\bot, \bot]}" description, dashed] \arrow[rr, bend left] & I \arrow[rd, "\bot"] \arrow[l, "\top"'] & I + I + I + I \arrow[d, dashed, "{[[\bot, \bot], [\bot, \top]]}" description] & I \arrow[ld, "\bot"'] \arrow[r, "\bot"] & I + I \arrow[lld, "{[\bot, \top]}" description, dashed] \arrow[ll, bend right] & I \arrow[llld, "\top"] \arrow[l, "\top"'] \\
   %   & & & I + I & & &
   % \end{tikzcd}
 \end{center}
 Note that by the definition of $ \lnot $, $ \lnot \circ \bot = \top $. Similarly, we define $ \land, \lor : B \times B \to B $ as $ \land = [[\bot, \bot], [\bot, \top]] $ and $ \lor = [[\bot, \top], [\top, \top]] $. Using the same universal property, we can also verify some properties of $ \bot, \top, \land $ and $ \lnot $, like the fact that the following diagrams commute:
 \begin{center}
-  \begin{tikzcd}[column sep = .5in]
+  \begin{tikzcd}[sep=large]
     B \arrow[rd, "{\id B}"] \arrow[r, "{\langle \id B, \id B \rangle}"] & B \times B \arrow[d, "\land"]\\
     & B
   \end{tikzcd}
-  \begin{tikzcd}[column sep = .5in]
+  \begin{tikzcd}[sep=large]
     B \arrow[d, "!"] \arrow[r, "{\langle \lnot, \id B \rangle}"] & B \times B \arrow[d, "\land"]\\
     I \arrow[r, "\bot"] & B
   \end{tikzcd}
@@ -204,10 +212,10 @@ The correspondence in Section \ref{sec:lambek-correspondence} between simply-typ
 
   Note that $ \SET $ is a cartesian closed category, but that for sets $ X $ and $ Y $, the function space $ X^Y $ has cardinality $ \vert X \vert^{\vert Y \vert} $, and therefore $ U^U $ cannot be a retract of $ U $, unless $ U = \{ \star \} $, in which case we have a very trivial $ \lambda $-calculus: $ \SET(U^n, U) = \{ \star \} $.
 
-  During the 1960s, computer scientists sought for nontrivial examples of reflexive objects, there is a quote by Dana Scott that ``Lambda-calculus has no mathematical models!''\cite{strachey}. However, in 1969, the same Dana Scott discovered that the category of (continuous) lattices with (Scott-)continuous functions between them has a nontrivial reflexive object, with the retraction onto the function spaces being even an isomorphism. Such a reflexive object $ D_\infty $ is obtained by starting with an arbitrary lattice $ D_0 $, iteratively taking $ D_{n + 1} = D_n^{D_n} $, with a retraction (in the `wrong' direction) $ r: D_n^{D_n} \to D_n $, and then passing to the limit $ D_\infty = \lim_{\leftarrow} D_n $ (for the main result, see Theorem 4.4 in \cite{scott-continuous}, page 127).
+  During the 1960s, computer scientists sought for nontrivial examples of reflexive objects, there is a quote by Dana Scott that ``Lambda-calculus has no mathematical models!''\textcite{strachey}. However, in 1969, the same Dana Scott discovered that the category of (continuous) lattices with (Scott-)continuous functions between them has a nontrivial reflexive object, with the retraction onto the function spaces being even an isomorphism. Such a reflexive object $ D_\infty $ is obtained by starting with an arbitrary lattice $ D_0 $, iteratively taking $ D_{n + 1} = D_n^{D_n} $, with a retraction (in the `wrong' direction) $ r: D_n^{D_n} \to D_n $, and then passing to the limit $ D_\infty = \lim_{\leftarrow} D_n $ (for the main result, see Theorem 4.4 in \textcite{scott-continuous}, page 127).
 \end{remark}
 
-Since Lambek showed an equivalence between simply typed $ \lambda $-calculi and cartesian closed categories, and since we have a construction for an untyped $ \lambda $-calculus from a cartesian closed category with a reflexive object, we can wonder whether this construction constitutes contitutes an equivalence between untyped $ \lambda $-calculi and some class of categories. This question finds a partial answer in the following theorem, originally proven in a very syntactical way by Dana Scott (see \cite{curry}, page 418).
+Since Lambek showed an equivalence between simply typed $ \lambda $-calculi and cartesian closed categories, and since we have a construction for an untyped $ \lambda $-calculus from a cartesian closed category with a reflexive object, we can wonder whether this construction constitutes contitutes an equivalence between untyped $ \lambda $-calculi and some class of categories. This question finds a partial answer in the following theorem, originally proven in a very syntactical way by Dana Scott (see \textcite{curry}, page 418).
 \begin{theorem}\label{thm:Scott}
   We can obtain every untyped $ \lambda $-calculus as the endomorphism theory of some object in some category.
 \end{theorem}
@@ -218,9 +226,7 @@ Since Lambek showed an equivalence between simply typed $ \lambda $-calculi and 
 
   Therefore, $ E(U) $, the endomorphism theory of $ U $, has a $ \lambda $-theory structure. Note that the finite powers of $ U $ in $ \R $ are given by $ U^0 = I $ and $ U^{n + 1} = U^n \times U $.
 
-  We have $ E(U)_n = \R(U^n, U) = \{ f: L_0 \mid U \circ f \circ U^n = f \} $. The variables of $ E(U) $ are the projections of $ U^n $:
-  \[ q_{n, i} = \pi_2 \circ \underbrace{\pi_1 \circ \dots \circ \pi_1}_{n - i}. \]
-  The substitution is given by composition with the product morphism:
+  We have $ E(U)_n = \R(U^n, U) = \{ f: L_0 \mid U \circ f \circ U^n = f \} $. The variables of $ E(U) $ are the projections $ \pi_{n, i} $ of $ U^n $. The substitution is given by composition with the product morphism:
   \[ f \bullet g = f \circ \langle \langle \langle I, g_1 \rangle, \dots \rangle, g_n \rangle. \]
   We have $ U^U = \lambda f, U \circ f \circ U = \lambda x_1 x_2, x_1 x_2 $. Using the equivalence $ \R(U^n \times U, U) \simeq \R(U^n, U^U) $ and the retraction $ U^U: U \to U^U $, the abstraction and application $ \lambda $ and $ \rho $ are given by
   \[ \lambda(f) = \lambda x_1 x_2, \iota_{0, 2}(f)(x_1, x_2), \quad \rho(g) = \lambda x_1, \iota_{0, 1}(g) (\pi_1 x_1) (\pi_2 x_1). \]
@@ -229,12 +235,12 @@ Since Lambek showed an equivalence between simply typed $ \lambda $-calculi and 
   Now, we have bijections $ \psi_0: E(U)_0 \xrightarrow{\sim} L_0 $, given by
   \[ \psi_0(f) = f (\lambda x_1, x_1) \quad \text{and} \quad \psi_0^{-1}(g) = \lambda x_1, \iota_{0, 1}(g). \]
   We can extend this to any $ n $, by reducing any term to a constant by repeatedly using $ \lambda $, then applying the bijection, and then lifting it again using $ \rho $. Explicitly, we obtain
-  \[ \psi_n(f) = \iota_{0, n}(f) ((((\lambda x_{n+1}, x_{n+1}), x_1), \dots), x_n), \quad \text{and} \quad \psi^{-1}_n(g) = \lambda x_1, g \bullet (q_i x_1)_i. \]
+  \[ \psi_n(f) = \iota_{0, n}(f)(x_i)_i, \quad \text{and} \quad \psi^{-1}_n(g) = \lambda x_1, g \bullet (\pi_{n, i} x_1)_i. \]
   It is not hard to verify that this is indeed a bijection, using at one point the fact that $ f: \R(U^n, U) $ is defined by $ f \circ U^n = f $, for
-  \[ U^n = \lambda x_1, (((\lambda x_2, x_2), q_{n, 1} x_1 ), \dots, q_{n, n} x_1 ). \]
+  \[ U^n = \langle \pi_{n, i} \rangle_i. \]
   It is also pretty straightforward to check that
   \begin{align*}
-    \psi(q_{n, i}) &= x_i, & \psi(f) \bullet (\psi(g_i))_i &= \psi(f \bullet g),\\
+    \psi(\pi_{n, i}) &= x_i, & \psi(f) \bullet (\psi(g_i))_i &= \psi(f \bullet g),\\
     \psi(\lambda(h)) &= \lambda(\psi(h)), & \psi(\rho(h^\prime)) &= \rho(\psi(h^\prime))
   \end{align*}
   for $ f: E(U)_m $, $ g: E(U)_n^m $, $ h: E(U)_{n + 1} $ and $ h^\prime : E(U)_n $. Therefore, $ \psi $ is an isomorphism of $ \lambda $-theories.
@@ -277,7 +283,7 @@ Now, analogously to \ref{lem:locally-cartesian-closed}, Taylor shows:
   If a category $ C $ is cartesian closed relative to a class of display maps $ D $, then the fiber categories $ (C \downarrow_D A) $ are cartesian closed and the substitution functors $ \alpha^* $ preserve this structure.
 \end{lemma}
 \begin{proof}
-  Taylor proves this in a series of lemmas leading up to \S 4.3.7 in \cite{taylor}. It is also proved as Proposition 6 of \cite{theory-of-constructions}.
+  Taylor proves this in a series of lemmas leading up to \S 4.3.7 in \textcite{taylor}. It is also proved as Proposition 6 of \textcite{theory-of-constructions}.
 \end{proof}
 
 \subsection{Taylor's proof}
@@ -326,7 +332,7 @@ Taylor shows that these display maps indeed satisfy the three properties mention
 \begin{enumerate}
   \item Given a display map $ (X, f): (\R \downarrow_D A) $ and a morphism $ \alpha: \R(B, A) $. Recall that this means that there merely exists a $ Y: \R^A $ and an isomorphism $ X \xrightarrow \sim \sum_A Y $ in $ (\R \downarrow A) $. Therefore, we have mere existence of a pullback $ \sum_B (Y \circ \alpha) $ of $ \sum_A Y $ along $ \alpha $. For all $ C: \R $ with $ \beta: \R(C, B) $ and $ \gamma: \R(C, \sum_A Y) $ that make the square commute, we have the morphism $ \lambda x_1, (\beta x_1, \pi_2 (\gamma x_1)): \R(C, \sum_B (Y \circ \alpha)) $.
     \begin{center}
-      \begin{tikzcd}[column sep = .5in]
+      \begin{tikzcd}[sep=large]
         C \arrow[rrrd, bend left, "\gamma"] \arrow[dd, bend right=90, "\beta"'] \arrow[d, dashed, "{\lambda x_1, (\beta x_1, \pi_2 (\gamma x_1))}"] \\
         \sum_B (Y \circ \alpha) \arrow[rrr, "{\lambda x_1, (\alpha (\pi_1 x_1), Y (\alpha (\pi_1 x_1)) (\pi_2 x_1))}"] \arrow[d, "p_{(Y \circ \alpha)}"] &&& \sum_A Y \arrow[d, "p_Y"] & X \arrow[l, "g"] \arrow[ld, "f"]\\
         B \arrow[rrr, "\alpha"] &&& A
@@ -418,12 +424,12 @@ Taylor shows that these display maps indeed satisfy the three properties mention
 \begin{remark}
   To talk about `relatively cartesian closed', we need a pullback functor $ \alpha^* : (\R \downarrow_D A) \to (\R \downarrow_D B) $ for all (display maps) $ \alpha: B \to A $. However, as remarked before, since the definition of display maps involves a propositional truncation, we only have mere existence of pullbacks, and to pass from the statement ``for all $ f $, there exists a pullback $ \alpha^* f $'' to the statement ``there exists a function that sends every morphism $ f : (\R \downarrow_D A) $ to its pullback $ \alpha^* f : (\R \downarrow_D B) $'', we need to assume the axiom of choice.
 
-  However, note that we have a weak equivalence between strict categories (categories in which the type of objects is a homotopy set) $ \sum_A: \R^A \xrightarrow \sim (\R \downarrow_D A) $. If we assume the axiom of choice, $ \sum_A $ becomes an equivalence of categories (\cite{univalent-categories}, introduction, page 2 \TODO: maybe find a better reference for this) and then our pullback functor is given by
+  However, note that we have a weak equivalence between strict categories (categories in which the type of objects is a homotopy set) $ \sum_A: \R^A \xrightarrow \sim (\R \downarrow_D A) $. If we assume the axiom of choice, $ \sum_A $ becomes an equivalence of categories (\textcite{univalent-categories}, introduction, page 2 \TODO: maybe find a better reference for this) and then our pullback functor is given by
   \[ \sum_A^{-1} \bullet (\alpha \cdot -) \bullet \sum_B, \]
   where $ (\alpha \cdot -): \R^A \to \R^B $ denotes the functor given by precomposition with $ \alpha $.
 \end{remark}
 
-This brings us to the main theorem of this section (\cite{taylor}, 5.1.8).
+This brings us to the main theorem of this section (\textcite{taylor}, 5.1.8).
 \begin{theorem}
   If we assume the axiom of choice, $ \R $ is cartesian closed, relative to the given class of display maps.
 \end{theorem}

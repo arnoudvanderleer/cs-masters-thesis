@@ -69,7 +69,7 @@ The two equivalences in this diagram are due to Lemma \ref{lem:lawvere-presheaf}
   \[ (\iota \bullet \sim)(A)(n) = \{ a : L_n \mid \iota_{0, n}(A) a = a \} \]
 
   By Scott's representation theorem, we have $ \varphi_n: \R(U^n, U) \xrightarrow \sim L_n, $ given by
-  \[ \varphi_n(f) = \iota_{0, n}(f) ((((c, x_1), x_2), \dots), x_n). \]
+  \[ \varphi_n(f) = \iota_{0, n}(f) (x_i)_i. \]
   Restricting this equivalence to the morphisms to $ A $ yields
   \[ \R(U^n, A) \cong \{ a : L_n \mid A a = a \}. \]
   Of course, this is natural in $ A $, since for $ g: \R(A, B) $, postcomposing elements of $ \R(U^n, A) $ by $ g $ is equivalent to applying $ g $ to the elements of $ \{ a : L_n \mid A a = a \} $.
@@ -108,7 +108,7 @@ Now, noticing that we can embed $ \R $ as a full subcategory in $ \Pshf L $, Hyl
   There also is a more category-theoretical argument: Suppose that every object of $ \Pshf L $ is a retract of $ L $. Via the equivalence $ \Pshf L \cong L_1 $, we see that every object of $ P C_{L_1} $ is a retract of $ Y(\star) $. However then the embedding of $ \hat \R $ (Definition \ref{def:karoubi'}) into $ P C_{L_1} $ is an adjoint equivalence. Since $ Y_{\R} \bullet {\op{\iota_{L_1}}}_* : \R \to \hat \R $ and $ {\op{\iota_{L_1}}}_* : P \R \to P C_{L_1} $ are weak equivalences, (Lemma \ref{lem:retracts-rezk}, Corollary \ref{cor:karoubi-presheaf}), $ Y_\R : \R \to P \R $ is a weak equivalence as well, but the Yoneda embedding is never essentially surjective. For any category $ C $, the constant empty presheaf $ E: c \mapsto \emptyset $ is not representable, since for all $ c : C $, $ \id c = Y(c)(c) $, so $ Y(c) $ is not isomorphic to $ E $.
 \end{remark}
 
-Recall that $ \Pshf L $ is isomorphic to the presheaf category $ P \mathbf L $, so it is an elementary topos, so it is locally cartesian closed (Example 5.2.5 and Theorem 5.8.4, \cite{borceux}, Volume 3). Therefore, for a morphism $ f: \Pshf L(Y, X) $, we have adjunctions
+Recall that $ \Pshf L $ is isomorphic to the presheaf category $ P \mathbf L $, so it is an elementary topos, so it is locally cartesian closed (Example 5.2.5 and Theorem 5.8.4, \textcite{borceux}, Volume 3). Therefore, for a morphism $ f: \Pshf L(Y, X) $, we have adjunctions
 \begin{center}
   \begin{tikzcd}
     (\Pshf L \downarrow X) \arrow[r, "f^*"' description, ""{name=B}] & (\Pshf L \downarrow Y) \arrow[l, bend right, "{\sum_f = - \cdot f}"'{name=A}] \arrow[l, bend left, "\prod_f"{name=C}]
@@ -195,7 +195,7 @@ Now, Hyland shows the following:
 
   Recall that we have a weak equivalence $ \varphi : \R \xrightarrow \sim \hat \R $ (Lemma \ref{lem:retracts-rezk}) and one can imagine that we can extend this to weak equivalences $ \psi_X : (\R \downarrow_D X) \xrightarrow \sim (\hat \R \downarrow_D \varphi(X)) $. Hyland notes that for $ X : \hat \R $, $ \R(\varphi(X)) $ is equivalent to $ (\hat \R \downarrow_D \varphi(X)) $. Implicitly, for $ f: \R(X, Y) $, he wants to lift the functors $ \sum_f $, $ f^* $ and $ \prod_f $ along the equivalences $ \psi $:
   \begin{center}
-    \begin{tikzcd}[column sep = .5in, row sep = .5in]
+    \begin{tikzcd}[sep=large]
       (\R \downarrow_D X)
         \arrow[d, "\psi_X"]
         \arrow[r, dashed, bend left, "\sum_f"']
@@ -214,7 +214,7 @@ Now, Hyland shows the following:
 
   For Taylor's proof, we did a similar thing when we knew that for every object $ X : (\R \downarrow_D A) $, there existed some $ Y : \R^A $, and we needed to construct a pullback functor $ f^* : (\R \downarrow_D A) \to (\R \downarrow_D B) $. We could use the axiom of choice here because the objects of $ \R $ (and therefore also the objects of the relative slices $ (\R \downarrow_D A) $) form a set.
 
-  However, as mentioned in \cite{univalent-categories} halfway through the introduction, and as explained more thoroughly in \cite{hottbook}, Lemma 3.8.5, if $ \R(\varphi(X)) $ is not a set (and if $ L $ is nontrivial, it is never a set), then there is no axiom of choice which can turn the `for all \dots, there exists \dots' into a `there exists a function'.
+  However, as mentioned in \textcite{univalent-categories} halfway through the introduction, and as explained more thoroughly in \textcite{hottbook}, Lemma 3.8.5, if $ \R(\varphi(X)) $ is not a set (and if $ L $ is nontrivial, it is never a set), then there is no axiom of choice which can turn the `for all \dots, there exists \dots' into a `there exists a function'.
 
   Therefore, in univalent foundations, the relative cartesian closedness is not a corollary of Theorem \ref{thm:restrict-sum-product}.
 \end{remark}
@@ -277,21 +277,21 @@ The following lemma shows that our functor is essentially surjective:
   Now, to show that this is an isomorphism of $ \Lambda $-algebras, recall that $ \bullet: \R_A(U^n, U) \times \R_A(I, U)^n \to \R_A(U) $ is given by precomposition with the product morphism and that the $ \Lambda $-algebra structure on $ E(U)_0 $ is given by the embedding of $ \Lambda $ into $ E(U)_0 $, given by $ f \mapsto {\iota_\Lambda}_n(f) \bullet_A () $ for some collection $ ({\iota_\Lambda}_n: \Lambda_n \to \Lambda_0)_n $ (from now on, we will drop the $ n $ and just write $ \iota_\Lambda $). We have for all $ f: \Lambda_n $, and all $ a : E(U)_0^n $,
   \begin{align*}
     \epsilon(f \bullet_{E(U)} a)
-    &= ((\iota_\Lambda(f) \bullet_A ()) \circ \langle a_1, \dots, a_n \rangle)(c_n)\\
-    &= (\iota_{0, n}(\iota_\Lambda(f)) ((\dots((c_n, x_1 c_n), x_2 c_n), \dots), x_n c_n)) \bullet_A a\\
-    &= (\iota_{0, n}(\iota_\Lambda(f)) ((\dots((c_n, x_1), x_2), \dots), x_n)) \bullet_A (\epsilon(a_i))_i,
+    &= ((\iota_\Lambda(f) \bullet_A ()) \circ \langle a_i \rangle_i)(c_n)\\
+    &= (\iota_{0, n}(\iota_\Lambda(f)) (x_i c_n)_i) \bullet_A a\\
+    &= (\iota_{0, n}(\iota_\Lambda(f)) (x_i)_i) \bullet_A (\epsilon(a_i))_i,
   \end{align*}
-  and we want this to equal $ f \bullet_A (\epsilon(a_i))_i $. Writing $ \bar x_n $ for $ ((\dots((c_n, x_1), x_2), \dots), x_n) $, and leaving out the $ \iota_{0, n} $, all we need to do is show that for all $ f: \Lambda_n $, we have $ \iota_\Lambda(f) \bar x_n = f $. We will do this by structural induction on $ f $.
+  and we want this to equal $ f \bullet_A (\epsilon(a_i))_i $. Leaving out the $ \iota_{0, n} $, all we need to do is show that for all $ f: \Lambda_n $, we have $ \iota_\Lambda(f) (x_i)_i = f $. We will do this by structural induction on $ f $.
   \begin{itemize}
-    \item If $ f = x_{n, i} $, we have $ \iota_\Lambda(f) = \pi_2 \circ \underbrace{\pi_1 \circ \dots \circ \pi_1}_{n - i} $, and
-      \[ \iota_\Lambda(f) \bar x_n = (\pi_2 \circ \pi_1 \circ \dots \circ \pi_1) \bar x_n = x_{n, i}. \]
+    \item If $ f = x_{n, i} $, we have $ \iota_\Lambda(f) = \pi_{n, i} $, and
+      \[ \iota_\Lambda(f) (x_i)_i = \pi_{n, i} (x_{n, i})_i = x_{n, i}. \]
     \item If $ f = \lambda x_{n + 1}, g $ for some $ g: \Lambda_{n + 1} $, we have
       \[ \iota_\Lambda(f) = (\lambda x_1 x_2, \iota_{0, 2}(\iota_\Lambda(g)) (x_1, x_2)), \]
       and if the induction hypothesis holds for $ g $, then
       \begin{align*}
-        \iota_\Lambda(f) \bar x_n
-        &= (\lambda x_{n + 1} x_{n + 2}, \iota_\Lambda(g) (x_{n + 1}, x_{n + 2})) \bar x_n\\
-        &= \lambda x_{n + 1}, \iota_\Lambda(g) (\bar x_n, x_{n + 1})\\
+        \iota_\Lambda(f) (x_i)_i
+        &= (\lambda x_{n + 1} x_{n + 2}, \iota_\Lambda(g) (x_{n + 1}, x_{n + 2})) (x_i)_i\\
+        &= \lambda x_{n + 1}, \iota_\Lambda(g) ((x_i)_i, x_{n + 1})\\
         &= \lambda x_{n + 1}, g.
       \end{align*}
     \item Recall that application in a $ \lambda $-theory is given by $ g_1 g_2 = \rho(g_1) \bullet (x_1, \dots, x_n, g_2) $. Now, if $ f = g_1 g_2 $ for $ g_1, g_2 : \Lambda_{n + 1} $, we have
@@ -302,15 +302,15 @@ The following lemma shows that our functor is essentially surjective:
       \]
       and if the induction hypothesis holds for $ g_1 $ and $ g_2 $, then
       \begin{align*}
-        \iota_\Lambda(f) \bar x_n
-        &= (\lambda x_{n + 1}, \iota_\Lambda(g_1) x_{n + 1} (\iota_\Lambda(g_2) x_{n + 1})) \bar x_n\\
-        &= \iota_\Lambda(g_1) \bar x_n (\iota_\Lambda(g_2) \bar x_n)\\
+        \iota_\Lambda(f) (x_i)_i
+        &= (\lambda x_{n + 1}, \iota_\Lambda(g_1) x_{n + 1} (\iota_\Lambda(g_2) x_{n + 1})) (x_i)_i\\
+        &= \iota_\Lambda(g_1) (x_i)_i (\iota_\Lambda(g_2) (x_i)_i)\\
         &= g_1 g_2.
       \end{align*}
   \end{itemize}
 \end{proof}
 
-Now, take a morphism $ F: \Alg{\Lambda}(A, B) $. Recall that $ \circ $, the categories $ \mathbf R_A $ and $ \mathbf R_B $, and their products and exponential objects are given using $ f \bullet (a_1, \dots, a_n) $ for some $ f: \Lambda_n $ and $ a_1, \dots, a_n : A $. Since we have $ F(f \bullet (a_1, \dots, a_n)) = f \bullet (F(a_1), \dots, F(a_n)) $, $ F $ gives a functor $ F: \R_A \to \R_B $, such that
+Now, take a morphism $ F: \Alg{\Lambda}(A, B) $. Recall that $ \circ $, the categories $ \mathbf R_A $ and $ \mathbf R_B $, and their products and exponential objects are given using $ f \bullet (a_1, \dots, a_n) $ for some $ f: \Lambda_n $ and $ a_1, \dots, a_n : A $. Since we have $ F(f \bullet (a_i)_i) = f \bullet (F(a_i)) $, $ F $ gives a functor $ F: \R_A \to \R_B $, such that
 \[ F(I) = I, F(U) = U, F(A \times B) = F(A) \times F(B) \quad \text{and} \quad F(A^B) = F(A)^{F(B)}, \]
 and the same for the product projections and the the natural isomorphisms $ \R_A(C, B^A) \cong \R_A(C \times A, B) $. In particular, we have for all $ f: \R_A(U^n, U) $,
 \[ F(f) : \R_B(F(U^n), F(U)) = \R_B(U^n, U). \]
@@ -783,7 +783,7 @@ Now, finally, we are ready to show that $ \epsilon $ is an isomorphism of $ \Lam
 
 \subsection{The equivalence}
 
-By Lemma 3.2 in \cite{nlab:adjoint_equivalence} and Lemma \ref{lem:zigzag}, $ \eta $ and $ \epsilon $ satisfy both zigazg identities, and we can state the fundamental theorem of the $ \lambda $-calculus:
+By Lemma 3.2 in \textcite{nlab:adjoint_equivalence} and Lemma \ref{lem:zigzag}, $ \eta $ and $ \epsilon $ satisfy both zigazg identities, and we can state the fundamental theorem of the $ \lambda $-calculus:
 \begin{theorem}
   There is an adjoint equivalence $ \LamTh \cong \Alg{\Lambda} $, sending a $ \lambda $-theory $ L $ to the $ \Lambda $-algebra $ L_0 $, with an inverse functor that sends a $ \Lambda $-algebra $ A $ to the theory $ E_{\RAct{A_1}}(U_A) $.
 \end{theorem}
@@ -820,7 +820,7 @@ By Lemma 3.2 in \cite{nlab:adjoint_equivalence} and Lemma \ref{lem:zigzag}, $ \e
 
   Then any $ F: \Alg \Lambda(A, B) $ gives functions $ F: A_n \to B_n $, and these give a $ \lambda $-theory morphism in $ \LamTh((A_n)_n, (B_n)_n) $.
 
-  The natural isomorphism $ \epsilon_A: A_0 \to A $ is just $ \id A $. Also, $ {\eta_L}_n : L_n \to (L_0)_n $ is given by $ \lambda^n $, with $ \rho^n $ as its inverse. The zigzag identities are trivial, so this gives another, very elemental proof of the fundamental theorem.
+  The natural isomorphism $ \epsilon_A: A_0 \to A $ is just $ \id A $. Note that, even though $ A_0 = A $ as sets, their $ \Lambda $-algebra structures are defined differently, so it takes some work to show that $ \epsilon_A $ is a $ \Lambda $-algebra morphism. Also, $ {\eta_L}_n : L_n \to (L_0)_n $ is given by $ \lambda^n $, with $ \rho^n $ as its inverse. The zigzag identities are trivial, so this gives another, very elemental proof of the fundamental theorem.
   % \begin{align*}
   %   \psi^{-1}(\psi(f))(b)
   %   &= (\lambda x_{n + 2}, x_1 (x_2 x_{n + 2}) \dots (x_{n + 1} x_{n + 2})) \bullet (\psi(f), b_1, \dots, b_n)\\

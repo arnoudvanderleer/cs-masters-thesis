@@ -5,7 +5,7 @@ Univalent foundations takes place in a framework of type theory. In this section
 
 First of all, \iindex{type theory} is the study of `type systems'. A \iindex{type system} is a collection of terms or elements, each of which has a corresponding type. A type is much like a set in set theory in that it has elements (for example, $ \mathrm{true}: \mathrm{Bool} $ or $ 1: \mathbb N $), but there are important differences. First of all, in type theory, elements are declared together with their type, whereas in set theory, something can be an element of multiple sets, like $ 5 \in \mathbb N $ and $ 5 \in \mathbb R $. Secondly, equality in type theory can work a bit differently than in classical mathematics, but will cover this in the next section.
 
-So if we have types and elements, are types also elements of some type? This is a tricky question, because if we say that there exists a type $ \TYPE $ which contains all types (and therefore, itself), we introduce inconsistency in our type system (see \cite{girard}). This is just like having a `set of all sets', which results in problematic questions like ``does its subset, containing only the sets which do not contain itself, contain itself?'' This is usually solved by either stating that types do not themselves have a type, or by assuming the existence of \textit{type universes} $ U_1, U_2, \dots $, such that every type is an element of some $ U_i $. Note that universes are allowed to be inclusive or not: we may have $ U_n \subseteq U_{n + 1} $. In this thesis, we will not explicitly mention particular universes. We will just write $ \TYPE $ to denote some type universe (or its category of types and functions). This is called \textit{typical ambiguity}, meaning that every theorem holds for all (suitable) assignments of universes to these instances of $ \TYPE $.
+So if we have types and elements, are types also elements of some type? This is a tricky question, because if we say that there exists a type $ \TYPE $ which contains all types (and therefore, itself), we introduce inconsistency in our type system (see \textcite{girard}). This is just like having a `set of all sets', which results in problematic questions like ``does its subset, containing only the sets which do not contain itself, contain itself?'' This is usually solved by either stating that types do not themselves have a type, or by assuming the existence of \textit{type universes} $ U_1, U_2, \dots $, such that every type is an element of some $ U_i $. Note that universes are allowed to be inclusive or not: we may have $ U_n \subseteq U_{n + 1} $. In this thesis, we will not explicitly mention particular universes. We will just write $ \TYPE $ to denote some type universe (or its category of types and functions). This is called \textit{typical ambiguity}, meaning that every theorem holds for all (suitable) assignments of universes to these instances of $ \TYPE $.
 
 One notable class of types is given by the \textit{function types}. For types $ A $ and $ B $, our type system might have the type $ A \to B $. An element $ f $ of this type can be combined with an element $ a $ of $ A $ to give an element $ f(b) $ of $ B $. Of course, the elements of this type are thought of (and usually are) functions from $ A $ to $ B $.
 
@@ -48,11 +48,11 @@ Now, the \iindex{univalence principle} takes this a step further. It states that
 \begin{quote}
   \textit{Isomorphic objects are equal.}
 \end{quote}
-Univalent foundations seeks to be a foundation for mathematics that is in line with this principle. This is often done within the framework of `Martin-Löf dependent type theory', a type theory developed by Per Martin-Löf \cite{martin-lof-type-theory}. It is a family of dependent type systems with dependent products, dependent sums, an empty type, a unit type and union types. It is a constructive type theory, so it does not automatically assume the axiom of excluded middle or the propositional axiom of choice. It is however compatible with these axioms, so one can still assume these alongside its usual axioms.
+Univalent foundations seeks to be a foundation for mathematics that is in line with this principle. This is often done within the framework of `Martin-Löf dependent type theory', a type theory developed by Per Martin-Löf \textcite{martin-lof-type-theory}. It is a family of dependent type systems with dependent products, dependent sums, an empty type, a unit type and union types. It is a constructive type theory, so it does not automatically assume the axiom of excluded middle or the propositional axiom of choice. It is however compatible with these axioms, so one can still assume these alongside its usual axioms.
 
-It is important to note that Martin-Löf type theory has \textit{identity types}: given a type $ T $ and elements $ x, y: T $, we have a type $ \mathrm{Id}_T(x, y) $ (note that this is a dependent type), which we will usually denote with $ x = y $. An element $ p: x = y $ is a proof that $ x $ is `equal' to $ y $. This type comes with an interesting induction principle called \iindex{path induction}: we can show any statement about paths $ p: x = y $ for generic $ x $ and $ y $, if we can show it about the `trivial' path $ \mathrm{refl}: x = x $ for generic $ x $. For example, symmetry of the equality boils down to a function $ \prod_{x y : T} x = y \to y = x $. We construct this using path induction with the function that sends $ \mathrm{refl}: x = x $ to itself. For more information, see \cite{hottbook}, Section 1.12.1.
+It is important to note that Martin-Löf type theory has \textit{identity types}: given a type $ T $ and elements $ x, y: T $, we have a type $ \mathrm{Id}_T(x, y) $ (note that this is a dependent type), which we will usually denote with $ x = y $. An element $ p: x = y $ is a proof that $ x $ is `equal' to $ y $. This type comes with an interesting induction principle called \iindex{path induction}: we can show any statement about paths $ p: x = y $ for generic $ x $ and $ y $, if we can show it about the `trivial' path $ \mathrm{refl}: x = x $ for generic $ x $. For example, symmetry of the equality boils down to a function $ \prod_{x y : T} x = y \to y = x $. We construct this using path induction with the function that sends $ \mathrm{refl}: x = x $ to itself. For more information, see \textcite{hottbook}, Section 1.12.1.
 
-In set-theoretic mathematics, there is the concept of a `bijection' $ S \simeq T $ of sets (or an isomorphism in the category $ \SET $), which is often treated as an equivalence. It consists of functions $ f: S \to T $ and $ g: T \to S $ with $ f \cdot g = \id S $ and $ g \cdot f = \id T $. In type theory, we have a similar concept, which is called `equivalence' (of types) $ S \simeq T $. Since bijections are not well-behaved for types that are not sets (see \ref{sec:homotopy-props-sets}), because in those cases, a function $ f: S \to T $ can have multiple distinct inverses. Therefore, we define $ S \simeq T := \sum_{f: S \to T} \mathrm{isequiv}(f) $, for some predicate $ \mathrm{isequiv}: (S \to T) \to \TYPE $ (see \cite{hottbook}, Equation 2.4.10). However, intuitively we can still think of these as bijections.
+In set-theoretic mathematics, there is the concept of a `bijection' $ S \simeq T $ of sets (or an isomorphism in the category $ \SET $), which is often treated as an equivalence. It consists of functions $ f: S \to T $ and $ g: T \to S $ with $ f \cdot g = \id S $ and $ g \cdot f = \id T $. In type theory, we have a similar concept, which is called `equivalence' (of types) $ S \simeq T $. Since bijections are not well-behaved for types that are not sets (see \ref{sec:homotopy-props-sets}), because in those cases, a function $ f: S \to T $ can have multiple distinct inverses. Therefore, we define $ S \simeq T := \sum_{f: S \to T} \mathrm{isequiv}(f) $, for some predicate $ \mathrm{isequiv}: (S \to T) \to \TYPE $ (see \textcite{hottbook}, Equation 2.4.10). However, intuitively we can still think of these as bijections.
 
 Using the identity type, we can make our statement of the univalence principle more precise (and a bit stronger). For types, we can construct a function
 \[ \mathrm{idtoequiv}: \prod_{S, T: \TYPE} (S = T) \to (S \simeq T). \]
@@ -71,7 +71,7 @@ Note that if $ B $ is a univalent category and $ A $ is any cateory, the functor
   \[ \iota: C \hookrightarrow \hat C. \]
 \end{lemma}
 \begin{proof}
-  See \cite{univalent-categories}, Theorem 8.5.
+  See \textcite{univalent-categories}, Theorem 8.5.
 \end{proof}
 We call this univalent category the \iindex{Rezk completion}.
 \TODO: Uniqueness?
@@ -94,18 +94,18 @@ In other words:
 
 Now, the question arises: how about the univalence axiom for categories other than $ \TYPE $? Do we need to keep assuming an additional axiom for every category that we want to be univalent? It turns out that this is not necessary. In practice, most categories consist of `sets (or types) with additional structure'. For example: topological spaces, groups, $ \lambda $-theories and algebraic theory algebras. In such categories, we can leverage the univalence of $ \TYPE $ to show that for isomorphic objects, their underlying types are equal. Also morphisms are usually defined in such a way that they `preserve' the `additional structure', which is what we need to show that the category is univalent.
 
-Also, Theorem 4.5 in \cite{univalent-categories} shows that if a category $ B $ is univalent (in the paper, categories are called `precategories` and univalent categories are just called `categories'), then the functor category $ A \rightarrow B $ is also univalent. In particular, the category of (pre)sheaves $ A \to \SET $ is univalent.
+Also, Theorem 4.5 in \textcite{univalent-categories} shows that if a category $ B $ is univalent (in the paper, categories are called `precategories` and univalent categories are just called `categories'), then the functor category $ A \rightarrow B $ is also univalent. In particular, the category of (pre)sheaves $ A \to \SET $ is univalent.
 
 Therefore, the univalence axiom is a very powerful axiom, and we usually do not need to assume additional axioms to show that more categories satisfy the univalence principle.
 
-The last structure in this section for which we want to consider the univalence axiom, is the 2-category $ \Cat $ of categories. In general, we cannot show that this satisfies the univalence principle. However, we will restrict our attention to the sub-2-category of univalent categories, which are the categories that we want to study. Then Theorem 6.8 in \cite{univalent-categories} shows that for univalent categories $ C $ and $ D $, there is an equivalence between $ C = D $ and $ C \simeq D $, where $ C \simeq D $ denotes the type of (adjoint) equivalences of categories (see Definition \ref{def:equivalence-of-categories}).
+The last structure in this section for which we want to consider the univalence axiom, is the 2-category $ \Cat $ of categories. In general, we cannot show that this satisfies the univalence principle. However, we will restrict our attention to the sub-2-category of univalent categories, which are the categories that we want to study. Then Theorem 6.8 in \textcite{univalent-categories} shows that for univalent categories $ C $ and $ D $, there is an equivalence between $ C = D $ and $ C \simeq D $, where $ C \simeq D $ denotes the type of (adjoint) equivalences of categories (see Definition \ref{def:equivalence-of-categories}).
 
 Lastly, a result about univalent categories that we will use a couple of times in this thesis:
 \begin{lemma}\label{lem:univalen-category-equivalence}
   For a functor between univalent categories $ F: A \to B $, the types `$ F $ is an adjoint equivalence' and `$ F $ is a weak equivalence' are equivalent propositions (see \ref{sec:homotopy-props-sets}).
 \end{lemma}
 \begin{proof}
-  See \cite{univalent-categories}, Lemma 6.8.
+  See \textcite{univalent-categories}, Lemma 6.8.
 \end{proof}
 
 \section{hProps and hSets}\label{sec:homotopy-props-sets}
@@ -137,7 +137,7 @@ As mentioned before, if we want to do mathematics in a dependent type theory, we
 A proof that a type $ T $ is nonempty usually consists of giving an element $ t : T $. If we encode the statement ``$ T $ is nonempty'' as $ T $, and if $ T $ is not a mere proposition, then ``$ T $ is nonempty'' is not a mere proposition, so it has multiple distinct proofs. In some cases, this is exactly what we want, because we want to retrieve the chosen element of $ T $. However, in some cases, we want the fact that a set is nonempty (or any statement in general) to be a mere proposition, to avoid having to carry around a specific element and having to prove equality of two specific elements. For such cases, we have the `propositional truncation':
 
 \begin{definition}
-  For a type $ T $, a type $ \Vert T \Vert $ exists (\cite{hottbook}, Section 3.7) with the properties that for all $ t: T $, we have an element $ \vert t \vert : \Vert T \Vert $ and that $ \Vert T \Vert $ is a mere proposition. It has a recursion principle stating that for a mere proposition $ B $, a function $ f: A \to B $ induces a function $ \vert f \vert: \Vert T \Vert \to B $ that commutes with $ \vert \cdot \vert $. This object is called the \index{truncation!propositional}\textit{propositional truncation}.
+  For a type $ T $, a type $ \Vert T \Vert $ exists (\textcite{hottbook}, Section 3.7) with the properties that for all $ t: T $, we have an element $ \vert t \vert : \Vert T \Vert $ and that $ \Vert T \Vert $ is a mere proposition. It has a recursion principle stating that for a mere proposition $ B $, a function $ f: A \to B $ induces a function $ \vert f \vert: \Vert T \Vert \to B $ that commutes with $ \vert \cdot \vert $. This object is called the \index{truncation!propositional}\textit{propositional truncation}.
 \end{definition}
 The propositional truncation forgets the details about a type, and only keeps the information about whether it is inhabited or not. The recursion principle means that if we are trying to prove a mere proposition based on some element $ \vert t \vert: \Vert T \Vert $, we can pretend that we do have a concrete element $ t: T $.
 
@@ -162,17 +162,17 @@ If we have a `geometric' interpretation of our type theory, we can investigate t
 
 \begin{figure}
   \begin{subfigure}{.3\textwidth}
-    \includesvg[pretex=\tiny, width=\columnwidth]{images/homotopy-plane}
+    \includesvg[pretex=\tiny, width=\columnwidth]{img/homotopy-plane}
     \caption{}
     \label{fig:homotopy-plane}
   \end{subfigure}
   \begin{subfigure}{.3\textwidth}
-    \includesvg[pretex=\tiny, width=\columnwidth]{images/homotopy-cylinder}
+    \includesvg[pretex=\tiny, width=\columnwidth]{img/homotopy-cylinder}
     \caption{}
     \label{fig:homotopy-cylinder}
   \end{subfigure}
   \begin{subfigure}{.3\textwidth}
-    \includesvg[pretex=\tiny, width=\columnwidth]{images/homotopy-sphere}
+    \includesvg[pretex=\tiny, width=\columnwidth]{img/homotopy-sphere}
     \caption{}
     \label{fig:homotopy-sphere}
   \end{subfigure}
@@ -188,7 +188,7 @@ It is also possible that any two elements $ x, y : T $ are equal, but that there
 \begin{remark}
   Note that we can give the type of paths $ x = x $ a group structure and $ x = y $ is a `torsor' for this group. If $ x = y $ has exactly two distinct elements, the group $ x = x $ looks like $ \mathbb Z / 2 \mathbb Z $, which suggests some projective plane-like structure.
 
-  For something to look like a circle or tube, we need this group $ x = x $ to be isomorphic to $ \mathbb Z $. For an example, see \cite{circle-fundamental-group}.
+  For something to look like a circle or tube, we need this group $ x = x $ to be isomorphic to $ \mathbb Z $. For an example, see \textcite{circle-fundamental-group}.
 \end{remark}
 
 As a third example, consider a type $ T $ in which any two elements $ x, y : T $ are equal, and any two paths $ p, q: x = y $ have two distinct homotopies $ h, h^\prime: p = q $ between them. Then we can imagine the type to look somewhat like a sphere (Figure \ref{fig:homotopy-sphere}) or something more complicated.
@@ -199,12 +199,12 @@ This is the lens through which homotopy type theory studies types.
 
 \begin{figure}
   \begin{subfigure}{.45\textwidth}
-    \includesvg[pretex=\tiny, width=.7\columnwidth]{images/fibration}
+    \includesvg[pretex=\tiny, width=.7\columnwidth]{img/fibration}
     \caption{}
     \label{fig:fibration}
   \end{subfigure}
   \begin{subfigure}{.45\textwidth}
-    \includesvg[pretex=\tiny, width=.7\columnwidth]{images/transport}
+    \includesvg[pretex=\tiny, width=.7\columnwidth]{img/transport}
     \caption{}
     \label{fig:transport}
   \end{subfigure}
