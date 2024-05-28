@@ -14,7 +14,7 @@
 % \end{tabular}
 
 \section{The correspondence between categories and typed \texorpdfstring{$ \lambda $}{lambda}-calculi}\label{sec:lambek-correspondence}
-In \textcite{curry}, page 413, Scott and Lambek argue that there is a correspondence between simply typed $ \lambda $-calculi and cartesian closed categories (categories with products and `function objects').
+In \autocite{curry}, page 413, Scott and Lambek argue that there is a correspondence between simply typed $ \lambda $-calculi and cartesian closed categories (categories with products and `function objects').
 
 Types in the $ \lambda $-calculus correspond to objects in the category.
 
@@ -160,11 +160,11 @@ with
 \[ f \circ I = f \not = g = g \circ I, \]
 so the diagram does not commute, and $ Q $ is not a pullback of this cospan.
 
-Taylor notes (\textcite{taylor}, Section 1.5) that the objects in $ \R $ have very strong properties with respect to fixpoints. One of the properties also arises via Lawvere's fixed point theorem (\textcite{lawvere-fixpoints}, page 136): For all $ B: \R $, since $ B^U $ is a retract of $ U $, every endomorphism $ f: B \to B $ has a fixpoint. That is, there exists $ s: I \to B $ such that $ f \circ s = s $. Working out the proof even yields an explicit term:
+Taylor notes (\autocite{taylor}, Section 1.5) that the objects in $ \R $ have very strong properties with respect to fixpoints. One of the properties also arises via Lawvere's fixed point theorem (\autocite{lawvere-fixpoints}, page 136): For all $ B: \R $, since $ B^U $ is a retract of $ U $, every endomorphism $ f: B \to B $ has a fixpoint. That is, there exists $ s: I \to B $ such that $ f \circ s = s $. Working out the proof even yields an explicit term:
 \[ s = \lambda i, (\lambda x, f (x x)) (\lambda x, f (x x)). \]
 Indeed, $ s = \lambda i, f ((\lambda x, f (x x)) (\lambda x, f (x x))) = f \circ s $, and $ B \circ s = B \circ f \circ s = s = s \circ I $, so $ s : \R(I, B) $.
 
-From this, Taylor deduces (\textcite{taylor}, \S 1.5.12) that $ \R $ does not have all coproducts if $ L $ is nontrivial, because suppose that $ \R $ has all coproducts. Then $ B = I + I $ is a `boolean algebra object': We define $ \bot, \top: I \to B $ to be the injections on the left and right components. Since $ \R $ is cartesian closed, binary products distribute over binary coproducts, so we have $ B \times B \cong ((I \times I) + (I \times I)) + ((I \times I) + (I \times I)) $, and note that $ I \times I \cong I $. Using the universal property of the coproduct, we can define $ \lnot: B \to B $ componentwise as $ \lnot = [\top, \bot] $, the coproduct arrow
+From this, Taylor deduces (\autocite{taylor}, \S 1.5.12) that $ \R $ does not have all coproducts if $ L $ is nontrivial, because suppose that $ \R $ has all coproducts. Then $ B = I + I $ is a `boolean algebra object': We define $ \bot, \top: I \to B $ to be the injections on the left and right components. Since $ \R $ is cartesian closed, binary products distribute over binary coproducts, so we have $ B \times B \cong ((I \times I) + (I \times I)) + ((I \times I) + (I \times I)) $, and note that $ I \times I \cong I $. Using the universal property of the coproduct, we can define $ \lnot: B \to B $ componentwise as $ \lnot = [\top, \bot] $, the coproduct arrow
 \begin{center}
   \begin{tikzcd}[sep=large]
     I \arrow[r, "\bot"] \arrow[rd, "\top"'] & I + I \arrow[d, dashed, "{[\top, \bot]}"description] & I \arrow[l, "\top"'] \arrow[ld, "\bot"]\\
@@ -212,10 +212,10 @@ The correspondence in Section \ref{sec:lambek-correspondence} between simply-typ
 
   Note that $ \SET $ is a cartesian closed category, but that for sets $ X $ and $ Y $, the function space $ X^Y $ has cardinality $ \vert X \vert^{\vert Y \vert} $, and therefore $ U^U $ cannot be a retract of $ U $, unless $ U = \{ \star \} $, in which case we have a very trivial $ \lambda $-calculus: $ \SET(U^n, U) = \{ \star \} $.
 
-  During the 1960s, computer scientists sought for nontrivial examples of reflexive objects, there is a quote by Dana Scott that ``Lambda-calculus has no mathematical models!''\textcite{strachey}. However, in 1969, the same Dana Scott discovered that the category of (continuous) lattices with (Scott-)continuous functions between them has a nontrivial reflexive object, with the retraction onto the function spaces being even an isomorphism. Such a reflexive object $ D_\infty $ is obtained by starting with an arbitrary lattice $ D_0 $, iteratively taking $ D_{n + 1} = D_n^{D_n} $, with a retraction (in the `wrong' direction) $ r: D_n^{D_n} \to D_n $, and then passing to the limit $ D_\infty = \lim_{\leftarrow} D_n $ (for the main result, see Theorem 4.4 in \textcite{scott-continuous}, page 127).
+  During the 1960s, computer scientists sought for nontrivial examples of reflexive objects, there is a quote by Dana Scott that ``Lambda-calculus has no mathematical models!''\autocite{strachey}. However, in 1969, the same Dana Scott discovered that the category of (continuous) lattices with (Scott-)continuous functions between them has a nontrivial reflexive object, with the retraction onto the function spaces being even an isomorphism. Such a reflexive object $ D_\infty $ is obtained by starting with an arbitrary lattice $ D_0 $, iteratively taking $ D_{n + 1} = D_n^{D_n} $, with a retraction (in the `wrong' direction) $ r: D_n^{D_n} \to D_n $, and then passing to the limit $ D_\infty = \lim_{\leftarrow} D_n $ (for the main result, see Theorem 4.4 in \autocite{scott-continuous}, page 127).
 \end{remark}
 
-Since Lambek showed an equivalence between simply typed $ \lambda $-calculi and cartesian closed categories, and since we have a construction for an untyped $ \lambda $-calculus from a cartesian closed category with a reflexive object, we can wonder whether this construction constitutes contitutes an equivalence between untyped $ \lambda $-calculi and some class of categories. This question finds a partial answer in the following theorem, originally proven in a very syntactical way by Dana Scott (see \textcite{curry}, page 418).
+Since Lambek showed an equivalence between simply typed $ \lambda $-calculi and cartesian closed categories, and since we have a construction for an untyped $ \lambda $-calculus from a cartesian closed category with a reflexive object, we can wonder whether this construction constitutes contitutes an equivalence between untyped $ \lambda $-calculi and some class of categories. This question finds a partial answer in the following theorem, originally proven in a very syntactical way by Dana Scott (see \autocite{curry}, page 418).
 \begin{theorem}\label{thm:Scott}
   We can obtain every untyped $ \lambda $-calculus as the endomorphism theory of some object in some category.
 \end{theorem}
@@ -283,7 +283,7 @@ Now, analogously to \ref{lem:locally-cartesian-closed}, Taylor shows:
   If a category $ C $ is cartesian closed relative to a class of display maps $ D $, then the fiber categories $ (C \downarrow_D A) $ are cartesian closed and the substitution functors $ \alpha^* $ preserve this structure.
 \end{lemma}
 \begin{proof}
-  Taylor proves this in a series of lemmas leading up to \S 4.3.7 in \textcite{taylor}. It is also proved as Proposition 6 of \textcite{theory-of-constructions}.
+  Taylor proves this in a series of lemmas leading up to \S 4.3.7 in \autocite{taylor}. It is also proved as Proposition 6 of \autocite{theory-of-constructions}.
 \end{proof}
 
 \subsection{Taylor's proof}
@@ -424,12 +424,12 @@ Taylor shows that these display maps indeed satisfy the three properties mention
 \begin{remark}
   To talk about `relatively cartesian closed', we need a pullback functor $ \alpha^* : (\R \downarrow_D A) \to (\R \downarrow_D B) $ for all (display maps) $ \alpha: B \to A $. However, as remarked before, since the definition of display maps involves a propositional truncation, we only have mere existence of pullbacks, and to pass from the statement ``for all $ f $, there exists a pullback $ \alpha^* f $'' to the statement ``there exists a function that sends every morphism $ f : (\R \downarrow_D A) $ to its pullback $ \alpha^* f : (\R \downarrow_D B) $'', we need to assume the axiom of choice.
 
-  However, note that we have a weak equivalence between strict categories (categories in which the type of objects is a homotopy set) $ \sum_A: \R^A \xrightarrow \sim (\R \downarrow_D A) $. If we assume the axiom of choice, $ \sum_A $ becomes an equivalence of categories (\textcite{univalent-categories}, introduction, page 2 \TODO: maybe find a better reference for this) and then our pullback functor is given by
+  However, note that we have a weak equivalence between strict categories (categories in which the type of objects is a homotopy set) $ \sum_A: \R^A \xrightarrow \sim (\R \downarrow_D A) $. If we assume the axiom of choice, $ \sum_A $ becomes an equivalence of categories (\autocite{univalent-categories}, introduction, page 2 \TODO: maybe find a better reference for this) and then our pullback functor is given by
   \[ \sum_A^{-1} \bullet (\alpha \cdot -) \bullet \sum_B, \]
   where $ (\alpha \cdot -): \R^A \to \R^B $ denotes the functor given by precomposition with $ \alpha $.
 \end{remark}
 
-This brings us to the main theorem of this section (\textcite{taylor}, 5.1.8).
+This brings us to the main theorem of this section (\autocite{taylor}, 5.1.8).
 \begin{theorem}
   If we assume the axiom of choice, $ \R $ is cartesian closed, relative to the given class of display maps.
 \end{theorem}

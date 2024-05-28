@@ -10,7 +10,6 @@
 
 % References
 \usepackage[hidelinks]{hyperref}
-\usepackage[capitalise, noabbrev]{cleveref}
 % Use:
 %   \Cref{} -- at the start of a sentence
 %   \cref{} -- not at the start of a sentence
@@ -55,6 +54,7 @@
 
 % Math Symbols
 \usepackage{mathabx}
+\usepackage{stmaryrd}
 
 
 % Listings
@@ -101,6 +101,45 @@
 
 % Figures
 \usepackage{wrapfig}
+\usepackage{svg}
+\usepackage{tikz-cd}
+
+% For the "symbol=" key in tikzcd
+\tikzset{%
+    symbol/.style={%
+        draw=none,
+        every to/.append style={%
+            edge node={node [sloped, allow upside down, auto=false]{$#1$}}}
+    }
+}
+
+% Enumerations
+\usepackage{enumerate}
+
+% Index
+\usepackage{imakeidx}
+
+\makeindex
+
+\newcommand{\iindex}[1]{\textit{#1}\index{#1}}
+
+% Captions
+\usepackage{subcaption}
+
+% Theorem environments
+\usepackage{amsthm}
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem*{axiom}{Axiom}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\newtheorem{example}{Example}
 
 
 % Todo's and Notes
@@ -120,8 +159,21 @@
 
 
 % Words
-\newcommand{\Csharp}{C$^\sharp$}%
-\newcommand{\Cplusplus}{{C\nolinebreak[4]\hspace{-.05em}\raisebox{.4ex}{\tiny\textbf ++}}}%
+\newcommand{\id}[1]{\ensuremath{\text{id}_{#1}}}
+\newcommand{\op}[1]{\ensuremath{#1^{\text{op}}}}
+\newcommand{\Lan}[2]{\ensuremath{\text{Lan}_{#1}#2}}
+\newcommand\SET{\mathbf{Set}}
+\newcommand\TYPE{\mathbf{Type}}
+\newcommand\Cat{\mathbf{Cat}}
+% \newcommand\F{\mathbf{F}}
+\newcommand\FinSET{\mathbf{FinSET}}
+\newcommand\R{\mathbf{R}}
+\newcommand\AlgTh{\mathbf{AlgTh}}
+\newcommand\LamTh{\mathbf{LamTh}}
+\newcommand\Alg[1]{\mathbf{Alg}_{#1}}
+\newcommand\Pshf[1]{\mathbf{Pshf}_{#1}}
+\newcommand\RAct[1]{\mathbf{RAct}_{#1}}
+\newcommand\TODO{\textbf{(TODO)} }
 
 
 % Bibliography
@@ -142,9 +194,3 @@
 \setcounter{tocdepth}{1}
 \setsecnumdepth{subsection}
 \maxsecnumdepth{subsection}
-
-
-% Acronyms
-\usepackage{acronym}
-% Define acronyms in acronyms.tex
-

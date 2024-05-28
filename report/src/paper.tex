@@ -108,7 +108,7 @@ Now, noticing that we can embed $ \R $ as a full subcategory in $ \Pshf L $, Hyl
   There also is a more category-theoretical argument: Suppose that every object of $ \Pshf L $ is a retract of $ L $. Via the equivalence $ \Pshf L \cong L_1 $, we see that every object of $ P C_{L_1} $ is a retract of $ Y(\star) $. However then the embedding of $ \hat \R $ (Definition \ref{def:karoubi'}) into $ P C_{L_1} $ is an adjoint equivalence. Since $ Y_{\R} \bullet {\op{\iota_{L_1}}}_* : \R \to \hat \R $ and $ {\op{\iota_{L_1}}}_* : P \R \to P C_{L_1} $ are weak equivalences, (Lemma \ref{lem:retracts-rezk}, Corollary \ref{cor:karoubi-presheaf}), $ Y_\R : \R \to P \R $ is a weak equivalence as well, but the Yoneda embedding is never essentially surjective. For any category $ C $, the constant empty presheaf $ E: c \mapsto \emptyset $ is not representable, since for all $ c : C $, $ \id c = Y(c)(c) $, so $ Y(c) $ is not isomorphic to $ E $.
 \end{remark}
 
-Recall that $ \Pshf L $ is isomorphic to the presheaf category $ P \mathbf L $, so it is an elementary topos, so it is locally cartesian closed (Example 5.2.5 and Theorem 5.8.4, \textcite{borceux}, Volume 3). Therefore, for a morphism $ f: \Pshf L(Y, X) $, we have adjunctions
+Recall that $ \Pshf L $ is isomorphic to the presheaf category $ P \mathbf L $, so it is an elementary topos, so it is locally cartesian closed (Example 5.2.5 and Theorem 5.8.4, \autocite{borceux}, Volume 3). Therefore, for a morphism $ f: \Pshf L(Y, X) $, we have adjunctions
 \begin{center}
   \begin{tikzcd}
     (\Pshf L \downarrow X) \arrow[r, "f^*"' description, ""{name=B}] & (\Pshf L \downarrow Y) \arrow[l, bend right, "{\sum_f = - \cdot f}"'{name=A}] \arrow[l, bend left, "\prod_f"{name=C}]
@@ -214,7 +214,7 @@ Now, Hyland shows the following:
 
   For Taylor's proof, we did a similar thing when we knew that for every object $ X : (\R \downarrow_D A) $, there existed some $ Y : \R^A $, and we needed to construct a pullback functor $ f^* : (\R \downarrow_D A) \to (\R \downarrow_D B) $. We could use the axiom of choice here because the objects of $ \R $ (and therefore also the objects of the relative slices $ (\R \downarrow_D A) $) form a set.
 
-  However, as mentioned in \textcite{univalent-categories} halfway through the introduction, and as explained more thoroughly in \textcite{hottbook}, Lemma 3.8.5, if $ \R(\varphi(X)) $ is not a set (and if $ L $ is nontrivial, it is never a set), then there is no axiom of choice which can turn the `for all \dots, there exists \dots' into a `there exists a function'.
+  However, as mentioned in \autocite{univalent-categories} halfway through the introduction, and as explained more thoroughly in \autocite{hottbook}, Lemma 3.8.5, if $ \R(\varphi(X)) $ is not a set (and if $ L $ is nontrivial, it is never a set), then there is no axiom of choice which can turn the `for all \dots, there exists \dots' into a `there exists a function'.
 
   Therefore, in univalent foundations, the relative cartesian closedness is not a corollary of Theorem \ref{thm:restrict-sum-product}.
 \end{remark}
@@ -506,9 +506,9 @@ Now, we can start defining our lift of $ F $:
   The fact that $ \bar F $ preserves the variables and substitution is not very hard, since these are just defined in terms of finite products of $ U_A $ and $ \bar F $ preserves finite products and $ U_A $.
 
   However, showing that it is a $ \lambda $-theory morphism is a different matter. Hyland claims
-  \begin{quote}
-    $ F $ preserves $ \mathbf 1_n $, which determines the function space as a retract of the universal. So $ \bar F $ preserves the retract and the result follows.
-  \end{quote}
+
+  \enquote{$ F $ preserves $ \mathbf 1_n $, which determines the function space as a retract of the universal. So $ \bar F $ preserves the retract and the result follows.}
+
   Although this covers the core of the argument, it is very complicated to actually verify that this works, because we need to pass through a lot of isomorphisms, and check that they work nicely together:
   \begin{align*}
     \alpha_A: \RAct{A_1}(X \times Y, Z) &\xrightarrow{\sim} \RAct{A_1}(X, Z^Y);\\
@@ -783,7 +783,7 @@ Now, finally, we are ready to show that $ \epsilon $ is an isomorphism of $ \Lam
 
 \subsection{The equivalence}
 
-By Lemma 3.2 in \textcite{nlab:adjoint_equivalence} and Lemma \ref{lem:zigzag}, $ \eta $ and $ \epsilon $ satisfy both zigazg identities, and we can state the fundamental theorem of the $ \lambda $-calculus:
+By Lemma 3.2 in \autocite{nlab:adjoint_equivalence} and Lemma \ref{lem:zigzag}, $ \eta $ and $ \epsilon $ satisfy both zigazg identities, and we can state the fundamental theorem of the $ \lambda $-calculus:
 \begin{theorem}
   There is an adjoint equivalence $ \LamTh \cong \Alg{\Lambda} $, sending a $ \lambda $-theory $ L $ to the $ \Lambda $-algebra $ L_0 $, with an inverse functor that sends a $ \Lambda $-algebra $ A $ to the theory $ E_{\RAct{A_1}}(U_A) $.
 \end{theorem}

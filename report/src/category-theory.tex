@@ -1,6 +1,6 @@
 \chapter{Category Theoretic Preliminaries}
 
-I will assume a familiarity with the category-theoretical concepts presented in \textcite{CT4P}. These include categories, functors, isomorphisms, natural transformations, adjunctions, equivalences and limits.
+I will assume a familiarity with the category-theoretical concepts presented in \autocite{CT4P}. These include categories, functors, isomorphisms, natural transformations, adjunctions, equivalences and limits.
 
 \section{Notation}
 For an object $ c $ in a category $ C $, I will write $ c: C $.
@@ -13,7 +13,7 @@ For composition of functors $ F: A \to B $ and $ G: B \to C $, I will write $ F 
 
 \section{Universal Arrows}
 
-One concept in category theory that can be used to describe a lot of limits and adjunctions is that of a universal arrow (see for example \textcite{MacLane}, Part III)
+One concept in category theory that can be used to describe a lot of limits and adjunctions is that of a universal arrow (see for example \autocite{MacLane}, Part III)
 \begin{definition}
   A \iindex{universal arrow} from an object $ c: C $ to a functor $ F: D \to C $ consists of an object $ d: D $ and a morphism $ f: D(c, F(d)) $ such that for every similar pair $ (d^\prime, f^\prime) $, $ f^\prime $ factors uniquely as $ f \cdot F(g) $ for some $ g: C(d, d^\prime) $:
   \begin{center}
@@ -56,7 +56,7 @@ such that the diagrams
 \end{center}
 commute (these are called the \iindex{triangle identities} or \iindex{zigzag identities}). Here the natural transformation $ \eta \bullet L: L \bullet R \bullet L $ is the natural transformation $ \eta $ whiskered on the right by $ L $, and the other whiskered transformations are similar.
 
-An alternative characterization (see \textcite{MacLane}, chapter IV.1, Theorem 2) of an adjunction $ L \dashv R $ is as a natural bijection
+An alternative characterization (see \autocite{MacLane}, chapter IV.1, Theorem 2) of an adjunction $ L \dashv R $ is as a natural bijection
 \[ \varphi: D(L(c), d) \xrightarrow{\sim} C(c, R(d)). \]
 Naturality means that for all $ f: C(c^\prime, c) $, $ g: D(d, d^\prime) $ and $ h: D(L(c), d) $,
 \[ \varphi(L(f) \cdot h \cdot g) = f \cdot \varphi(h) \cdot R(g). \]
@@ -66,7 +66,7 @@ Lastly, one can construct an adjunction using universal arrows. This lends itsel
   One can construct an adjunction $ (L, R, \eta, \epsilon) $ as above from only the functor $ L: C \to D $ and, for each $ c: C $, a universal arrow $ (R(c), \epsilon_c) $ from $ L $ to $ c $.
 \end{lemma}
 \begin{proof}
-  See \textcite{MacLane}, Chapter IV.1, Theorem 2 (iv).
+  See \autocite{MacLane}, Chapter IV.1, Theorem 2 (iv).
 \end{proof}
 
 \subsection{Adjoint equivalences}
@@ -99,7 +99,7 @@ In other words, we have functors $ X \mapsto X \times Y $ and $ Z \mapsto (Y \to
 \end{remark}
 
 \section{Yoneda}
-We can embed a category $ C $ fully faithfully into the functor category $ P C = [\op C, \SET] $ as follows (see \textcite{Kashiwara}, Section 1.4):
+We can embed a category $ C $ fully faithfully into the functor category $ P C = [\op C, \SET] $ as follows (see \autocite{Kashiwara}, Section 1.4):
 \begin{definition}
   The \iindex{Yoneda embedding} $ Y : C \hookrightarrow P C $ is given on objects by $ Y(c) = C(-, c) $:
   \[ Y(c)(d) = C(d, c) \quad \text{and} \quad Y(c)(f)(g) = f \cdot g \]
@@ -113,18 +113,18 @@ Now, this embedding has a couple of properties:
   For any $ c: C $ and $ F : PC $, we have an equivalence $ PC(Y(c), F) \simeq F(c) $, and this equivalence is natural in $ c $ and $ F $.
 \end{lemma}
 \begin{proof}
-  See \textcite{Kashiwara}, Proposition 1.4.3.
+  See \autocite{Kashiwara}, Proposition 1.4.3.
 \end{proof}
 
 \begin{lemma}
   The Yoneda embedding functor preserves limits.
 \end{lemma}
 \begin{proof}
-  See \textcite{borceux}, Volume 1, Proposition 2.15.5.
+  See \autocite{borceux}, Volume 1, Proposition 2.15.5.
 \end{proof}
 
 \begin{lemma}
-  The Yoneda embedding functor preserves exponential objects (\textcite{stackexchange:yoneda-exponentials}).
+  The Yoneda embedding functor preserves exponential objects (\autocite{stackexchange:yoneda-exponentials}).
 \end{lemma}
 \begin{proof}
 
@@ -165,7 +165,7 @@ Note that the arrows in this diagram are functors, so objects in a category, ins
 Let $ P : E \to B $ be a functor. In this case, we will view this as the category $ E $ `lying over' the category $ B $, with for every point $ b: B $, a slice $ E_b = P^{-1}(B) $ lying `above' $ b $.
 
 \begin{definition}
-  A morphism $ f: E(y, z) $ is called \iindex{cartesian} if for all $ g: E(x, z) $ and $ h: B(P(x), P(y)) $ with $ h \cdot P(f) = P(g) $, there exists $ \bar h: E(x, y) $ such that $ P(\bar h) = h $ and $ \bar h \cdot f = g $, like illustrated in the following diagram from \textcite{nlab:grothendieck_fibration}
+  A morphism $ f: E(y, z) $ is called \iindex{cartesian} if for all $ g: E(x, z) $ and $ h: B(P(x), P(y)) $ with $ h \cdot P(f) = P(g) $, there exists $ \bar h: E(x, y) $ such that $ P(\bar h) = h $ and $ \bar h \cdot f = g $, like illustrated in the following diagram from \autocite{nlab:grothendieck_fibration}
   \begin{center}
     \begin{tikzcd}[sep=large]
       E \arrow[d, "P"] &x \arrow[rr, "\forall g", bend left] \arrow[r, "\exists! \bar h"', dashed] & y \arrow[r, "f"'] & z\\
@@ -261,7 +261,7 @@ In fact, $ \Delta_X : C \to C / X $ is a functor, with $ \Delta_X(f) = \id X \ti
   $ \Delta_X $ preserves exponential objects:
 \end{lemma}
 \begin{proof}
-  See \textcite{borceux}, Volume 3, Lemma 5.8.2. This lemma shows this via the following equivalences:
+  See \autocite{borceux}, Volume 3, Lemma 5.8.2. This lemma shows this via the following equivalences:
   \begin{align*}
     (C \downarrow X)((A, f), \Delta_X Y^Z) &\cong C(A, Y^Z)\\
     &\cong C(A \times Z, Y)\\
@@ -271,7 +271,7 @@ In fact, $ \Delta_X : C \to C / X $ is a functor, with $ \Delta_X(f) = \id X \ti
 \end{proof}
 
 \section{Dependent products and sums}\label{sec:dependent-products}
-The following is based loosely on Section 4.1 of \textcite{taylor}.
+The following is based loosely on Section 4.1 of \autocite{taylor}.
 
 Take a category $ C $. To talk about dependent sums $ \sum_{a: A} X_a $ and products $ \prod_{a: A} X_a $ in $ C $, we first need some way to construct the family of objects $ (X_a)_a $. Of course, we can do this \textit{externally} using a set $ A $, and picking an object $ X_a : C $ for every element $ a : A $. We then have a category of such families $ C^A $, with objects $ (X_a)_a $ and morphisms $ (f_a)_a: C^A((X_a)_a, (Y_a)_a) $, with $ f_a: X_a \to Y_a $. We write $ C^A $ because we can view this as just the $ A $-fold power of $ C $. Now, this assignment of categories $ A \mapsto C^A $ can be turned into a contravariant (pseudo)functor of $ 2 $-categories $ \op \SET \to \Cat $. It sends a morphism $ f: A \to B $ to the `relabeling' or `substitution' functor $ C^B \to C^A $, $ (X_b)_b \mapsto (X_{f(a)})_a $.
 
@@ -358,7 +358,7 @@ Apart from having dependent sums and products, there also is the following theor
   A category $ C $ is locally cartesian closed iff $ (C \downarrow A) $ is cartesian closed for each $ A : C $.
 \end{lemma}
 \begin{proof}
-  See the end of Section 1.3 of \textcite{freyd}.
+  See the end of Section 1.3 of \autocite{freyd}.
 \end{proof}
 
 \begin{remark}\label{rem:pullback-of-projection}
@@ -378,7 +378,7 @@ Apart from having dependent sums and products, there also is the following theor
 \begin{proof}
   First of all, note that $ (C \downarrow X \times Z) \cong ((C \downarrow X) \downarrow \Delta_X Z) $. Also note that the composite morphism $ (X \times Z) \times W \xrightarrow{p_1} X \times Z \xrightarrow{p_1} X $ is the element $ \Delta_X (W \times Z) : (C \downarrow X) $.
 
-  By Proposition 1.34 in \textcite{freyd}, $ \prod_{p_1} \Delta_{X \times Z} W $ is given as the following pullback:
+  By Proposition 1.34 in \autocite{freyd}, $ \prod_{p_1} \Delta_{X \times Z} W $ is given as the following pullback:
   \begin{center}
     \begin{tikzcd}
       \prod_{p_1} \Delta_{X \times Z} W \arrow[r] \arrow[d] & (\Delta_X Z \times W)^{\Delta_X Z} \arrow[d, "(\Delta_X p_1)^{\Delta_X Z}"]\\
@@ -409,10 +409,10 @@ Apart from having dependent sums and products, there also is the following theor
 
 
 \section{Kan Extensions}
-One of the most general and abstract concepts in category theory is the concept of \textit{Kan extensions}. In \textcite{MacLane}, Section X.7, MacLane notes that
-\begin{quote}
-  The notion of Kan extensions subsumes all the other fundamental concepts of category theory.
-\end{quote}
+One of the most general and abstract concepts in category theory is the concept of \textit{Kan extensions}. In \autocite{MacLane}, Section X.7, MacLane notes that
+
+\enquote{The notion of Kan extensions subsumes all the other fundamental concepts of category theory.}
+
 In this thesis, we will use left Kan extension a handful of times. It comes in handy when we want to extend a functor along another functor in the following way:
 
 Let $ A $, $ B $ and $ C $ be categories and let $ F : A \to B $ be a functor.
@@ -434,7 +434,7 @@ Let $ A $, $ B $ and $ C $ be categories and let $ F : A \to B $ be a functor.
   Analogously, when $ F_* $ has a right adjoint, one calls this the \textit{right Kan extension}\index{Kan extension!right} along $ F $ and denote it $ \mathrm{Ran}_F: [A, C] \to [B, C] $.
 \end{definition}
 
-If a category has limits (resp. colimits), we can construct the right (resp. left) Kan extension in a `pointwise' fashion (see Theorem X.3.1 in \textcite{MacLane} or Theorem 2.3.3 in \textcite{Kashiwara}). Below, I will outline the parts of the construction that we will need explicitly in this thesis.
+If a category has limits (resp. colimits), we can construct the right (resp. left) Kan extension in a `pointwise' fashion (see Theorem X.3.1 in \autocite{MacLane} or Theorem 2.3.3 in \autocite{Kashiwara}). Below, I will outline the parts of the construction that we will need explicitly in this thesis.
 \begin{lemma}
   If $ C $ has colimits, $ \Lan F {} $ exists.
 \end{lemma}
@@ -465,7 +465,7 @@ If a category has limits (resp. colimits), we can construct the right (resp. lef
   If $ F : A \to B $ is a fully faithful functor, and $ C $ is a category with colimits, $ \eta: \id{[A, C]} \Rightarrow \Lan F {} \bullet F_* $ is a natural isomorphism.
 \end{lemma}
 \begin{proof}
-  To show that $ \eta $ is a natural isomorphism, we have to show that $ \eta_G(a^\prime): G(a^\prime) \Rightarrow \Lan F G(F(a^\prime)) $ is an isomorphism for all $ G: [A, C] $ and $ a^\prime: A $. Since a left adjoint is unique up to natural isomorphism (\textcite{CT4P}, Exercise 153), we can assume that $ \Lan F G(F(a^\prime)) $ is given by
+  To show that $ \eta $ is a natural isomorphism, we have to show that $ \eta_G(a^\prime): G(a^\prime) \Rightarrow \Lan F G(F(a^\prime)) $ is an isomorphism for all $ G: [A, C] $ and $ a^\prime: A $. Since a left adjoint is unique up to natural isomorphism (\autocite{CT4P}, Exercise 153), we can assume that $ \Lan F G(F(a^\prime)) $ is given by
   \[ \text{colim} ((F \downarrow F(a^\prime)) \to A \xrightarrow G C). \]
   Now, the diagram for this colimit consists of $ G(a) $ for each arrow $ f: B(F(a), F(a^\prime)) $. Since $ F $ is fully faithful, we have $ f = F(\overline f) $ for some $ \overline f: A(a, a^\prime) $. If we now take the arrows $ G(\overline f): C(G(a), G(a^\prime)) $, the universal property of the colimit gives an arrow
   \[ \varphi: C(\Lan F G(F(a^\prime)), G(a^\prime)) \]
@@ -612,7 +612,7 @@ Now, there is also another (classically equivalent) definition of the Karoubi en
   $ \hat C $ is the Rezk completion of $ \overline C $.
 \end{lemma}
 \begin{proof}
-  First of all, note that $ \hat C $ is univalent, since it is a presheaf category (see Theorem 4.5 in \textcite{univalent-categories}). So we must show that we have a weak equivalence from $ \overline C $ to $ \hat C $.
+  First of all, note that $ \hat C $ is univalent, since it is a presheaf category (see Theorem 4.5 in \autocite{univalent-categories}). So we must show that we have a weak equivalence from $ \overline C $ to $ \hat C $.
 
   Secondly, by Corollary \ref{cor:karoubi-presheaf} we have an adjoint equivalence $ {\op{\iota_C}}_*: P \overline C \xrightarrow \sim P C $ and by Lemma \ref{lem:Yoneda-restriction-commutes}, the following diagram 2-commutes:
   \begin{center}
