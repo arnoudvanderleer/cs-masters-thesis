@@ -840,23 +840,47 @@ By Lemma 3.2 in \autocite{nlab:adjoint_equivalence} and Lemma \ref{lem:zigzag}, 
 
 \section{Theory of extensions}
 
+The fundamental theorem of the $ \lambda $-calculus that Hyland shows is actually not of the form shown above. To get there, we first need to show that the category of $ T $-algebras for an algebraic theory $ T $ has coproducts, and define the `theory of extensions'.
+
+Let $ \llbracket n \rrbracket $ denote the finite set $ \{ 1, 2, \dots, n \} $. Let \index{$ \F $}$ \F \subseteq \FinSET $ be the full subcategory with $ \F_0 = \{ \llbracket 0 \rrbracket, \llbracket 1 \rrbracket, \dots \} $.
+
 \begin{lemma}
-  The category of $ T $-algebras has coproducts.
+  Let $ T $ be an algebraic theory. The category of $ T $-algebras has coproducts.
 \end{lemma}
 \begin{proof}
-  \TODO
+  This is shown in \autocite{algebaric-theories-2010}, in the lemmas leading up to Theorem 4.5.
+
+  Explicitly, we can express the coproduct of algebras, and especially its set, as the following coend (\autocite{Hyland}, Proposition 2.5) (see also Section \ref{sec:coends} for more on coends)
+  \[ A + B = \int^{(m, n) : \F \times \F} A^m \times B^n \times T_{m^\prime + n^\prime}, \]
+  considering $ T $ as a functor $ T : \F \to \SET $ as a functor (see Remark \ref{rem:abstract-clone-functor}). Note that we do not need the exact definition of $ A + B $ for the rest of this section. Nonetheless, it is interesting to see how it is defined and why this definition works.
+
+  One can think of $ A + B $ consisting of elements $ t \bullet (a + b) $ for $ t: T_{m + n} $, $ a : A^m $ and $ b: B^n $ (writing $ (a + b) $ for $ (a_1, \dots, a_m, b_1, \dots, b_n) $), `substituting' the $ a_i $ and $ b_j $ for the $ x_i $ and $ x_{m + j} $ in $ t $.
+
+  The relations then give `associativity' of this substitution and also assure that reordering or duplicating $ x_i $ and their corresponding $ a_i $ and $ b_j $ do not yield different elements: associating the images on the left and right of
+  \[ A^{m^\prime} \times B^{n^\prime} \times T_{m^\prime + n^\prime} \leftarrow A^{m^\prime} \times B^{n^\prime} \times T_{m + n} \rightarrow A^m \times B^n \times T_{m + n} \]
+  gives
+  \[ (t \bullet ((x_{f(i)})_i + (x_{m + g(j)})_j)) \bullet a + b = t \bullet ((a_{f(i)})_i + (b_{g(j)})_j) \]
+  for $ f: \llbracket m \rrbracket \to \llbracket m^\prime \rrbracket $, $ g: \llbracket n \rrbracket \to \llbracket n^\prime \rrbracket $, $ t : T_{m + n} $, $ a : A^{m^\prime} $ and $ b : B^{n^\prime} $.
+
+  Then it becomes clear what the action of $ T $ will be on $ A + B $, although the precise definition has quite a combinatorial nature. For $ s : T_l $, $ t_i : T_{m_i + n_i} $, $ a_i : A^{m_i} $ and $ b_i : B^{n_i} $, define the disjoint embeddings
+  \[ d_i : \left\llbracket m_i + n_i \right\rrbracket \cong \left\llbracket m_i \right\rrbracket \sqcup \left\llbracket n_i \right\rrbracket \hookrightarrow \left\llbracket \sum_j m_j \right\rrbracket \sqcup \left\llbracket \sum_j n_j \right\rrbracket \cong \left\llbracket \sum_j m_j + \sum_j n_j \right\rrbracket, \]
+  which we will use to make sure that the $ x_j $ in the different $ t_i $ are mapped to distinct variables. Then we can define
+  \[ s \bullet (t_i \bullet a_i + b_i) = (s \bullet (t_i \bullet (x_{d_i(j)})_j)_i) \bullet (a_1 + b_1 + \dots + a_l + b_l). \]
+  More formally (using the coend injections $ A^{\sum_k m_k} \times B^{\sum_k n_k} \times T_{\sum_k m_k + \sum_k n_k} \to A + B $), this gives functions
+  \[ T_l \to (A^{m_1} \times B^{n_1} \times T_{m_1 + n_1} \to (\dots \to (A^{m_l} \times B^{n_l} \times T_{m_l + n_l} \to A + B) \dots )), \]
+  commuting with the relations between the different $ (A^m \times B^n \times T_{m + n}) $, which, by repeatedly using the universal property of the coend, then correspond to functions
+  \[ T_l \to (A + B \to (\dots \to (A + B \to A + B) \dots )), \]
+  or, equivalently, a function
+  \[ T_l \times (A + B)^l \to A + B. \]
+
+  We have left and right injections $ A \to A + B $ and $ B \to A + B $, given respectively by the maps $ A^1 \times B^0 \times T_{1 + 0} \to A + B $ and $ A^0 \times B^1 \times T_{0 + 1} \to A + B $:
+  \[ a \mapsto x_1 \bullet a \quad \text{and} \quad b \mapsto x_1 \bullet b \]
+  and every element $ A + B $ arises by the action of $ t $ on combinations of these embedded elements:
+  \[ t \bullet (a + b) = t \bullet ((x_1 \bullet a_i)_i + (x_1 \bullet b_j)_j), \]
+  which ultimately can be used to show that $ A + B $ indeed has the universal property of the coproduct.
 \end{proof}
 
 \begin{definition}[Theory of extensions]
   Let $ T $ be an algebraic theory and $ A $ a $ T $-algebra. We can define an algebraic theory $ T_A $ called `the theory of extensions of $ A $' with $ (T_A)_n = T_n + A $. The left injection of the variables $ x_i : T_n $ gives the variables.
-  Now, take $ h: (T_n + A)^m $. Sending $ g: T_m $ to $ \varphi(g) := g \bullet h $ gives a $ T $-algebra morphism $ T_m \to T_n + A $ since
-  \[ \varphi(f \bullet g) = f \bullet g \bullet h = f \bullet (g_i \bullet h) = f \bullet (\varphi(g_i))_i. \]
-  This, together with the injection morphism of $ A $ into $ T_n + A $, gives us a $ T $-algebra morphism from the coproduct: $ T_m + A \to T_n + A $. We especially have a function on sets $ (T_m + A) \times (T_n + A)^m \to T_n + A $, which we will define our substitution to be.
+  Now, take $ h: (T_n + A)^m $. Sending $ g: T_m $ to $ g \bullet h $ gives a $ T $-algebra morphism $ T_m \to T_n + A $. Together with the right injection morphism of $ A $ into $ T_n + A $, this gives us a $ T $-algebra morphism from the coproduct: $ T_m + A \to T_n + A $. In particular, we have a function on sets $ (T_m + A) \times (T_n + A)^m \to T_n + A $, which we will define our substitution to be.
 \end{definition}
-
-\begin{lemma}
-  $ T_A $ is indeed an algebraic theory.
-\end{lemma}
-\begin{proof}
-  \TODO
-\end{proof}

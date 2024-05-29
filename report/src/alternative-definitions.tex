@@ -8,7 +8,7 @@ In this section, we will denote the finite set $ \llbracket n \rrbracket = \{ 1,
   An algebraic theory as presented in Section \ref{sec:algebraic-theories}, is usually called an \iindex{abstract clone}. In this thesis, outside of this specific section, we will call it algebraic theory to be consistent with the names that Hyland attaches to objects.
 \end{definition}
 
-\begin{remark}
+\begin{remark}\label{rem:abstract-clone-functor}
   The definition of algebraic theory that Hyland gives is closest to that of an abstract clone. However, instead of a sequence of sets $ (T_n)_n $, he requires a functor $ T: F \to \SET $ (with $ F \subseteq \FinSET $ the skeleton category of finite sets $ F_0 = \{ \llbracket 0 \rrbracket, \llbracket 1 \rrbracket, \dots \} $), and he requires $ \bullet: T_m \times T_n^m \to T_n $ to be dinatural in $ n $ and natural in $ m $.
 
   Using naturality, one can show that with such a functor we have $ x_{n, i} = f(a)(x_{1, 1}) $ for the function $ a(1) = i : \llbracket n \rrbracket $.

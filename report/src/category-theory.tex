@@ -491,6 +491,51 @@ If a category has limits (resp. colimits), we can construct the right (resp. lef
   \[ [A, C](\Lan F G, \Lan F G^\prime) \cong [B, C](G, F_*(\Lan F G^\prime)) \cong [B, C](G, G^\prime). \]
 \end{proof}
 
+\section{Coends}\label{sec:coends}
+This section is based on Section 1.2 of \autocite{riehl}.
+
+In this thesis, we will encounter co-ends a couple of times, so we will introduce them here.
+\begin{definition}
+  Let $ C, D $ be categories and $ F : \op C \times C \to D $ a functor. We define the \iindex{coend} $ \int^{c : C} F(c, c) $ to be the colimit
+  \begin{center}
+    \begin{tikzcd}
+      \displaystyle\coprod_{\substack{f : C(a, b)}} F(b, a)
+        \arrow[r, shift left, "{F(f, \id b)}"]
+        \arrow[r, shift right, "{F(\id a, f)}"'] &
+      \displaystyle\coprod_{c : C} F(c, c)
+        \arrow[r, dashed] &
+      \int^C F
+    \end{tikzcd}
+  \end{center}
+\end{definition}
+
+\begin{remark}
+  An alternative way to phrase this, is that $ \int^C F : D $ is an object, equipped with arrows $ F(c, c) \to \int^C F $ such that for all $ f: C(a, b) $, the following diagram must commute
+  \begin{center}
+    \begin{tikzcd}
+      F(b, a) \arrow[r, "{F(f, \id a)}"] \arrow[d, "{F(\id b, f)}"] & F(a, a) \arrow[d]\\
+      F(b, b) \arrow[r] & \int^C F
+    \end{tikzcd}
+  \end{center}
+  and such that for any other $ G : D $ with the same properties, we have a unique morphism $ \int_C F \to G $, making the triangles commute
+  \begin{center}
+    \begin{tikzcd}
+      F(c, c) \arrow[r] \arrow[rd] & \int_C F \arrow[d]\\
+      & G
+    \end{tikzcd}
+  \end{center}
+\end{remark}
+
+\begin{remark}
+  Of course, a co-end is actually the dual notion of an end, which can be defined as the equalizer of the diagram above, but with the arrows reversed.
+\end{remark}
+
+\begin{remark}
+  Left Kan extension can be expressed as a coend:
+  \[ \Lan F G(b) = \int^{a : A} D(F a, b) \cdot G a \]
+  where $ S \cdot X $ for $ S $ a set and $ X : C $ denotes the `copower'. In most cases, we will have
+  \[ S \cdot X = \coprod_{s : S} X. \]
+\end{remark}
 
 \section{The Karoubi envelope}
 Let $ C $ be a category. If we have a retraction-section pair
