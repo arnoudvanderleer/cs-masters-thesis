@@ -902,7 +902,7 @@ Let $ \llbracket n \rrbracket $ denote the finite set $ \{ 1, 2, \dots, n \} $. 
 
 The following result explains why we are interested in the theory of extensions:
 \begin{lemma}\label{lem:extensions-algebra-coslice}
-  For $ T $ an algebraic theory and $ A $ a $ T $-algebra, we have an adjoint equivalence $ \Alg{T_A} \cong (A \downarrow \Alg T) $ between algebras for $ T_A $ and the coslice category over $ A $.
+  For $ T $ an algebraic theory and $ A $ a $ T $-algebra, we have an adjoint equivalence $ \Alg{T_A} \cong (A \downarrow \Alg T) $ between algebras for $ T_A $ and the coslice category under $ A $.
 \end{lemma}
 \begin{proof}
   Let $ B $ be a $ T_A $-algebra. Pullback along the embedding $ (r_n)_n : T \to T_A $ gives $ (r_n)_n^*(B) : \Alg T $. Also, we have a $ T $-algebra morphism $ A \to B $ given by the composition
@@ -954,7 +954,27 @@ is an isomorphism. By Lemma \ref{lem:factor-through-extensions}, this is equival
   $ [a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n^* $ is essentially surjective.
 \end{lemma}
 \begin{proof}
-  Take $ B : \Alg{\Lambda_A} $. By Lemma \ref{lem:extensions-algebra-coslice} we can consider $ B $ to be a coslice $ h: \Alg{\Lambda}(A, B) $. By the equivalence of categories we established earlier, $ h $ induces a morphism $ \bar h: \AlgTh(E(U_A), E(U_B)) $. Pulling the $ E(U_B) $-algebra $ E(U_B)_0 $ back along this morphism, gives a $ E(U_A) $-algebra $ \bar h^*(E(U_B)_0) $.
+  Take $ B : \Alg{\Lambda_A} $. By Lemma \ref{lem:extensions-algebra-coslice} we can consider $ B $ to be a object in the coslice category $ h : \Alg{\Lambda}(A, B) $. As shown earlier in this chapter, $ h $ induces a morphism $ \bar h: \AlgTh(E(U_A), E(U_B)) $. We then have a $ E(U_A) $-algebra $ \bar h^*(E(U_B)_0) $. Now we need to prove that we have an isomorphism of $ \Lambda_A $-algebras
+  \[ ([a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n \cdot \bar h)^*(E(U_B)_0) \cong B. \]
+  Under the equivalence in Lemma \ref{lem:extensions-algebra-coslice}, this pullback of $ E(U_B)_0 $ corresponds to some $ (B^\prime, h^\prime) : (A \downarrow \Alg \Lambda) $. The set of $ B^\prime $ is $ \RAct{B_1}(I, U_B) $, its $ \Lambda $-action is given by
+  \[ (f, b) \mapsto \bar h_n(\iota_{\Lambda_n}(f)) \bullet_{E(U_B)} b, \]
+  and the morphism $ h^\prime $ is given by $ h^\prime(a) = \bar h(\epsilon_A^{-1}(a)) $. Note that by initiality of $ \Lambda $, the following diagram of algebraic theories commutes
+  \begin{center}
+    \begin{tikzcd}
+      & \Lambda \arrow[ld, "\iota_\Lambda"'] \arrow[rd, "\iota_\Lambda"]\\
+      E(U_A) \arrow[rr, "\bar h"] && E(U_B)
+    \end{tikzcd}
+  \end{center}
+  Therefore, $ \bar h_n(\iota_{\Lambda_n}(f)) = \iota_{\Lambda_n}(f) $, so the $ \Lambda $-action on $ B^\prime $ coincides with the action on $ \iota_\Lambda^*(E(U_B)_0) $ and $ B^\prime = \iota_\Lambda^*(E(U_B)_0) $. We have the following diagram in $ \Alg \Lambda $:
+  \begin{center}
+    \begin{tikzcd}[sep = large]
+      & A \arrow[ld, "a \mapsto \bar h(\epsilon_A^{-1}(a))"'] \arrow[rd, "h"]\\
+      E(U_B)_0 \arrow[rr, "\epsilon_B"] & & B
+    \end{tikzcd}
+  \end{center}
+  By Lemma \ref{lem:counit-natural}, the diagram commutes, which shows that $ \epsilon_B $ is an isomorphism in the coslice category under $ A $. Pulling this isomorphism back along the equivalence from Lemma \ref{lem:extensions-algebra-coslice} gives an isomorphism of $ \Lambda_A $-algebras
+  \[ ([a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n \cdot \bar h)^*(E(U_B)_0) \cong B \]
+  and this concludes the proof.
 \end{proof}
 
 \begin{lemma}
