@@ -14,6 +14,11 @@
   for all $ 1 \leq j \leq l $, $ f: T_l $, $ g: T_m^l $ and $ h: T_n^m $.
 \end{definition}
 
+\begin{remark}
+  \TODO Say something about universal algebra
+  For equivalent definitions of different kinds, see Chapter \ref{ch:alternative-definitions}.
+\end{remark}
+
 \begin{definition}
   A \textit{morphism}\index{algebraic theory!morphism} $ F $ between algebraic theories $ T $ and $ T^\prime $ is a sequence of functions $ F_n: T_n \to T^\prime_n $ (we usually leave the $ n $ implicit) such that
   \begin{align*}
@@ -71,12 +76,30 @@ Together, these form the category of $ T $-algebras \iindex{$ \Alg T $}.
 \end{remark}
 
 \begin{remark}
-  Note that for an algebraic theory $ T $, the $ T_n $ are all algebras for $ T $, with the action given by $ \bullet $.
+  Note that for an algebraic theory $ T $, the $ T_n $ are algebras for $ T $, with the action given by $ \bullet $.
 \end{remark}
 
-\begin{definition}[Pullback of algebras]\label{def:algebra-pullback}
-  If we have a morphism of algebraic theories $ f: T^\prime \to T $, we have a functor $ \Alg T \to \Alg T^\prime $. It endows $ T^\prime $-algebras with an action from $ T $ given by $ g \bullet_{T^\prime} a = f(g) \bullet_T a $. Then $ T^\prime $-algebra morphisms commute with this $ T $-action, so we indeed have a functor.
+\begin{definition}\label{def:algebra-pullback}
+  If we have a morphism of algebraic theories $ f: T^\prime \to T $, we have a \textit{pullback functor of algebras}\index{pullback functor!of algebras} $ f^* : \Alg T \to \Alg {T^\prime} $. It endows $ T $-algebras with an action from $ T^\prime $ given by $ g \bullet_{T^\prime} a = f(g) \bullet_T a $. Then $ T $-algebra morphisms commute with this $ T^\prime $-action, so we indeed have a functor.
 \end{definition}
+
+\begin{remark}
+  Note that by Lemma \ref{lem:lawvere-algebra}, algebras for $ T $ are equivalent to finite-product-preserving functors from its Lawvere theory to $ \SET $. Then $ f: T^\prime \to T $ corresponds to a functor on the Lawvere theories $ \mathbf L_f: \mathbf L_{T^\prime} \to \mathbf L_T $, and $ f^*: \Alg T \to \Alg{T^\prime} $ corresponds to precomposition with $ \mathbf L_f $:
+  \begin{center}
+    \begin{tikzcd}
+      \mathbf L_{T^\prime} \arrow[r, "{\mathbf L_f}"] \arrow[rd, dashed] & \mathbf L_T \arrow[d]\\
+      & \SET
+    \end{tikzcd}
+  \end{center}
+\end{remark}
+
+Actually, we can recover some information about the algebraic theory morphism from this pullback functor. For example,
+\begin{lemma}\label{lem:algebra-pullback-equivalence}
+  If $ F^* $ is an equivalence of categories, $ F $ is an isomorphism.
+\end{lemma}
+\begin{proof}
+  \TODO
+\end{proof}
 
 We can also consider the category of `all' algebraic theory algebras together. That is, the category $ C $ with $ C_0 = \sum_{T : \AlgTh}, \Alg T $ and $ C((T, A), (T^\prime, A^\prime)) $ consisting of pairs $ (f, f^\prime): \AlgTh(T, T^\prime) \times \SET(A, A^\prime) $ such that for all $ t: T_n $ and $ a: A^n $,
 \[ f^\prime(t \bullet a) = f(t) \bullet (f^\prime(a_i))_i. \]
@@ -379,6 +402,12 @@ The proofs that $ E(X) $ is an algebraic theory and a $ \lambda $-theory, use pr
   Let $ T $ be an algebraic theory and $ n $ a natural number. We can endow the $ T_n $ with a $ T $-algebra structure, by taking the substitution operator of $ T $ as the $ T $-action. Since this commutes with the substitution operator and the projections, $ T_n $ is a $ T $-algebra.
 \end{example}
 
+\begin{remark}
+  Recall from \ref{lem:lawvere-algebra} that $ T $-algebras are equivalent to finite-product-preserving $ \SET $-valued functors on the Lawvere theory $ \mathbf L $ associated to $ T $. Now, recall from (\TODO) that we can embed any category inside its category of $ \SET $-valued functors. This embeds $ n: \mathbf L $ as the theory algebra $ T_n $. Then the Yoneda Lemma gives a bijection
+  \[ \Alg T(T_n, A) \cong A^n = \SET(\{ 1, \dots, n \}, A) \]
+  natural in $ n $ and $ A $. Explicitly, it sends $ F: \Alg T(T_n, A) $ to $ i \mapsto F(x_i) $ and $ (a_i)_i : A^n $ to $ f \mapsto f \bullet a $. The natural equivalence immediately shows that $ T_n $ is the free $ T $-algebra on $ n $ elements.
+\end{remark}
+
 \subsection{The initial presheaf}
 \begin{example}
   Let $ T $ be an algebraic theory. We can construct a $ T $-presheaf $ P $, with $ P_n = \emptyset $. Then $ \bullet : P_m \times T_n^m \to P_m $ is trivial, and the presheaf laws hold trivially.
@@ -396,16 +425,11 @@ The proofs that $ E(X) $ is an algebraic theory and a $ \lambda $-theory, use pr
   Let $ T $ be an algebraic theory. We can endow $ T $ with a $ T $-presheaf structure, by taking the substitution operator of $ T $ as the action on $ T $. Since this commutes with the substitution operator and the projections, $ T $ is a $ T $-presheaf.
 \end{example}
 
-\begin{lemma}\label{lem:presheaf-Yoneda}
-  Given an algebraic theory $ T $ and a $ T $-presheaf $ Q $, we have for all $ n $ a bijection of sets
-  \[ \varphi: \Pshf T(T^n, Q) \cong Q_n. \]
-\end{lemma}
-\begin{proof}
-  For $ f: \Pshf T(T^n, Q) $, take $ \varphi(f) = f_n(x_1, \dots, x_n) $.
-
-  Conversely, for all $ q: Q_n $ and all $ t_1, \dots, t_n: T_m^n $ take
-  \[ \varphi^{-1}(q)_m(t_1, \dots, t_n) = q \bullet t. \]
-\end{proof}
+\begin{remark}\label{rem:presheaf-Yoneda}
+  Recall from \ref{lem:lawvere-presheaf} that $ T $-presheaves are equivalent to presheaves on the Lawvere theory $ \mathbf L $ associated to $ T $. Now, recall from Definition \ref{def:Yoneda-embedding} that we can embed any category inside its own category of presheaves. This embeds $ n: \mathbf L $ as the power $ T^n = (T_m^n)_m $ of the theory presheaf. Then the Yoneda Lemma gives a bijection
+  \[ \Pshf T(T^n, Q) \cong Q_n \]
+  natural in $ n $ and $ Q $. Explicitly, it sends $ f: \Pshf T(T^n, Q) $ to $ f_n(x_1, \dots, x_n) $ and $ q: Q_n $ to $ (t_i)_i \mapsto q \bullet t $.
+\end{remark}
 
 \subsection{The "+l" presheaf}
 

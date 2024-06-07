@@ -9,7 +9,7 @@
   First of all, remember that $ L $ is indeed exponentiable and that $ L^L = A(L, 1) $.
   Now, since $ L $ is a $ \lambda $-theory, we have sequences of functions back and forth $ \lambda_n: A(L, 1)_n \to L_n $ and $ \rho_n: L_n \to A(L, 1)_n $. These commute with the $ L $-actions, so they constitute presheaf morphisms and $ E(L) $ is indeed a $ \lambda $-theory.
 
-  Lemma \ref{lem:presheaf-Yoneda} gives a sequence of bijections $ \varphi_n : \Pshf L(L^n, L) \cong L_n $ for all $ n $, sending $ F: \Pshf L(L^n, L) $ to $ F(x_1, \dots, x_n) $, and conversely sending $ s: L_n $ to $ ((t_1, \dots, t_n) \mapsto s \bullet (t_1, \dots, t_n)) $. It considers $ \lambda $-terms in $ n $ variables as $ n $-ary functions on the $ \lambda $-calculus. Therefore, it should come as no surprise that $ \varphi $ preserves the $ x_i $, $ \bullet $, $ \rho $ and $ \lambda $, which makes it into an isomorphism of $ \lambda $-theories and this concludes the proof.
+  Remark \ref{rem:presheaf-Yoneda} gives a sequence of bijections $ \varphi_n : \Pshf L(L^n, L) \cong L_n $ for all $ n $, sending $ F: \Pshf L(L^n, L) $ to $ F(x_1, \dots, x_n) $, and conversely sending $ s: L_n $ to $ ((t_1, \dots, t_n) \mapsto s \bullet (t_1, \dots, t_n)) $. It considers $ \lambda $-terms in $ n $ variables as $ n $-ary functions on the $ \lambda $-calculus. Therefore, it should come as no surprise that $ \varphi $ preserves the $ x_i $, $ \bullet $, $ \rho $ and $ \lambda $, which makes it into an isomorphism of $ \lambda $-theories and this concludes the proof.
 \end{proof}
 
 \section{Relations between the categories}
@@ -842,7 +842,9 @@ By Lemma 3.2 in \autocite{nlab:adjoint_equivalence} and Lemma \ref{lem:zigzag}, 
 
 The fundamental theorem of the $ \lambda $-calculus that Hyland shows is actually not of the form shown above. To get there, we first need to show that the category of $ T $-algebras for an algebraic theory $ T $ has coproducts, and define the `theory of extensions'.
 
-Let $ \llbracket n \rrbracket $ denote the finite set $ \{ 1, 2, \dots, n \} $. Let \index{$ \F $}$ \F \subseteq \FinSET $ be the full subcategory with $ \F_0 = \{ \llbracket 0 \rrbracket, \llbracket 1 \rrbracket, \dots \} $.
+Let $ \llbracket n \rrbracket $ denote the finite set $ \{ 1, 2, \dots, n \} $. For $ T $ an algebraic theory, let $ \mathbf L $ be its corresponding Lawvere theory (Lemma \ref{lem:lawvere-clone}).
+
+\TODO: Move the coproducts and theory of extensions to chapter 3?
 
 \begin{lemma}
   Let $ T $ be an algebraic theory. The category of $ T $-algebras has coproducts.
@@ -851,18 +853,20 @@ Let $ \llbracket n \rrbracket $ denote the finite set $ \{ 1, 2, \dots, n \} $. 
   This is shown in \autocite{algebaric-theories-2010}, in the lemmas leading up to Theorem 4.5.
 
   Explicitly, we can express the coproduct of algebras, and especially its set, as the following coend (\autocite{Hyland}, Proposition 2.5) (see also Section \ref{sec:coends} for more on coends)
-  \[ A + B = \int^{(m, n) : \F \times \F} A^m \times B^n \times T_{m^\prime + n^\prime}, \]
-  considering $ T $ as a functor $ T : \F \to \SET $ as a functor (see Remark \ref{rem:abstract-clone-functor}). Note that we do not need the exact definition of $ A + B $ for the rest of this section. Nonetheless, it is interesting to see how it is defined and why this definition works.
+  \[ A + B = \int^{(m, n) : \mathbf L \times \mathbf L} T_{m^\prime + n^\prime} \times A^m \times B^n, \]
+  considering $ A $ as a covariant functor on $ \mathbf L $ (see Lemma \ref{lem:lawvere-algebra}) and the theory presheaf $ T $ as a presheaf (see Lemma \ref{lem:lawvere-presheaf}).
+
+  Note that we do not need the exact definition of $ A + B $ for the rest of this section. Nonetheless, it is interesting to see how it is defined and why this definition works.
 
   One can think of $ A + B $ consisting of elements $ t \bullet (a + b) $ for $ t: T_{m + n} $, $ a : A^m $ and $ b: B^n $ (writing $ (a + b) $ for $ (a_1, \dots, a_m, b_1, \dots, b_n) $), `substituting' the $ a_i $ and $ b_j $ for the $ x_i $ and $ x_{m + j} $ in $ t $.
 
-  The relations then give `associativity' of this substitution and also assure that reordering or duplicating $ x_i $ and their corresponding $ a_i $ and $ b_j $ do not yield different elements: associating the images on the left and right of
-  \[ A^{m^\prime} \times B^{n^\prime} \times T_{m^\prime + n^\prime} \leftarrow A^{m^\prime} \times B^{n^\prime} \times T_{m + n} \rightarrow A^m \times B^n \times T_{m + n} \]
+  However, the coend is a quotient of $ \coprod T_{m + n} \times A^m \times B^n $ along some relations. These relations then give `associativity' of this substitution $ t \bullet (a + b) $. In particular, they assure that reordering or duplicating $ x_i $ and their corresponding $ a_i $ and $ b_j $ do not yield different elements. For $ f: \mathbf L(m, m^\prime) = T_m^{m^\prime} $, $ g: \mathbf L(n, n^\prime) = T_n^{n^\prime} $, associating the images on the left and right of
+  \[ T_{m^\prime + n^\prime} \times A^{m^\prime} \times B^{n^\prime} \leftarrow T_{m^\prime + n^\prime} \times A^m \times B^n \rightarrow T_{m + n} \times A^m \times B^n \]
   gives
-  \[ (t \bullet ((x_{f(i)})_i + (x_{m + g(j)})_j)) \bullet a + b = t \bullet ((a_{f(i)})_i + (b_{g(j)})_j) \]
-  for $ f: \llbracket m \rrbracket \to \llbracket m^\prime \rrbracket $, $ g: \llbracket n \rrbracket \to \llbracket n^\prime \rrbracket $, $ t : T_{m + n} $, $ a : A^{m^\prime} $ and $ b : B^{n^\prime} $.
+  \[ t \bullet ((f_i \bullet a)_i + (g_j \bullet b)_j) = (t \bullet ((f_i \bullet (x_{m + n, j})_j)_i + (g_i \bullet (x_{m + n, m + j})_j)_i)) \bullet (a + b) \]
+  for $ t : T_{m^\prime + n^\prime} $, $ a : A^m $ and $ b : B^n $.
 
-  Then it becomes clear what the action of $ T $ will be on $ A + B $, although the precise definition has quite a combinatorial nature. For $ s : T_l $, $ t_i : T_{m_i + n_i} $, $ a_i : A^{m_i} $ and $ b_i : B^{n_i} $, define the disjoint embeddings
+  Then it becomes clear what the action of $ T $ will be on $ A + B $, although the precise definition looks a bit complex because we have to juggle a bit with the variables in the different $ T_{m + n} $. For $ s : T_l $, $ t_i : T_{m_i + n_i} $, $ a_i : A^{m_i} $ and $ b_i : B^{n_i} $, define the disjoint embeddings
   \[ d_i : \left\llbracket m_i + n_i \right\rrbracket \cong \left\llbracket m_i \right\rrbracket \sqcup \left\llbracket n_i \right\rrbracket \hookrightarrow \left\llbracket \sum_j m_j \right\rrbracket \sqcup \left\llbracket \sum_j n_j \right\rrbracket \cong \left\llbracket \sum_j m_j + \sum_j n_j \right\rrbracket, \]
   which we will use to make sure that the $ x_j $ in the different $ t_i $ are mapped to distinct variables. Then we can define
   \[ s \bullet (t_i \bullet a_i + b_i) = (s \bullet (t_i \bullet (x_{d_i(j)})_j)_i) \bullet (a_1 + b_1 + \dots + a_l + b_l). \]
@@ -881,6 +885,94 @@ Let $ \llbracket n \rrbracket $ denote the finite set $ \{ 1, 2, \dots, n \} $. 
 \end{proof}
 
 \begin{definition}[Theory of extensions]
-  Let $ T $ be an algebraic theory and $ A $ a $ T $-algebra. We can define an algebraic theory $ T_A $ called `the theory of extensions of $ A $' with $ (T_A)_n = T_n + A $. The left injection of the variables $ x_i : T_n $ gives the variables.
-  Now, take $ h: (T_n + A)^m $. Sending $ g: T_m $ to $ g \bullet h $ gives a $ T $-algebra morphism $ T_m \to T_n + A $. Together with the right injection morphism of $ A $ into $ T_n + A $, this gives us a $ T $-algebra morphism from the coproduct: $ T_m + A \to T_n + A $. In particular, we have a function on sets $ (T_m + A) \times (T_n + A)^m \to T_n + A $, which we will define our substitution to be.
+  Let $ T $ be an algebraic theory and $ A $ a $ T $-algebra. We can define an algebraic theory $ T_A $ called the \iindex{theory of extensions} of $ A $' with $ (T_A)_n = A + T_n $. The right injection of the variables $ x_i : T_n $ gives the variables.
+
+  For $ h: (A + T_n)^m $, sending $ g: T_m $ to $ g \bullet h $ gives a $ T $-algebra morphism $ T_m \to T_n + A $. Together with the right injection morphism of $ A $ into $ T_n + A $, this gives us a $ T $-algebra morphism from the coproduct: $ T_m + A \to T_n + A $. Doing this for every $ h: (A + T_n)^m $ gives us the substitution $ (T_m + A) \times (T_n + A)^m \to T_n + A $.
+
+  Showing that this is indeed an algebraic theory involves invoking the universal property of the coproduct and using properties of $ T $-algebras and $ T $-algebra morphisms.
 \end{definition}
+
+\begin{remark}
+  Note that for a $ T $-algebra morphism $ f: A \to B $, we have morphisms $ f: A + T_n \xrightarrow{f + \id{T_n}} B + T_n $.
+\end{remark}
+
+\begin{remark}
+  Note that the right embeddings $ r_n : T_n \to A + T_n $ give an algebraic theory morphism $ (r_n)_n : T \to T_A $, so we can think of $ T $ as lying inside $ T_A $.
+\end{remark}
+
+The following result explains why we are interested in the theory of extensions:
+\begin{lemma}\label{lem:extensions-algebra-coslice}
+  For $ T $ an algebraic theory and $ A $ a $ T $-algebra, we have an adjoint equivalence $ \Alg{T_A} \cong (A \downarrow \Alg T) $ between algebras for $ T_A $ and the coslice category over $ A $.
+\end{lemma}
+\begin{proof}
+  Let $ B $ be a $ T_A $-algebra. Pullback along the embedding $ (r_n)_n : T \to T_A $ gives $ (r_n)_n^*(B) : \Alg T $. Also, we have a $ T $-algebra morphism $ A \to B $ given by the composition
+  \[ A \to (T_A)_0 \xrightarrow{f \mapsto f \bullet ()} B. \]
+
+  Conversely, take $ f: \Alg T(A, B) $. For $ b: B^n $, we have a $ T $-algebra morphism $ T_n \to B $ given by $ f \mapsto f \bullet b $. This, together with $ f $, gives a morphism from the coproduct $ A + T_n \to B $, and doing this for every $ b: B^n $ gives a $ T_A $-action on $ B $ as functions $ (A + T_n) \times B^n \to B $.
+
+  Now, showing that the function $ A \to (T_A)_0 \to B $ defined above is indeed a $ T $-algebra morphism and that the other $ B $, together with the given $ T_A $-action is indeed a $ T_A $-algebra, and furthermore showing that these extend to functors that together form an adjoint equivalence, involves checking a lot of details. One can indeed check that all of this holds, using the properties of algebraic theories, algebras, algebra morphisms and coproducts, as well as the fact that for all $ b : B^n $, $ f \mapsto f \bullet b $ is a morphism in $ \Alg T(A + T_n, (r_n)_n^*(B)) $. However, for the sake of brevity, we will omit these and point to the formalization for the details.
+\end{proof}
+
+\begin{example}
+  Take $ T_n = Z[X_1, \dots, X_n] $, the polynomial rings in $ n $ variables. $ T $-algebras correspond to commutative rings, so we can call $ T $ `the theory of commutative rings'. Now, for a commutative ring $ R $, $ \Alg{T_R} $ is equivalent to the coslice category $ (R \downarrow \Alg T) $, which is the category of $ R $-algebras. Therefore, the theory of extensions $ T_R $ can be considered to be the theory of $ R $-algebras.
+\end{example}
+
+\begin{lemma}\label{lem:factor-through-extensions}
+  Any algebraic theory morphism $ f: \AlgTh(S, T) $ factorizes through the embedding of $ S $ into the theory of extensions of the pullback of the algebra $ T_0 $:
+  \begin{center}
+    \begin{tikzcd}
+      S \arrow[r] \arrow[rr, bend right, "f"'] & S_{f^*(T_0)} \arrow[r] & T
+    \end{tikzcd}
+  \end{center}
+\end{lemma}
+\begin{proof}
+  For any $ n $, we have a map of $ S $-algebras $ [t \mapsto t \bullet (), f_n] : f^*(T_0) + S_n \to f^*(T_n) $, given on $ f^*(T_0) $ by $ t \mapsto t \bullet () $ and on $ S_n $ by $ f_n $. By the universal property of the coproduct, the following diagram commutes for all $ n $:
+  \begin{center}
+    \begin{tikzcd}[sep = large]
+      S_n \arrow[r, "r_n"] \arrow[rr, bend right, "f_n"'] & f^*(T_0) + S_n \arrow[r, "{[t \mapsto t \bullet (), f_n]}"] & T
+    \end{tikzcd}
+  \end{center}
+  which shows that $ (r_n)_n \cdot [f \mapsto f \bullet (), f_n]_n = f $.
+
+  Now, to show that $ [f \mapsto f \bullet (), f_n]_n $ indeed constitutes an algebraic theory morphism is a bit more work. It involves using the universal property of the coproduct a couple of times, as well as showing that for all $ g : S_{f^*(T_0)}^n $,
+  \[ s \mapsto ([t \mapsto t \bullet (), f_m] x) \bullet_T ([t \mapsto t \bullet (), f_n] g_i)_i \]
+  is a morphism in $ \Alg S(f^*(T_0) + T_m, f^*(T_n)) $. For more details, we again point to the formalization.
+\end{proof}
+
+Now, given a $ \Lambda $-algebra $ A $, applying the above to the initial morphism $ \iota_\Lambda : \Lambda \to E(U_A) $, we get the following diagram:
+\begin{center}
+  \begin{tikzcd}[sep = large]
+    \Lambda \arrow[r] & \Lambda_{E(U_A)_0} \arrow[r, "{[t \mapsto t \bullet (), \iota_{\Lambda_n}]_n}"] \arrow[d, "\Lambda_{\epsilon_A}"] & E(U_A)\\
+    & \Lambda_A
+  \end{tikzcd}
+\end{center}
+For the final form of the fundamental theorem, we need to show that
+\[ \Lambda_{\epsilon_A}^{-1} \cdot [t \mapsto t \bullet (), \iota_{\Lambda_n}]_n = [a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n \]
+is an isomorphism. By Lemma \ref{lem:factor-through-extensions}, this is equivalent to its pullback $ [a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n^* : \Alg{E(U_A)} \to \Alg{\Lambda_A} $ being an equivalence of categories.
+
+\begin{lemma}
+  $ [a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n^* $ is essentially surjective.
+\end{lemma}
+\begin{proof}
+  Take $ B : \Alg{\Lambda_A} $. By Lemma \ref{lem:extensions-algebra-coslice} we can consider $ B $ to be a coslice $ h: \Alg{\Lambda}(A, B) $. By the equivalence of categories we established earlier, $ h $ induces a morphism $ \bar h: \AlgTh(E(U_A), E(U_B)) $. Pulling the $ E(U_B) $-algebra $ E(U_B)_0 $ back along this morphism, gives a $ E(U_A) $-algebra $ \bar h^*(E(U_B)_0) $.
+\end{proof}
+
+\begin{lemma}
+  $ [a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n^* $ is fully faithful.
+\end{lemma}
+\begin{proof}
+  \TODO
+\end{proof}
+
+\begin{lemma}
+  $ \Lambda_A $ is isomorphic to $ E(U_A) $ as an algebraic theory.
+\end{lemma}
+\begin{proof}
+  By the previous two lemmas, the pullback functor $ [a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n^* $ is a weak equivalence. Since algebra categories are univalent, this means that the pullback functor is an equivalence of categories. Then, by Lemma \ref{lem:algebra-pullback-equivalence}, $ [a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n : \AlgTh(\Lambda_A, E(U_A)) $ is an isomorphism.
+\end{proof}
+
+The final form of Hyland's representation theorem is the following:
+\begin{theorem}
+  The functor that sends a $ \lambda $-theory $ L $ to the $ \Lambda $-algebra $ L_0 $ and the functor that sends a $ \Lambda $-algebra $ A $ to the theory of extensions $ \Lambda_A $ form an adjoint equivalence
+  \[ \LamTh \cong \Alg \Lambda. \]
+\end{theorem}

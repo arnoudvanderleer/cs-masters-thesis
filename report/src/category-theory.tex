@@ -24,6 +24,20 @@ One concept in category theory that can be used to describe a lot of limits and 
   \end{center}
 \end{definition}
 
+Alternatively, we can characterize universal arrows by their action on hom-sets:
+\begin{lemma}
+  Let $ F: C \to D $ be a functor and $ d: D $ an object. An object $ c: C $ and an arrow $ f: D(d, F(c)) $ form a universal arrow from $ d $ to $ F $ if and only if the function
+  \[ (g \mapsto f \cdot F(g)) : C(c, x) \cong D(d, F(x)) \]
+  is a bijection.
+
+  Conversely, for all $ c: C $ and $ d: D $, every bijection
+  \[ C(c, x) \cong D(d, F(x)) \]
+  that is natural in $ x $ arises in this way from some universal arrow $ f: D(d, F(c)) $.
+\end{lemma}
+\begin{proof}
+  See \autocite{MacLane}, Chapter III.2, Proposition 1.
+\end{proof}
+
 There is also the dual concept of a universal arrow $ (d, f) $ from a functor $ F $ to an object $ c: C $. Its universal property can be summarized in the following diagram:
 \begin{center}
   \begin{tikzcd}
@@ -98,9 +112,36 @@ In other words, we have functors $ X \mapsto X \times Y $ and $ Z \mapsto (Y \to
   Then $ d^c $ is still called an exponential object.
 \end{remark}
 
+\subsection{Forgetful functors and free objects}
+
+In mathematics, we often deal with objects that are `based on' other objects. For example, a ring is a set with some additional structure. Often, this is a relation between the respective categories (for example, in the case of a displayed category, see Section \ref{sec:displayed-categories}), and such a relation gives rise to a \iindex{forgetful functor}, that `forgets' about the additional structure. In the examples of rings and sets, the forgetful functor sends a ring to its underlying set, and a ring morphism to the function between the sets. However, note that there is no formal definition of forgetful functors. The name is more of a way to talk about the perceived relation between the categories.
+
+\begin{definition}
+  Given a forgetful functor $ F: C \to D $, we define the \textit{free functor}\index{free!functor} associated to $ F $ to be the left adjoint to $ F $, if it exists.
+\end{definition}
+
+\begin{example}
+  Consider the forgetful functor from the category of commutative rings to the category of sets, sending a ring to its underlying set. This has a left adjoint, sending the set $ \{ 1, 2, \dots, n \} $ to the polynomial ring $ \mathbb Z[X_1, \dots, X_n] $, and more generally, sending $ S $ to the polynomial ring $ \mathbb Z[X_s]_{s : S} $. This ring is then called `the free commutative ring on $ S $'. If $ S $ is finite of size $ n $, the ring is also called `the free commutative ring on $ n $ generators'.
+
+  The free functor sends a function $ f: S \to T $ to the ring morphism $ \mathbb Z[X_s]_{s: S} \to \mathbb Z[X_t]_{t: T} $ that sends $ X_s $ to $ X_{f(s)} $.
+
+  The natural bijection
+  \[ \mathbf{Rng}(\mathbb Z[X_s]_{s : S}, R) \cong \SET(S, R) \]
+  then sends $ f: \mathbf{Rng}(\mathbb Z[X_s]_{s : S}, R) $ to $ s \mapsto f(X_s) $ and $ g: \SET(S, R) $ to the morphism that sends $ X_s $ to $ g(s) $.
+\end{example}
+
+However, sometimes, we have a forgetful functor $ F: C \to D $, but we cannot give a free functor on the entire category $ D $. In such a case, we might still talk about free `objects':
+\begin{definition}
+  Let $ F: C \to D $ be a forgetful functor. Given $ d: D $, the \textit{free object}\index{free!object} on $ d $ is a universal arrow $ (c, f) $ from $ d $ to $ F $.
+\end{definition}
+
+\begin{remark}
+  By \autocite{MacLane}, Chapter IV.1, Theorem 2 (ii), if we have a free object on every $ d: D $, we can piece these together to get a free functor associated to $ F $.
+\end{remark}
+
 \section{Yoneda}
 We can embed a category $ C $ fully faithfully into the functor category $ P C = [\op C, \SET] $ as follows (see \autocite{Kashiwara}, Section 1.4):
-\begin{definition}
+\begin{definition}\label{def:Yoneda-embedding}
   The \iindex{Yoneda embedding} $ Y : C \hookrightarrow P C $ is given on objects by $ Y(c) = C(-, c) $:
   \[ Y(c)(d) = C(d, c) \quad \text{and} \quad Y(c)(f)(g) = f \cdot g \]
   for $ d: C $, $ f: C(d, d^\prime) $ and $ g: C(d^\prime, c) $. It sends a morphism $ f: C(c, c^\prime) $ to the natural transformation $ Y(f): C(-, c) \Rightarrow C(-, c^\prime) $ given by
@@ -124,10 +165,10 @@ Now, this embedding has a couple of properties:
 \end{proof}
 
 \begin{lemma}
-  The Yoneda embedding functor preserves exponential objects (\autocite{stackexchange:yoneda-exponentials}).
+  The Yoneda embedding functor is \iindex{cartesian}. That is, not only does it preserve binary products, but it also preserves exponential objects (\autocite{stackexchange:yoneda-exponentials}).
 \end{lemma}
 \begin{proof}
-
+  \TODO
 \end{proof}
 
 For a functor between categories $ f: C \to D $, given the Yoneda embeddings $ Y_C : C \to P C $ and $ Y_D : D \to P D $ (we will often omit the subscript $ C $ and $ D $), we can create a diagram
