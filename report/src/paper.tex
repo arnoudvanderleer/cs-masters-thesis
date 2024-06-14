@@ -952,43 +952,59 @@ is an isomorphism of algebraic theories. By Lemma \ref{lem:factor-through-extens
 being an equivalence of categories.
 
 \begin{lemma}
+  The isomorphisms $ \epsilon_A : E_{\R_A}(U)_0 \xrightarrow \sim A $ form a natural transformation. That is, for all $ h: \Alg \Lambda(A, B) $, the following diagram commutes:
+  \begin{center}
+    \begin{tikzcd}
+      E_{\R_A}(U)_0 \arrow[r, "h"] \arrow[d, "\epsilon_A"] & E_{\R_B}(U)_0 \arrow[d, "\epsilon_B"]\\
+      A \arrow[r, "h"] & B
+    \end{tikzcd}
+  \end{center}
+\end{lemma}
+\begin{proof}
+  This follows from simple unfolding and using the property of algebra morphisms: For all $ f: E_{\R_A}(U)_0 = \{ f : A \mid (x_1 \circ I_c) \bullet_A f = f \} $,
+  \begin{align*}
+    \epsilon_B(h(f))
+    &= (x_1 c_1) \bullet_B h(f)\\
+    &= h((x_1 c_1) \bullet_A f)\\
+    &= h(\epsilon_A(f)).
+  \end{align*}
+\end{proof}
+
+\begin{lemma}
   The pullback functor
   \[ [a \mapsto \epsilon_A^{-1}(a) \bullet_{E_{\R_A}(U)} (), \iota_{\Lambda_n}]_n^* \]
   is essentially surjective.
 \end{lemma}
 \begin{proof}
-  Take $ B : \Alg{\Lambda_A} $. By Lemma \ref{lem:extensions-algebra-coslice} we can consider $ B $ to be a object in the coslice category $ h : \Alg{\Lambda}(A, B) $. As shown in Section \ref{sec:elementary-fundamental-theorem}, $ h $ sends elements in $ \R_A(U^n, U) $ to elements in $ \R_B(U^n, U) $, so we can regard it as a morphism $ h: \AlgTh(E_{\R_A}(U), E_{\R_B}(U)) $. We then have a $ E_{\R_A}(U) $-algebra $ h^*(E_{\R_B}(U)_0) $. Now we need to prove that we have an isomorphism of $ \Lambda_A $-algebras
-  \[ ([a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n \cdot h)^*(E_{\R_B}(U)_0) \cong B. \]
+  Take $ B : \Alg{\Lambda_A} $. By Lemma \ref{lem:extensions-algebra-coslice} we can consider $ B $ to be a object in the coslice category $ h : \Alg{\Lambda}(A, B) $. As shown in Section \ref{sec:elementary-fundamental-theorem}, $ h $ sends elements in $ \R_A(U^n, U) $ to elements in $ \R_B(U^n, U) $, so we can regard it as a morphism $ (h)_n: \AlgTh(E_{\R_A}(U), E_{\R_B}(U)) $. We then have a $ E_{\R_A}(U) $-algebra $ (h)_n^*(E_{\R_B}(U)_0) $. Now we need to prove that we have an isomorphism of $ \Lambda_A $-algebras
+  \[ ([a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n \cdot (h)_n)^*(E_{\R_B}(U)_0) \cong B. \]
   Under the equivalence in Lemma \ref{lem:extensions-algebra-coslice}, this pullback of $ E_{\R_B}(U)_0 $ corresponds to some $ (B^\prime, h^\prime) : (A \downarrow \Alg \Lambda) $. The set of $ B^\prime $ is $ \R_B(I, U) $, its $ \Lambda $-action is given by
   \[ (f, b) \mapsto h(\iota_{\Lambda_n}(f)) \bullet_{E_{\R_B}(U)} b, \]
   and the morphism $ h^\prime $ is given by $ h^\prime(a) = h(\epsilon_A^{-1}(a)) $. Note that by initiality of $ \Lambda $, the following diagram of algebraic theories commutes
   \begin{center}
     \begin{tikzcd}
       & \Lambda \arrow[ld, "\iota_\Lambda"'] \arrow[rd, "\iota_\Lambda"]\\
-      E_{\R_A}(U) \arrow[rr, "h"] && E_{\R_B}(U)
+      E_{\R_A}(U) \arrow[rr, "(h)_n"] && E_{\R_B}(U)
     \end{tikzcd}
   \end{center}
-  Therefore, $ h_n(\iota_{\Lambda_n}(f)) = \iota_{\Lambda_n}(f) $, so $ B^\prime = \iota_\Lambda^*(E_{\R_B}(U)_0) $. We have the following diagram in $ \Alg \Lambda $:
+  Therefore, $ h(\iota_{\Lambda_n}(f)) = \iota_{\Lambda_n}(f) $, so the $ \Lambda $-action on $ B^\prime $ is exactly the action on $ \iota_\Lambda^*(E_{\R_B}(U)_0) $, which means that $ B^\prime = \iota_\Lambda^*(E_{\R_B}(U)_0) $. We have the following diagram in $ \Alg \Lambda $:
   \begin{center}
     \begin{tikzcd}[sep = large]
       & A \arrow[ld, "a \mapsto h(\epsilon_A^{-1}(a))"'] \arrow[rd, "h"]\\
-      E_{\R_B}(U)_0 \arrow[rr, "\epsilon_B"] & & B
+      E_{\R_B}(U)_0 \arrow[rr, "\epsilon_B", "\sim"'] & & B
     \end{tikzcd}
   \end{center}
-  \TODO: Show commutativity
-
-  which shows that $ \epsilon_B $ is an isomorphism in the coslice category under $ A $. Pulling this isomorphism back along the equivalence from Lemma \ref{lem:extensions-algebra-coslice} gives an isomorphism of $ \Lambda_A $-algebras
+  By naturality of $ \epsilon $, this diagram commutes, which shows that $ \epsilon_B $ is an isomorphism in the coslice category under $ A $. Pulling this isomorphism back along the equivalence from Lemma \ref{lem:extensions-algebra-coslice} gives an isomorphism of $ \Lambda_A $-algebras
   \[ ([a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n \cdot h)^*(E_{\R_B}(U)_0) \cong B \]
   and this concludes the proof.
 \end{proof}
 
 \begin{lemma}
   For $ \iota_\Lambda: \LamTh(\Lambda, E_{\R_A}(U)) $ and $ s_i : \Lambda_n $, we have
-  \[ \iota_\Lambda((s_i)_i) = \langle x_i \rangle_i \bullet_A (\iota_\Lambda(s_i))_i, \]
-  and we will call the latter $ \langle \iota_\Lambda(s_i) \rangle_i $.
+  \[ \iota_\Lambda((s_i)_i) = \langle x_i \rangle_i \bullet_A (\iota_\Lambda(s_i))_i. \]
 \end{lemma}
 \begin{proof}
-  By the recursive nature of the definitions of $ (s_i)_i $ and $ \langle a_i \rangle_i $, it suffices to show that for $ a, b : \Lambda_n $, $ \iota_\Lambda((a, b)) = \langle \iota_\Lambda(a), \iota_\Lambda(b) \rangle $ and that $ \iota_\Lambda(c_n) = I_c $. Since $ \iota_\Lambda $ is defined via structural induction, this is just a matter of straightforward but tedious unfolding and rewriting, at some point using the fact that $ \iota_\Lambda(a) \circ U^n = \iota_\Lambda(a) $:
+  By the recursive nature of the definitions of $ (s_i)_i $ and $ \langle x_i \rangle_i $, it suffices to show that for $ a, b : \Lambda_n $, $ \iota_\Lambda((a, b)) = \langle x_1, x_2 \rangle \bullet_A (\iota_\Lambda(a), \iota_\Lambda(b)) $ and that $ \iota_\Lambda(c_n) = I_c \bullet () $. Since $ \iota_\Lambda $ is defined via structural induction, this is just a matter of straightforward but tedious unfolding and rewriting, at some point using the fact that $ (x_1 \circ U^n) \bullet_A \iota_\Lambda(a) = \iota_\Lambda(a) $:
   \begin{align*}
     \iota_\Lambda((a, b))
     &= \iota_\Lambda(\lambda x_{n + 1}, x_{n + 1} \iota_{n, n + 1}(a) \iota_{n, n + 1}(b))\\
@@ -1004,16 +1020,16 @@ being an equivalence of categories.
     \iota_\Lambda(c_n)
     &= \iota_\Lambda(\lambda x_{n + 1}, x_{n + 1})\\
     &= (\lambda x_2 x_3, x_1 (x_2, x_3)) \bullet_A \iota_\Lambda(x_{n + 1})\\
-    &= \lambda x_1 x_2, \pi_{n + 1, n + 1} (x_1, x_2)\\
-    &= \lambda x_1 x_2, x_2\\
-    &= I_c.
+    &= (\lambda x_1 x_2, \pi_{n + 1, n + 1} (x_1, x_2)) \bullet_A ()\\
+    &= (\lambda x_1 x_2, x_2) \bullet_A ()\\
+    &= I_c \bullet_A ().
   \end{align*}
 \end{proof}
 
 \begin{remark}\label{rem:endomorphism-theory-algebra-to-endomorphism-theory-algebra}
   Note that for any $ E_{\R_A}(U) $-algebra $ B $, we can view the pullback $ \Lambda_A $-algebra $ [a \mapsto \epsilon_A^{-1}(a) \bullet_{E_{\R_A}(U)} (), \iota_{\Lambda_n}]^* B $ as an object in the coslice category under $ A $, given by
   \[ a \mapsto \epsilon_A^{-1}(a) \bullet_B () : \Alg \Lambda(A, \iota_\Lambda^* B). \]
-  Functoriality of the endomorphism theory construction of the respective categories of retracts, gives a $ \lambda $-theory morphism
+  Functoriality of the endomorphism theory construction of $ U : \R_A $ and $ U : \R_{\iota_\Lambda^* B} $, gives a $ \lambda $-theory morphism
   \[ a \mapsto \epsilon_A^{-1}(a) \bullet_B (): \LamTh(E_{\R_A}(U), E_{\R_{\iota_\Lambda^* B}}(U)). \]
   Then, we can pull back the theory algebra along this morphism, to get, again a $ E_{\R_A}(U) $-algebra
   \[ (a \mapsto \epsilon_A^{-1}(a) \bullet_B ())^* (E_{\R_{\iota_\Lambda^* B}}(U)_0). \]
@@ -1026,16 +1042,14 @@ being an equivalence of categories.
 \begin{proof}
   Note that the underlying set of $ (a \mapsto \epsilon_A^{-1}(a) \bullet_B ())^* (E_{\R_{\iota_\Lambda^* B}}(U)_0) $ is $ \R_{\iota_\Lambda^* B}(I, U) $, and that $ \epsilon_{\iota_\Lambda^* B} $ is a bijection between this set and $ B $. Now we only need to show that it is a morphism of $ E_{\R_A}(U) $-algebras. Take $ s: E_{\R_A}(U)_n $ and all $ b : E_{\R_{\iota_\Lambda^* B}}(U)_0^n $. We have
   \begin{align*}
-    \epsilon_{\iota_\Lambda^* B}(s \bullet_{(a \mapsto \epsilon_A^{-1}(a) \bullet_B ())^* E_{\R_{\iota_\Lambda^* B}}(U)_0} b)
-    &= \iota_\Lambda(x_1 c_1) \bullet_B (s \bullet_{(a \mapsto \epsilon_A^{-1}(a) \bullet_B ())^* E_{\R_{\iota_\Lambda^* B}}(U)_0} b)\\
+    \epsilon_{\iota_\Lambda^* B}(s \bullet b)
     &= \iota_\Lambda(x_1 c_1) \bullet_B ((\epsilon_A^{-1}(s) \bullet_B ()) \bullet_{E_{\R_{\iota_\Lambda^* B}}(U)_0} b)\\
     &= \iota_\Lambda(x_1 c_1) \bullet_B (\iota_\Lambda(x_1 \circ \langle x_2, \dots, x_{n + 1} \rangle) \bullet_B (\epsilon_A^{-1}(s) \bullet_B (), b_1, \dots, b_n))\\
     &= \iota_\Lambda(x_1 c_1) \bullet_B ((\iota_\Lambda(x_1 \circ \langle x_{i + 1} \rangle_i) \bullet_{E_{\R_A}(U)} (\epsilon_A^{-1}(s), \iota_\Lambda(x_1), \dots, \iota_\Lambda(x_n))) \bullet_B b)\\
     &= (\iota_\Lambda(x_1 c_1) \bullet_{E_{\R_A}(U)} (\iota_\Lambda(x_1 \circ \langle x_{i + 1} \rangle_i) \bullet_{E_{\R_A}(U)} (\epsilon_A^{-1}(s), \iota_\Lambda(x_1), \dots, \iota_\Lambda(x_n)))) \bullet_B b\\
     &= (\iota_\Lambda(x_1 (x_{i + 1} c_{n + 1})_i) \bullet_{E_{\R_A}(U)} (\epsilon_A^{-1}(s), \iota_\Lambda(x_1), \dots, \iota_\Lambda(x_n))) \bullet_B b\\
-    &= (\iota_\Lambda(x_1 (x_{i + 1} c_{n + 1})_i) \bullet_{E_{\R_A}(U)} (\epsilon_A^{-1}(s), \iota_\Lambda(x_1), \dots, \iota_\Lambda(x_n))) \bullet_B b\\
-    &= (\epsilon_A^{-1}(s) (x_i c_n)_i) \bullet_B b\\
-    &= (\epsilon_A^{-1}(s) (x_i)_i \bullet \iota_\Lambda(x_i c_n)_i) \bullet_B b.
+    &= (\iota_\Lambda(x_1 x_2) \bullet_{E_{\R_A}(U)} (\epsilon_A^{-1}(s), \iota_\Lambda((x_i c_n)_i))) \bullet_B b\\
+    &= ((\iota_\Lambda(x_1 x_2) \bullet_{E_{\R_A}(U)} (\epsilon_A^{-1}(s), \iota_\Lambda((x_i)_i))) \bullet_{E_{\R_A}(U)} (x_i c_n)_i) \bullet_B b\\
   \end{align*}
   Also,
   \begin{align*}
@@ -1046,11 +1060,11 @@ being an equivalence of categories.
   \end{align*}
   Then the result follows from the fact that
   \begin{align*}
-    ((\epsilon_A^{-1}(s)) \bullet_{E_{\R_A}(U)} ()) (x_i)_i
-    &= ((\lambda x_2, x_1) \bullet_A s) (x_i)_i\\
-    &= (\lambda x_3, x_1 x_3 x_2 x_3) \bullet_A ((\lambda x_2, x_1) \bullet_A s, \iota_\Lambda((x_i)_i))\\
-    &= (\lambda x_3, x_1 x_2 x_3) \bullet_A (s, \langle \iota_\Lambda(x_i) \rangle_i)\\
-    &= (x_1 \circ x_2) \bullet_A (s, U^n)\\
+    \iota_\Lambda(x_1 x_2) \bullet_{E_{\R_A}(U)} (\epsilon_A^{-1}(s), \iota_\Lambda((x_i)_i))
+    &= \iota_\Lambda(x_1 x_2) \bullet_{E_{\R_A}(U)} ((\lambda x_2, x_1) \bullet_A s, \langle x_i \rangle_i \bullet_A (\iota_\Lambda(x_i))_i)\\
+    &= (\lambda x_3, x_1 x_3 x_2 x_3) \bullet_A ((\lambda x_2, x_1) \bullet_A s, \langle x_i \rangle_i \bullet_A (\pi_{n, i} \bullet_A ())_i)\\
+    &= (\lambda x_3, x_1 x_2 x_3) \bullet_A (s, \langle \pi_{n, i} \rangle_i \bullet_A ())\\
+    &= (x_1 \circ x_2) \bullet_A (s, U^n \bullet_A ())\\
     &= s.
   \end{align*}
 \end{proof}
