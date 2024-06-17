@@ -20,10 +20,10 @@
 \end{remark}
 
 \begin{definition}
-  A \textit{morphism}\index{algebraic theory!morphism} $ F $ between algebraic theories $ T $ and $ T^\prime $ is a sequence of functions $ F_n: T_n \to T^\prime_n $ (we usually leave the $ n $ implicit) such that
+  A \textit{morphism}\index{algebraic theory!morphism} $ f $ between algebraic theories $ T $ and $ T^\prime $ is a sequence of functions $ f_n: T_n \to T^\prime_n $ (we usually leave the $ n $ implicit) such that
   \begin{align*}
-    F_n(x_j) &= x_j\\
-    F_n(f \bullet g) &= F_m(f) \bullet (F_n(g_i))_i
+    f_n(x_j) &= x_j\\
+    f_n(f \bullet g) &= f_m(f) \bullet (f_n(g_i))_i
   \end{align*}
   for all $ 1 \leq j \leq n $, $ f: T_m $ and $ g: T_n^m $.
 \end{definition}
@@ -64,9 +64,9 @@ Later on, we will see an example of a trivial algebraic theory (the terminal the
 \end{definition}
 
 \begin{definition}
-  For an algebraic theory $ T $, a \textit{morphism}\index{algebra!morphism} $ F $ between $ T $-algebras $ A $ and $ A^\prime $ is a function $ F: A \to A $ such that
-  \[ F(f \bullet a) = f \bullet (F(a_i))_i \]
-  for all $ f: T_n $ and $ a: A^n $.
+  For an algebraic theory $ T $, a \textit{morphism}\index{algebra!morphism} $ f $ between $ T $-algebras $ A $ and $ A^\prime $ is a function $ f: A \to A $ such that
+  \[ f(t \bullet a) = f \bullet (f(a_i))_i \]
+  for all $ t: T_n $ and $ a: A^n $.
 \end{definition}
 
 Together, these form the category of $ T $-algebras \iindex{$ \Alg T $}.
@@ -95,7 +95,7 @@ Together, these form the category of $ T $-algebras \iindex{$ \Alg T $}.
 
 Actually, we can recover some information about the algebraic theory morphism from this pullback functor. For example,
 \begin{lemma}\label{lem:algebra-pullback-equivalence}
-  If $ F^* $ is an equivalence of categories, $ F $ is an isomorphism.
+  If $ f^* $ is an equivalence of categories, $ f $ is an isomorphism.
 \end{lemma}
 \begin{proof}
   \TODO
@@ -128,8 +128,8 @@ We then have a functor $ P: C \to \AlgTh $, projecting onto the first coordinate
 \end{definition}
 
 \begin{definition}
-  For an algebraic theory $ T $, a \textit{morphism}\index{presheaf!morphism} $ F $ between $ T $-presheaves $ P $ and $ P^\prime $ is a sequence of functions $ F_n: P_n \to P^\prime_n $ such that
-  \[ F_n(t \bullet f) = F_m(t) \bullet f \]
+  For an algebraic theory $ T $, a \textit{morphism}\index{presheaf!morphism} $ f $ between $ T $-presheaves $ P $ and $ P^\prime $ is a sequence of functions $ f_n: P_n \to P^\prime_n $ such that
+  \[ f_n(t \bullet f) = f_m(t) \bullet f \]
   for all $ t: P_m $ and $ f: T_n^m $.
 \end{definition}
 
@@ -164,12 +164,12 @@ Together, these form the category of $ \lambda $-theories \iindex{$ \LamTh $}.
 \end{definition}
 
 \begin{definition}[$ \lambda $-theory morphism]
-  A \textit{morphism}\index{$ \lambda $-theory!morphism} $ F $ between $ \lambda $-theories $ L $ and $ L^\prime $ is an algebraic theory morphism $ F $ such that
+  A \textit{morphism}\index{$ \lambda $-theory!morphism} $ f $ between $ \lambda $-theories $ L $ and $ L^\prime $ is an algebraic theory morphism $ f $ such that
   \begin{align*}
-    F_n(\lambda_n(f)) &= \lambda_n(F_{n + 1}(f))\\
-    \rho_n(F_n(g)) &= F_{n + 1}(\rho_n(g))
+    f_n(\lambda_n(s)) &= \lambda_n(f_{n + 1}(s))\\
+    \rho_n(f_n(t)) &= f_{n + 1}(\rho_n(t))
   \end{align*}
-  for all $ f: L_{n + 1} $ and $ g: L_n $.
+  for all $ s: L_{n + 1} $ and $ t: L_n $.
 \end{definition}
 
 \begin{remark}
@@ -244,7 +244,13 @@ The proofs that $ F(S) $ is an algebraic theory and that $ F(f) $ and $ g $ are 
   The proofs of these facts work by simple case distinction, and by using the properties of the coslice and algebra morphisms.
 \end{proof}
 
-$ F(\emptyset) $ is, in some sense, the smallest nontrivial algebraic theory. Then $ F(S) $ is the smallest nontrivial algebraic theory that has the elements of $ S $ as constants.
+\begin{remark}
+  $ F(\emptyset) $ is, in some sense, the smallest nontrivial algebraic theory. Then $ F(S) $ is the smallest nontrivial algebraic theory that has the elements of $ S $ as constants.
+\end{remark}
+
+\begin{remark}
+  Note that the category of $ F(\emptyset) $-algebras is equivalent to the coslice-category $ (\emptyset \downarrow \SET) $, which, since $ \emptyset $ is the initial set, is just equivalent to $ \SET $.
+\end{remark}
 
 \subsection{The free \texorpdfstring{$ \lambda $}{lambda}-theory on a set}
 
@@ -405,8 +411,21 @@ The proofs that $ E(X) $ is an algebraic theory and a $ \lambda $-theory, use pr
 \begin{remark}
   Recall from \ref{lem:lawvere-algebra} that $ T $-algebras are equivalent to finite-product-preserving $ \SET $-valued functors on the Lawvere theory $ \mathbf L $ associated to $ T $. Now, recall from (\TODO) that we can embed any category inside its category of $ \SET $-valued functors. This embeds $ n: \mathbf L $ as the theory algebra $ T_n $. Then the Yoneda Lemma gives a bijection
   \[ \Alg T(T_n, A) \cong A^n = \SET(\{ 1, \dots, n \}, A) \]
-  natural in $ n $ and $ A $. Explicitly, it sends $ F: \Alg T(T_n, A) $ to $ i \mapsto F(x_i) $ and $ (a_i)_i : A^n $ to $ f \mapsto f \bullet a $. The natural equivalence immediately shows that $ T_n $ is the free $ T $-algebra on $ n $ elements.
+  natural in $ n $ and $ A $. Explicitly, it sends $ f: \Alg T(T_n, A) $ to $ i \mapsto f(x_i) $ and $ (a_i)_i : A^n $ to $ f \mapsto f \bullet a $. The natural equivalence immediately shows that $ T_n $ is the free $ T $-algebra on $ n $ elements.
 \end{remark}
+
+Using some additional machinery, we can combine this with the algebra pullback functor to get another functor:
+\begin{definition}\label{def:theory-algebra-pullback-functor}
+  Take a nonnegative integer $ n $. Take an object $ S : \AlgTh $. For every object $ T : \AlgTh $, we can take the $ T $-algebra $ T_n $. Then every morphism $ f: \AlgTh(S, T) $ gives an $ S $-algebra $ f^* T_n $. In fact, this is a functor from $ (S \downarrow \AlgTh) $ to $ \Alg S $: We send a morphism $ g: (S \downarrow \AlgTh)((T, f), (T^\prime, f^\prime)) $ to
+  \[ g_n: f^* T_n \to (f^\prime)^* T^\prime_n. \]
+  This is an algebra morphism because it commutes with $ f $, $ f^\prime $ and the substitution of $ T $ and $ T^\prime $: For $ s: S_m $ and $ t: (f^* T_n)^m $, we have
+  \[
+      g_n(s \bullet_{f^* T_n} t)
+    = g_m(f_m(s)) \bullet_{T^\prime} (g_n(t_i))_i
+    = s \bullet_{(f^\prime)^* T^\prime_n} (g_n(t_i))_i.
+  \]
+  The functor obviously preserves the identity morphisms and composition of morphisms, so it is indeed a functor.
+\end{definition}
 
 \subsection{The initial presheaf}
 \begin{example}

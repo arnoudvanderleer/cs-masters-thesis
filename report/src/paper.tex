@@ -220,17 +220,15 @@ Now, Hyland shows the following:
 \end{remark}
 
 \section{An elementary proof of the `Fundamental Theorem'}\label{sec:elementary-fundamental-theorem}
-The final theorem that Hyland works towards in his paper constructs an equivalence between $ \lambda $-calculi and $ \Lambda $-algebras. In this section, we will provide an elementary proof of this theorem.
+The final theorem that Hyland works towards in his paper constructs an equivalence between $ \lambda $-calculi and $ \Lambda $-algebras. In this section, we will provide an elementary proof of this theorem. Then, in the next section, we will give Hyland's original proof, which uses more high-level categorical reasoning.
 
 We will assume that $ \Lambda $ (and therefore, any $ \lambda $-theory) satisfies $ \beta $-equality.
 
-In both cases, one part of the equivalence is very easy:
-\begin{definition}
-  For all $ n $, we have a functor from lambda theories to $ \Lambda $-algebras. It sends the $ \lambda $-theory $ L $ to the $ L $-algebra $ L_n $ and then turns this into a $ \Lambda $-algebra via the morpism $ \Lambda \to L $. It sends morphisms $ f: L \to L^\prime $ to the algebra morphism $ f_n : L_n \to L^\prime_n $.
-\end{definition}
+In both cases, one part of the equivalence is very easy. Recall that the pure $ \lambda $-calculus, the $ \lambda $-theory $ \Lambda $, is the initial object of $ \LamTh $. That means that $ \LamTh $ is equivalent to $ (\Lambda \downarrow \LamTh) $. Now, using Definition \ref{def:theory-algebra-pullback-functor}, for any $ n $ we get a functor
+\[ -_n : \LamTh \to \Alg \Lambda. \]
 Here we are only interested in the case $ n = 0 $.
 
-We will use Lemma \ref{lem:univalen-category-equivalence}, by showing that $ L \mapsto L_0 $ is a weak equivalence.
+We will use Lemma \ref{lem:univalen-category-equivalence}, by showing that $ -_0 $ is a weak equivalence.
 
 First of all, let $ A $ be an algebra for the initial $ \lambda $-theory $ \Lambda $.
 
@@ -1077,8 +1075,6 @@ being an equivalence of categories.
   \end{align*}
 \end{proof}
 
-\TODO show functoriality of pullback in coslice category.
-
 \begin{lemma}\label{lem:pullback-fully-faithful}
   $ [a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n^* $ is fully faithful.
 \end{lemma}
@@ -1094,7 +1090,7 @@ being an equivalence of categories.
       E_{\R_{\iota_{\Lambda}^* B}}(U) \arrow[rr, "(h)_n"] & & E_{\R_{\iota_{\Lambda}^* C}}(U)
     \end{tikzcd}
   \end{center}
-  Now, using functoriality of the pullback of the theory algebras in the coslice category $ (E_{\R_A}(U) \downarrow \AlgTh) $, and using the previous lemma, we get the following diagram of $ E_{\R_A}(U) $-algebras:
+  Now, using Definition \ref{def:theory-algebra-pullback-functor} for the coslice category $ (E_{\R_A}(U) \downarrow \AlgTh) $, and using the previous lemma, we get the following diagram of $ E_{\R_A}(U) $-algebras:
   \begin{center}
     \begin{tikzcd}[sep = large]
       (a \mapsto \epsilon_A^{-1}(a) \bullet_B ())^* (E_{\R_{\iota_\Lambda^* B}}(U)_0)
