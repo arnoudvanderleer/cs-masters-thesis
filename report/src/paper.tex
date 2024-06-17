@@ -783,7 +783,7 @@ Now, finally, we are ready to show that $ \epsilon $ is an isomorphism of $ \Lam
 \subsection{The equivalence}
 
 By Lemma 3.2 in \autocite{nlab:adjoint_equivalence} and Lemma \ref{lem:zigzag}, $ \eta $ and $ \epsilon $ satisfy both zigazg identities, and we can state the fundamental theorem of the $ \lambda $-calculus:
-\begin{theorem}
+\begin{theorem}\label{thm:Hyland-fundamental-theorem}
   There is an adjoint equivalence $ \LamTh \cong \Alg{\Lambda} $, sending a $ \lambda $-theory $ L $ to the $ \Lambda $-algebra $ L_0 $, with an inverse functor that sends a $ \Lambda $-algebra $ A $ to the theory $ E_{\RAct{A_1}}(U_A) $.
 \end{theorem}
 
@@ -843,7 +843,7 @@ The fundamental theorem of the $ \lambda $-calculus that Hyland shows is actuall
 
 Let $ \llbracket n \rrbracket $ denote the finite set $ \{ 1, 2, \dots, n \} $. For $ T $ an algebraic theory, let $ \mathbf L $ be its corresponding Lawvere theory (Lemma \ref{lem:lawvere-clone}).
 
-\TODO: Move the coproducts and theory of extensions to chapter 3?
+\TODO Move the coproducts and theory of extensions to chapter 3?
 
 \begin{lemma}
   Let $ T $ be an algebraic theory. The category of $ T $-algebras has coproducts.
@@ -890,6 +890,14 @@ Let $ \llbracket n \rrbracket $ denote the finite set $ \{ 1, 2, \dots, n \} $. 
 
   Showing that this is indeed an algebraic theory involves invoking the universal property of the coproduct and using properties of $ T $-algebras and $ T $-algebra morphisms.
 \end{definition}
+
+\begin{remark}
+  We can turn the map $ A \mapsto T_A $ into a functor $ T_- : \Alg T \to \AlgTh $. For a morphism $ f: \Alg T(A, B) $, we get maps
+  \[ f + \id{T_n} : \Alg T(A + T_n, B + T_n). \]
+  We can combine these into a morphism $ T_f = (f + \id{T_n})_n $, and this makes $ T_- $ into a functor from $ \Alg T $ to $ \AlgTh $.
+
+  To actually show that $ T_f $ is a morphism and that $ T_- $ is a functor, we use the properties of the coproduct a couple of times, as well as the fact that $ f + \id{T_n} : \Alg T(A + T_n, B + T_n) $ preserves the $ T $-action.
+\end{remark}
 
 \begin{remark}
   Note that for a $ T $-algebra morphism $ f: A \to B $, we have morphisms $ f: A + T_n \xrightarrow{f + \id{T_n}} B + T_n $.
@@ -970,7 +978,7 @@ being an equivalence of categories.
   \end{align*}
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}\label{lem:pullback-essentially-surjective}
   The pullback functor
   \[ [a \mapsto \epsilon_A^{-1}(a) \bullet_{E_{\R_A}(U)} (), \iota_{\Lambda_n}]_n^* \]
   is essentially surjective.
@@ -1004,7 +1012,7 @@ being an equivalence of categories.
   \[ \iota_\Lambda((s_i)_i) = \langle x_i \rangle_i \bullet_A (\iota_\Lambda(s_i))_i. \]
 \end{lemma}
 \begin{proof}
-  By the recursive nature of the definitions of $ (s_i)_i $ and $ \langle x_i \rangle_i $, it suffices to show that for $ a, b : \Lambda_n $, $ \iota_\Lambda((a, b)) = \langle x_1, x_2 \rangle \bullet_A (\iota_\Lambda(a), \iota_\Lambda(b)) $ and that $ \iota_\Lambda(c_n) = I_c \bullet () $. Since $ \iota_\Lambda $ is defined via structural induction, this is just a matter of straightforward but tedious unfolding and rewriting, at some point using the fact that $ (x_1 \circ U^n) \bullet_A \iota_\Lambda(a) = \iota_\Lambda(a) $:
+  By the recursive nature of the definitions of $ (s_i)_i $ and $ \langle x_i \rangle_i $, it suffices to show that for $ a, b : \Lambda_n $, $ \iota_\Lambda((a, b)) = \langle x_1, x_2 \rangle \bullet_A (\iota_\Lambda(a), \iota_\Lambda(b)) $ and that $ \iota_\Lambda(c_n) = I_c \bullet_A () $. Since $ \iota_\Lambda $ is defined via structural induction, this is just a matter of straightforward but tedious unfolding and rewriting, at some point using the fact that $ (x_1 \circ U^n) \bullet_A \iota_\Lambda(a) = \iota_\Lambda(a) $:
   \begin{align*}
     \iota_\Lambda((a, b))
     &= \iota_\Lambda(\lambda x_{n + 1}, x_{n + 1} \iota_{n, n + 1}(a) \iota_{n, n + 1}(b))\\
@@ -1071,7 +1079,7 @@ being an equivalence of categories.
 
 \TODO show functoriality of pullback in coslice category.
 
-\begin{lemma}
+\begin{lemma}\label{lem:pullback-fully-faithful}
   $ [a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n^* $ is fully faithful.
 \end{lemma}
 \begin{proof}
@@ -1083,33 +1091,79 @@ being an equivalence of categories.
   \begin{center}
     \begin{tikzcd}
       & E_{\R_A}(U) \arrow[ld, "a \mapsto \epsilon_A^{-1}(a) \bullet_B ()"'] \arrow[rd, "a \mapsto \epsilon_A^{-1}(a) \bullet_C ()"]\\
-      E_{\R_{\iota_{\Lambda}^* B}}(U) \arrow[rr, "h"] & & E_{\R_{\iota_{\Lambda}^* C}}(U)
+      E_{\R_{\iota_{\Lambda}^* B}}(U) \arrow[rr, "(h)_n"] & & E_{\R_{\iota_{\Lambda}^* C}}(U)
     \end{tikzcd}
   \end{center}
-  Now, using functoriality of the pullback of the theory algebras in the coslice category $ (E_{\R_A}(U) \downarrow \AlgTh) $, and using the previous lemma, we get the following diagram of $ E_{\R_A}(U) $-algebras, which gives us the lift $ \bar h : \Alg{E_{\R_A}(U)}(B, C) $:
+  Now, using functoriality of the pullback of the theory algebras in the coslice category $ (E_{\R_A}(U) \downarrow \AlgTh) $, and using the previous lemma, we get the following diagram of $ E_{\R_A}(U) $-algebras:
   \begin{center}
     \begin{tikzcd}[sep = large]
       (a \mapsto \epsilon_A^{-1}(a) \bullet_B ())^* (E_{\R_{\iota_\Lambda^* B}}(U)_0)
-        \arrow[r, "(a \mapsto \epsilon_A^{-1}(a) \bullet ())^* h_0"]
+        \arrow[r, "(a \mapsto \epsilon_A^{-1}(a) \bullet ())^* h"]
         \arrow[d, "\epsilon_{\iota_\Lambda^* B}", "\sim"'] &
       (a \mapsto \epsilon_A^{-1}(a) \bullet_C ())^* (E_{\R_{\iota_\Lambda^* C}}(U)_0)
         \arrow[d, "\epsilon_{\iota_\Lambda^* C}", "\sim"']\\
       B \arrow[r, dashed, "\bar h"] & C
     \end{tikzcd}
   \end{center}
+  This gives us the lift
+  \[ \bar h = \epsilon_{\iota_\Lambda^* B}^{-1} \cdot (a \mapsto \epsilon_A^{-1}(a) \bullet ())^* h \cdot \epsilon_{\iota_\Lambda^* C} : \Alg{E_{\R_A}(U)}(B, C) \]
 
-  \TODO: Show that $ \bar h $ restricts to $ h $.
+  Now, when we again pull back this map to
+  \[ [a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n^* \bar h : \Alg{\Lambda_A}([a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n^* B, [a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n^* C). \]
+  Note that by naturality of $ \epsilon $, we have
+  \[ \bar h = \epsilon_{\iota_\Lambda^* B}^{-1} \cdot h \cdot \epsilon_{\iota_\Lambda^* C} = \epsilon_{\iota_\Lambda^* B}^{-1} \cdot \epsilon_{\iota_\Lambda^* B} \cdot h = h \]
+  as functions, and therefore $ [a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n^* \bar h = h $, so the pullback is full.
 \end{proof}
 
 \begin{lemma}
   $ \Lambda_A $ is isomorphic to $ E_{\R_A}(U) $ as an algebraic theory.
 \end{lemma}
 \begin{proof}
-  By the previous two lemmas, the pullback functor $ [a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n^* $ is a weak equivalence. Since algebra categories are univalent, this means that the pullback functor is an equivalence of categories. Then, by Lemma \ref{lem:algebra-pullback-equivalence}, $ [a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n : \AlgTh(\Lambda_A, E_{\R_A}(U)) $ is an isomorphism.
+  By Lemmas \ref{lem:pullback-essentially-surjective} and  \ref{lem:pullback-fully-faithful}, the pullback functor $ [a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n^* $ is a weak equivalence. Since algebra categories are univalent, this means that the pullback functor is an equivalence of categories. Then, by Lemma \ref{lem:algebra-pullback-equivalence}, $ [a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n : \AlgTh(\Lambda_A, E_{\R_A}(U)) $ is an isomorphism.
 \end{proof}
+
+Now, to show that we can replace the functor $ A \mapsto E_{\R_A}(U) $ by $ A \mapsto \Lambda_A $, we can show that the functors are isomorphic:
+
+\begin{lemma}
+  The isomorphisms $ [a \mapsto \epsilon_A^{-1}(a) \bullet_{E_{\R_A}(U)} (), \iota_{\Lambda_n}]_n : \AlgTh(\Lambda_A, E_{\R_A}(U)) $ form a natural isomorphism between the functors
+  \[ A \mapsto E_{\R_A}(U), \quad h \mapsto (h)_n \quad \text{and} \quad A \mapsto \Lambda_A, \quad h \mapsto \Lambda_h. \]
+\end{lemma}
+\begin{proof}
+  We must show that for all $ h: \Alg \Lambda(A, B) $ and for all $ n $, the following diagram of $ \Lambda $-algebras commutes:
+  \begin{center}
+    \begin{tikzcd}[sep = large]
+      A + \Lambda_n
+        \arrow[d, "h + \id{\Lambda_n}"']
+        \arrow[rr, "{[a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]}"]
+      && \iota_\Lambda^*(E_{\R_A}(U)_n)
+        \arrow[d, "h"]
+      \\ B + \Lambda_n
+        \arrow[rr, "{[a \mapsto \epsilon_B^{-1}(a) \bullet (), \iota_{\Lambda_n}]}"']
+      && \iota_\Lambda^*(E_{\R_B}(U)_n)
+    \end{tikzcd}
+  \end{center}
+  Now, by the universal property of the coproduct $ A + \Lambda_n $, it suffices to check that for all $ a : A $ and $ t : \Lambda_n $,
+  \[ h(\epsilon_A^{-1}(a) \bullet_{E_{\R_A}(U)} ()) = \epsilon_B^{-1}(h(a)) \bullet_{E_{\R_B}(U)} () \quad \text{and} \quad h(\iota_{\Lambda_n}(a)) = \iota_{\Lambda_n}(a). \]
+  The former follows from the fact that $ (h)_n : \LamTh(E_{\R_A}(U), E_{\R_B}(U)) $ respects the substitution and from the naturality of $ \epsilon^{-1} $:
+  \[ h(\epsilon_A^{-1}(a) \bullet_{E_{\R_A}(U)} ())
+    = h(\epsilon_A^{-1}(a)) \bullet_{E_{\R_B}(U)} ()
+    = \epsilon_B^{-1}(h(a)) \bullet_{E_{\R_B}(U)} (), \]
+  whereas the latter follows from the initiality of $ \Lambda $, and the fact that $ (h)_n : E_{\R_A}(U) \to E_{\R_B}(U) $ is a $ \lambda $-theory morphism.
+\end{proof}
+
+\begin{remark}
+  Now, note that for any $ \Lambda $-algebra $ A $, $ \Lambda_A $ is an algebraic theory. However, for our equivalence of categories, we need a functor to the category of $ \lambda $-theories. By the natural isomorphism above (which respects the algebraic theory structures), we see that the objects and morphisms in the images of $ E_{\R_-}(U) $ and $ \Lambda_- $ have `the same' algebraic theory structures, and we can transfer the additional $ \lambda $-theory structures from $ E_{\R_-}(U) $ to $ \Lambda_- $. With some abuse of notation, this yields a functor $ \Lambda_- : \Alg \Lambda \to \LamTh $.
+\end{remark}
 
 The final form of Hyland's representation theorem is the following:
 \begin{theorem}
   The functor that sends a $ \lambda $-theory $ L $ to the $ \Lambda $-algebra $ L_0 $ and the functor that sends a $ \Lambda $-algebra $ A $ to the theory of extensions $ \Lambda_A $ form an adjoint equivalence
   \[ \LamTh \cong \Alg \Lambda. \]
 \end{theorem}
+\begin{proof}
+  By \ref{thm:Hyland-fundamental-theorem}, we have an adjoint equivalence given by
+  \[ L \mapsto L_0 \quad \text{and} \quad A \mapsto E_{\R_A}(U). \]
+  By the previous lemma, the second functor is isomorphic to $ \Lambda_-: \Alg \Lambda \to \LamTh $. Therefore, we can replace one by the other.
+
+  There are two ways to see this: We may notice that we can transfer the unit, the counit and the two zigzag identities of the adjunction along the natural isomorphism and show that this all works together. As an alternative, we can also notice that the category of $ \lambda $-theories is univalent, so the functor category $ \Alg \Lambda \to \LamTh $ is univalent and the natural isomorphism between the functors is an equality, and we can replace one by the other.
+\end{proof}
