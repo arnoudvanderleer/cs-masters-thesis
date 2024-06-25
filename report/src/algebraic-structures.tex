@@ -180,6 +180,35 @@ Together, these form the category of $ \lambda $-theories \iindex{$ \LamTh $}.
   A $ \lambda $-theory algebra or presheaf is an algebra or presheaf for the underlying algebraic theory.
 \end{definition}
 
+\subsection{The $ \lambda $-calculus operations}\label{subsec:lambda-calculus-operations}
+Now, for a $ \lambda $-theory $ L $, we have variables $ x_{n, i} : L_n $ and $ \lambda $-abstraction $ f \mapsto \lambda(f) $. We will sometimes denote $ \lambda(f) $ as $ \lambda x_{n + 1}, f $ for $ f: L_{n + 1} $. Now, consider the element $ \rho(x_{1, 1}) : L_2 $.
+\begin{definition}
+  Using the substitution, we have binary operations on the $ L_n $, sending $ (f, g) : L_n \times L_n $ to $ \rho(x_{1, 1}) \bullet (f, g) : L_n $.
+\end{definition}
+We will denote $ \rho(x_{1, 1}) \bullet (f, g) $ as $ f g $, and this gives us our application operation, so we can interpret all three operations of the $ \lambda $-calculus in $ L $.
+
+\begin{remark}
+  Note that if $ L $ has $ \beta $-equality, we have
+  \[ \lambda(f) g = \rho(\lambda(f)) \bullet (x_1, \dots, x_n, g) = f \bullet (x_1, \dots, x_n, g), \]
+  so we have the usual $ \beta $ equality. In the same way $ \eta $-equality in $ L $ gives
+  \[ \lambda(\iota_{n, 1}(f) x_{n + 1}) = \lambda(\rho(f)) = f. \]
+\end{remark}
+\begin{remark}
+  Also that for $ f: L_n $,
+  \[ \rho(f) = \rho(x_1 \bullet f) = \iota_{n, 1}(f) x_{n + 1}. \]
+  Therefore, we can also think of the application as being the primary operation, from which we derive $ \rho $. In the same way, we have
+  \[ \rho^m(f) = \iota_{n, m}(f) x_{n + 1} \dots x_{n + m}. \]
+\end{remark}
+\begin{remark}
+  Note that for $ f, g : L_n $,
+  \[
+    \rho(f) \bullet (x_1, \dots, x_n, g)
+    = \rho(x_1) \bullet (\iota_{n, 1}(f), x_{n + 1}) \bullet (x_1, \dots, x_n, g)
+    = \rho(x_1) \bullet (\iota_{n, 1}(f), g),
+  \]
+  so we could also define the application as $ f g = \rho(f) \bullet (x_1, \dots, x_n, g) $, although that is more complicated.
+\end{remark}
+
 \section{Examples}
 
 There is a lot of different examples of algebraic theories and their algebras. Some of these even turn out to be $ \lambda $-theories. In this section, we will discuss a couple of these.
@@ -254,6 +283,8 @@ The proofs that $ F(S) $ is an algebraic theory and that $ F(f) $ and $ g $ are 
 
 \subsection{The free \texorpdfstring{$ \lambda $}{lambda}-theory on a set}
 
+In this subsection, we will use the $ \lambda $-calculus operations defined in Subsection \ref{subsec:lambda-calculus-operations}.
+
 Like with the free algebraic theory, we will construct the free $ \lambda $-theory as the smallest nontrivial $ \lambda $-theory (which is the $ \lambda $-calculus) with some additional constants.
 
 Let $ S $ be a set. Consider the sequence of inductive types $ (\Lambda(S)_n)_n $ with the following constructors:
@@ -294,11 +325,15 @@ Note that, like with the previous example, we have a forgetful functor $ (\dot)_
   sending $ f: \LamTh(\Lambda(S), L) $ to $ f_0 \vert_S: S \to L_0 $ (again, trivially natural in $ S $ and $ L $) and conversely, $ g: \SET(S, L_0) $ to the inductively defined $ f: \LamTh(\Lambda(S), L) $ given by
   \begin{align*}
     f(\mathtt{Var}(i)) &= x_i;\\
-    f(\mathtt{App}(a, b)) &= \rho(f(a)) \bullet ((x_{n, i})_i + (f(b)));\\
-    f(\mathtt{Abs}(a)) &= \lambda(f(a));\\
+    f(\mathtt{App}(a, b)) &= f(a) f(b);\\
+    f(\mathtt{Abs}(a)) &= \lambda x_{n + 1}, f(a);\\
     f(\mathtt{Con}(s)) &= g(s) \bullet ().
   \end{align*}
 \end{proof}
+
+\begin{remark}
+  One can also consider this lemma a proof that we can `interpret' the $ \lambda $-calculus with some constants inside any $ \lambda $-theory $ L $ if we give an interpretation of the constants as terms in $ L_0 $.
+\end{remark}
 
 The proofs that $ \Lambda(S) $ is indeed a $ \lambda $-theory and that $ \Lambda(f) $ and $ g $ are $ \lambda $-theory morphisms, mainly work by definition of $ \bullet $, $ \lambda $ and $ \rho $, by induction on the terms of $ \Lambda(S) $ and by invoking the properties of the $ \lambda $-theory $ L $.
 

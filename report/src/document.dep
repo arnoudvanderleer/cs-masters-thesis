@@ -192,5 +192,6 @@
   *{file}   {paper.tex}   {0000/00/00 v0.0}
   *{file}   {formalization.tex}{0000/00/00 v0.0}
   *{file}   {alternative-definitions.tex}{0000/00/00 v0.0}
+  *{file}   {weak-cartesian-closed.tex}{0000/00/00 v0.0}
   *{file}   {document.ind}{0000/00/00 v0.0}
 }
