@@ -2,8 +2,10 @@
 
 
 \section{Scott's Representation Theorem}
+
+Now, Scott's representation theorem, which asks whether we can represent any $ \lambda $-theory as the endomorphism theory of some reflexive object in some cartesian closed category, can be answered using the presheaf category.
 \begin{theorem}\label{thm:representation-theorem}
-  Any $ \lambda $-theory $ L $ is isomorphic to the endomorphism $ \lambda $-theory $ E(L) $ of $ L: \Pshf L $, which is $ L $, viewed as a presheaf in its own presheaf category.
+  Any $ \lambda $-theory $ L $ is isomorphic to the endomorphism $ \lambda $-theory $ E_{\Pshf L}(L) $, with $ L $ viewed as a presheaf.
 \end{theorem}
 \begin{proof}
   First of all, remember that $ L $ is indeed exponentiable and that $ L^L = A(L, 1) $.
@@ -11,6 +13,9 @@
 
   Remark \ref{rem:presheaf-Yoneda} gives a sequence of bijections $ \varphi_n : \Pshf L(L^n, L) \cong L_n $ for all $ n $, sending $ F: \Pshf L(L^n, L) $ to $ F(x_1, \dots, x_n) $, and conversely sending $ s: L_n $ to $ ((t_1, \dots, t_n) \mapsto s \bullet (t_1, \dots, t_n)) $. It considers $ \lambda $-terms in $ n $ variables as $ n $-ary functions on the $ \lambda $-calculus. Therefore, it should come as no surprise that $ \varphi $ preserves the $ x_i $, $ \bullet $, $ \rho $ and $ \lambda $, which makes it into an isomorphism of $ \lambda $-theories and this concludes the proof.
 \end{proof}
+So Hyland shows that the representation theorem follows largely from the fact that the functions from $ L_n $ to itself can be represented by $ L_{n + 1} $, together with the Yoneda lemma for the Lawvere theory associated to $ L $ (Remark \ref{rem:presheaf-Yoneda}).
+
+This proof is particularly nice, because it does not require $ \beta $- or $ \eta $-equality, but if $ L $ has $ \beta $- or $ \eta $-equality, then we can immediately see (even without the isomorphism from the theorem) that the endomorphism theory also has this property.
 
 \begin{remark}
   Actually, in this thesis we stumbled upon another category with a reflexive object that exhibits $ L $ as its endomorphism theory, provided that $ L $ has $ \beta $-equality: In Appendix \ref{ch:weak-cartesian-closed-categories}, we see that the Lawvere theory $ C $ associated to $ L $ is a weak cartesian closed category, in which $ 1^1 = 1 $. It is then easy to see that the endomorphism theory that we obtain from this reflexive object $ 1 $ is exactly equal to $ L $.
