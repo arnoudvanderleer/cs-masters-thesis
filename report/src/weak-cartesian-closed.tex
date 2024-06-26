@@ -1,4 +1,4 @@
-\chapter{Weak Cartesian Closed Categories}
+\chapter{Weak Cartesian Closed Categories}\label{ch:weak-cartesian-closed-categories}
 In Definition \ref{def:endomorphism-theory}, we defined the endomorphism $ \lambda $-theory of a reflexive object in a cartesian closed category. However, as it turns out, we do not need all of the properties of a cartesian closed category. It suffices to consider a \textit{weak} cartesian closed category. In fact, even a `semi cartesian closed category' will suffice, but in this section, we will restrict ourselves to a weak cartesian closed category, as this notion suits our purposes well enough.
 
 It seems that semi cartesian closed categories were first defined in \cite{hayashi-1985-semifunctors} and then \cite{hoofman-1993-semi-cartesian-closed} gave a slightly different definition, as well as the very related definition of a weak cartesian closed category. The latter paper also contains the construction of the endomorphism $ \lambda $-theory.
@@ -15,8 +15,12 @@ It seems that semi cartesian closed categories were first defined in \cite{hayas
   A \textit{weak cartesian closed category}\index{cartesian closed category!weak} is a category $ C $ with a terminal object and binary products, together with a choice for a semi-exponential object $ A^B $ for all $ A, B : C $.
 \end{definition}
 
+\begin{remark}
+  Since the requirements for semi-exponential objects do not involve the usual universal properties, a weak cartesian closed structure (or a semi-exponential object) is not unique up to isomorphism. For example, see example 2.1 and 2.2 in \cite{hoofman-1993-semi-cartesian-closed} for two distinct weak cartesian closed structures on a category.
+\end{remark}
+
 \begin{definition}
-  Let $ C $ a weak cartesian closed category. A \iindex{reflexive object} in $ C $ is an object $ U $ with morphisms $ f $ and $ g $, forming the following commutative diagram:
+  A \iindex{reflexive object} in a category $ C $ with binary products is an object $ U $ with an exponential $ U^U $ and morphisms $ f $ and $ g $, forming the following commutative diagram:
   \begin{center}
     \begin{tikzcd}
       U^U \arrow[dd, "\mathrm{cur}_{U^U}(\mathrm{ev})"'] \arrow[rd, "f"]\\
@@ -27,7 +31,7 @@ It seems that semi cartesian closed categories were first defined in \cite{hayas
 \end{definition}
 
 \begin{definition}
-  If we have a reflexive object $ (U, f, g) $ in a weak cartesian closed category $ C $, we can endow the endomorphism algebraic theory $ E_C(U) $ (Definition \ref{def:endomorphism-theory}) with a $ \lambda $-theory structure with $ \beta $-equality, with
+  If we have a reflexive object $ (U, f, g) $ in a category $ C $ with finite products, we can endow the endomorphism algebraic theory $ E_C(U) $ (Definition \ref{def:endomorphism-theory}) with a $ \lambda $-theory structure with $ \beta $-equality, with
   \[ \rho(s) = ((s \cdot g) \times \id U) \cdot \mathrm{ev} : C(U^{n + 1}, U) \]
   and
   \[ \lambda(t) = \mathrm{cur}_{U^n}(t) \cdot f : C(U^n, U) \]
@@ -38,29 +42,43 @@ It seems that semi cartesian closed categories were first defined in \cite{hayas
   The definition above indeed yields a $ \lambda $-theory with $ \beta $-equality.
 \end{lemma}
 \begin{proof}
-  We have
+  Note that for morphisms $ f: C(U^{m + 1}, U) $ and $ g: C(U^n, U)^m $,
+  \[ (\langle g_i \rangle_i \times \id U) \cdot f = f \bullet (\iota_{n, 1}(g_1), \dots, \iota_{n, 1}(g_m), x_{n + 1}). \]
+  Then
   \begin{align*}
     \rho(s \bullet t)
-    &= ((\langle t_i \rangle_i \cdot (s \cdot g)) \times \id U) \cdot \mathrm{ev}\\
+    &= ((\langle t_i \rangle_i \cdot s \cdot g) \times \id U) \cdot \mathrm{ev}\\
     &= (\langle t_i \rangle_i \times \id U) \cdot ((s \cdot g) \times \id U) \cdot \mathrm{ev}\\
-    &= \rho(s) \bullet ((\iota_{n, 1}(t_i))_i + (x_{n + 1, n + 1})),
+    &= \rho(s) \bullet ((\iota_{n, 1}(t_i))_i + (x_{n + 1})),
   \end{align*}
   \begin{align*}
     \lambda(s) \bullet t
     &= \langle t_i \rangle_i \cdot \mathrm{cur}(t) \cdot f\\
     &= \mathrm{cur}_{U^n}((\langle t_i \rangle_i \times \id U) \cdot t) \cdot f\\
-    &= \lambda(s \bullet ((\iota_{n, 1}(t_i))_i + (x_{n + 1, n + 1})))
+    &= \lambda(s \bullet ((\iota_{n, 1}(t_i))_i + (x_{n + 1}))),
   \end{align*}
-  and
+  where we use the property of $ \mathrm{cur} $, and
   \begin{align*}
     \rho(\lambda(s))
     &= \langle \pi_1 \cdot \mathrm{cur}_{U^n}(t) \cdot \mathrm{cur}_{U^U}(\mathrm{ev}), \pi_2 \rangle \cdot \mathrm{ev}\\
     &= \langle \pi_1 \cdot \mathrm{cur}_{U^n}(t), \pi_2 \rangle \cdot \mathrm{ev}\\
-    &= t.
+    &= t
   \end{align*}
+  where we use the property of $ \mathrm{ev} $ twice.
 \end{proof}
 
-Now, we will show that the semi-exponential objects satisfy some properties that justify the use of the exponential notation. These properties allow us to construct semi-exponentials on products, from the semi-exponentials of their components.
+We get the following as a special case, in which $ U^U $ is not only a retract of $ U $, but actually equal to $ U $.
+\begin{corollary}
+  Let $ L $ be an algebraic theory. Suppose that its associated Lawvere theory $ C $ is a weak cartesian closed category and suppose that for $ 1 : C $, we have $ 1^1 = 1 $. Then we can give $ L $ a $ \lambda $-theory structure with $ \beta $ equality, given by
+  \[ \lambda_n(s) = \mathrm{cur}_n(s) \quad \text{and} \quad \rho(t) = \mathrm{ev} \bullet ((\iota_{n, 1}(t_i))_i + (x_{n + 1})). \]
+\end{corollary}
+
+Now, we will show that the semi-exponential objects satisfy some properties that justify the use of the exponential notation. These properties allow us to construct semi-exponentials on products from the semi-exponentials of their components.
+\begin{remark}
+  Note that in a category $ C $ with a terminal object $ I $, we have exponential objects
+  \[ A^I = A \quad \text{and} \quad I^A = I \]
+  for all objects $ A $. Therefore, we get semi-exponential objects for free if we have a terminal object.
+\end{remark}
 
 \begin{lemma}
   Take $ A, A^\prime, B : C $. If $ A^B $ and $ {A^\prime}^B $ are semi-exponential objects, then $ A^B \times (A^\prime)^B $ is the semi-exponential object $ (A \times A^\prime)^B $.
@@ -108,19 +126,23 @@ Now, we will show that the semi-exponential objects satisfy some properties that
   which concludes the proof.
 \end{proof}
 
-Now, we can show that giving an algebraic theory a $ \lambda $-theory structure amounts to endowing its corresponding Lawvere theory (Lemma \ref{lem:lawvere-clone}) with a weak cartesian closed structure.
-\begin{lemma}
-  Let $ L $ be an algebraic theory. A weak cartesian closed category structure on its associated Lawvere theory gives a $ \lambda $-theory structure on $ L $.
-\end{lemma}
-\begin{proof}
-  \TODO
-\end{proof}
-
+Now, we can show that giving an algebraic theory a $ \lambda $-theory structure gives its corresponding Lawvere theory (Lemma \ref{lem:lawvere-clone}) a weak cartesian closed structure.
 \begin{lemma}
   Let $ L $ be a $ \lambda $-theory. Then its corresponding Lawvere theory $ C $ is a weak cartesian closed category.
 \end{lemma}
 \begin{proof}
   Note that by definition of a Lawvere theory, every $ n: C $ is the $ n $-fold product of $ 1 $. Therefore, binary products are given by addition on the natural numbers, and $ 0 $ is the terminal object.
 
-  \TODO
+  Now, we define $ 1^1 = 1 $, with
+  \[ \mathrm{ev} = \rho(x_1) : C(2, 1) \quad \text{and} \quad \mathrm{cur}_n(f) = \lambda(f) : C(n, 1) \]
+  for $ f: C(n + 1, 1) $. The following shows that this is indeed a semi-exponential object:
+  \[
+    \rho(x_1) \bullet (\lambda(f) \bullet g, h) = \rho(x_1 \bullet \lambda(f)) \bullet (g + (h)) = f \bullet (g + (h)) \]
+  and
+  \[ \lambda(f \bullet ((\iota_{n, 1}(g_i))_i + (x_{n + 1, n + 1}))) = \lambda(f) \bullet g \]
+  Now, by the remark and the lemmas above, we have for $ m, n: C $ (both nonzero),
+  \[ m^n = (1 \times \dots \times 1)^n = 1^n \times \dots \times 1^n \]
+  and
+  \[ 1^n = 1^{1 \times \dots \times 1} = ((1^1)^1\dots)^1 = 1 \]
+  so $ C $ has semi-exponential objects and it is a weak cartesian closed category.
 \end{proof}

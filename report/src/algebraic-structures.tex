@@ -157,6 +157,16 @@ For tuples $ x : X^m $ and $ y: X^n $, let $ x + y $ denote the tuple $ (x_1, \d
   for all $ f: L_{m + 1} $, $ g: L_m $ and $ h: L_n^m $.
 \end{definition}
 
+\begin{remark}
+  Hyland claims that `a $ \lambda $-theory is an algebraic theory $ L $ equipped with semi-closed structure'. By `semi-closed structure', he probably means the structure of a semi cartesian closed category on the Lawvere theory associated to $ L $ (Lemma \ref{lem:lawvere-clone}). Because a Lawvere theory has finite products, we even would have a weak cartesian closed category. For more information about weak cartesian closed categories, see Appendix \ref{ch:weak-cartesian-closed-categories}.
+
+  In the appendix, we see that a $ \lambda $-theory structure on an algebraic theory $ L $ gives its associated Lawvere theory $ C $ a weak cartesian closed structure with the exponential object $ 1^1 $ equal to $ 1 $. Conversely, we can give $ L $ a $ \lambda $-theory structure from a weak cartesian closed structure on $ C $ where $ 1 $ is a reflexive object. Note that we really need $ 1 $ to be a reflexive object to make the construction work.
+
+  However, note that a weak cartesian closed structure on $ C $ with $ 1 $ a reflexive object contains more information than a $ \lambda $-theory structure on $ L $: If we have a $ \lambda $-theory structure on $ L $, then construct from this a weak cartesian closed category structure with $ 1^1 = 1 $ on $ C $ and derive from this again a $ \lambda $-theory structure on $ L $, we get the same $ \lambda $-theory structure that we started out with. If, on the other hand, we go from a weak cartesian closed structure where $ 1 $ is a reflexive object to a $ \lambda $-theory structure and then to a weak cartesian closed structure again, we might end up with a different structure than the one that we started out with. This is because a weak cartesian closed structure is not necessarily unique up to isomorphism. In particular, we construct semi-exponential objects $ m^n $ which are equal to $ m $ for all $ m, n : C $, and derive their data, $ \mathrm{ev} $ and $ \mathrm{cur} $, from just the data of $ 1^1 $ in the original weak cartesian closed structure. Therefore, there are enough ways in which the resulting weak cartesian closed structure can differ from the original one.
+
+  Note that here, we really need a choice for the exponential objects. It is not enough to just ask for the mere existence of semi-exponential objects. This is because we need the information contained in $ \mathrm{ev}: L_2 $ and $ \mathrm{cur} : L_{n + 1} \to L_n $ to define $ \lambda $ and $ \rho $.
+\end{remark}
+
 Together, these form the category of $ \lambda $-theories \iindex{$ \LamTh $}.
 
 \begin{definition}[$ \beta $- and $ \eta $-equality]
