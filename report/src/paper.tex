@@ -12,6 +12,12 @@
   Remark \ref{rem:presheaf-Yoneda} gives a sequence of bijections $ \varphi_n : \Pshf L(L^n, L) \cong L_n $ for all $ n $, sending $ F: \Pshf L(L^n, L) $ to $ F(x_1, \dots, x_n) $, and conversely sending $ s: L_n $ to $ ((t_1, \dots, t_n) \mapsto s \bullet (t_1, \dots, t_n)) $. It considers $ \lambda $-terms in $ n $ variables as $ n $-ary functions on the $ \lambda $-calculus. Therefore, it should come as no surprise that $ \varphi $ preserves the $ x_i $, $ \bullet $, $ \rho $ and $ \lambda $, which makes it into an isomorphism of $ \lambda $-theories and this concludes the proof.
 \end{proof}
 
+\begin{remark}
+  Actually, in this thesis we stumbled upon another category with a reflexive object that exhibits $ L $ as its endomorphism theory, provided that $ L $ has $ \beta $-equality: In Appendix \ref{ch:weak-cartesian-closed-categories}, we see that the Lawvere theory $ C $ associated to $ L $ is a weak cartesian closed category, in which $ 1^1 = 1 $. It is then easy to see that the endomorphism theory that we obtain from this reflexive object $ 1 $ is exactly equal to $ L $.
+
+  Note, however, that this is technically not an answer to Scott's original theorem, because the original formulation asks for a cartesian closed category with a reflexive object, whereas here we only have a reflexive object in a weak cartesian closed category. Even so, it is an answer to the core of the question, which is about whether we can represent any $ \lambda $-theory as the sets of morphisms $ C(U^n, U) $ for some $ U : C $.
+\end{remark}
+
 \section{Relations between the categories}
 
 As mentioned before, we have a fully faithful embedding of $ \R $ into $ \Pshf L $.

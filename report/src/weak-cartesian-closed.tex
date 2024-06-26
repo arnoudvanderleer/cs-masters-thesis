@@ -69,7 +69,7 @@ It seems that semi cartesian closed categories were first defined in \cite{hayas
 
 We get the following as a special case, in which $ U^U $ is not only a retract of $ U $, but actually equal to $ U $.
 \begin{corollary}
-  Let $ L $ be an algebraic theory. Suppose that its associated Lawvere theory $ C $ is a weak cartesian closed category and suppose that for $ 1 : C $, we have $ 1^1 = 1 $. Then we can give $ L $ a $ \lambda $-theory structure with $ \beta $ equality, given by
+  Let $ L $ be an algebraic theory. Suppose that its associated Lawvere theory $ C $ is a weak cartesian closed category and suppose that for $ 1 : C $, we have $ 1^1 = 1 $. Then we can give $ L $ a $ \lambda $-theory structure with $ \beta $-equality, given by
   \[ \lambda_n(s) = \mathrm{cur}_n(s) \quad \text{and} \quad \rho(t) = \mathrm{ev} \bullet ((\iota_{n, 1}(t_i))_i + (x_{n + 1})). \]
 \end{corollary}
 
@@ -128,7 +128,7 @@ Now, we will show that the semi-exponential objects satisfy some properties that
 
 Now, we can show that giving an algebraic theory a $ \lambda $-theory structure gives its corresponding Lawvere theory (Lemma \ref{lem:lawvere-clone}) a weak cartesian closed structure.
 \begin{lemma}
-  Let $ L $ be a $ \lambda $-theory. Then its corresponding Lawvere theory $ C $ is a weak cartesian closed category.
+  Let $ L $ be a $ \lambda $-theory with $ \beta $-equality. Its corresponding Lawvere theory $ C $ is a weak cartesian closed category.
 \end{lemma}
 \begin{proof}
   Note that by definition of a Lawvere theory, every $ n: C $ is the $ n $-fold product of $ 1 $. Therefore, binary products are given by addition on the natural numbers, and $ 0 $ is the terminal object.
@@ -136,8 +136,7 @@ Now, we can show that giving an algebraic theory a $ \lambda $-theory structure 
   Now, we define $ 1^1 = 1 $, with
   \[ \mathrm{ev} = \rho(x_1) : C(2, 1) \quad \text{and} \quad \mathrm{cur}_n(f) = \lambda(f) : C(n, 1) \]
   for $ f: C(n + 1, 1) $. The following shows that this is indeed a semi-exponential object:
-  \[
-    \rho(x_1) \bullet (\lambda(f) \bullet g, h) = \rho(x_1 \bullet \lambda(f)) \bullet (g + (h)) = f \bullet (g + (h)) \]
+  \[ \rho(x_1) \bullet (\lambda(f) \bullet g, h) = \rho(x_1 \bullet \lambda(f)) \bullet (g + (h)) = f \bullet (g + (h)) \]
   and
   \[ \lambda(f \bullet ((\iota_{n, 1}(g_i))_i + (x_{n + 1, n + 1}))) = \lambda(f) \bullet g \]
   Now, by the remark and the lemmas above, we have for $ m, n: C $ (both nonzero),
@@ -146,3 +145,11 @@ Now, we can show that giving an algebraic theory a $ \lambda $-theory structure 
   \[ 1^n = 1^{1 \times \dots \times 1} = ((1^1)^1\dots)^1 = 1 \]
   so $ C $ has semi-exponential objects and it is a weak cartesian closed category.
 \end{proof}
+
+\begin{remark}
+  Note that if $ L $ has both $ \beta $- and $ \eta $-equality, then for $ 1^1 $,
+  \[ \mathrm{cur}: C(n + 1, 1) \to C(n, 1), \]
+  which is given by $ \lambda $, has an inverse given by $ \rho $. Furthermore, since $ \lambda $ and $ \rho $ respect substitution, these constitute a natural isomorphism between $ C(- + 1, 1) $ and $ C(-, 1) $, so the semi-exponential object $ 1^1 = 1 $ is in fact an exponential object. Then we have for all $ m $ and $ n $, an exponential object
+  \[ m^n = (1 \times \dots \times 1)^{1 \times \dots \times 1} = 1^{1 \times \dots \times 1} \times \dots \times 1^{1 \times \dots \times 1} = 1 \times \dots \times 1 = m, \]
+  so $ C $ is cartesian closed.
+\end{remark}
