@@ -76,6 +76,12 @@ Together, these form the category of $ T $-algebras \iindex{$ \Alg T $}.
 \end{remark}
 
 \begin{remark}
+  The notions of algebraic theories and their algebras stem from the field of \iindex{universal algebra}. In universal algebra, one studies the `collections of algebraic structures'. For example, the collection of monoids: a monoid is a set with an associative binary operation and an identity element. Other examples of collections are those of abelian monoids, (abelian) groups or (commutative) rings. As we will see in Example \ref{ex:free-monoid-theory}, one can construct an algebraic theory $ T $ such that the category of monoids is equivalent to $ \Alg T $, and we can do very similar things for the other structures mentioned. Therefore, one could say that universal algebra studies algebraic theories and their algebras (or `models').
+
+  Any category that is equivalent to $ \Alg T $ for some algebraic theory $ T $ is called \iindex{algebraic}. For example, in Remark \ref{rem:free-theory-algebra-set}, we will see that $ \SET $ is algebraic. By the remark above, an algebraic category has all limits. It turns out that it also has all colimits (see Lemma \ref{lem:algebra-coproducts} for binary coproducts, or \autocite{algebraic-theories-2010}, Part 1, Theorem 4.5 for general colimits). Note, however, that this proof is a lot more complicated than the proof about limits, just like colimits of algebraic objects usually are more complicated than limits. For example, consider (binary) coproducts of groups.
+\end{remark}
+
+\begin{remark}
   Note that for an algebraic theory $ T $, the $ T_n $ are algebras for $ T $, with the action given by $ \bullet $.
 \end{remark}
 
@@ -221,6 +227,12 @@ This means that we can interpret all three operations of the $ \lambda $-calculu
   so we could also define the application as $ f g = \rho(f) \bullet (x_1, \dots, x_n, g) $, although that is more complicated.
 \end{remark}
 
+\begin{remark}
+  Now, there are two ways to study $ \lambda $-calculus-like structures using the tools given here. We can study $ \lambda $-theories, which by the reasoning above have a $ \lambda $-calculus structure. Alternatively, we can try to study the $ \lambda $-calculus-like structures as algebras for some algebraic theory $ \Lambda $. However, it is not clear beforehand that this will succeed, because there is no reason why this category should be algebraic. In particular, $ \lambda $-abstraction causes problems, because it is not an algebraic operation. Of course, we can still do exactly the same as in Example \ref{ex:free-monoid-theory}: We can let $ \Lambda_n $ be the set of $ \Lambda $-terms with constants $ x_1, \dots, x_n $, which we can also regard as free variables (see Definition \ref{def:pure-lambda-calculus}), and study the category $ \Alg \Lambda $.
+
+  Later on, we will see that these two ways of studying $ \lambda $-calculus-like structures do coincide: we will see that the category $ \LamTh $ is indeed algebraic, and moreover, that the objects of $ \Alg \Lambda $ are equivalent to $ \lambda $-theories.
+\end{remark}
+
 \section{Examples}
 
 There is a lot of different examples of algebraic theories and their algebras. Some of these even turn out to be $ \lambda $-theories. In this section, we will discuss a couple of these.
@@ -289,7 +301,7 @@ The proofs that $ F(S) $ is an algebraic theory and that $ F(f) $ and $ g $ are 
   $ F(\emptyset) $ is, in some sense, the smallest nontrivial algebraic theory. Then $ F(S) $ is the smallest nontrivial algebraic theory that has the elements of $ S $ as constants.
 \end{remark}
 
-\begin{remark}
+\begin{remark}\label{rem:free-theory-algebra-set}
   Note that the category of $ F(\emptyset) $-algebras is equivalent to the coslice-category $ (\emptyset \downarrow \SET) $, which, since $ \emptyset $ is the initial set, is just equivalent to $ \SET $.
 \end{remark}
 
@@ -349,12 +361,13 @@ Note that, like with the previous example, we have a forgetful functor $ (\dot)_
 
 The proofs that $ \Lambda(S) $ is indeed a $ \lambda $-theory and that $ \Lambda(f) $ and $ g $ are $ \lambda $-theory morphisms, mainly work by definition of $ \bullet $, $ \lambda $ and $ \rho $, by induction on the terms of $ \Lambda(S) $ and by invoking the properties of the $ \lambda $-theory $ L $.
 
+\begin{definition}\label{def:pure-lambda-calculus}
+  We define the `pure' $ \lambda $-calculus $ \Lambda $ to be $ \Lambda(\emptyset) $.
+\end{definition}
+
 \begin{corollary}
-  The `pure' lambda calculus is the initial $ \lambda $-theory.
+  $ \Lambda $ is the initial $ \lambda $-theory.
 \end{corollary}
-\begin{proof}
-  If we take $ S = \emptyset $, $ \Lambda(\emptyset) $ is the lambda calculus, which we will call $ \Lambda $. We have, like with the free algebraic theory, that $ \Lambda(\emptyset) $ is the initial $ \lambda $-theory.
-\end{proof}
 
 \subsubsection{About $ \Lambda $-algebra morphisms}
 
