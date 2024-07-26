@@ -15,7 +15,6 @@
 \end{definition}
 
 \begin{remark}
-  \TODO Say something about universal algebra
   For equivalent definitions of different kinds, see Chapter \ref{ch:alternative-definitions}.
 \end{remark}
 
@@ -104,8 +103,46 @@ Actually, we can recover some information about the algebraic theory morphism fr
   If $ f^* $ is an equivalence of categories, $ f $ is an isomorphism.
 \end{lemma}
 \begin{proof}
-  \TODO
+  \TODO Move to after the theory algebra, because we need that.
+
+  Note that to show that $ f $ is an isomorphism, we only need to show that the $ f_n $ are bijections. From the fact that we have inverse functions $ g_n : \SET(T, T^\prime) $ for the $ f_n $, and the fact that $ f $ is an algebraic theory morphism, we know that $ (g_n)_n $ is an algebraic theory morphism as well, and that it is the inverse of $ f $.
+
+  First of all, note that for all $ n : \mathbb N $ and $ B : \Alg T $, the following diagram in $ \SET $ commutes:
+  \begin{center}
+    \begin{tikzcd}
+      \Alg T(T_n, B) \arrow[r, "f^*"] \arrow[d, "\sim"] & \Alg{T^\prime}(f^* T_n, f^* B) \arrow[d, "\bar f_n \cdot -"]\\
+      B^n \arrow[r, "\sim"] & \Alg{T^\prime}(T^\prime_n, f^* B)
+    \end{tikzcd}
+  \end{center}
+  % \[ (g : T_n \to B) \mapsto (g: T_n \to B) \mapsto (f \cdot g : T^\prime_n \to B) \]
+  % \[ (g : T_n \to B) \mapsto ((g x_i)_i : B^n) \mapsto (s \mapsto s \bullet_{f^* B} (g x_i)_i) \]
+  % \[
+  %   s \bullet_{f^* B} (g x_i)_i
+  %   = f(s) \bullet (g x_i)_i
+  %   = g(f(s) \bullet (x_i)_i)
+  %   = g(f(s))
+  % \]
+  with $ \bar f_n: T^\prime_n \to f^* T_n $ the $ T^\prime $-algebra morphism with underlying function $ f_n $. Note that $ f^* $ is fully faithful, so the function at the top is a bijection, and so precomposition by $ \bar f_n $ is a bijection as well. Since $ f^* $ is essentially surjective, we have for all $ A : \Alg T^\prime $, some $ B : \Alg T $ and an isomorphism $ h: f^* B \xrightarrow \sim A $, which gives the following commutative diagram:
+  \begin{center}
+    \begin{tikzcd}
+      \Alg{T^\prime}(f^* T_n, f^* B) \arrow[d, "\bar f_n \cdot -", "\sim"'] \arrow[r, "- \cdot h"', "\sim"] & \Alg{T^\prime}(f^* T_n, A) \arrow[d, "\bar f_n \cdot -"]\\
+      \Alg{T^\prime}(T^\prime_n, f^* B) \arrow[r, "- \cdot h"', "\sim"] & \Alg{T^\prime}(T^\prime_n, A)
+    \end{tikzcd}
+  \end{center}
+  so the arrow on the right is an equivalence as well. Taking $ A = T^\prime_n $, there exists some $ g: \Alg{T^\prime}(f^* T_n, T^\prime_n) $ such that $ \bar f_n \cdot g = \id{T^\prime_n} $. Also, note that
+  \[ \bar f_n \cdot g \cdot \bar f_n = \bar f_n \cdot \id{f^* T_n} \]
+  so taking $ A = f^* T_n $, we see that
+  \[ g \cdot \bar f_n = \id{f^* T_n}, \]
+  so $ f_n $, the underlying function of $ \bar f_n $, is a bijection, with inverse $ g $.
 \end{proof}
+
+\begin{remark}
+  Hyland's proof of this fact is almost the same, but in the last part, he uses some category theory. Instead of explicitly constructing the inverse, he notices that the bijection
+  \[ \Alg{T^\prime}(f^* T_n, A) \xrightarrow[\bar f_n \cdot -] \sim \Alg{T^\prime}(T^\prime_n, A) \]
+  is in fact the image of $ \bar f_n $ under the (covariant) Yoneda embedding of $ \Alg{T^\prime} $ into the functor category $ \Alg{T^\prime} \to \SET $:
+  \[ \hat Y(\bar f_n): \hat Y(f^* T_n) \to \hat Y(T^\prime_n). \]
+  Since the Yoneda embedding is fully faithful, this shows that $ \bar f_n $ is an isomorphism of $ T^\prime $-algebras, so in particular, it is a bijection.
+\end{remark}
 
 We can also consider the category of `all' algebraic theory algebras together. That is, the category $ C $ with $ C_0 = \sum_{T : \AlgTh}, \Alg T $ and $ C((T, A), (T^\prime, A^\prime)) $ consisting of pairs $ (f, f^\prime): \AlgTh(T, T^\prime) \times \SET(A, A^\prime) $ such that for all $ t: T_n $ and $ a: A^n $,
 \[ f^\prime(t \bullet a) = f(t) \bullet (f^\prime(a_i))_i. \]
@@ -227,7 +264,7 @@ This means that we can interpret all three operations of the $ \lambda $-calculu
   so we could also define the application as $ f g = \rho(f) \bullet (x_1, \dots, x_n, g) $, although that is more complicated.
 \end{remark}
 
-\begin{remark}
+\begin{remark}\label{rem:lambda-theory-or-algebra}
   Now, there are two ways to study $ \lambda $-calculus-like structures using the tools given here. We can study $ \lambda $-theories, which by the reasoning above have a $ \lambda $-calculus structure. Alternatively, we can try to study the $ \lambda $-calculus-like structures as algebras for some algebraic theory $ \Lambda $. However, it is not clear beforehand that this will succeed, because there is no reason why this category should be algebraic. In particular, $ \lambda $-abstraction causes problems, because it is not an algebraic operation. Of course, we can still do exactly the same as in Example \ref{ex:free-monoid-theory}: We can let $ \Lambda_n $ be the set of $ \Lambda $-terms with constants $ x_1, \dots, x_n $, which we can also regard as free variables (see Definition \ref{def:pure-lambda-calculus}), and study the category $ \Alg \Lambda $.
 
   Later on, we will see that these two ways of studying $ \lambda $-calculus-like structures do coincide: we will see that the category $ \LamTh $ is indeed algebraic, and moreover, that the objects of $ \Alg \Lambda $ are equivalent to $ \lambda $-theories.
@@ -331,7 +368,7 @@ And then quotient $ \Lambda(S) $ by the relation generated by
 \[ \mathtt{App}_m(\mathtt{Abs}_m(f), g) \sim f \bullet ((x_{n, i})_i + (g)) \]
 for all $ f: \Lambda(S)_{n + 1} $ and $ g: \Lambda(S)_n $.
 
-\begin{example}
+\begin{example}\label{ex:free-lambda-theory}
   We can give the sequence of sets $ \Lambda(S) $ an algebraic theory structure with variables $ x_{m, i} = \mathtt{Var}_m(i) $ and the substitution operator $ \bullet $ defined above. We can give $ \Lambda(S) $ a $ \lambda $-theory structure with $ \beta $-equality by taking
   \[ \lambda_n(f) = \mathtt{Abs}_n(f) \quad \text{and} \quad \rho_n(f) = \mathtt{App}_{n + 1}(f \bullet (\mathtt{Var}_{n + 1}(i))_i, \mathtt{Var}_{n + 1}(n + 1)). \]
 
