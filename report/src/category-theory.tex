@@ -151,24 +151,69 @@ We can embed a category $ C $ fully faithfully into the functor category $ P C =
 
 Now, this embedding has a couple of properties:
 \begin{lemma}
-  For any $ c: C $ and $ F : PC $, we have an equivalence $ PC(Y(c), F) \simeq F(c) $, and this equivalence is natural in $ c $ and $ F $.
+  For any $ A: C $ and $ F : P C $, we have an equivalence $ P C(Y(A), F) \simeq F(A) $, and this equivalence is natural in $ c $ and $ F $.
 \end{lemma}
 \begin{proof}
-  See \autocite{Kashiwara}, Proposition 1.4.3.
+  It sends a natural transformation $ \alpha: P C(Y(A), F) $ to the element $ \alpha_A(\id A) $. Conversely, it sends an element $ x : P(A) $ to the natural transformation $ \alpha $ given by $ \alpha_B(f) = P(f)(x) $ for all $ f: Y(A)(B) = C(B, A) $. For more details, see \autocite{Kashiwara}, Proposition 1.4.3.
+\end{proof}
+
+\begin{remark}
+  For any category $ D $, the category $ [C, D] $ has (co)limits of some kind (terminal or initial object, (co)products, (co)equalizers) iff $ D $ does. These (co)limits are computed pointwise: for example, for binary products, $ (F \times G)(X) = F(X) \times G(X) $. In particular $ P C $ has all limits and colimits because $ \SET $ has all limits and colimits.
+\end{remark}
+
+\begin{remark}
+  Also, for any small category $ C $ (small means that the collection of objects is a type in our type universe. For example: $ \TYPE $ or $ \SET $ are not small categories, because a type cannot contain itself), the presheaf category $ P C $ has exponential objects, given by
+  \[ (F^G)(X) = \hom{PC}(Y(X) \times G, F) \]
+  the natural transformations from the product functor of the Yoneda embedding of $ X $ and $ G $, to $ F $ (see \autocite{MacLane-Moerdijk}, Section I.6, Proposition 1).
+\end{remark}
+
+\begin{definition}
+  Suppose that we have a functor $ F: C \to D $, and $ C $ and $ D $ both have binary products. Then for $ A, B : C $, we have morphisms $ \pi_1: A \times B \to A $ and $ \pi_2 : A \times B \to B $ and applying $ F $ to these yields morphisms from $ F(A \times B) $ to $ F(A) $ and $ F(B) $. We then have a product morphism
+  \[ \langle F(\pi_1), F(\pi_2) \rangle: F(A \times B) \to F(A) \times F(B). \]
+  Now, if this morphism is an isomorphism for all $ A, B : C $, we say that $ F $ \index{preservation of binary products}\textit{preserves binary products}.
+
+  One can imagine that there exists a similar definition of preservation of limits in general, in which the limit morphism of $ F $ applied to the projections from the limit is an isomorphism for any limit in $ C $.
+\end{definition}
+
+\begin{definition}\label{def:exponentials-preservation}
+  Suppose that we have a functor $ F: C \to D $ that preserves binary products, and $ C $ and $ D $ have exponential objects. Then for $ A, B : C $, we have natural bijections
+  \[ \varphi: C(A^B \times B, A) \xrightarrow \sim C(A^B, A^B) \quad \text{and} \quad \psi: D(F(A^B) \times F(B), F(A)) \xrightarrow \sim D(F(A^B), F(A)^{F(B)}) \]
+  This gives a morphism $ F(\varphi^{-1}(\id{A^B})) : D(F(A^B \times B), F(A)) $. Precomposing with the inverse of the isomorphism $ f: F(A^B \times B) \xrightarrow \sim F(A^B) \times F(B) $ and applying $ \psi $ gives
+  \[ \psi(f^{-1} \cdot \varphi^{-1}(\id{A^B})) : D(F(A^B), F(A)^{F(B)}). \]
+  We say that $ F $ \index{preservation of exponentials}\textit{preserves exponentials} if this morphism is an isomorphism for all $ A, B : C $. A name for a functor that preserves exponentials is a\iindex{cartesian functor}.
+\end{definition}
+
+\begin{lemma}
+  The Yoneda embedding preserves limits.
+\end{lemma}
+\begin{proof}
+  See \autocite{borceux}, Volume 1, Proposition 2.15.5 for the full proof, but note that for binary products, we have bijections
+  \[ Y(A \times B)(X) \xrightarrow \sim Y(A)(X) \times Y(B)(X) \]
+  sending $ f : C(X, A \times B) $ to the pair $ (f \cdot \pi_1, f \cdot \pi_2) $ and conversely, sending a pair $ (g_1, g_2) : C(X, A) \times Y(X, B) $ to the product morphism $ \langle g_1, g_2 \rangle : Y(X, A \times B) $. This idea is the core of the proof about all limits.
 \end{proof}
 
 \begin{lemma}
-  The Yoneda embedding functor preserves limits.
+  The Yoneda embedding preserves exponentials.
 \end{lemma}
 \begin{proof}
-  See \autocite{borceux}, Volume 1, Proposition 2.15.5.
-\end{proof}
+  First of all, note that for $ A, B, X : C $, we have a sequence of isomorphisms  (\autocite{stackexchange:yoneda-exponentials})
+  \begin{align*}
+    Y(A^B)(X) &\cong P C(Y(X), Y(A^B))\\
+    &\cong C(X, A^B)\\
+    &\cong C(X \times B, A)\\
+    &\cong P C(Y(X \times B), Y(A))\\
+    &\cong P C(Y(X) \times Y(B), Y(A))\\
+    &\cong P C(Y(X), Y(A)^Y(B))\\
+    &\cong (Y(A)^Y(B))(X)
+  \end{align*}
+  using (once or twice) the Yoneda lemma, fully faithfulness of the Yoneda embedding, the property of the exponential object, and the fact that the Yoneda embedding preserves binary products.
 
-\begin{lemma}
-  The Yoneda embedding functor is \iindex{cartesian}. That is, not only does it preserve binary products, but it also preserves exponential objects (\autocite{stackexchange:yoneda-exponentials}).
-\end{lemma}
-\begin{proof}
-  \TODO
+  Some calculating shows that when applying this isomorphism to some $ f: Y(A^B)(X) $, we get the natural transformation $ h: P C(Y(X) \times Y(B), Y(A)) $ given by
+  \[ h_Z(g_1, g_2) = \langle g_1, g_2 \rangle \cdot \varphi^{-1}(f) \]
+  for all $ Z: C $ and $ (g_1, g_2) : Y(X)(Z) \times Y(B)(Z) $ and with the natural bijection
+  \[ \varphi: C(X \times B, A) \xrightarrow \sim C(X, A^B). \]
+
+  It turns out that when we apply the morphism in Definition \ref{def:exponentials-preservation} to $ f $, we get exactly the same natural transformation. Therefore, the morphism in Definition \ref{def:exponentials-preservation} is the isomorphism defined here and we conclude that $ Y $ preserves exponentials.
 \end{proof}
 
 For a functor between categories $ f: C \to D $, given the Yoneda embeddings $ Y_C : C \to P C $ and $ Y_D : D \to P D $ (we will often omit the subscript $ C $ and $ D $), we can create a diagram

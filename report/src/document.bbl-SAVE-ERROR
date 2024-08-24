@@ -1,0 +1,984 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{anyt/global//global/global}
+    \entry{monads-endofunctors}{article}{}
+      \name{author}{3}{}{%
+        {{hash=62cda4f4e1cc73c03e917b2579a5699e}{%
+           family={Altenkirch},
+           familyi={A\bibinitperiod},
+           given={Thosten},
+           giveni={T\bibinitperiod}}}%
+        {{hash=ccdd3669aff26ae10f05232050c4c807}{%
+           family={Chapman},
+           familyi={C\bibinitperiod},
+           given={James},
+           giveni={J\bibinitperiod}}}%
+        {{hash=ee50513d1a9288cce2900f00506e9fe4}{%
+           family={Uustalu},
+           familyi={U\bibinitperiod},
+           given={Tarmo},
+           giveni={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{9b7e204093b4ce8e88b1929197195d57}
+      \strng{fullhash}{9b7e204093b4ce8e88b1929197195d57}
+      \strng{bibnamehash}{9b7e204093b4ce8e88b1929197195d57}
+      \strng{authorbibnamehash}{9b7e204093b4ce8e88b1929197195d57}
+      \strng{authornamehash}{9b7e204093b4ce8e88b1929197195d57}
+      \strng{authorfullhash}{9b7e204093b4ce8e88b1929197195d57}
+      \field{labelalpha}{ACU14}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Logical Methods in Computer Science, Volume 11, Issue 1 (March 6, 2015) lmcs:928}
+      \field{title}{Monads need not be endofunctors}
+      \field{year}{2014}
+      \verb{doi}
+      \verb 10.2168/LMCS-11(1:3)2015
+      \endverb
+      \verb{eprint}
+      \verb arXiv:1412.7148
+      \endverb
+    \endentry
+    \entry{univalent-categories}{article}{}
+      \name{author}{3}{}{%
+        {{hash=5e0b29e8a40c8ddb6f6748f3a24cf951}{%
+           family={Ahrens},
+           familyi={A\bibinitperiod},
+           given={Benedikt},
+           giveni={B\bibinitperiod}}}%
+        {{hash=8636affeaba3a15963fc3a3fc1b2ee5a}{%
+           family={Kapulkin},
+           familyi={K\bibinitperiod},
+           given={Krzysztof},
+           giveni={K\bibinitperiod}}}%
+        {{hash=a49cc4742950659ae680e1c40f2295a9}{%
+           family={Shulman},
+           familyi={S\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press (CUP)}%
+      }
+      \strng{namehash}{ab490f42db5a26cf2ce783c7e914c15d}
+      \strng{fullhash}{ab490f42db5a26cf2ce783c7e914c15d}
+      \strng{bibnamehash}{ab490f42db5a26cf2ce783c7e914c15d}
+      \strng{authorbibnamehash}{ab490f42db5a26cf2ce783c7e914c15d}
+      \strng{authornamehash}{ab490f42db5a26cf2ce783c7e914c15d}
+      \strng{authorfullhash}{ab490f42db5a26cf2ce783c7e914c15d}
+      \field{labelalpha}{AKS15}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{1469-8072}
+      \field{journaltitle}{Mathematical Structures in Computer Science}
+      \field{month}{1}
+      \field{number}{5}
+      \field{title}{Univalent categories and the Rezk completion}
+      \field{volume}{25}
+      \field{year}{2015}
+      \field{pages}{1010\bibrangedash 1039}
+      \range{pages}{30}
+      \verb{doi}
+      \verb 10.1017/s0960129514000486
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1017/S0960129514000486
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1017/S0960129514000486
+      \endverb
+    \endentry
+    \entry{algebraic-theories-2010}{book}{}
+      \name{author}{3}{}{%
+        {{hash=d271afb9dd5fb30170c919f13fd4d084}{%
+           family={Adámek},
+           familyi={A\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=e1ad3075500ad39c3e014432fa40e313}{%
+           family={Rosický},
+           familyi={R\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=42ac1718edccc631fbd810d607616ae8}{%
+           family={Vitale},
+           familyi={V\bibinitperiod},
+           given={E.\bibnamedelimi M.},
+           giveni={E\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{5da84f8a913b5957a9c1d02889089948}
+      \strng{fullhash}{5da84f8a913b5957a9c1d02889089948}
+      \strng{bibnamehash}{5da84f8a913b5957a9c1d02889089948}
+      \strng{authorbibnamehash}{5da84f8a913b5957a9c1d02889089948}
+      \strng{authornamehash}{5da84f8a913b5957a9c1d02889089948}
+      \strng{authorfullhash}{5da84f8a913b5957a9c1d02889089948}
+      \field{labelalpha}{ARV10}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{series}{Cambridge Tracts in Mathematics}
+      \field{title}{Algebraic Theories: A Categorical Introduction to General Algebra}
+      \field{year}{2010}
+      \verb{doi}
+      \verb 10.1017/CBO9780511760754
+      \endverb
+    \endentry
+    \entry{CT4P}{misc}{}
+      \name{author}{2}{}{%
+        {{hash=5e0b29e8a40c8ddb6f6748f3a24cf951}{%
+           family={Ahrens},
+           familyi={A\bibinitperiod},
+           given={Benedikt},
+           giveni={B\bibinitperiod}}}%
+        {{hash=ecf6221e98f78620e4f4f24e696cc997}{%
+           family={Wullaert},
+           familyi={W\bibinitperiod},
+           given={Kobe},
+           giveni={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{153cc405b854fd592d7f112d3cbaf099}
+      \strng{fullhash}{153cc405b854fd592d7f112d3cbaf099}
+      \strng{bibnamehash}{153cc405b854fd592d7f112d3cbaf099}
+      \strng{authorbibnamehash}{153cc405b854fd592d7f112d3cbaf099}
+      \strng{authornamehash}{153cc405b854fd592d7f112d3cbaf099}
+      \strng{authorfullhash}{153cc405b854fd592d7f112d3cbaf099}
+      \field{labelalpha}{AW23}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Category Theory for Programming}
+      \field{year}{2023}
+      \verb{eprint}
+      \verb arXiv:2209.01259
+      \endverb
+    \endentry
+    \entry{circle-fundamental-group}{misc}{}
+      \name{author}{4}{}{%
+        {{hash=6d232f8f72448bcec4812b308c5674c0}{%
+           family={Bezem},
+           familyi={B\bibinitperiod},
+           given={Marc},
+           giveni={M\bibinitperiod}}}%
+        {{hash=409448cb828eda10650d18b18b2f0d08}{%
+           family={Buchholtz},
+           familyi={B\bibinitperiod},
+           given={Ulrik},
+           giveni={U\bibinitperiod}}}%
+        {{hash=e5b197f9abb9382c464eae92cdcc1b2c}{%
+           family={Grayson},
+           familyi={G\bibinitperiod},
+           given={Daniel\bibnamedelima R.},
+           giveni={D\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=a49cc4742950659ae680e1c40f2295a9}{%
+           family={Shulman},
+           familyi={S\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{a5468c3178958fd24bb5b9fd00ef2bd3}
+      \strng{fullhash}{24e758719eb781ce36ea54e08d8977ee}
+      \strng{bibnamehash}{a5468c3178958fd24bb5b9fd00ef2bd3}
+      \strng{authorbibnamehash}{a5468c3178958fd24bb5b9fd00ef2bd3}
+      \strng{authornamehash}{a5468c3178958fd24bb5b9fd00ef2bd3}
+      \strng{authorfullhash}{24e758719eb781ce36ea54e08d8977ee}
+      \field{labelalpha}{Bez+20}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{math.LO}
+      \field{eprinttype}{arXiv}
+      \field{title}{Construction of the Circle in UniMath}
+      \field{year}{2020}
+      \verb{eprint}
+      \verb 1910.01856
+      \endverb
+    \endentry
+    \entry{borceux}{book}{}
+      \name{author}{1}{}{%
+        {{hash=c9259674b0e31a3252b2a81d66e21923}{%
+           family={Borceux},
+           familyi={B\bibinitperiod},
+           given={Francis},
+           giveni={F\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{c9259674b0e31a3252b2a81d66e21923}
+      \strng{fullhash}{c9259674b0e31a3252b2a81d66e21923}
+      \strng{bibnamehash}{c9259674b0e31a3252b2a81d66e21923}
+      \strng{authorbibnamehash}{c9259674b0e31a3252b2a81d66e21923}
+      \strng{authornamehash}{c9259674b0e31a3252b2a81d66e21923}
+      \strng{authorfullhash}{c9259674b0e31a3252b2a81d66e21923}
+      \field{labelalpha}{Bor94}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{series}{Encyclopedia of Mathematics and its Applications}
+      \field{title}{Handbook of Categorical Algebra}
+      \field{year}{1994}
+    \endentry
+    \entry{freyd}{article}{}
+      \name{author}{1}{}{%
+        {{hash=73b6705a77f3d75700f516f0007d39ff}{%
+           family={Freyd},
+           familyi={F\bibinitperiod},
+           given={Peter},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press (CUP)}%
+      }
+      \strng{namehash}{73b6705a77f3d75700f516f0007d39ff}
+      \strng{fullhash}{73b6705a77f3d75700f516f0007d39ff}
+      \strng{bibnamehash}{73b6705a77f3d75700f516f0007d39ff}
+      \strng{authorbibnamehash}{73b6705a77f3d75700f516f0007d39ff}
+      \strng{authornamehash}{73b6705a77f3d75700f516f0007d39ff}
+      \strng{authorfullhash}{73b6705a77f3d75700f516f0007d39ff}
+      \field{labelalpha}{Fre72}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{1755-1633}
+      \field{journaltitle}{Bulletin of the Australian Mathematical Society}
+      \field{month}{8}
+      \field{number}{1}
+      \field{title}{Aspects of topoi}
+      \field{volume}{7}
+      \field{year}{1972}
+      \field{pages}{1\bibrangedash 76}
+      \range{pages}{76}
+      \verb{doi}
+      \verb 10.1017/S0004972700044828
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1017/S0004972700044828
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1017/S0004972700044828
+      \endverb
+    \endentry
+    \entry{hayashi-1985-semifunctors}{article}{}
+      \name{author}{1}{}{%
+        {{hash=d04428da55c78d9908607a3ecf0e4858}{%
+           family={Hayashi},
+           familyi={H\bibinitperiod},
+           given={Susumu},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{d04428da55c78d9908607a3ecf0e4858}
+      \strng{fullhash}{d04428da55c78d9908607a3ecf0e4858}
+      \strng{bibnamehash}{d04428da55c78d9908607a3ecf0e4858}
+      \strng{authorbibnamehash}{d04428da55c78d9908607a3ecf0e4858}
+      \strng{authornamehash}{d04428da55c78d9908607a3ecf0e4858}
+      \strng{authorfullhash}{d04428da55c78d9908607a3ecf0e4858}
+      \field{labelalpha}{Hay85}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Some connections between λ-calculus and category theory have been known. Among them, it has been shown by Lambek that cartesian closed categories (ccc for short) can be identified with extensional typed λ-calculus (cf. Lambek (1980), and Lambek and Scott (1986)). In this paper we introduce the notion of adjunction of semifunctors (for simplicity, we refer to this as ‘semiadjunction’) and, by the aid of this notion, we define the notion of semi cartesian closed category (semi-ccc for short). Some categorical or algebraic systems aimed to represent λ-calculus will turn out to be special cases of semi-ccc. Another intersting connection between ccc and λ-calculus is Scott's embedding of λ-theory into a ccc (cf. Scott (1980)). (This will be referred to as Scott embedding.) We will show that any semiadjunction is embeddable in an adjunction (of functors) and Scott embedding is a special case.}
+      \field{issn}{0304-3975}
+      \field{journaltitle}{Theoretical Computer Science}
+      \field{title}{Adjunction of semifunctors: Categorical structures in nonextensional lambda calculus}
+      \field{volume}{41}
+      \field{year}{1985}
+      \field{pages}{95\bibrangedash 104}
+      \range{pages}{10}
+      \verb{doi}
+      \verb https://doi.org/10.1016/0304-3975(85)90062-3
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/0304397585900623
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/0304397585900623
+      \endverb
+    \endentry
+    \entry{theory-of-constructions}{article}{}
+      \name{author}{2}{}{%
+        {{hash=83509f2650574a9d9b5291db431a4ab3}{%
+           family={Hyland},
+           familyi={H\bibinitperiod},
+           given={J.\bibnamedelimi Martin\bibnamedelima E.},
+           giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+        {{hash=a574d10c24f8ad6f78b35c12ff05e2c1}{%
+           family={Pitts},
+           familyi={P\bibinitperiod},
+           given={Andrew\bibnamedelima M.},
+           giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {American Mathematical Society}%
+      }
+      \strng{namehash}{f312065703ea2709bef3fb02ef445c30}
+      \strng{fullhash}{f312065703ea2709bef3fb02ef445c30}
+      \strng{bibnamehash}{f312065703ea2709bef3fb02ef445c30}
+      \strng{authorbibnamehash}{f312065703ea2709bef3fb02ef445c30}
+      \strng{authornamehash}{f312065703ea2709bef3fb02ef445c30}
+      \strng{authorfullhash}{f312065703ea2709bef3fb02ef445c30}
+      \field{labelalpha}{HP89}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{0821851004}
+      \field{journaltitle}{Contemporary Mathematics}
+      \field{title}{The theory of constructions: Categorical semantics and topos-theoretic models}
+      \field{volume}{92}
+      \field{year}{1989}
+      \field{pages}{137\bibrangedash 199}
+      \range{pages}{63}
+      \verb{doi}
+      \verb 10.1090/conm/092/1003199
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1090/conm/092/1003199
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1090/conm/092/1003199
+      \endverb
+    \endentry
+    \entry{hoofman-1993-semi-cartesian-closed}{misc}{}
+      \name{author}{2}{}{%
+        {{hash=c0783186b9daa6d9267ba267c9d574c4}{%
+           family={Hoofman},
+           familyi={H\bibinitperiod},
+           given={Raymond},
+           giveni={R\bibinitperiod}}}%
+        {{hash=c6bd51aedced67861e926a035e6ac2b9}{%
+           family={Schellinx},
+           familyi={S\bibinitperiod},
+           given={Harold},
+           giveni={H\bibinitperiod}}}%
+      }
+      \list{institution}{2}{%
+        {Institute for Logic, Language}%
+        {Computation}%
+      }
+      \strng{namehash}{8ed55062beddb7071fa059ce52c07b9f}
+      \strng{fullhash}{8ed55062beddb7071fa059ce52c07b9f}
+      \strng{bibnamehash}{8ed55062beddb7071fa059ce52c07b9f}
+      \strng{authorbibnamehash}{8ed55062beddb7071fa059ce52c07b9f}
+      \strng{authornamehash}{8ed55062beddb7071fa059ce52c07b9f}
+      \strng{authorfullhash}{8ed55062beddb7071fa059ce52c07b9f}
+      \field{labelalpha}{HS93}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{ILLC Prepublication Series for Mathematical Logic and Foundations, ML-93-05}
+      \field{month}{2}
+      \field{title}{Models of the untyped lambda-calculus in semi cartesian closed categories}
+      \field{year}{1993}
+      \verb{eprint}
+      \verb https://eprints.illc.uva.nl/id/eprint/1329/1/ML-1993-05.text.pdf
+      \endverb
+    \endentry
+    \entry{stackexchange:yoneda-exponentials}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=55d60766dcd96056afe3447a72cf6d67}{%
+           family={(https://math.stackexchange.com/users/661457/mark-kamsma)},
+           familyi={(\bibinithyphendelim k\bibinitperiod},
+           given={Mark\bibnamedelima Kamsma},
+           giveni={M\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+      }
+      \strng{namehash}{55d60766dcd96056afe3447a72cf6d67}
+      \strng{fullhash}{55d60766dcd96056afe3447a72cf6d67}
+      \strng{bibnamehash}{55d60766dcd96056afe3447a72cf6d67}
+      \strng{authorbibnamehash}{55d60766dcd96056afe3447a72cf6d67}
+      \strng{authornamehash}{55d60766dcd96056afe3447a72cf6d67}
+      \strng{authorfullhash}{55d60766dcd96056afe3447a72cf6d67}
+      \field{labelalpha}{htt}
+      \field{sortinit}{h}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Mathematics Stack Exchange}
+      \field{note}{URL:https://math.stackexchange.com/q/3511278 (version: 2022-12-20)}
+      \field{title}{Show that the Yoneda embedding preserves exponential objects}
+      \verb{eprint}
+      \verb https://math.stackexchange.com/q/3511278
+      \endverb
+      \verb{urlraw}
+      \verb https://math.stackexchange.com/q/3511278
+      \endverb
+      \verb{url}
+      \verb https://math.stackexchange.com/q/3511278
+      \endverb
+    \endentry
+    \entry{girard}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=1a75758b5e8f532eacbc4d6bf8c58741}{%
+           family={Hurkens},
+           familyi={H\bibinitperiod},
+           given={Antonius\bibnamedelimb J.\bibnamedelimi C.},
+           giveni={A\bibinitperiod\bibinitdelim J\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \name{editor}{2}{}{%
+        {{hash=eb7488bc968d5206a55b697a980c0ce2}{%
+           family={Dezani-Ciancaglini},
+           familyi={D\bibinithyphendelim C\bibinitperiod},
+           given={Mariangiola},
+           giveni={M\bibinitperiod}}}%
+        {{hash=5ac4023ed140a900b897444afb2c41d9}{%
+           family={Plotkin},
+           familyi={P\bibinitperiod},
+           given={Gordon},
+           giveni={G\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{1a75758b5e8f532eacbc4d6bf8c58741}
+      \strng{fullhash}{1a75758b5e8f532eacbc4d6bf8c58741}
+      \strng{bibnamehash}{1a75758b5e8f532eacbc4d6bf8c58741}
+      \strng{authorbibnamehash}{1a75758b5e8f532eacbc4d6bf8c58741}
+      \strng{authornamehash}{1a75758b5e8f532eacbc4d6bf8c58741}
+      \strng{authorfullhash}{1a75758b5e8f532eacbc4d6bf8c58741}
+      \strng{editorbibnamehash}{b82a44f4f61deadd725b14034d770d1b}
+      \strng{editornamehash}{b82a44f4f61deadd725b14034d770d1b}
+      \strng{editorfullhash}{b82a44f4f61deadd725b14034d770d1b}
+      \field{labelalpha}{Hur95}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{In 1972 J.-Y. Girard showed that the Burali-Forti paradox can be formalised in the type system U. In 1991 Th. Coquand formalised another paradox in U−. The corresponding proof terms (that have no normal form) are large. We present a shorter term of type ⊥ in the Pure Type System $\lambda$U− and analyse its reduction behaviour. The idea is to construct a universe U and two functions such that a certain equality holds. Using this equality, we prove and disprove that a certain object in U is well-founded.}
+      \field{booktitle}{Typed Lambda Calculi and Applications}
+      \field{isbn}{978-3-540-49178-1}
+      \field{title}{A simplification of Girard's paradox}
+      \field{year}{1995}
+      \field{pages}{266\bibrangedash 278}
+      \range{pages}{13}
+    \endentry
+    \entry{lambda-monoid}{article}{}
+      \name{author}{1}{}{%
+        {{hash=f53660a506df6cf6f05bc78e68189fe7}{%
+           family={Hyland},
+           familyi={H\bibinitperiod},
+           given={Martin},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{f53660a506df6cf6f05bc78e68189fe7}
+      \strng{fullhash}{f53660a506df6cf6f05bc78e68189fe7}
+      \strng{bibnamehash}{f53660a506df6cf6f05bc78e68189fe7}
+      \strng{authorbibnamehash}{f53660a506df6cf6f05bc78e68189fe7}
+      \strng{authornamehash}{f53660a506df6cf6f05bc78e68189fe7}
+      \strng{authorfullhash}{f53660a506df6cf6f05bc78e68189fe7}
+      \field{labelalpha}{Hyl14}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Any interpretation of the lambda calculus determines a composition monoid and this monoid can be equipped with structure from which the interpretation can be recovered. That is the essence of Dana Scott's account of the lambda calculus in terms of its category of retracts. This paper presents a new approach to the needed structure on the monoid deriving from a recent analysis of the lambda calculus in terms of algebraic theory.}
+      \field{issn}{1571-0661}
+      \field{journaltitle}{Electronic Notes in Theoretical Computer Science}
+      \field{note}{Proceedings of the Workshop on Algebra, Coalgebra and Topology (WACT 2013)}
+      \field{title}{Towards a Notion of Lambda Monoid}
+      \field{volume}{303}
+      \field{year}{2014}
+      \field{pages}{59\bibrangedash 77}
+      \range{pages}{19}
+      \verb{doi}
+      \verb https://doi.org/10.1016/j.entcs.2014.02.004
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S1571066114000309
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S1571066114000309
+      \endverb
+      \keyw{Algebraic theories,Abstract clones,-calculus,Reflexive objects,Λ-monoids}
+    \endentry
+    \entry{Hyland}{article}{}
+      \name{author}{1}{}{%
+        {{hash=4b688991b9e22d7f244d58620c69114d}{%
+           family={HYLAND},
+           familyi={H\bibinitperiod},
+           given={J.M.E.},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{4b688991b9e22d7f244d58620c69114d}
+      \strng{fullhash}{4b688991b9e22d7f244d58620c69114d}
+      \strng{bibnamehash}{4b688991b9e22d7f244d58620c69114d}
+      \strng{authorbibnamehash}{4b688991b9e22d7f244d58620c69114d}
+      \strng{authornamehash}{4b688991b9e22d7f244d58620c69114d}
+      \strng{authorfullhash}{4b688991b9e22d7f244d58620c69114d}
+      \field{labelalpha}{HYL17}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Mathematical Structures in Computer Science}
+      \field{number}{5}
+      \field{title}{Classical lambda calculus in modern dress}
+      \field{volume}{27}
+      \field{year}{2017}
+      \field{pages}{762\bibrangedash 781}
+      \range{pages}{20}
+      \verb{doi}
+      \verb 10.1017/S0960129515000377
+      \endverb
+    \endentry
+    \entry{Kashiwara}{book}{}
+      \name{author}{2}{}{%
+        {{hash=b7bb8fb56d75656703f28621f0b6f412}{%
+           family={Kashiwara},
+           familyi={K\bibinitperiod},
+           given={Masaki},
+           giveni={M\bibinitperiod}}}%
+        {{hash=293299db3b6075e5092ae25eeea861ae}{%
+           family={Schapira},
+           familyi={S\bibinitperiod},
+           given={Pierre},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer-Verlag, Berlin}%
+      }
+      \strng{namehash}{635bcffc280fb5c48749bcb90f36612a}
+      \strng{fullhash}{635bcffc280fb5c48749bcb90f36612a}
+      \strng{bibnamehash}{635bcffc280fb5c48749bcb90f36612a}
+      \strng{authorbibnamehash}{635bcffc280fb5c48749bcb90f36612a}
+      \strng{authornamehash}{635bcffc280fb5c48749bcb90f36612a}
+      \strng{authorfullhash}{635bcffc280fb5c48749bcb90f36612a}
+      \field{labelalpha}{KS06}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-3-540-27949-5; 3-540-27949-0}
+      \field{series}{Grundlehren der mathematischen Wissenschaften [Fundamental Principles of Mathematical Sciences]}
+      \field{title}{Categories and sheaves}
+      \field{volume}{332}
+      \field{year}{2006}
+      \field{pages}{x+497}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1007/3-540-27950-4
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/3-540-27950-4
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/3-540-27950-4
+      \endverb
+    \endentry
+    \entry{lawvere-fixpoints}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=7f4e82b361c38ad671615c08cb0678cd}{%
+           family={Lawvere},
+           familyi={L\bibinitperiod},
+           given={F.\bibnamedelimi William},
+           giveni={F\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{7f4e82b361c38ad671615c08cb0678cd}
+      \strng{fullhash}{7f4e82b361c38ad671615c08cb0678cd}
+      \strng{bibnamehash}{7f4e82b361c38ad671615c08cb0678cd}
+      \strng{authorbibnamehash}{7f4e82b361c38ad671615c08cb0678cd}
+      \strng{authornamehash}{7f4e82b361c38ad671615c08cb0678cd}
+      \strng{authorfullhash}{7f4e82b361c38ad671615c08cb0678cd}
+      \field{labelalpha}{Law69}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Category Theory, Homology Theory and their Applications II}
+      \field{isbn}{978-3-540-36101-5}
+      \field{title}{Diagonal arguments and cartesian closed categories}
+      \field{year}{1969}
+      \field{pages}{134\bibrangedash 145}
+      \range{pages}{12}
+      \verb{doi}
+      \verb https://doi.org/10.1007/BFb0080769
+      \endverb
+    \endentry
+    \entry{MacLane}{book}{}
+      \name{author}{1}{}{%
+        {{hash=d35756c9f39a938d9533376dfaa5ad43}{%
+           family={Mac\bibnamedelima Lane},
+           familyi={M\bibinitperiod\bibinitdelim L\bibinitperiod},
+           given={Saunders},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer-Verlag, New York}%
+      }
+      \strng{namehash}{d35756c9f39a938d9533376dfaa5ad43}
+      \strng{fullhash}{d35756c9f39a938d9533376dfaa5ad43}
+      \strng{bibnamehash}{d35756c9f39a938d9533376dfaa5ad43}
+      \strng{authorbibnamehash}{d35756c9f39a938d9533376dfaa5ad43}
+      \strng{authornamehash}{d35756c9f39a938d9533376dfaa5ad43}
+      \strng{authorfullhash}{d35756c9f39a938d9533376dfaa5ad43}
+      \field{labelalpha}{Mac98}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{Second}
+      \field{isbn}{0-387-98403-8}
+      \field{series}{Graduate Texts in Mathematics}
+      \field{title}{Categories for the working mathematician}
+      \field{volume}{5}
+      \field{year}{1998}
+      \field{pages}{xii+314}
+      \range{pages}{-1}
+    \endentry
+    \entry{martin-lof-type-theory}{unpublished}{}
+      \name{author}{1}{}{%
+        {{hash=617a4cbf763fdc17e84e14c7343bddde}{%
+           family={Martin-Löf},
+           familyi={M\bibinithyphendelim L\bibinitperiod},
+           given={Per},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{617a4cbf763fdc17e84e14c7343bddde}
+      \strng{fullhash}{617a4cbf763fdc17e84e14c7343bddde}
+      \strng{bibnamehash}{617a4cbf763fdc17e84e14c7343bddde}
+      \strng{authorbibnamehash}{617a4cbf763fdc17e84e14c7343bddde}
+      \strng{authornamehash}{617a4cbf763fdc17e84e14c7343bddde}
+      \strng{authorfullhash}{617a4cbf763fdc17e84e14c7343bddde}
+      \field{labelalpha}{Mar71}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Preprint, Stockholm University}
+      \field{title}{A theory of types}
+      \field{year}{1971}
+    \endentry
+    \entry{MacLane-Moerdijk}{inbook}{}
+      \name{author}{2}{}{%
+        {{hash=d35756c9f39a938d9533376dfaa5ad43}{%
+           family={Mac\bibnamedelima Lane},
+           familyi={M\bibinitperiod\bibinitdelim L\bibinitperiod},
+           given={Saunders},
+           giveni={S\bibinitperiod}}}%
+        {{hash=1fc4bc57ad663c84359227240f5bc42f}{%
+           family={Moerdijk},
+           familyi={M\bibinitperiod},
+           given={Ieke},
+           giveni={I\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY}%
+      }
+      \list{publisher}{1}{%
+        {Springer New York}%
+      }
+      \strng{namehash}{5ddd5fc6ef7aceb84cfa1296eb79bdb9}
+      \strng{fullhash}{5ddd5fc6ef7aceb84cfa1296eb79bdb9}
+      \strng{bibnamehash}{5ddd5fc6ef7aceb84cfa1296eb79bdb9}
+      \strng{authorbibnamehash}{5ddd5fc6ef7aceb84cfa1296eb79bdb9}
+      \strng{authornamehash}{5ddd5fc6ef7aceb84cfa1296eb79bdb9}
+      \strng{authorfullhash}{5ddd5fc6ef7aceb84cfa1296eb79bdb9}
+      \field{labelalpha}{MM94}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Many constructions on various mathematical objects depend not just on the elements of those objects but also on the morphisms between them. Such constructions can thus be effectively formulated in the corresponding category of objects. A ``topos'' is a category in which a number of the most basic such constructions (product, pullback, exponential, characteristic function,{\ldots}) are always possible. With these constructions available, many other properties can be efficiently developed. Superficially quite different categories, arising in geometry, topology, algebraic geometry, group representations, and set theory, all turn out to satisfy the axioms defining such a topos.}
+      \field{booktitle}{Sheaves in Geometry and Logic: A First Introduction to Topos Theory}
+      \field{isbn}{978-1-4612-0927-0}
+      \field{title}{Categories of Functors}
+      \field{year}{1994}
+      \field{pages}{24\bibrangedash 63}
+      \range{pages}{40}
+      \verb{doi}
+      \verb 10.1007/978-1-4612-0927-0_3
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-1-4612-0927-0_3
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-1-4612-0927-0_3
+      \endverb
+    \endentry
+    \entry{nlab:adjoint_equivalence}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=5c61cc0c29f93f36a5bbdae36df1a81b}{%
+           family={{nLab authors}},
+           familyi={n\bibinitperiod}}}%
+      }
+      \strng{namehash}{5c61cc0c29f93f36a5bbdae36df1a81b}
+      \strng{fullhash}{5c61cc0c29f93f36a5bbdae36df1a81b}
+      \strng{bibnamehash}{5c61cc0c29f93f36a5bbdae36df1a81b}
+      \strng{authorbibnamehash}{5c61cc0c29f93f36a5bbdae36df1a81b}
+      \strng{authornamehash}{5c61cc0c29f93f36a5bbdae36df1a81b}
+      \strng{authorfullhash}{5c61cc0c29f93f36a5bbdae36df1a81b}
+      \field{extraname}{1}
+      \field{labelalpha}{nLa24}
+      \field{sortinit}{n}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{extraalpha}{1}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://ncatlab.org/nlab/show/adjoint+equivalence}}
+      \field{month}{5}
+      \field{note}{\href{https://ncatlab.org/nlab/revision/adjoint+equivalence/17}{Revision 17}}
+      \field{title}{adjoint equivalence}
+      \field{year}{2024}
+    \endentry
+    \entry{nlab:grothendieck_fibration}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=5c61cc0c29f93f36a5bbdae36df1a81b}{%
+           family={{nLab authors}},
+           familyi={n\bibinitperiod}}}%
+      }
+      \strng{namehash}{5c61cc0c29f93f36a5bbdae36df1a81b}
+      \strng{fullhash}{5c61cc0c29f93f36a5bbdae36df1a81b}
+      \strng{bibnamehash}{5c61cc0c29f93f36a5bbdae36df1a81b}
+      \strng{authorbibnamehash}{5c61cc0c29f93f36a5bbdae36df1a81b}
+      \strng{authornamehash}{5c61cc0c29f93f36a5bbdae36df1a81b}
+      \strng{authorfullhash}{5c61cc0c29f93f36a5bbdae36df1a81b}
+      \field{extraname}{2}
+      \field{labelalpha}{nLa24}
+      \field{sortinit}{n}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{extraalpha}{2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://ncatlab.org/nlab/show/Grothendieck+fibration}}
+      \field{month}{2}
+      \field{note}{\href{https://ncatlab.org/nlab/revision/Grothendieck+fibration/113}{Revision 113}}
+      \field{title}{{{G}}rothendieck fibration}
+      \field{year}{2024}
+    \endentry
+    \entry{riehl}{book}{}
+      \name{author}{1}{}{%
+        {{hash=45a94503b2898b54c4e429a46414d3ad}{%
+           family={Riehl},
+           familyi={R\bibinitperiod},
+           given={Emily},
+           giveni={E\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{45a94503b2898b54c4e429a46414d3ad}
+      \strng{fullhash}{45a94503b2898b54c4e429a46414d3ad}
+      \strng{bibnamehash}{45a94503b2898b54c4e429a46414d3ad}
+      \strng{authorbibnamehash}{45a94503b2898b54c4e429a46414d3ad}
+      \strng{authornamehash}{45a94503b2898b54c4e429a46414d3ad}
+      \strng{authorfullhash}{45a94503b2898b54c4e429a46414d3ad}
+      \field{labelalpha}{Rie14}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{series}{New Mathematical Monographs}
+      \field{title}{Categorical Homotopy Theory}
+      \field{year}{2014}
+    \endentry
+    \entry{strachey}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=cf3b63c577143e7ddf272693c8301798}{%
+           family={Scott},
+           familyi={S\bibinitperiod},
+           given={Dana\bibnamedelima S.},
+           giveni={D\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+      }
+      \strng{namehash}{cf3b63c577143e7ddf272693c8301798}
+      \strng{fullhash}{cf3b63c577143e7ddf272693c8301798}
+      \strng{bibnamehash}{cf3b63c577143e7ddf272693c8301798}
+      \strng{authorbibnamehash}{cf3b63c577143e7ddf272693c8301798}
+      \strng{authornamehash}{cf3b63c577143e7ddf272693c8301798}
+      \strng{authorfullhash}{cf3b63c577143e7ddf272693c8301798}
+      \field{extraname}{1}
+      \field{labelalpha}{Sco16}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://www.cs.ox.ac.uk/strachey100/Strachey_booklet.pdf}}
+      \field{note}{A talk read out at the Strachey 100 centenary conference}
+      \field{title}{Greetings to the Participants at “Strachey 100”}
+      \field{year}{2016}
+    \endentry
+    \entry{scott-continuous}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=d2a3260f2b3598bddd87dc469836d0d1}{%
+           family={Scott},
+           familyi={S\bibinitperiod},
+           given={Dana},
+           giveni={D\bibinitperiod}}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=0337dd0abcbdbce15e680394928b9b6f}{%
+           family={Lawvere},
+           familyi={L\bibinitperiod},
+           given={F.\bibnamedelimi W.},
+           giveni={F\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{d2a3260f2b3598bddd87dc469836d0d1}
+      \strng{fullhash}{d2a3260f2b3598bddd87dc469836d0d1}
+      \strng{bibnamehash}{d2a3260f2b3598bddd87dc469836d0d1}
+      \strng{authorbibnamehash}{d2a3260f2b3598bddd87dc469836d0d1}
+      \strng{authornamehash}{d2a3260f2b3598bddd87dc469836d0d1}
+      \strng{authorfullhash}{d2a3260f2b3598bddd87dc469836d0d1}
+      \strng{editorbibnamehash}{0337dd0abcbdbce15e680394928b9b6f}
+      \strng{editornamehash}{0337dd0abcbdbce15e680394928b9b6f}
+      \strng{editorfullhash}{0337dd0abcbdbce15e680394928b9b6f}
+      \field{extraname}{2}
+      \field{labelalpha}{Sco72}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Starting from the topological point of view a certain wide class of To-spaces is introduced having a very strong extension property for continuous functions with values in these spaces. It is then shown that all such spaces are complete lattices whose lattice structure determines the topology --- these are the continuous lattices --- and every such lattice has the extension property. With this foundation the lattices are studied in detail with respect to projections, subspaces, embeddings, and constructions such as products, sums, function spaces, and inverse limits. The main result of the paper is a proof that every topological space can be embedded in a continuous lattice which is homeomorphic (and isomorphic) to its own function space. The function algebra of such spaces provides mathematical models for the Church-Curry $\lambda$-calculus.}
+      \field{booktitle}{Toposes, Algebraic Geometry and Logic}
+      \field{isbn}{978-3-540-37609-5}
+      \field{title}{Continuous lattices}
+      \field{year}{1972}
+      \field{pages}{97\bibrangedash 136}
+      \range{pages}{40}
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1007/BFb0073967
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1007/BFb0073967
+      \endverb
+    \endentry
+    \entry{curry}{book}{}
+      \name{editor}{2}{}{%
+        {{hash=50e52dcb00081f6542479d05e131d72f}{%
+           family={Seldin},
+           familyi={S\bibinitperiod},
+           given={J.\bibnamedelimi P.},
+           giveni={J\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=7ef4f6a9f4539bfc95059500448198c2}{%
+           family={Hindley},
+           familyi={H\bibinitperiod},
+           given={J.\bibnamedelimi R.},
+           giveni={J\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \list{location}{1}{%
+        {San Diego, CA}%
+      }
+      \list{publisher}{1}{%
+        {Academic Press}%
+      }
+      \strng{namehash}{8042504b26a0426537cdac23bf9da773}
+      \strng{fullhash}{8042504b26a0426537cdac23bf9da773}
+      \strng{bibnamehash}{8042504b26a0426537cdac23bf9da773}
+      \strng{editorbibnamehash}{8042504b26a0426537cdac23bf9da773}
+      \strng{editornamehash}{8042504b26a0426537cdac23bf9da773}
+      \strng{editorfullhash}{8042504b26a0426537cdac23bf9da773}
+      \field{labelalpha}{SH80}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{editor}
+      \field{labeltitlesource}{title}
+      \field{month}{9}
+      \field{title}{To H.B. Curry: Essays on Combinatory Logic and Formalism}
+      \field{year}{1980}
+    \endentry
+    \entry{taylor}{thesis}{}
+      \name{author}{1}{}{%
+        {{hash=ae655fd42e32ec4680609d16443509d2}{%
+           family={Taylor},
+           familyi={T\bibinitperiod},
+           given={Paul},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {University of Cambridge}%
+      }
+      \strng{namehash}{ae655fd42e32ec4680609d16443509d2}
+      \strng{fullhash}{ae655fd42e32ec4680609d16443509d2}
+      \strng{bibnamehash}{ae655fd42e32ec4680609d16443509d2}
+      \strng{authorbibnamehash}{ae655fd42e32ec4680609d16443509d2}
+      \strng{authornamehash}{ae655fd42e32ec4680609d16443509d2}
+      \strng{authorfullhash}{ae655fd42e32ec4680609d16443509d2}
+      \field{labelalpha}{Tay86}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Recursive Domains, Indexed Category Theory and Polymorphism}
+      \field{type}{phdthesis}
+      \field{year}{1986}
+    \endentry
+    \entry{hottbook}{book}{}
+      \name{author}{1}{}{%
+        {{hash=eb3cec164c1f4cb5cd7394d2677e2a1c}{%
+           family={{Univalent Foundations Program}},
+           familyi={U\bibinitperiod},
+           given={The},
+           giveni={T\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Institute for Advanced Study}%
+      }
+      \list{publisher}{1}{%
+        {\url{https://homotopytypetheory.org/book}}%
+      }
+      \strng{namehash}{eb3cec164c1f4cb5cd7394d2677e2a1c}
+      \strng{fullhash}{eb3cec164c1f4cb5cd7394d2677e2a1c}
+      \strng{bibnamehash}{eb3cec164c1f4cb5cd7394d2677e2a1c}
+      \strng{authorbibnamehash}{eb3cec164c1f4cb5cd7394d2677e2a1c}
+      \strng{authornamehash}{eb3cec164c1f4cb5cd7394d2677e2a1c}
+      \strng{authorfullhash}{eb3cec164c1f4cb5cd7394d2677e2a1c}
+      \field{labelalpha}{Uni13}
+      \field{sortinit}{U}
+      \field{sortinithash}{6901a00e45705986ee5e7ca9fd39adca}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Homotopy Type Theory: Univalent Foundations of Mathematics}
+      \field{year}{2013}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
