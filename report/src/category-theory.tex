@@ -590,7 +590,7 @@ In this thesis, we will encounter co-ends a couple of times, so we will introduc
         \arrow[r, shift right, "{F(\id a, f)}"'] &
       \displaystyle\coprod_{c : C} F(c, c)
         \arrow[r, dashed] &
-      \int^C F
+      \displaystyle\int^C F
     \end{tikzcd}
   \end{center}
 \end{definition}
@@ -619,160 +619,10 @@ In this thesis, we will encounter co-ends a couple of times, so we will introduc
 \begin{remark}
   Left Kan extension can be expressed as a coend:
   \[ \Lan F G(b) = \int^{a : A} D(F a, b) \cdot G a \]
-  where $ S \cdot X $ for $ S $ a set and $ X : C $ denotes the `copower'. In most cases, we will have
+  where $ S \cdot X $ for $ S $ a set and $ X : C $ denotes the `copower', which in most cases can be defined as
   \[ S \cdot X = \coprod_{s : S} X. \]
 \end{remark}
 
-\section{The Karoubi envelope}
-Let $ C $ be a category. If we have a retraction-section pair
-\begin{tikzcd}
-  c \arrow[r, shift left, "r"] & d \arrow[l, shift left, "s"]
-\end{tikzcd}
-we have (by definition) $ s \cdot r = \id d $. On the other hand, $ r \cdot s: c \to c $ is an idempotent morphism, since $ r \cdot s \cdot r \cdot s = r \cdot s $. Conversely, we can wonder whether for some idempotent morphism $ a: c \to c $, we can find a retraction-section pair $ (r, s) $ such that $ a = r \cdot s $. If this is the case, we say that the idempotent $ a $ \textit{splits}\index{split idempotent}. If $ a $ does not split, we can wonder whether we can find an embedding $ \iota_C : C \hookrightarrow \overline C $ such that the idempotent $ \iota_C(a): \iota_C(c) \to \iota_C(c) $ does split. This is one way to arrive at the \textit{Karoubi envelope}.
-
-\begin{definition}
-  We define the category $ \overline C $. The objects of $ \overline C $ are tuples $ (c, a) $ with $ c: C $, $ a: C(c, c) $ such that $ a \cdot a = a $. The morphisms between $ (c, a) $ and $ (d, b) $ are morphisms $ f: C(a, b) $ such that $ a \cdot f \cdot b = f $. The identity morphism on $ (c, a) $ is given by $ a $ and $ \overline C $ inherits morphism composition from $ C $.
-\end{definition}
-This category is called the \iindex{Karoubi envelope}, the \textit{idempotent completion}\index{idempotent completion|see{Karoubi envelope}}, the \textit{category of retracts}\index{category of retracts|see{Karoubi envelope}}, or the \textit{Cauchy completion}\index{Cauchy completion|see{Karoubi envelope}} of $ C $.
-
-\begin{remark}
-  Note that for a morphism $ f: \overline C((c, a), (d, b)) $,
-  \[ a \cdot f = a \cdot a \cdot f \cdot b = a \cdot f \cdot b = f \]
-  and in the same way, $ f \cdot b = f $.
-\end{remark}
-
-\begin{definition}
-  We have an embedding $ \iota_C: C \to \overline C $, sending $ c: C $ to $ (c, \id{c}) $ and $ f: C(c, d) $ to $ f $.
-\end{definition}
-
-\begin{lemma}\label{lem:karoubi-is-retract}
-  Every object $ c: \overline C $ is a retract of $ \iota_C(c_0) $ for some $ c_0: C $.
-\end{lemma}
-\begin{proof}
-  Note that $ c = (c_0, a) $ for some $ c_0: C $ and an idempotent $ a: c \to c $. We have morphisms
-  \begin{tikzcd}
-    \iota_C(c) \arrow[r, shift left, "a_\rightarrow"] & (c, a) \arrow[l, shift left, "a_\leftarrow"]
-  \end{tikzcd}, both given by $ a $. We have $ a_\leftarrow \cdot a_\rightarrow = a = \id{(c, a)} $, so $ (c, a) $ is a retract of $ \iota_C(c) $.
-\end{proof}
-
-\begin{lemma}
-  In $ \overline C $, every idempotent splits.
-\end{lemma}
-\begin{proof}
-  Take an idempotent $ e: \overline C(c, c) $. Note that $ c $ is given by an object $ c_0: C $ and an idempotent $ a: C(c_0, c_0) $. Also, $ e $ is given by some idempotent $ e: C(c_0, c_0) $ with $ a \cdot e \cdot a = e $.
-
-  Now, we have $ (c_0, e): \overline C $ and morphisms
-  \begin{tikzcd}
-    (c_0, a) \arrow[r, shift left, "e_\rightarrow"] & (c_0, e) \arrow[l, shift left, "e_\leftarrow"]
-  \end{tikzcd}, both given by $ e $. We have $ e_\leftarrow \cdot e_\rightarrow = e = \id{(c_0, e)} $, so $ (c_0, e) $ is a retract of $ (c_0, a) $. Also, $ e = e_\rightarrow \cdot e_\leftarrow $, so $ e $ is split.
-\end{proof}
-
-\begin{remark}
-  Note that the embedding is fully faithful, since
-  \[ \overline C((c, \id c), (d, \id d)) = \{ f: C(c, d) \mid \id c \cdot f \cdot \id d = f \} = C(c, d). \]
-\end{remark}
-
-\begin{remark}\label{rem:retract-coequalizer}
-  Let $ D $ be a category. Suppose that we have a retraction-section pair in $ D $, given by
-  \begin{tikzcd}
-    d \arrow[r, shift left, "r"] & d^\prime \arrow[l, shift left, "s"]
-  \end{tikzcd}.
-  Now, suppose that we have an object $ c: D $ and a morphism $ f $ with $ (r \cdot s) \cdot f = f $. Then we get a morphism $ s \cdot f: d^\prime \to c $ such that $ f $ factors as $ r \cdot (s \cdot f) $. Also, for any $ g $ with $ r \cdot g = f $, we have
-  \[ g = s \cdot r \cdot g = s \cdot f. \]
-  \begin{center}
-    \begin{tikzcd}
-      d \arrow[r, left, "r"] \arrow[rd, "f"'] & d^\prime \arrow[r, "s"] \arrow[d, "s \cdot f" description] & d \arrow[ld, "f"]\\
-      & c
-    \end{tikzcd}.
-  \end{center}
-  Therefore, $ d^\prime $ is the equalizer of \begin{tikzcd}
-    d \arrow[r, shift left, "\id d"] \arrow[r, shift right, "r \cdot s"'] & d
-  \end{tikzcd}. In the same way, it is also the coequalizer of this diagram.
-
-  Now, note that if we have a coequalizer $ c^\prime $ of $ \id c $ and $ a $, and an equalizer $ d^\prime $ of $ \id d $ and $ b $, the universal properties of these give an equivalence
-  \[ D(c^\prime, d^\prime) \cong \{ f: D(c, d^\prime) \mid a \cdot f = f \} \cong \{ f: D(c, d) \mid a \cdot f = f = f \cdot b \}. \]
-  \begin{center}
-    \begin{tikzcd}
-      c \arrow[r, shift left, "\id c"] \arrow[r, shift right, "a"'] & c \arrow[r] \arrow[d] \arrow[rd] & c^\prime \arrow[d]\\
-      d & d \arrow[l, shift right, "\id d"'] \arrow[l, shift left, "b"] & d^\prime \arrow[l]
-    \end{tikzcd}
-  \end{center}
-\end{remark}
-
-Since a functor preserves retracts, and since every object of $ \overline C $ is a retract of an object in $ C $, one can lift a functor from $ C $ (to a category with (co)equalizers) to a functor on $ \overline C $.
-
-For convenience, the lemma below works with pointwise left Kan extension using colimits, but one could also prove this using just (co)equalizers (or right Kan extension using limits).
-\begin{lemma}
-  Let $ D $ be a category with colimits. We have an adjoint equivalence between $ [C, D] $ and $ [\overline C, D] $.
-\end{lemma}
-\begin{proof}
-  We already have an adjunction $ \Lan {\iota_C} {} \dashv \iota_{C*} $. Also, since $ \iota_C $ is fully faithful, we know that $ \eta $ is a natural isomorphism. Therefore, we only have to show that $ \epsilon $ is a natural isomorphism. That is, we need to show that $ \epsilon_G(c, a): D(\Lan {\iota_C} (\iota_{C*} G) (c, a), G(c, a)) $ is an isomorphism for all $ G: [\overline C, D] $ and $ (c, a): \overline C $.
-
-  One of the components in the diagram of $ \Lan {\iota_C} (\iota_{C*} G) (c, a) $ is the $ \iota_{C*} G(c) = G(c, \id c) $ corresponding to $ a: \iota_C(c) \to (c, a) $. This component has a morphism into our colimit
-  \[ \varphi: C(G(\iota_C(c)), \Lan {\iota_C} (\iota_{C*} G) (c, a)). \]
-  Note that we can view $ a $ as a morphism $ a: \overline C((c, a), \iota_C(c)) $. This gives us our inverse morphism
-  \[ G(a) \cdot \varphi: C(G(c, a), \Lan {\iota_C} (\iota_{C*} G) (c, a)). \]
-\end{proof}
-
-\begin{lemma}
-  The formation of the opposite category commutes with the formation of the Karoubi envelope.
-\end{lemma}
-\begin{proof}
-  An object in $ \overline{\op C} $ is an object $ c: \op C $ (which is just an object $ c: C $), together with an idempotent morphism $ a: \op C(c, c) = C(c, c) $. This is the same as an object in $ \op{\overline C} $.
-
-  A morphism in $ \overline{\op C}((c, a), (d, b)) $ is a morphism $ f: \op C(c, d) = C(d, c) $ such that
-  \[ b \cdot_C f \cdot_C a = a \cdot_{\op C} f \cdot_{\op C} b = f. \]
-  A morphism in $ \op{\overline C}((c, a), (d, b)) = \overline C((d, b), (c, a)) $ is a morphism $ f: C(d, c) $ such that $ b \cdot f \cdot a = f $.
-
-  Now, in both categories, the identity morphism on $ (c, a) $ is given by $ a $.
-
-  Lastly, $ \overline {\op C} $ inherits morphism composition from $ \op C $, which is the opposite of composition in $ C $. On the other hand, composition in $ \op{\overline C} $ is the opposite of composition in $ \overline C $, which inherits composition from $ C $.
-\end{proof}
-
-\begin{corollary}\label{cor:karoubi-presheaf}
-  As the category $ \SET $ is cocomplete, we have an equivalence between the category of presheaves on $ C $ and the category of presheaves on $ \overline C $:
-  \[ [\op C, \SET] \cong [\overline{\op C}, \SET] \cong [\op{\overline C}, \SET]. \]
-\end{corollary}
-
-Now, there is also another (classically equivalent) definition of the Karoubi envelope:
-\begin{definition}\label{def:karoubi'}
-  Let $ Y: C \to P C $ be the Yoneda embedding of $ C $ into its category of presheaves. We define the category $ \hat C $ as the full subcategory of $ P C $ consisting of objects $ F : P C $ such that there exists an object $ c: C $ and a retraction of $ Y(c) $ onto $ F $. Note that the existence of $ c $ and the retraction is \textit{mere existence} (see the chapter on Univalent Foundations) because we need this to be a subcategory of $ P C $.
-\end{definition}
-
-\begin{lemma}\label{lem:retracts-rezk}
-  $ \hat C $ is the Rezk completion of $ \overline C $.
-\end{lemma}
-\begin{proof}
-  First of all, note that $ \hat C $ is univalent, since it is a presheaf category (see Theorem 4.5 in \autocite{univalent-categories}). So we must show that we have a weak equivalence from $ \overline C $ to $ \hat C $.
-
-  Secondly, by Corollary \ref{cor:karoubi-presheaf} we have an adjoint equivalence $ {\op{\iota_C}}_*: P \overline C \xrightarrow \sim P C $ and by Lemma \ref{lem:Yoneda-restriction-commutes}, the following diagram 2-commutes:
-  \begin{center}
-    \begin{tikzcd}
-      C \arrow[r, "\iota_C"] \arrow[d, "Y"] & \overline C \arrow[d, "Y"]\\
-      P C & P \overline C \arrow[l, "\sim"', "{\op{\iota_C}}_*"]
-    \end{tikzcd}
-  \end{center}
-
-  By Lemma \ref{lem:karoubi-is-retract}, every object of $ \overline C $ is a retract of some object in $ c $. Therefore, every object in the image of $ \overline C $ inside $ P C $ is a retract of some object in the image of $ C $, so we can turn $ Y \bullet {\op{\iota_C}}_* : \overline C \to P C $ into a fully faithful embedding into $ \hat C $.
-
-  Now, to show that it is essentially surjective, take an object $ F : \hat C $. That is, take a retract \begin{tikzcd} F \arrow[r, shift left, "s"] & Y(c) \arrow[l, shift left, "r"] \end{tikzcd}. Note that $ r \cdot s $ is an idempotent on $ Y(c) $. Since $ Y $ is a fully faithful embedding, it gives an equivalence on the hom-sets, so we have an element $ e : C(c, c) $ that maps to $ r \cdot s : P C (Y(c), Y(c)) $. We will show that $ (c, e) $ is our preimage in $ \overline C $ of $ F $.
-
-  Also, $ (c, e) $ is a retract of $ \iota_C(c) $ with section and retraction $ e $. Therefore, $ \op{\iota_C} \bullet Y(c, e) $ is a retract of $ \op{\iota_C} \bullet Y (\iota_C (c)) $ with section and retraction $ \op{\iota_C} \bullet Y(e) $. Composing these gives an idempotent
-  \[ \op{\iota_C} \bullet Y(e): d \mapsto f \mapsto f \cdot e \]
-  on $ \op{\iota_C} \bullet Y (\iota_C (c)) $. Transporting this along the isomorphism with $ Y(c) $, we get an idempotent
-  \[ d \mapsto f \mapsto \iota_C^{-1}(\iota_C(f) \cdot e) \]
-  on $ Y(c) $. Note that we can view $ e $ both as an idempotent on $ c $ and on $ \iota_C(e) $, and that $ \iota_C(e) = e $, so $ \iota_C^{-1}(\iota_C(f) \cdot e) = f \cdot e $.
-
-  Therefore, the idempotent on $ Y(c) $ is exactly $ Y(e) = r \cdot s $. By Remark \ref{rem:retract-coequalizer}, $ \op{\iota_C} \bullet Y(c, e) $ is the equalizer of $ \id{Y(c)} $ and $ r \cdot s $. Note that by the same remark, $ F $ is the equalizer of $ \id{Y(c)} $ and $ r \cdot s $ as well. Since the equalizer is unique up to unique isomorphism, we have an isomorphism $ F \cong \op{\iota_C} \bullet Y(c, e) $ and we see that $ Y \bullet {\op{\iota_C}}_* $ is essentially surjective.
-\end{proof}
-
-\begin{remark}
-  As shown above, $ \overline C $ and $ \hat C $ have a very strong relation. In classical mathematics, they are even equivalent. However, since $ \overline C $ is not univalent, we do not have a full equivalence in univalent foundations and our choice of definition will have consequences. One one hand, $ \hat C $ is univalent. On the other hand, every object of $ \overline C $ is uniquely associated with one idempotent morphism in $ C $.
-
-  In this thesis, I will choose to interpret the `category of retracts' or `Karoubi envelope' to mean $ \overline C $. This is because Dana Scott and Paul Taylor perform most of their constructions explicitly using the (idempotent) morphisms of $ C $, which is closest to working in $ \overline C $.
-
-  It is however very well possible that most of the proofs can be made to work in $ \hat C $ as well. For future research, it would be interesting to see what the differences are between working in $ \overline C $ and $ \hat C $ for these proofs.
-\end{remark}
 
 \section{Monoids as categories}\label{sec:monoid-category}
 Take a monoid $ M $.
@@ -909,3 +759,232 @@ and
   \[ \varphi^*(\pi_1)(\psi(x)) = (a \overline m_1, \overline m^\prime) = \pi^\prime_1(x). \]
   In the same way, $ \varphi^*(\pi_2) \circ \psi = \pi^\prime_2 $ and this concludes the proof.
 \end{proof}
+
+
+\section{The Karoubi envelope}
+Let $ C $ be a category and $ X, Y : C $ objects. We will denote the type of section-retraction pairs of $ Y $ onto $ X $ with
+\[ X \triangleleft Y := \sum_{r : C(Y, X)} \sum_{s : C(X, Y)} s \cdot r = \id X. \]
+Now, note that for $ (r, s) : X \triangleleft Y $, $ r \cdot s: C(Y, Y) $ is an idempotent morphism, since $ r \cdot s \cdot r \cdot s = r \cdot s $. We can also wonder whether for an idempotent morphism $ f: C(X, X) $, we can find some $ Y : C $ and some $ (r, s) : X \triangleleft Y $ such that $ f = r \cdot s $. If this is the case, we say that the idempotent $ f $ \textit{splits}\index{split idempotent}. If $ f $ does not split, we can wonder whether we can find an embedding $ \iota_C : C \hookrightarrow \overline C $ into some category $ \overline C $ such that the idempotent $ \iota_C(f): \overline C(\iota_C(X), \iota_C(X)) $ does split. This is one way to arrive at the \textit{Karoubi envelope}:
+
+\begin{definition}
+  We define the category $ \overline C $. The objects of $ \overline C $ are tuples $ (X, f) $ with $ X: C $, $ f: C(X, X) $ such that $ f \cdot f = f $. The morphisms between $ (X_1, f_1) $ and $ (X_2, f_2) $ are morphisms $ g: C(X_1, X_2) $ such that $ f_1 \cdot g \cdot f_2 = g $. This can be summarized in the following diagram:
+  \begin{center}
+    \begin{tikzcd}
+      X_1
+        \arrow["f_1"', loop, distance=2em, in=-150, out=150]
+        \arrow[r, "g"] &
+      X_2
+        \arrow["f_2"', loop, distance=2em, in=30, out=-30]
+    \end{tikzcd}
+  \end{center}
+  The identity morphism on $ (X, f) $ is given by $ f $ and $ \overline C $ inherits morphism composition from $ C $.
+\end{definition}
+This category is called the \iindex{Karoubi envelope}, the \textit{idempotent completion}\index{idempotent completion|see{Karoubi envelope}}, the \textit{category of retracts}\index{category of retracts|see{Karoubi envelope}}, or the \textit{Cauchy completion}\index{Cauchy completion|see{Karoubi envelope}} of $ C $.
+
+\begin{remark}
+  Note that for a morphism $ f: \overline C((c, a), (d, b)) $,
+  \[ a \cdot f = a \cdot a \cdot f \cdot b = a \cdot f \cdot b = f \]
+  and in the same way, $ f \cdot b = f $.
+\end{remark}
+
+\begin{definition}
+  We have an embedding $ \iota_C: C \to \overline C $, sending $ c: C $ to $ (c, \id{c}) $ and $ f: C(c, d) $ to $ f $.
+\end{definition}
+
+\begin{lemma}\label{lem:karoubi-is-retract}
+  Every object $ c: \overline C $ is a retract of $ \iota_C(c_0) $ for some $ c_0: C $.
+\end{lemma}
+\begin{proof}
+  Note that $ c = (c_0, a) $ for some $ c_0: C $ and an idempotent $ a: c \to c $. We have morphisms
+  \begin{tikzcd}
+    \iota_C(c) \arrow[r, shift left, "a_\rightarrow"] & (c, a) \arrow[l, shift left, "a_\leftarrow"]
+  \end{tikzcd}, both given by $ a $. We have $ a_\leftarrow \cdot a_\rightarrow = a = \id{(c, a)} $, so $ (c, a) $ is a retract of $ \iota_C(c) $.
+\end{proof}
+
+\begin{lemma}
+  In $ \overline C $, every idempotent splits.
+\end{lemma}
+\begin{proof}
+  Take an idempotent $ e: \overline C(c, c) $. Note that $ c $ is given by an object $ c_0: C $ and an idempotent $ a: C(c_0, c_0) $. Also, $ e $ is given by some idempotent $ e: C(c_0, c_0) $ with $ a \cdot e \cdot a = e $.
+
+  Now, we have $ (c_0, e): \overline C $ and morphisms
+  \begin{tikzcd}
+    (c_0, a) \arrow[r, shift left, "e_\rightarrow"] & (c_0, e) \arrow[l, shift left, "e_\leftarrow"]
+  \end{tikzcd}, both given by $ e $. We have $ e_\leftarrow \cdot e_\rightarrow = e = \id{(c_0, e)} $, so $ (c_0, e) $ is a retract of $ (c_0, a) $. Also, $ e = e_\rightarrow \cdot e_\leftarrow $, so $ e $ is split.
+\end{proof}
+
+\begin{remark}
+  Note that the embedding is fully faithful, since
+  \[ \overline C((c, \id c), (d, \id d)) = \{ f: C(c, d) \mid \id c \cdot f \cdot \id d = f \} = C(c, d). \]
+\end{remark}
+
+\begin{remark}\label{rem:retract-coequalizer}
+  Let $ D $ be a category. Suppose that we have a retraction-section pair in $ D $, given by
+  \begin{tikzcd}
+    d \arrow[r, shift left, "r"] & d^\prime \arrow[l, shift left, "s"]
+  \end{tikzcd}.
+  Now, suppose that we have an object $ c: D $ and a morphism $ f $ with $ (r \cdot s) \cdot f = f $. Then we get a morphism $ s \cdot f: d^\prime \to c $ such that $ f $ factors as $ r \cdot (s \cdot f) $. Also, for any $ g $ with $ r \cdot g = f $, we have
+  \[ g = s \cdot r \cdot g = s \cdot f. \]
+  \begin{center}
+    \begin{tikzcd}
+      d \arrow[r, left, "r"] \arrow[rd, "f"'] & d^\prime \arrow[r, "s"] \arrow[d, "s \cdot f" description] & d \arrow[ld, "f"]\\
+      & c
+    \end{tikzcd}.
+  \end{center}
+  Therefore, $ d^\prime $ is the equalizer of \begin{tikzcd}
+    d \arrow[r, shift left, "\id d"] \arrow[r, shift right, "r \cdot s"'] & d
+  \end{tikzcd}. In the same way, it is also the coequalizer of this diagram.
+
+  Now, note that if we have a coequalizer $ c^\prime $ of $ \id c $ and $ a $, and an equalizer $ d^\prime $ of $ \id d $ and $ b $, the universal properties of these give an equivalence
+  \[ D(c^\prime, d^\prime) \cong \{ f: D(c, d^\prime) \mid a \cdot f = f \} \cong \{ f: D(c, d) \mid a \cdot f = f = f \cdot b \}. \]
+  \begin{center}
+    \begin{tikzcd}
+      c \arrow[r, shift left, "\id c"] \arrow[r, shift right, "a"'] & c \arrow[r] \arrow[d] \arrow[rd] & c^\prime \arrow[d]\\
+      d & d \arrow[l, shift right, "\id d"'] \arrow[l, shift left, "b"] & d^\prime \arrow[l]
+    \end{tikzcd}
+  \end{center}
+\end{remark}
+
+There is also another (classically equivalent) definition of the Karoubi envelope. An object in this alternative category is a presheaf $ F : PC $ that is a retract of the Yoneda embedding $ \yo(X) $ of an object $ X : C $. Note that there are two different ways to translate this to univalent foundations. We can either interpret the existence of the object $ X $ and the retraction $ (r, s) : F \triangleleft \yo(X) $ as additional \textit{structure} on $ F $, or we can treat it as a \textit{property} and ask for \textit{mere existence} of $ X $, $ r $ and $ s $. This gives rise to two different categories:
+
+\begin{definition}\label{def:karoubi'}
+  We define the category $ \tilde C $ in which every object is a presheaf $ F : P C $, together with an object $ X : C $ and a retraction-section pair $ (r, s) : F \triangleleft \yo (X) $. The morphisms from $ (F_1, X_1, r_1, s_1) $ to $ (F_2, X_2, r_2, s_2) $ are just the presheaf morphisms $ f: PC(F_1, F_2) $. This can be summarized in the following diagram:
+  \begin{center}
+    \begin{tikzcd}
+      \yo(X_1) \arrow[r, "r_1", bend left] &
+      F_1 \arrow[r, "g"] \arrow[l, "s_1", bend left] &
+      F_2 \arrow[r, "s_2", bend left] &
+      \yo(X_2) \arrow[l, "r_2", bend left]
+    \end{tikzcd}
+  \end{center}
+\end{definition}
+
+\begin{definition}\label{def:karoubi''}
+  We define the category $ \hat C $ as the full subcategory of $ P C $ consisting of objects $ F : P C $ such that there merely exist an object $ X: C $ and a retraction-section pair $ (r, s) : F \triangleleft \yo(X) $, summarized in the following diagram:
+  \begin{center}
+    \begin{tikzcd}
+      \mathit{\yo(X_1)} \arrow[r, "r_1", bend left, dashed] &
+      F_1 \arrow[l, "s_1", bend left, dashed] \arrow[r, "g"] &
+      F_2 \arrow[r, "s_2", bend left, dashed] &
+      \mathit{\yo(X_2)} \arrow[l, "r_2", bend left, dashed]
+    \end{tikzcd}
+  \end{center}
+\end{definition}
+
+This gives us what we need to translate the classical equivalence between the two notions of Karoubi envelope to type theory:
+\begin{lemma}\label{lem:karoubi-equivalence}
+  We have an adjoint equivalence $ \overline C \xrightarrow \sim \tilde C $.
+\end{lemma}
+\begin{proof}
+  As shown in Remark \ref{rem:retract-coequalizer}, an object $ (X, f) : \overline C $ is the equalizer of $ \id X $ and $ f $. Therefore, we send it to the equalizer
+  \begin{center}
+    \begin{tikzcd}
+      F \arrow[r, "s"] & \yo(X) \arrow[r, shift left, "\id{\yo X}"] \arrow[r, shift right, "\yo(f)"'] & \yo(X)
+    \end{tikzcd}
+  \end{center}
+  Note that for $ \yo(f) $, we have $ \yo(f) \cdot \yo(f) = \yo(f) \cdot \id{\yo X} $, so the universal property of the equalizer gives a morphism $ r: PC(\yo(X), F) $ such that $ r \cdot s = \yo(f) $. Using this same universal property, we can show that $ s \cdot r = \id F $.
+  We send a morphism $ g: \overline C((X_1, f_1), (X_2, f_2)) $ to
+  \[ s_1 \cdot \yo(g) \cdot r_2 : PC(F_1, F_2). \]
+  Note that this is an equivalence on the morphisms: For any morphism $ \bar g : PC(F_1, F_2) $, we have
+  \[ r_1 \cdot \bar g \cdot s_2 : PC(\yo(X_1), \yo(X_2)). \]
+  By the fully faithfulness of the Yoneda lemma, this corresponds to a morphism $ g : C(X_1, X_2) $ and we can show that these two maps between $ C((X_1, f_1), (X_2, f_2)) $ and $ \overline C(F_1, F_2) $ are inverses of each other.
+  \begin{center}
+    \begin{tikzcd}
+      F_1 \arrow[r, shift left, "s_1"] \arrow[d, "\bar g"] & \yo(X_1) \arrow[l, shift left, "r_1"] \arrow[r, shift left, "\id{\yo X_1}"] \arrow[r, shift right, "\yo(f_1)"'] \arrow[d, "\yo(g)"] & \yo(X_1)\\
+      F_2 \arrow[r, shift left, "s_2"] & \yo(X_2) \arrow[l, shift left, "r_2"] \arrow[r, shift left, "\id{\yo X_2}"] \arrow[r, shift right, "\yo(f_2)"'] & \yo(X_2)\\
+    \end{tikzcd}
+  \end{center}
+
+  Now, note that this map is also split essentially surjective. For some $ (F, X, r, s) : \tilde C $, $ r \cdot s $ is an idempotent morphism on $ \yo(X) $, and by fully faithfulness of the Yoneda Lemma, it corresponds to an idempotent morphism $ f $ on $ X $. We send $ (F, X, r, s) $ to $ (X, f) $. Note that both $ F $ is the equalizer of $ \id{\yo X} $ and $ r \cdot s $. Therefore, it is isomorphic to the image of $ (X, f) $.
+
+  The fact that a fully faithful and split essentially surjective functor is an adjoint equivalence concludes the proof.
+\end{proof}
+
+\begin{remark}
+  Note that since the morphism types of $ \tilde C $ and $ \hat C $ are the same, and since the objects of $ \hat C $ are just truncated versions of the objects in $ \tilde C $, we have a fully faithful embedding
+  \[ \tilde C \hookrightarrow \hat C, \]
+  which just forgets the choices for $ X $, $ r $ and $ s $ on the objects. Note that this is also essentially surjective: by definition, for any $ (F, H) : \hat C $, there merely exist $ X $, $ r $ and $ s $ such that $ (X, r, s) $ truncates to $ H $.
+  Therefore, we have a weak equivalence from $ tilde C $ to $ \hat C $. However, as we will see, $ \tilde C $ is usually not univalent, so this does not give an adjoint equivalence of categories.
+\end{remark}
+
+\begin{remark}
+  The fully faithful embedding $ i_C : C \hookrightarrow \overline C $ induces equivalences $ (X \cong Y) \simeq (\iota_C(X) \cong \iota_C(Y)) $. We also have an equivalence $ (X = Y) \simeq (\iota_C(X) = \iota_C(Y)) $, because, as it turns out, any equality between $ X $ and $ Y $ also preserves the identity of $ X $. Therefore, if $ \overline C $ is univalent, we have a chain of equivalences
+  \[ (X = Y) \simeq (\iota_C(X) = \iota_C(Y)) \simeq (\iota_C(X) \cong \iota_C(Y)) \simeq (X \cong Y), \]
+  which shows that $ C $ is univalent as well.
+\end{remark}
+
+\begin{remark}
+  Note that the converse does not necessarily hold. Consider the commutative monoid consisting of the three matrices
+  \[
+    a = \begin{pmatrix}
+      1 & 0\\0 & 1
+    \end{pmatrix}, \quad
+    b = \begin{pmatrix}
+      1 & 0\\0 & 0
+    \end{pmatrix} \quad \text{and} \quad
+    c = \begin{pmatrix}
+      -1 & 0\\0 & 0
+    \end{pmatrix}
+  \]
+  under matrix multiplication. As we saw in Section \ref{sec:monoid-category}, we can turn this into a category $ C_M $ with one object $ \star $, and the three morphisms $ a $, $ b $ and $ c $. Only $ a $ is an isomorphism and since $ \star = \star $ has exactly one inhabitant, $ C_M $ is univalent.
+
+  When we construct the Karoubi envelope $ \overline C_M $, we get a category with objects $ a $ and $ b $. Now, note that since $ M $ is a set, $ b = b $ still has one inhabitant. Of course, $ b \cong b $ contains the identity automorphism. However, since
+  \[ b \cdot c = c \quad \text{and} \quad c \cdot c = b, \]
+  $ c $ is also an automorphism of $ b $. Therefore, $ \overline C_M $ is not univalent.
+
+  In a somewhat more complicated way, we can show that $ \tilde C_M $ is not univalent either: the counterpart of $ b $ in that category has two automorphisms, corresponding to $ b $ and $ c $, but only one equality, which is the identity. This is because isomorphisms only have to respect the presheaf structure, whereas equalities also have to respect the section (and retraction). Note that presheaves are univalent, so equality of presheaves is equivalent to isomorphism of presheaves.
+
+  Therefore, $ \overline C $ and $ \tilde C $ are usually more pathological than $ C $ itself. On the other hand, since $ \hat C $ is a full subcategory of $ PC $, it is univalent.
+\end{remark}
+
+This all leads up to:
+\begin{corollary}
+  We have three candidates for the category of retracts, which are related to each other and to $ C $ and $ PC $ as follows:
+  \begin{center}
+    \begin{tikzcd}
+      C \arrow[r, hook, "\iota_C"] & \overline C \arrow[r, "\sim"] & \tilde C \arrow[r, hook, two heads] & \hat C \arrow[r, phantom, "\subseteq"] & PC
+    \end{tikzcd}
+  \end{center}
+  The fact that $ \hat C $ is univalent, and has weak equivalences from $ \overline C $ and $ \tilde C $ exhibits $ \hat C $ as the Rezk completion of $ \overline C $ and $ \tilde C $.
+\end{corollary}
+
+\begin{remark}
+  Our choice of definition will have consequences. One one hand, $ \hat C $ is univalent, but very abstract. In this category, there are classical constructions that we cannot do, because for every object, we only have mere existence of an idempotent morphism. On the other hand, $ \overline C $ and $ \tilde C $ are very elementary and concrete, but not univalent, which makes working with them also hard.
+\end{remark}
+
+The remainder of this section works towards the adjoint equivalence between $ PC $ and $ P \overline C $.
+
+Since a functor preserves retracts, and since every object of $ \overline C $ is a retract of an object in $ C $, we can generalize the construction of the functor that we do in Lemma \ref{lem:karoubi-equivalence} for the functor $ \yo: C \to PC $, to general functors $ F: C \to D $ for categories $ D $ with (co)equalizers.
+
+For convenience, the lemma below works very abstractly with pointwise left Kan extension using colimits, but one could also prove this using just (co)equalizers (or right Kan extension using limits).
+\begin{lemma}
+  Let $ D $ be a category with colimits. We have an adjoint equivalence between $ [C, D] $ and $ [\overline C, D] $.
+\end{lemma}
+\begin{proof}
+  We already have an adjunction $ \Lan {\iota_C} {} \dashv \iota_{C*} $. Also, since $ \iota_C $ is fully faithful, we know that $ \eta $ is a natural isomorphism. Therefore, we only have to show that $ \epsilon $ is a natural isomorphism. That is, we need to show that $ \epsilon_G(c, a): D(\Lan {\iota_C} (\iota_{C*} G) (c, a), G(c, a)) $ is an isomorphism for all $ G: [\overline C, D] $ and $ (c, a): \overline C $.
+
+  One of the components in the diagram of $ \Lan {\iota_C} (\iota_{C*} G) (c, a) $ is the $ \iota_{C*} G(c) = G(c, \id c) $ corresponding to $ a: \iota_C(c) \to (c, a) $. This component has a morphism into our colimit
+  \[ \varphi: C(G(\iota_C(c)), \Lan {\iota_C} (\iota_{C*} G) (c, a)). \]
+  Note that we can view $ a $ as a morphism $ a: \overline C((c, a), \iota_C(c)) $. This gives us our inverse morphism
+  \[ G(a) \cdot \varphi: C(G(c, a), \Lan {\iota_C} (\iota_{C*} G) (c, a)). \]
+\end{proof}
+
+\begin{lemma}
+  The formation of the opposite category commutes with the formation of the Karoubi envelope.
+\end{lemma}
+\begin{proof}
+  An object in $ \overline{\op C} $ is an object $ c: \op C $ (which is just an object $ c: C $), together with an idempotent morphism $ a: \op C(c, c) = C(c, c) $. This is the same as an object in $ \op{\overline C} $.
+
+  A morphism in $ \overline{\op C}((c, a), (d, b)) $ is a morphism $ f: \op C(c, d) = C(d, c) $ such that
+  \[ b \cdot_C f \cdot_C a = a \cdot_{\op C} f \cdot_{\op C} b = f. \]
+  A morphism in $ \op{\overline C}((c, a), (d, b)) = \overline C((d, b), (c, a)) $ is a morphism $ f: C(d, c) $ such that $ b \cdot f \cdot a = f $.
+
+  Now, in both categories, the identity morphism on $ (c, a) $ is given by $ a $.
+
+  Lastly, $ \overline {\op C} $ inherits morphism composition from $ \op C $, which is the opposite of composition in $ C $. On the other hand, composition in $ \op{\overline C} $ is the opposite of composition in $ \overline C $, which inherits composition from $ C $.
+\end{proof}
+
+\begin{corollary}\label{cor:karoubi-presheaf}
+  As the category $ \SET $ is cocomplete, we have an equivalence between the category of presheaves on $ C $ and the category of presheaves on $ \overline C $:
+  \[ [\op C, \SET] \cong [\overline{\op C}, \SET] \cong [\op{\overline C}, \SET]. \]
+\end{corollary}
