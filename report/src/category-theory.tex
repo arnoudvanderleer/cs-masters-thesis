@@ -91,7 +91,7 @@ An (adjoint) equivalence of categories has multiple definitions. The one we will
 \end{definition}
 
 \subsection{Weak equivalences}
-There is also the notion of `weak equivalence'. In some cases, this is equivalent to an adjoint equivalence (for example, when its domain is univalent).
+There is also the notion of `weak equivalence'. In some cases, this is equivalent to an adjoint equivalence (for example, when its domain is univalent, see Section \ref{sec:univalence-principle}).
 \begin{definition}
   A functor $ F: C \to D $ is called a \iindex{weak equivalence} if it is essentially surjective and fully faithful.
 \end{definition}
@@ -142,19 +142,19 @@ However, sometimes, we have a forgetful functor $ F: C \to D $, but we cannot gi
 \section{Yoneda}
 We can embed a category $ C $ fully faithfully into the functor category $ P C = [\op C, \SET] $ as follows (see \autocite{Kashiwara}, Section 1.4):
 \begin{definition}\label{def:Yoneda-embedding}
-  The \iindex{Yoneda embedding} $ Y : C \hookrightarrow P C $ is given on objects by $ Y(c) = C(-, c) $:
-  \[ Y(c)(d) = C(d, c) \quad \text{and} \quad Y(c)(f)(g) = f \cdot g \]
-  for $ d: C $, $ f: C(d, d^\prime) $ and $ g: C(d^\prime, c) $. It sends a morphism $ f: C(c, c^\prime) $ to the natural transformation $ Y(f): C(-, c) \Rightarrow C(-, c^\prime) $ given by
-  \[ Y(f)(d)(g) = g \cdot f \]
+  The \iindex{Yoneda embedding} $ \yo : C \hookrightarrow P C $ is given on objects by $ \yo(c) = C(-, c) $:
+  \[ \yo(c)(d) = C(d, c) \quad \text{and} \quad \yo(c)(f)(g) = f \cdot g \]
+  for $ d: C $, $ f: C(d, d^\prime) $ and $ g: C(d^\prime, c) $. It sends a morphism $ f: C(c, c^\prime) $ to the natural transformation $ \yo(f): C(-, c) \Rightarrow C(-, c^\prime) $ given by
+  \[ \yo(f)(d)(g) = g \cdot f \]
   for $ d: C $ and $ g: C(d, c) $.
 \end{definition}
 
 Now, this embedding has a couple of properties:
 \begin{lemma}
-  For any $ A: C $ and $ F : P C $, we have an equivalence $ P C(Y(A), F) \simeq F(A) $, and this equivalence is natural in $ c $ and $ F $.
+  For any $ A: C $ and $ F : P C $, we have an equivalence $ P C(\yo(A), F) \simeq F(A) $, and this equivalence is natural in $ c $ and $ F $.
 \end{lemma}
 \begin{proof}
-  It sends a natural transformation $ \alpha: P C(Y(A), F) $ to the element $ \alpha_A(\id A) $. Conversely, it sends an element $ x : P(A) $ to the natural transformation $ \alpha $ given by $ \alpha_B(f) = P(f)(x) $ for all $ f: Y(A)(B) = C(B, A) $. For more details, see \autocite{Kashiwara}, Proposition 1.4.3.
+  It sends a natural transformation $ \alpha: P C(\yo(A), F) $ to the element $ \alpha_A(\id A) $. Conversely, it sends an element $ x : P(A) $ to the natural transformation $ \alpha $ given by $ \alpha_B(f) = P(f)(x) $ for all $ f: \yo(A)(B) = C(B, A) $. For more details, see \autocite{Kashiwara}, Proposition 1.4.3.
 \end{proof}
 
 \begin{remark}
@@ -162,8 +162,8 @@ Now, this embedding has a couple of properties:
 \end{remark}
 
 \begin{remark}
-  Also, for any small category $ C $ (small means that the collection of objects is a type in our type universe. For example: $ \TYPE $ or $ \SET $ are not small categories, because a type cannot contain itself), the presheaf category $ P C $ has exponential objects, given by
-  \[ (F^G)(X) = \hom{PC}(Y(X) \times G, F) \]
+  Also, for any small category $ C $ (small means that the collection of objects is a type in our type universe. For example: for a fixed universe of types, $ \TYPE $ or $ \SET $ are not small categories, the universe of types is not contained in itself), the presheaf category $ P C $ has exponential objects, given by
+  \[ (F^G)(X) = \hom{PC}(\yo(X) \times G, F) \]
   the natural transformations from the product functor of the Yoneda embedding of $ X $ and $ G $, to $ F $ (see \autocite{MacLane-Moerdijk}, Section I.6, Proposition 1).
 \end{remark}
 
@@ -188,38 +188,38 @@ Now, this embedding has a couple of properties:
 \end{lemma}
 \begin{proof}
   See \autocite{borceux}, Volume 1, Proposition 2.15.5 for the full proof, but note that for binary products, we have bijections
-  \[ Y(A \times B)(X) \xrightarrow \sim Y(A)(X) \times Y(B)(X) \]
-  sending $ f : C(X, A \times B) $ to the pair $ (f \cdot \pi_1, f \cdot \pi_2) $ and conversely, sending a pair $ (g_1, g_2) : C(X, A) \times Y(X, B) $ to the product morphism $ \langle g_1, g_2 \rangle : Y(X, A \times B) $. This idea is the core of the proof about all limits.
+  \[ \yo(A \times B)(X) \xrightarrow \sim \yo(A)(X) \times \yo(B)(X) \]
+  sending $ f : C(X, A \times B) $ to the pair $ (f \cdot \pi_1, f \cdot \pi_2) $ and conversely, sending a pair $ (g_1, g_2) : C(X, A) \times C(X, B) $ to the product morphism $ \langle g_1, g_2 \rangle : Y(X, A \times B) $. This idea is the core of the proof about all limits.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}\label{lem:Yoneda-preserves-exponentials}
   The Yoneda embedding preserves exponentials.
 \end{lemma}
 \begin{proof}
   First of all, note that for $ A, B, X : C $, we have a sequence of isomorphisms  (\autocite{stackexchange:yoneda-exponentials})
   \begin{align*}
-    Y(A^B)(X) &\cong P C(Y(X), Y(A^B))\\
+    \yo(A^B)(X) &\cong P C(\yo(X), \yo(A^B))\\
     &\cong C(X, A^B)\\
     &\cong C(X \times B, A)\\
-    &\cong P C(Y(X \times B), Y(A))\\
-    &\cong P C(Y(X) \times Y(B), Y(A))\\
-    &\cong P C(Y(X), Y(A)^Y(B))\\
-    &\cong (Y(A)^Y(B))(X)
+    &\cong P C(\yo(X \times B), \yo(A))\\
+    &\cong P C(\yo(X) \times \yo(B), \yo(A))\\
+    &\cong P C(\yo(X), \yo(A)^\yo(B))\\
+    &\cong (\yo(A)^\yo(B))(X)
   \end{align*}
   using (once or twice) the Yoneda lemma, fully faithfulness of the Yoneda embedding, the property of the exponential object, and the fact that the Yoneda embedding preserves binary products.
 
-  Some calculating shows that when applying this isomorphism to some $ f: Y(A^B)(X) $, we get the natural transformation $ h: P C(Y(X) \times Y(B), Y(A)) $ given by
+  Some calculating shows that when applying this isomorphism to some $ f: \yo(A^B)(X) $, we get the natural transformation $ h: P C(\yo(X) \times \yo(B), \yo(A)) $ given by
   \[ h_Z(g_1, g_2) = \langle g_1, g_2 \rangle \cdot \varphi^{-1}(f) \]
-  for all $ Z: C $ and $ (g_1, g_2) : Y(X)(Z) \times Y(B)(Z) $ and with the natural bijection
+  for all $ Z: C $ and $ (g_1, g_2) : \yo(X)(Z) \times \yo(B)(Z) $ and with the natural bijection
   \[ \varphi: C(X \times B, A) \xrightarrow \sim C(X, A^B). \]
 
-  It turns out that when we apply the morphism in Definition \ref{def:exponentials-preservation} to $ f $, we get exactly the same natural transformation. Therefore, the morphism in Definition \ref{def:exponentials-preservation} is the isomorphism defined here and we conclude that $ Y $ preserves exponentials.
+  It turns out that when we apply the morphism in Definition \ref{def:exponentials-preservation} to $ f $, we get exactly the same natural transformation. Therefore, the morphism in Definition \ref{def:exponentials-preservation} is the isomorphism defined here and we conclude that $ \yo $ preserves exponentials.
 \end{proof}
 
-For a functor between categories $ f: C \to D $, given the Yoneda embeddings $ Y_C : C \to P C $ and $ Y_D : D \to P D $ (we will often omit the subscript $ C $ and $ D $), we can create a diagram
+For a functor between categories $ f: C \to D $, given the Yoneda embeddings $ \yo_C : C \to P C $ and $ \yo_D : D \to P D $ (we will often omit the subscript $ C $ and $ D $), we can create a diagram
 \begin{center}
   \begin{tikzcd}
-    C \arrow[r, "f"] \arrow[d, hookrightarrow, "Y"] & D \arrow[d, hookrightarrow, "Y"]\\
+    C \arrow[r, "f"] \arrow[d, hookrightarrow, "\yo"] & D \arrow[d, hookrightarrow, "\yo"]\\
     P C & P D \arrow[l, "\op f_*"]
   \end{tikzcd}
 \end{center}
@@ -229,22 +229,22 @@ Note that the arrows in this diagram are functors, so objects in a category, ins
 \end{lemma}
 \begin{proof}
   For $ c, d : C $, since $ f $ is fully faithful, we have isomorphisms of sets, given by
-  \[ Y(c)(d) = C(d, c) \xrightarrow[f_{d, c}]{\sim} D(f(d), f(c)) = \op f_*(Y(f(c)))(d). \]
+  \[ \yo(c)(d) = C(d, c) \xrightarrow[f_{d, c}]{\sim} D(f(d), f(c)) = \op f_*(\yo(f(c)))(d). \]
   Also, for $ g: C(d^\prime, d) $, the following diagram commutes
   \begin{center}
     \begin{tikzcd}
-      Y(c)(d) \arrow[d, "g \cdot -"] \arrow[r, "f_{d, c}"] & \op f_*(Y(f(c)))(d) \arrow[d, "f_{d^\prime, d}(g) \cdot -"]\\
-      Y(c)(d^\prime) \arrow[r, "f_{d^\prime, c}"] & \op f_*(Y(f(c)))(d^\prime)
+      \yo(c)(d) \arrow[d, "g \cdot -"] \arrow[r, "f_{d, c}"] & \op f_*(\yo(f(c)))(d) \arrow[d, "f_{d^\prime, d}(g) \cdot -"]\\
+      \yo(c)(d^\prime) \arrow[r, "f_{d^\prime, c}"] & \op f_*(\yo(f(c)))(d^\prime)
     \end{tikzcd}
   \end{center}
-  so the isomorphism is natural in $ d $ and we have $ Y(c) \cong \op f_*(Y(f(c))) $ in $ P C $. Lastly, for $ g: C(c, c^\prime) $ and $ d: C $, the following diagram commutes
+  so the isomorphism is natural in $ d $ and we have $ \yo(c) \cong \op f_*(\yo(f(c))) $ in $ P C $. Lastly, for $ g: C(c, c^\prime) $ and $ d: C $, the following diagram commutes
   \begin{center}
     \begin{tikzcd}
-      Y(c)(d) \arrow[d, "- \cdot g"] \arrow[r, "f_{d, c}"] & \op f_*(Y(f(c)))(d) \arrow[d, "- \cdot f_{c, c^\prime}(g)"]\\
-      Y(c^\prime)(d) \arrow[r, "f_{d, c^\prime}"] & \op f_*(Y(f(c^\prime)))(d)
+      \yo(c)(d) \arrow[d, "- \cdot g"] \arrow[r, "f_{d, c}"] & \op f_*(\yo(f(c)))(d) \arrow[d, "- \cdot f_{c, c^\prime}(g)"]\\
+      \yo(c^\prime)(d) \arrow[r, "f_{d, c^\prime}"] & \op f_*(\yo(f(c^\prime)))(d)
     \end{tikzcd}
   \end{center}
-  so the isomorphism is natural in $ c $ and we have $ Y \cong f \bullet Y \bullet \op f_* $ in $ [C, P C] $.
+  so the isomorphism is natural in $ c $ and we have $ \yo \cong f \bullet \yo \bullet \op f_* $ in $ [C, P C] $.
 \end{proof}
 
 \section{Fibrations}
@@ -845,7 +845,7 @@ This category is called the \iindex{Karoubi envelope}, the \textit{idempotent co
   \end{center}
 \end{remark}
 
-There is also another (classically equivalent) definition of the Karoubi envelope. An object in this alternative category is a presheaf $ F : PC $ that is a retract of the Yoneda embedding $ \yo(X) $ of an object $ X : C $. Note that there are two different ways to translate this to univalent foundations. We can either interpret the existence of the object $ X $ and the retraction $ (r, s) : F \triangleleft \yo(X) $ as additional \textit{structure} on $ F $, or we can treat it as a \textit{property} and ask for \textit{mere existence} of $ X $, $ r $ and $ s $. This gives rise to two different categories:
+There is also another (classically equivalent) definition of the Karoubi envelope. An object in this alternative category is a presheaf $ F : PC $ that is a retract of the Yoneda embedding $ \yo(X) $ of an object $ X : C $. Note that there are two different ways to translate this to univalent foundations. We can either interpret the existence of the object $ X $ and the retraction $ (r, s) : F \triangleleft \yo(X) $ as additional \textit{structure} on $ F $, or we can treat it as a \textit{property} and ask for \textit{mere existence} (see Definition \ref{def:mere-existence}) of $ X $, $ r $ and $ s $. This gives rise to two different categories:
 
 \begin{definition}\label{def:karoubi'}
   We define the category $ \tilde C $ in which every object is a presheaf $ F : P C $, together with an object $ X : C $ and a retraction-section pair $ (r, s) : F \triangleleft \yo (X) $. The morphisms from $ (F_1, X_1, r_1, s_1) $ to $ (F_2, X_2, r_2, s_2) $ are just the presheaf morphisms $ f: PC(F_1, F_2) $. This can be summarized in the following diagram:
@@ -906,6 +906,8 @@ This gives us what we need to translate the classical equivalence between the tw
   which just forgets the choices for $ X $, $ r $ and $ s $ on the objects. Note that this is also essentially surjective: by definition, for any $ (F, H) : \hat C $, there merely exist $ X $, $ r $ and $ s $ such that $ (X, r, s) $ truncates to $ H $.
   Therefore, we have a weak equivalence from $ tilde C $ to $ \hat C $. However, as we will see, $ \tilde C $ is usually not univalent, so this does not give an adjoint equivalence of categories.
 \end{remark}
+
+Even though univalence and the Rezk completion in general will be covered in Section \ref{sec:univalence-principle}, we will study univalence of the Karoubi envelope here:
 
 \begin{remark}
   The fully faithful embedding $ i_C : C \hookrightarrow \overline C $ induces equivalences $ (X \cong Y) \simeq (\iota_C(X) \cong \iota_C(Y)) $. We also have an equivalence $ (X = Y) \simeq (\iota_C(X) = \iota_C(Y)) $, because, as it turns out, any equality between $ X $ and $ Y $ also preserves the identity of $ X $. Therefore, if $ \overline C $ is univalent, we have a chain of equivalences

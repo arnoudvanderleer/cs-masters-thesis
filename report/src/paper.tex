@@ -159,7 +159,7 @@ Now, Hyland shows the following:
 
   Lastly, by Remark \ref{rem:pullback-of-projection}, $ r^* \Delta_Y L \cong \Delta_{X \times L} L $.
 
-  Therefore, we have the following diagram, showing that $ \prod_f \Delta_Y L $ is a retraction of $ \prod_{p_1} \Delta_{X \times L} L $:
+  Therefore, we have the following diagram, showing that $ \prod_f \Delta_Y L $ is a retract of $ \prod_{p_1} \Delta_{X \times L} L $:
   \begin{center}
     \begin{tikzcd}
       & \prod_{p_1} \Delta_{X \times L} L\\
@@ -463,7 +463,7 @@ Recall that we have an equivalence $ [\op{C_{A_1}}, \SET] \cong \RAct{A_1} $.
 \end{proof}
 
 \begin{remark}
-  Recall that the embedding $ \R_A \hookrightarrow \RAct{A_1} $ is the composition of a Yoneda embedding and two adjoint equivalences. These all preserve exponential objects (\TODO: Citation needed). Now, note that $ A_1 $ is the image of $ U : \R_A $, so the exponential $ U_A^{U_A} $ is $ A_2 $, the image of $ U^U = \lambda x_1 x_2, x_1 x_2 = \mathbf 1_2 $.
+  Recall that the embedding $ \R_A \hookrightarrow \RAct{A_1} $ is the composition of a Yoneda embedding and two adjoint equivalences. These all preserve exponential objects (see Lemma \ref{lem:Yoneda-preserves-exponentials}). Now, note that $ A_1 $ is the image of $ U : \R_A $, so the exponential $ U_A^{U_A} $ is $ A_2 $, the image of $ U^U = \lambda x_1 x_2, x_1 x_2 = \mathbf 1_2 $.
 \end{remark}
 
 \begin{definition}[Construction of the $ \lambda $-theory]
@@ -852,7 +852,7 @@ The fundamental theorem of the $ \lambda $-calculus that Hyland shows is actuall
 
 Let $ \llbracket n \rrbracket $ denote the finite set $ \{ 1, 2, \dots, n \} $. For $ T $ an algebraic theory, let $ \mathbf L $ be its corresponding Lawvere theory (Lemma \ref{lem:lawvere-clone}).
 
-\TODO Move the coproducts and theory of extensions to chapter 3?
+(\TODO Is it maybe a good idea to move the coproducts and theory of extensions to chapter 3?)
 
 \begin{lemma}\label{lem:algebra-coproducts}
   Let $ T $ be an algebraic theory. The category of $ T $-algebras has coproducts.

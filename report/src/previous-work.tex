@@ -62,22 +62,22 @@ Later on, we will need not only pairs and their projects, but also $ n $-tuples 
 for some constant $ c $, which usually is someting like $ \lambda x_{n + 1}, x_{n + 1} $.
 
 \begin{definition}
-  We define the category \index{R}$ \R $ as the Karoubi envelope of the monoid of the $ \lambda $-terms without free variables under composition. That is, the category of idempotent functions:
+  We define the category \index{R}$ \R $ as the Karoubi envelope $ \overline C_{L_0} $ of the one-point category based on the monoid of the $ \lambda $-terms without free variables under composition. In this case, we choose to interpret the Karoubi envelope as the very syntactical construction using idempotents, because Scott reasons about them in this way:
   \[ \R_0 = \{ A : L_0 \mid A \circ A = A \} \quad \text{and} \quad \R(A, B) = \{ f: L_0 \mid B \circ f \circ A = f \}, \]
   with $ \id A = A $ and composition given by $ \circ $.
 \end{definition}
 
 \begin{remark}
-  Hyland instead defines $ \R $ as
+  Hyland instead defines $ \R $ as the Karoubi envelope $ \overline C_{L_1} $ (again, the construction using the idempotents) of the monoid $ (L_1, - \bullet (-)) $ with identity element $ x_{1, 1} $:
   \[ \R_0 = \{ A : L_1 \mid A \bullet A = A \} \quad \text{and} \quad \R(A, B) = \{ f : L_1 \mid B \bullet f \bullet A = f \}, \]
-  writing $ s \bullet t $ instead of $ s \bullet (t) $ for $ s, t : L_1 $. Note that the following diagram commutes:
+  writing $ s \bullet t $ instead of $ s \bullet (t) $ for $ s, t : L_1 $. Note that we have a monoid morphism:
   \begin{center}
     \begin{tikzcd}
       L_1 \times L_1 \arrow[r, "\bullet"] \arrow[d, "{(s, t) \mapsto ((\lambda x_1, s), (\lambda x_1, t))}"'] & L_1 \arrow[d, "{s \mapsto (\lambda x_1, s)}"]\\
       L_0 \times L_0 \arrow[r, "\circ"] & L_0
     \end{tikzcd}
   \end{center}
-  Now, since for $ A : \R $, $ A = \lambda x_1, \iota_{0, 1}(A) (\iota_{0, 1}(A) x_1) $, we have $ \lambda x_1, \iota_{0, 1}(A) x_1 = A $. This shows that $ s \mapsto \lambda x_1, s $ and $ t \mapsto \iota_{0, 1}(t) x_1 $ (both on objects and morphisms) constitute an equivalence between Hyland's category of retracts and Scott's category of retracts.
+  and since for $ A : \R $, $ A = \lambda x_1, \iota_{0, 1}(A) (\iota_{0, 1}(A) x_1) $, we have $ \lambda x_1, \iota_{0, 1}(A) x_1 = A $. This shows that $ s \mapsto \lambda x_1, s $ and $ t \mapsto \iota_{0, 1}(t) x_1 $ (both on objects and morphisms) constitute an equivalence between Hyland's category of retracts and Scott's category of retracts.
 \end{remark}
 
 Now, to give a bit more intuition for the objects of $ \R $, we can pretend that an object $ A : \R $ consists of the set of elements that satisfy $ A a = a $. Then a morphism $ f : \R(A, B) $ gives $ B (f a) = (B \circ f) a = f a $. This actually constitutes a functor from $ R $ to $ \Pshf L $:
@@ -248,7 +248,7 @@ Since Lambek showed an equivalence between simply typed $ \lambda $-calculi and 
 
 \section{The Taylor Fibration}
 
-In his dissertation, Paul Taylor shows that $ \R $ is not only cartesian closed, but also \iindex{relatively cartesian closed}.
+In his dissertation, Paul Taylor shows that $ \R $ is not only cartesian closed, but also \iindex{relatively cartesian closed}. Recall we have chosen to interpret $ \R $ as the category $ \overline C_{L_0} $, constructed using idempotents, because both Scott's and Taylor's proof are very syntactical in nature.
 
 In Section \ref{sec:dependent-products}, we studied internal and external representations of families of objects in a category and how they behaved under substitutions (pullbacks). This was to arrive at a definition for dependent products and sums, as the right and left adjoints to the pullback (or substitution) functor $ \alpha^*: (C \downarrow A) \to (C \downarrow B) $ along some morphism $ \alpha : C(B, A) $.
 
@@ -504,3 +504,28 @@ This brings us to the main theorem of this section (\autocite{taylor}, 5.1.8).
   \[ \lambda x_1 x_2, Y (B x_2) (x_1 (X a x_2)) \]
   (notice the redundant usage of $ B $) is not idempotent.
 \end{remark}
+
+\section{The \texorpdfstring{$ \lambda $}{lambda}-calculus is algebraic}
+As we mentioned in Remark \ref{rem:lambda-theory-or-algebra}, using tools from universal algebra, there are two approaches to study $ \lambda $-calculus-like structures. One can either study $ \lambda $-theories or algebras for the algebraic theory $ \Lambda $. We will see that Hyland shows that these are equivalent.
+
+In his proof, he refers to the 2002 paper `The lambda calculus is algebraic' by Peter Selinger (\autocite{selinger-lambda-calculus-algebraic}). We will not study this paper in detail, but it is interesting to have a quick look at it, because it seems that Hyland took some inspiration from it.
+
+Selinger studies two kinds of objects which he calls $ \lambda $-algebras and $ \lambda $-theories:
+\begin{definition}
+  A \textit{combinatory algebra} is a set $ A $, together with a binary (application) operation $ (a_1, a_2) \mapsto a_1 a_2 $, and distinguished elements $ k, s : A $ such that for all $ a_1, a_2, a_3 : A $,
+  \[ k a_1 a_2 = a_1 \quad \text{and} \quad s a_1 a_2 a_3 = a_1 a_3 (a_2 a_3). \]
+  A \textit{$ \lambda $-algebra} is a combinatory algebra which `behaves nicely' in some sense\footnote{We can interpret terms of combinatory algebra (abstract terms involving just application, the constants $ S $ and $ K $, constants from $ A $ and some variables) as functions on $ A $. We can also interpret them as $ \lambda $-terms with constants in $ A $, by sending $ S $ and $ K $ to the $ S $ and $ K $ combinators. Then `behaving nicely' means that if the $ \lambda $-terms of two such terms are equal, then their functions on $ A $ are equal as well.}.
+\end{definition}
+
+For a set $ C $ and a countable set $ V $, we define $ \Lambda_C $ to be the inductive type with constructors
+\[ \mathtt{Var}(x), \quad \mathtt{App}(f, g), \quad \mathtt{Abs}(x, f) \quad \text{and} \quad \mathtt{Con}(c) \]
+for $ x : V $, $ f, g : \Lambda_C $ and $ c : C $.
+\begin{definition}
+  A \textit{$ \lambda $-theory} is an equivalence relation `$ = $' on $ \Lambda_C $ for some $ C $, containing $ \alpha $- and $ \beta $-equality and closed under application and abstraction.
+\end{definition}
+
+Selinger shows in his paper that the categories of $ \lambda $-algebras and $ \lambda $-theories are equivalent. As we will see in the next chapter, Hyland shows that his own notions of $ \Lambda $-algebras and $ \lambda $-theories are equivalent.
+
+Now, it is not hard to show that Hyland's and Selinger's notions of $ \lambda $-theory are equivalent: If we have one of Selinger's $ \lambda $-theories with a countable set of variables, enumerate the variables as $ x_1, x_2, \dots $ and let $ L_n $ be the set of terms with only the free variables $ x_1, \dots, x_n $. Then, if we quotient by the equivalence relation, we get one of Hyland's $ \lambda $-theories. Conversely, if we start with one of Hyland's $ \lambda $-theories $ L $, we can consider $ L_n $ as a subset of $ L_{n + 1} $ by sending $ x_{n, i} $ to $ x_{n + 1, i} $. If we take the union $ \bar L = \bigcup_n L_n $ (officially, this is a directed limit), we have a function $ f: \Lambda_{\bar L} \to \bar L $, because the constants of $ \Lambda_{\bar L} $ are exactly the terms of $ \bar L $ and because $ \lambda $-theories in Hyland's sense support the operations of the $ \lambda $-calculus (see subsection \ref{subsec:lambda-calculus-operations}). This gives an equivalence relation on $ \Lambda_{\bar L} $ by taking $ a\ `='\ b $ if $ f(a) = f(b) $.
+
+Note, however, that is very hard to show that Hyland's notion of $ \Lambda $-algebra and Selinger's notion of $ \lambda $-algebra are equivalent. If we start with a $ \Lambda $-algebra $ A $, this is already a combinatory algebra, because $ \Lambda $ contains the $ S $ and $ K $ combinators and their image are the designated elements $ s $ and $ k $. However, if we start with a $ \lambda $-algebra and want to turn this into a $ \Lambda $-algebra, we need to give a $ t $-action for every $ t : \Lambda $, not just for $ S $ and $ K $. Therefore, we need to show that any $ \Lambda $-term can be expressed in terms of $ K $, $ S $ and application. However, at that point we are already halfway through a proof that any $ \Lambda $-algebra can be given a $ \lambda $-theory structure.

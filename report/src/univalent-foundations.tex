@@ -40,7 +40,7 @@ If we think of types as propositions, the question whether some axiom is assumed
     is inhabited. This axiom (or actually more of a theorem) is called the \index{axiom of choice!type theoretic}\textit{type theoretic axiom of choice}.
 \end{itemize}
 
-\section{The univalence principle}
+\section{The univalence principle}\label{sec:univalence-principle}
 \enquote{\textit{Isomorphic objects are equivalent.}}
 
 This principle is visible in most of mathematics: Sets with a bijection have the same number of elements, isomorphic groups have the same properties, and since the universal property of limits makes them ``unique up to unique isomorphism'', we can talk about `the' limit of some diagram in a category.
@@ -67,15 +67,27 @@ A category that adheres to the univalence principle is called a \iindex{univalen
 
 Note that if $ B $ is a univalent category and $ A $ is any cateory, the functor category $ [A, B] = B^A $ is univalent as well. In particular, the presheaf category $ P A = [\op A, \SET] $ is univalent.
 
+Also, if $ A $ is univalent, any full subcategory $ B \subseteq A $ is also univalent, because isomorphisms and equalities of objects in $ B $ can be shown to be the `the same' as their isomorphisms and equalities in $ A $.
+
 \begin{lemma}
-  For every category $ C $, there exists a univalent category $ \hat C $ with a weak equivalence
-  \[ \iota: C \hookrightarrow \hat C. \]
+  For every category $ C $, there exists a univalent category $ D $ with a weak equivalence
+  \[ \iota: C \hookrightarrow D. \]
 \end{lemma}
 \begin{proof}
-  See \autocite{univalent-categories}, Theorem 8.5.
+  One construction takes $ D $ to be the full subcategory of the presheaf category $ PC $ of objects that are isomorphic (there \textit{merely exists} an isomorphism) to the Yoneda embedding $ \yo(X) $ of some object $ X : C $. See \autocite{univalent-categories}, Theorem 8.5.
 \end{proof}
-We call this univalent category the \iindex{Rezk completion}.
-\TODO: Uniqueness?
+We call such a univalent category a \iindex{Rezk completion} of $ C $.
+
+\begin{remark}
+  We can call it \textit{the} Rezk completion, since it is unique: Precomposition with the weak equivalence $ \iota: C \hookrightarrow D $ gives an adjoint equivalence on the functor categories $ [D, E] \simeq [C, E] $ for any univalent category $ E $. From this, it follows that $ \iota $ is the ``initial functor'' from $ C $: any functor from $ C $ to a univalent category factors uniquely through $ \iota $.
+
+  Now, two initial functors $ F : C \to D $ and $ F^\prime : C \to D^\prime $ factor uniquely through each other:
+  \[ F^\prime = F \bullet G \quad \text{and} \quad F = F^\prime \bullet G^\prime \]
+  for some functors $ G $ and $ G^\prime $ and we can show that
+  \[ G \bullet G^\prime = \id D \quad \text{and} \quad G^\prime \bullet G = \id{D^\prime}. \]
+  From this, we can construct an equivalence $ D \cong D^\prime $. Since $ D $ and $ D^\prime $ are univalent, this equivalence gives an equality of categories, and because $ F \bullet G = F^\prime $, we have an equality of pairs
+  \[ (D, F) = (D^\prime, F^\prime). \]
+\end{remark}
 
 \section{The univalence axiom}
 Now, even for a basic category, like the category of types, it seems impossible to prove that the univalence principle holds. However, this is no surprise: it turns out that it is independent of the axioms of Martin-Löf type theory (\TODO \textbf{Is this true? I need a reference for this, but could not find one}). That is: it cannot be proven, but assuming it as an axiom does not yield contradictions.
@@ -145,7 +157,7 @@ The propositional truncation forgets the details about a type, and only keeps th
 There also is the concept of higher order truncations. For example, the \index{truncation!set}\textit{set truncation} $ \Vert A \Vert_0 $, which is a homotopy set and has an equivalence $ (\Vert A \Vert_0 \to B) \simeq (A \to B) $ for any set $ B $. However, these higher truncation types become increasingly harder to construct, and in this thesis, we will only need to consider the propositional truncation.
 
 Often, when we prove a theorem or lemma that ``there exists some $ x: X $ such that $ Y(x) $'', what we actually mean is that we can construct an element $ x: X $ and then an element $ y : Y(x) $ of the dependent type $ Y $ over $ X $. This is equivalent to having an element of $ \sum_{x: X} Y(x) $. However, this is in general of course not a mere proposition. If we want to express that the set of such $ x $ is nonempty as a mere proposition, we talk about \iindex{mere existence}:
-\begin{definition}
+\begin{definition}\label{def:mere-existence}
   Given a dependent type $ Y $ over $ X $, if we say that there \textit{merely exists} an element $ x: X $ such that $ Y(x) $, we mean that we have an element of the propositional truncation
   \[ h: \left(\exists x: Y(x)\right) := \left\Vert \sum_{x: X} Y(x) \right\Vert. \]
 \end{definition}

@@ -103,7 +103,7 @@ Actually, we can recover some information about the algebraic theory morphism fr
   If $ f^* $ is an equivalence of categories, $ f $ is an isomorphism.
 \end{lemma}
 \begin{proof}
-  \TODO Move to after the theory algebra, because we need that.
+  This proof uses the theory algebra, which will be properly defined in Example \ref{ex:theory-algebra}.
 
   Note that to show that $ f $ is an isomorphism, we only need to show that the $ f_n $ are bijections. From the fact that we have inverse functions $ g_n : \SET(T, T^\prime) $ for the $ f_n $, and the fact that $ f $ is an algebraic theory morphism, we know that $ (g_n)_n $ is an algebraic theory morphism as well, and that it is the inverse of $ f $.
 
@@ -501,14 +501,14 @@ The idea is that if an object of $ C $ is a set, together with some operations b
 The proofs that $ E(X) $ is an algebraic theory and a $ \lambda $-theory, use properties of the product, and naturality of the isomorphism $ \varphi_Y $.
 
 \subsection{The theory algebra}
-\begin{example}
+\begin{example}\label{ex:theory-algebra}
   Let $ T $ be an algebraic theory and $ n $ a natural number. We can endow the $ T_n $ with a $ T $-algebra structure, by taking the substitution operator of $ T $ as the $ T $-action. Since this commutes with the substitution operator and the projections, $ T_n $ is a $ T $-algebra.
 \end{example}
 
 \begin{remark}
-  Recall from \ref{lem:lawvere-algebra} that $ T $-algebras are equivalent to finite-product-preserving $ \SET $-valued functors on the Lawvere theory $ \mathbf L $ associated to $ T $. Now, recall from (\TODO) that we can embed any category inside its category of $ \SET $-valued functors. This embeds $ n: \mathbf L $ as the theory algebra $ T_n $. Then the Yoneda Lemma gives a bijection
+  Recall from \ref{lem:lawvere-algebra} that $ T $-algebras are equivalent to finite-product-preserving $ \SET $-valued functors on the Lawvere theory $ \mathbf L $ associated to $ T $. Now, recall from Definition \ref{def:Yoneda-embedding} that we can embed any category $ C $ as $ \op C $ inside its category of $ \SET $-valued functors. This embeds $ n: \mathbf L $ as the theory algebra $ T_n $. Then the Yoneda Lemma gives a bijection
   \[ \Alg T(T_n, A) \cong A^n = \SET(\{ 1, \dots, n \}, A) \]
-  natural in $ n $ and $ A $. Explicitly, it sends $ f: \Alg T(T_n, A) $ to $ i \mapsto f(x_i) $ and $ (a_i)_i : A^n $ to $ f \mapsto f \bullet a $. The natural equivalence immediately shows that $ T_n $ is the free $ T $-algebra on $ n $ elements.
+  natural in $ n $ and $ A $. Explicitly, it sends $ f: \Alg T(T_n, A) $ to $ (f(x_i))_i $ and $ (a_i)_i : A^n $ to $ f \mapsto f \bullet a $. The natural equivalence immediately shows that $ T_n $ is the free $ T $-algebra on $ n $ elements.
 \end{remark}
 
 Using some additional machinery, we can combine this with the algebra pullback functor to get another functor:
