@@ -139,12 +139,12 @@ Actually, we can recover some information about the algebraic theory morphism fr
 \begin{remark}
   Hyland's proof of this fact is almost the same, but in the last part, he uses some category theory. Instead of explicitly constructing the inverse, he notices that the bijection
   \[ \Alg{T^\prime}(f^* T_n, A) \xrightarrow[\bar f_n \cdot -] \sim \Alg{T^\prime}(T^\prime_n, A) \]
-  is in fact the image of $ \bar f_n $ under the (covariant) Yoneda embedding of $ \Alg{T^\prime} $ into the functor category $ \Alg{T^\prime} \to \SET $:
-  \[ \hat Y(\bar f_n): \hat Y(f^* T_n) \to \hat Y(T^\prime_n). \]
+  is in fact the image of $ \op{\bar f_n} $ under the Yoneda embedding of $ \op{\Alg{T^\prime}} $ (or of $ \bar f_n $ under the covariant Yoneda embedding of $ \Alg{T^\prime} $) into the functor category $ \Alg{T^\prime} \to \SET $:
+  \[ \yo(\bar f_n): \yo(f^* T_n) \to \yo(T^\prime_n). \]
   Since the Yoneda embedding is fully faithful, this shows that $ \bar f_n $ is an isomorphism of $ T^\prime $-algebras, so in particular, it is a bijection.
 \end{remark}
 
-We can also consider the category of `all' algebraic theory algebras together. That is, the category $ C $ with $ C_0 = \sum_{T : \AlgTh}, \Alg T $ and $ C((T, A), (T^\prime, A^\prime)) $ consisting of pairs $ (f, f^\prime): \AlgTh(T, T^\prime) \times \SET(A, A^\prime) $ such that for all $ t: T_n $ and $ a: A^n $,
+Note that besides the categories $ \Alg T $, we can also consider the category of `all' algebraic theory algebras together. That is, the category $ C $ with $ C_0 = \sum_{T : \AlgTh}, \Alg T $ and $ C((T, A), (T^\prime, A^\prime)) $ consisting of pairs $ (f, f^\prime): \AlgTh(T, T^\prime) \times \SET(A, A^\prime) $ such that for all $ t: T_n $ and $ a: A^n $,
 \[ f^\prime(t \bullet a) = f(t) \bullet (f^\prime(a_i))_i. \]
 We then have a functor $ P: C \to \AlgTh $, projecting onto the first coordinate.
 

@@ -189,7 +189,7 @@ Now, this embedding has a couple of properties:
 \begin{proof}
   See \autocite{borceux}, Volume 1, Proposition 2.15.5 for the full proof, but note that for binary products, we have bijections
   \[ \yo(A \times B)(X) \xrightarrow \sim \yo(A)(X) \times \yo(B)(X) \]
-  sending $ f : C(X, A \times B) $ to the pair $ (f \cdot \pi_1, f \cdot \pi_2) $ and conversely, sending a pair $ (g_1, g_2) : C(X, A) \times C(X, B) $ to the product morphism $ \langle g_1, g_2 \rangle : Y(X, A \times B) $. This idea is the core of the proof about all limits.
+  sending $ f : C(X, A \times B) $ to the pair $ (f \cdot \pi_1, f \cdot \pi_2) $ and conversely, sending a pair $ (g_1, g_2) : C(X, A) \times C(X, B) $ to the product morphism $ \langle g_1, g_2 \rangle : \yo(X, A \times B) $. This idea is also the core of the proof about general limits.
 \end{proof}
 
 \begin{lemma}\label{lem:Yoneda-preserves-exponentials}
@@ -795,10 +795,9 @@ This category is called the \iindex{Karoubi envelope}, the \textit{idempotent co
   Every object $ c: \overline C $ is a retract of $ \iota_C(c_0) $ for some $ c_0: C $.
 \end{lemma}
 \begin{proof}
-  Note that $ c = (c_0, a) $ for some $ c_0: C $ and an idempotent $ a: c \to c $. We have morphisms
-  \begin{tikzcd}
-    \iota_C(c) \arrow[r, shift left, "a_\rightarrow"] & (c, a) \arrow[l, shift left, "a_\leftarrow"]
-  \end{tikzcd}, both given by $ a $. We have $ a_\leftarrow \cdot a_\rightarrow = a = \id{(c, a)} $, so $ (c, a) $ is a retract of $ \iota_C(c) $.
+  Note that $ c = (c_0, a) $ for some $ c_0: C $ and an idempotent $ a: c \to c $. We have
+  \[ (a, a) : (c, a) \triangleleft \iota_C(c), \]
+  since $ a \cdot a = a = \id{(c, a)} $, so $ (c, a) $ is a retract of $ \iota_C(c) $.
 \end{proof}
 
 \begin{lemma}
@@ -807,33 +806,31 @@ This category is called the \iindex{Karoubi envelope}, the \textit{idempotent co
 \begin{proof}
   Take an idempotent $ e: \overline C(c, c) $. Note that $ c $ is given by an object $ c_0: C $ and an idempotent $ a: C(c_0, c_0) $. Also, $ e $ is given by some idempotent $ e: C(c_0, c_0) $ with $ a \cdot e \cdot a = e $.
 
-  Now, we have $ (c_0, e): \overline C $ and morphisms
-  \begin{tikzcd}
-    (c_0, a) \arrow[r, shift left, "e_\rightarrow"] & (c_0, e) \arrow[l, shift left, "e_\leftarrow"]
-  \end{tikzcd}, both given by $ e $. We have $ e_\leftarrow \cdot e_\rightarrow = e = \id{(c_0, e)} $, so $ (c_0, e) $ is a retract of $ (c_0, a) $. Also, $ e = e_\rightarrow \cdot e_\leftarrow $, so $ e $ is split.
+  Now, we have $ (c_0, e): \overline C $ and
+  \[ (e, e) : (c_0, e) \triangleleft (c_0, a), \]
+  because $ e \cdot e = e = \id{(c_0, e)} $. Also, $ e = e \cdot e $, so $ e $ is split.
 \end{proof}
 
 \begin{remark}
-  Note that the embedding is fully faithful, since
+  Note that $ \iota_C $ is fully faithful, since
   \[ \overline C((c, \id c), (d, \id d)) = \{ f: C(c, d) \mid \id c \cdot f \cdot \id d = f \} = C(c, d). \]
 \end{remark}
 
 \begin{remark}\label{rem:retract-coequalizer}
-  Let $ D $ be a category. Suppose that we have a retraction-section pair in $ D $, given by
-  \begin{tikzcd}
-    d \arrow[r, shift left, "r"] & d^\prime \arrow[l, shift left, "s"]
-  \end{tikzcd}.
-  Now, suppose that we have an object $ c: D $ and a morphism $ f $ with $ (r \cdot s) \cdot f = f $. Then we get a morphism $ s \cdot f: d^\prime \to c $ such that $ f $ factors as $ r \cdot (s \cdot f) $. Also, for any $ g $ with $ r \cdot g = f $, we have
-  \[ g = s \cdot r \cdot g = s \cdot f. \]
+  Let $ D $ be a category and suppose that we have two objects $ d, d^\prime : D $ and a retraction
+  \[ (r, s) : d^\prime \triangleleft d. \]
+  Then $ d^\prime $ is the equalizer of \begin{tikzcd}
+    d \arrow[r, shift left, "\id d"] \arrow[r, shift right, "r \cdot s"'] & d \end{tikzcd} in the following way:
+
+  Suppose that we have an object $ c: D $ and a morphism $ f $ with $ (r \cdot s) \cdot f = f $. Then we get a morphism $ s \cdot f: D(d^\prime, c) $ such that $ f $ factors as $ r \cdot (s \cdot f) $. Also, for any $ g: D(d^\prime, c) $ with $ r \cdot g = f $, we have $ g = s \cdot r \cdot g = s \cdot f $:
   \begin{center}
     \begin{tikzcd}
       d \arrow[r, left, "r"] \arrow[rd, "f"'] & d^\prime \arrow[r, "s"] \arrow[d, "s \cdot f" description] & d \arrow[ld, "f"]\\
       & c
     \end{tikzcd}.
   \end{center}
-  Therefore, $ d^\prime $ is the equalizer of \begin{tikzcd}
-    d \arrow[r, shift left, "\id d"] \arrow[r, shift right, "r \cdot s"'] & d
-  \end{tikzcd}. In the same way, it is also the coequalizer of this diagram.
+
+  In a similar way, $ d^\prime $ is also the coequalizer of the given diagram.
 
   Now, note that if we have a coequalizer $ c^\prime $ of $ \id c $ and $ a $, and an equalizer $ d^\prime $ of $ \id d $ and $ b $, the universal properties of these give an equivalence
   \[ D(c^\prime, d^\prime) \cong \{ f: D(c, d^\prime) \mid a \cdot f = f \} \cong \{ f: D(c, d) \mid a \cdot f = f = f \cdot b \}. \]
@@ -845,7 +842,7 @@ This category is called the \iindex{Karoubi envelope}, the \textit{idempotent co
   \end{center}
 \end{remark}
 
-There is also another (classically equivalent) definition of the Karoubi envelope. An object in this alternative category is a presheaf $ F : PC $ that is a retract of the Yoneda embedding $ \yo(X) $ of an object $ X : C $. Note that there are two different ways to translate this to univalent foundations. We can either interpret the existence of the object $ X $ and the retraction $ (r, s) : F \triangleleft \yo(X) $ as additional \textit{structure} on $ F $, or we can treat it as a \textit{property} and ask for \textit{mere existence} (see Definition \ref{def:mere-existence}) of $ X $, $ r $ and $ s $. This gives rise to two different categories:
+Besides $ \overline C $, there is also another (classically equivalent) definition of the Karoubi envelope. An object in this alternative category is a presheaf $ F : PC $ that is a retract of the Yoneda embedding $ \yo(X) $ of an object $ X : C $. Note that there are two different ways to translate this to univalent foundations. We can either interpret the existence of the object $ X $ and the retraction $ (r, s) : F \triangleleft \yo(X) $ as additional \textit{structure} on $ F $, or we can treat it as a \textit{property} and ask for \textit{mere existence} (see Definition \ref{def:mere-existence}) of $ X $, $ r $ and $ s $. This gives rise to two different categories:
 
 \begin{definition}\label{def:karoubi'}
   We define the category $ \tilde C $ in which every object is a presheaf $ F : P C $, together with an object $ X : C $ and a retraction-section pair $ (r, s) : F \triangleleft \yo (X) $. The morphisms from $ (F_1, X_1, r_1, s_1) $ to $ (F_2, X_2, r_2, s_2) $ are just the presheaf morphisms $ f: PC(F_1, F_2) $. This can be summarized in the following diagram:
@@ -895,7 +892,7 @@ This gives us what we need to translate the classical equivalence between the tw
     \end{tikzcd}
   \end{center}
 
-  Now, note that this map is also split essentially surjective. For some $ (F, X, r, s) : \tilde C $, $ r \cdot s $ is an idempotent morphism on $ \yo(X) $, and by fully faithfulness of the Yoneda Lemma, it corresponds to an idempotent morphism $ f $ on $ X $. We send $ (F, X, r, s) $ to $ (X, f) $. Note that both $ F $ is the equalizer of $ \id{\yo X} $ and $ r \cdot s $. Therefore, it is isomorphic to the image of $ (X, f) $.
+  Now, note that this map is also split essentially surjective. For some $ (F, X, r, s) : \tilde C $, $ r \cdot s $ is an idempotent morphism on $ \yo(X) $, and by fully faithfulness of the Yoneda Lemma, it corresponds to an idempotent morphism $ f $ on $ X $. We send $ (F, X, r, s) $ to $ (X, f) $. Note that both $ F $ and the image of $ (X, f) $ are equalizers of $ \id{\yo X} $ and $ r \cdot s $, so they are isomorphic.
 
   The fact that a fully faithful and split essentially surjective functor is an adjoint equivalence concludes the proof.
 \end{proof}
@@ -904,8 +901,19 @@ This gives us what we need to translate the classical equivalence between the tw
   Note that since the morphism types of $ \tilde C $ and $ \hat C $ are the same, and since the objects of $ \hat C $ are just truncated versions of the objects in $ \tilde C $, we have a fully faithful embedding
   \[ \tilde C \hookrightarrow \hat C, \]
   which just forgets the choices for $ X $, $ r $ and $ s $ on the objects. Note that this is also essentially surjective: by definition, for any $ (F, H) : \hat C $, there merely exist $ X $, $ r $ and $ s $ such that $ (X, r, s) $ truncates to $ H $.
-  Therefore, we have a weak equivalence from $ tilde C $ to $ \hat C $. However, as we will see, $ \tilde C $ is usually not univalent, so this does not give an adjoint equivalence of categories.
+  Therefore, we have a weak equivalence from $ \tilde C $ to $ \hat C $. However, as we will see, $ \tilde C $ is usually not univalent, so this does not give an adjoint equivalence of categories.
 \end{remark}
+
+This all leads up to:
+\begin{corollary}
+  We have three candidates for the category of retracts, which are related to each other and to $ C $ and $ PC $ as follows:
+  \begin{center}
+    \begin{tikzcd}
+      C \arrow[r, hook, "\iota_C"] & \overline C \arrow[r, "\sim"] & \tilde C \arrow[r, hook, two heads] & \hat C \arrow[r, phantom, "\subseteq"] & PC
+    \end{tikzcd}
+  \end{center}
+  The fact that $ \hat C $ is univalent, and has weak equivalences from $ \overline C $ and $ \tilde C $ exhibits $ \hat C $ as the Rezk completion of $ \overline C $ and $ \tilde C $.
+\end{corollary}
 
 Even though univalence and the Rezk completion in general will be covered in Section \ref{sec:univalence-principle}, we will study univalence of the Karoubi envelope here:
 
@@ -939,19 +947,8 @@ Even though univalence and the Rezk completion in general will be covered in Sec
   Therefore, $ \overline C $ and $ \tilde C $ are usually more pathological than $ C $ itself. On the other hand, since $ \hat C $ is a full subcategory of $ PC $, it is univalent.
 \end{remark}
 
-This all leads up to:
-\begin{corollary}
-  We have three candidates for the category of retracts, which are related to each other and to $ C $ and $ PC $ as follows:
-  \begin{center}
-    \begin{tikzcd}
-      C \arrow[r, hook, "\iota_C"] & \overline C \arrow[r, "\sim"] & \tilde C \arrow[r, hook, two heads] & \hat C \arrow[r, phantom, "\subseteq"] & PC
-    \end{tikzcd}
-  \end{center}
-  The fact that $ \hat C $ is univalent, and has weak equivalences from $ \overline C $ and $ \tilde C $ exhibits $ \hat C $ as the Rezk completion of $ \overline C $ and $ \tilde C $.
-\end{corollary}
-
 \begin{remark}
-  Our choice of definition will have consequences. One one hand, $ \hat C $ is univalent, but very abstract. In this category, there are classical constructions that we cannot do, because for every object, we only have mere existence of an idempotent morphism. On the other hand, $ \overline C $ and $ \tilde C $ are very elementary and concrete, but not univalent, which makes working with them also hard.
+  As we saw in this section, there are multiple candidates for the `Karoubi envelope'. Two of these candidates are equivalent to each other, but the third is not. Therefore, we need to be careful which definition we choose, because this choice has consequences. One one hand, $ \hat C $ is univalent, but very abstract. In this category, there are classical constructions that we cannot do, because for every object, we only have mere existence of an idempotent morphism, and because the objects of $ \hat C $ do not form a set, we cannot use the axiom of choice to pick an idempotent morphism. On the other hand, $ \overline C $ and $ \tilde C $ are very elementary and concrete, which sometimes helps when doing constructions. However, they are not univalent, which makes working with them complicated in a different way.
 \end{remark}
 
 The remainder of this section works towards the adjoint equivalence between $ PC $ and $ P \overline C $.

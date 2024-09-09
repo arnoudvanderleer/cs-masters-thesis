@@ -43,9 +43,9 @@ Note that the composition of the first two morphisms sends the object of the cat
 Write $ i: \op{L_1} \hookrightarrow \op{\mathbf L} $ and $ j: \op{\mathbf L} \hookrightarrow \op \R $ for the embeddings on the opposite categories. By Corollary \ref{cor:surjective-precomposition}, the first two functors in this sequence essentially yield surjective functors on the presheaf categories:
 \begin{center}
   \begin{tikzcd}
-    C_{L_1} \arrow[d, "Y", hook] &
-    \mathbf L \arrow[l, "\op i"'] \arrow[d, "Y", hook] &
-    \mathbf R \arrow[rd, hook] \arrow[d, "Y", hook] \arrow[l, "\op j"']\\
+    C_{L_1} \arrow[d, "\yo", hook] &
+    \mathbf L \arrow[l, "\op i"'] \arrow[d, "yo", hook] &
+    \mathbf R \arrow[rd, hook] \arrow[d, "\yo", hook] \arrow[l, "\op j"']\\
     P C_{L_1} &
     P \mathbf L \arrow[l, "i_*"', two heads] &
     P \R \arrow[l, "j_*"', two heads] \arrow[ll, "\sim"', bend left] &
@@ -76,7 +76,7 @@ The two equivalences in this diagram are due to Lemma \ref{lem:lawvere-presheaf}
 \end{lemma}
 \begin{proof}
   Note:
-  \[ (Y \bullet j_*)(A)(n) = (j \bullet (Y(A)))(n) = Y(A)(j(n)) = \R(U^n, A) \]
+  \[ (\yo \bullet j_*)(A)(n) = (j \bullet (\yo(A)))(n) = \yo(A)(j(n)) = \R(U^n, A) \]
   \[ (\iota \bullet \sim)(A)(n) = \{ a : L_n \mid \iota_{0, n}(A) a = a \} \]
 
   By Scott's representation theorem, we have $ \varphi_n: \R(U^n, U) \xrightarrow \sim L_n, $ given by
@@ -86,7 +86,7 @@ The two equivalences in this diagram are due to Lemma \ref{lem:lawvere-presheaf}
   Of course, this is natural in $ A $, since for $ g: \R(A, B) $, postcomposing elements of $ \R(U^n, A) $ by $ g $ is equivalent to applying $ g $ to the elements of $ \{ a : L_n \mid A a = a \} $.
 
   Lastly, for $ f : L_m^n $, the presheaf actions
-  \[ (Y \bullet j_*)(A)(f) : \R(U^n, A) \to \R(U^m, A) \]
+  \[ (\yo \bullet j_*)(A)(f) : \R(U^n, A) \to \R(U^m, A) \]
   and
   \[ (\iota \bullet \sim)(A)(f) : \{ a : L_n \mid \iota_{0, n}(A) a = a \} \to \{ a : L_m \mid \iota_{0, n}(A) a = a \} \]
   are in fact given by the substitution operations $ \bullet $ in $ E(U) $ and $ L $. Since Scott's representation theorem shows that $ E(U) $ is isomorphic to $ L $ as a $ \lambda $-theory, these substitutions are compatible with the $ \varphi_n $, which shows naturality in $ n $.
@@ -116,7 +116,7 @@ Now, noticing that we can embed $ \R $ as a full subcategory in $ \Pshf L $, Hyl
 
   However, if we take $ X $ to be the initial (empty) presheaf, we see that there are no morphisms $ L \to X $, because the $ L_n $ are nonempty and the $ X_n $ are empty.
 
-  There also is a more category-theoretical argument: Suppose that every object of $ \Pshf L $ is a retract of $ L $. Via the equivalence $ \Pshf L \cong L_1 $, we see that every object of $ P C_{L_1} $ is a retract of $ Y(\star) $. However then the embedding of $ \hat \R $ (Definition \ref{def:karoubi'}) into $ P C_{L_1} $ is an adjoint equivalence. Since $ Y_{\R} \bullet {\op{\iota_{L_1}}}_* : \R \to \hat \R $ and $ {\op{\iota_{L_1}}}_* : P \R \to P C_{L_1} $ are weak equivalences, (Lemma \ref{lem:retracts-rezk}, Corollary \ref{cor:karoubi-presheaf}), $ Y_\R : \R \to P \R $ is a weak equivalence as well, but the Yoneda embedding is never essentially surjective. For any category $ C $, the constant empty presheaf $ E: c \mapsto \emptyset $ is not representable, since for all $ c : C $, $ \id c = Y(c)(c) $, so $ Y(c) $ is not isomorphic to $ E $.
+  There also is a more category-theoretical argument: Suppose that every object of $ \Pshf L $ is a retract of $ L $. Via the equivalence $ \Pshf L \cong L_1 $, we see that every object of $ P C_{L_1} $ is a retract of $ \yo(\star) $. However then the embedding of $ \hat \R $ (Definition \ref{def:karoubi'}) into $ P C_{L_1} $ is an adjoint equivalence. Since $ \yo_{\R} \bullet {\op{\iota_{L_1}}}_* : \R \to \hat \R $ and $ {\op{\iota_{L_1}}}_* : P \R \to P C_{L_1} $ are weak equivalences, (Lemma \ref{lem:retracts-rezk}, Corollary \ref{cor:karoubi-presheaf}), $ \yo_\R : \R \to P \R $ is a weak equivalence as well, but the Yoneda embedding is never essentially surjective. For any category $ C $, the constant empty presheaf $ E: c \mapsto \emptyset $ is not representable, since for all $ c : C $, $ \id c = \yo(c)(c) $, so $ \yo(c) $ is not isomorphic to $ E $.
 \end{remark}
 
 Recall that $ \Pshf L $ is isomorphic to the presheaf category $ P \mathbf L $, so it is an elementary topos, so it is locally cartesian closed (Example 5.2.5 and Theorem 5.8.4, \autocite{borceux}, Volume 3). Therefore, for a morphism $ f: \Pshf L(Y, X) $, we have adjunctions
@@ -411,7 +411,7 @@ Recall that we have an equivalence $ [\op{C_{A_1}}, \SET] \cong \RAct{A_1} $.
   Note that, like in the last chapter, $ \R_A $ pops up as the Karoubi envelope of the monoid category $ C_{A_1} $, and fits into the following diagram:
   \begin{center}
     \begin{tikzcd}
-      & C_{A_1} \arrow[d, hookrightarrow, "Y"] \arrow[r, hookrightarrow, "\iota_{C_{A_1}}"] & \R_A \arrow[d, hookrightarrow, "Y"]\\
+      & C_{A_1} \arrow[d, hookrightarrow, "\yo"] \arrow[r, hookrightarrow, "\iota_{C_{A_1}}"] & \R_A \arrow[d, hookrightarrow, "\yo"]\\
       \RAct{A_1} & P C_{A_1} \arrow[l, "\sim"] & P \R_A \arrow[l, "\sim"]
     \end{tikzcd}
   \end{center}
@@ -421,9 +421,9 @@ Recall that we have an equivalence $ [\op{C_{A_1}}, \SET] \cong \RAct{A_1} $.
   \begin{center}
     \begin{tikzcd}
       &
-      C_{{L_0}_1} \arrow[dd, "Y" description, hook] \arrow[rrr, "\iota_{C_{{L_0}_1}}" description, hook] \arrow[rd, "\sim" description, no head] & & & \R_{L_0} \arrow[dd, "Y" description, hook] \arrow[rd, "\sim" description, no head] & & \\
+      C_{{L_0}_1} \arrow[dd, "\yo" description, hook] \arrow[rrr, "\iota_{C_{{L_0}_1}}" description, hook] \arrow[rd, "\sim" description, no head] & & & \R_{L_0} \arrow[dd, "\yo" description, hook] \arrow[rd, "\sim" description, no head] & & \\
       &
-      & C_{L_1} \arrow[dd, "Y" description, hook] \arrow[r, hook] & \mathbf L \arrow[rr, hook] \arrow[dd, "Y" description, hook] & & \mathbf R \arrow[dd, "Y" description, hook] \arrow[rdd, hook] & \\
+      & C_{L_1} \arrow[dd, "\yo" description, hook] \arrow[r, hook] & \mathbf L \arrow[rr, hook] \arrow[dd, "\yo" description, hook] & & \mathbf R \arrow[dd, "\yo" description, hook] \arrow[rdd, hook] & \\
       \RAct{{L_0}_1} &
       P C_{{L_0}_1} \arrow[l, "\sim"'] \arrow[rd, "\sim" description, no head] & & & P \R_{L_0} \arrow[lll, "\sim" description] \arrow[rd, "\sim" description, no head] & & \\
       &
@@ -635,7 +635,7 @@ Definining the unit of the adjunction boils down to a version of Scott's represe
 
   Then $ \eta_L $ arises by combining this with the isomorphism from Scott's representation theorem (Theorem \ref{thm:representation-theorem})
   \[ \eta_L: L \xrightarrow \sim E_{\Pshf L}(L) \xrightarrow \sim E_{\RAct{{L_0}_1}}(U_{L_0}). \]
-  It is quite easy to work out that we can make this explicit as (dropping the $ L $ and just writing $ \eta_L $)
+  It is quite easy to work out that we can make this explicit as (dropping the $ n $ and just writing $ \eta_L $)
   \[ \eta_n:
     L_n
       \xrightarrow{f \mapsto ((s : \Pshf{L_m^n}) \mapsto f \bullet s)_m}
@@ -650,7 +650,7 @@ Definining the unit of the adjunction boils down to a version of Scott's represe
 
 \begin{remark}
   Note that we can do the same with Scott's version of his representation theorem, using the chain of equivalences and an embedding
-  \[ \mathbf R \xrightarrow \sim \mathbf R_{L_0} \xrightarrow{Y} P \R_{L_0} \xrightarrow \sim P C_{{L_0}_1} \xrightarrow \sim \RAct{{L_0}_1}, \]
+  \[ \mathbf R \xrightarrow \sim \mathbf R_{L_0} \xrightarrow{\yo} P \R_{L_0} \xrightarrow \sim P C_{{L_0}_1} \xrightarrow \sim \RAct{{L_0}_1}, \]
   Here, it is a bit harder to get an explicit formula for $ \eta $, because we need to do a bit more conversion between $ U_A^n $ and the image of $ U^n $ after the embedding $ \varphi: \mathbb R \hookrightarrow \RAct{{L_0}_1} $. If we quickly define $ \lambda $-terms
   \[ \langle x_i \rangle_i = \langle x_1, \dots, x_n \rangle = \langle \langle \dots \langle (\lambda x_{n + 1} x_{n + 2}, x_{n + 2}), x_1 \rangle, \dots\rangle, x_n \rangle \]
   and corresponding tuples $ (x_i)_i $ and projections $ \pi_i $, we have
