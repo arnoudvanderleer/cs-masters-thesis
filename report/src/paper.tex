@@ -94,32 +94,83 @@ The two equivalences in this diagram are due to Lemma \ref{lem:lawvere-presheaf}
 
 \section{Locally cartesian closedness of the category of retracts}
 
-Recall that Paul Taylor constructed a category of `dependent retracts' $ \R^A $, and then defined a class of display maps for $ \R $ in such a way that it gives a weak equivalence $ \sum_A : \R^A \xrightarrow{\sim} (\R \downarrow_D A) $. I.e., a map $ f: \R(X, A) $ is defined to be a display map if it is isomorphic to something in the image of the functor $ \sum_A $. We saw that these display maps can also be characterized as the retracts of the projection $ p_1: A \times U \to A $ in $ (\R \downarrow A) $.
+Recall that in the last chapter, we saw that Paul Taylor shows that the category of retracts $ \R $, studied by Scott, is not only cartesian closed, but also `relatively cartesian closed'. To make his proof work in univalent foundations, we need the axiom of choice. The category in question is the Karoubi envelope of the category $ C_{L_0} $ associated to the monoid $ (L_0, \circ) $.
 
-Now, noticing that we can embed $ \R $ as a full subcategory in $ \Pshf L $, Hyland attempts to do a similar thing for $ \Pshf L $. Noting that the universal object $ U : \R $ is embedded as the theory presheaf $ L : \Pshf L $, he defines a full subcategory $ \R(A) \subseteq (\Pshf L \downarrow A) $, consisting precisely of the retracts of $ \Delta_A L $ in $ (\Pshf L \downarrow A) $.
+Now, recall from Chapter \ref{ch:category-theory}, that in univalent foundations there are three different definitions that we can take for the Karoubi envelope, denoted $ \overline C_{L_0} $, $ \tilde C_{L_0} $ and $ \hat C_{L_0} $. There is three of them because in classical category theory there are two definitions that are equivalent, and because for one of the definitions we have to choose whether we interpret the `existence' of a retraction as additional structure (the retraction is given explicitly) or as a property (where we demand `mere existence'). This gives the following diagram (Corollary \ref{cor:karoubi-candidates}):
+\begin{center}
+  \begin{tikzcd}
+    C \arrow[r, hook, "\iota_C"] & \overline C \arrow[r, "\sim"] & \tilde C \arrow[r, hook, two heads] & \hat C \arrow[r, phantom, "\subseteq"] & PC
+  \end{tikzcd}
+\end{center}
+where $ \overline C_{L_0} $ and $ \tilde C_{L_0} $ are equivalent to each other, but usually not to $ \hat C_{L_0} $. We saw that $ \hat C_{L_0} $ is the Rezk completion of $ \overline C_{L_0} $ and $ \tilde C_{L_0} $.
+
+This is a fine example of a situation where notions that are equivalent in classical mathematics actually diverge in univalent foundations. We might say that this is annoying, because we have to be more careful which definition we pick. On the other hand, this gives `more detail' in some sense: it is interesting to study which proofs work in which context, and this tells us something about the nature of the proofs.
+
+The proofs of Scott and Taylor are about $ \overline C_{L_0} $, because they work explicitly with idempotents. The question whether it is possible to lift the proofs to $ \tilde C_{L_0} $ or $ \hat C_{L_0} $, is left for future research. On the other hand, as we will see, Hyland works with presheaves and in this way, he shows that $ \hat C_{L_0} $ is relatively cartesian closed.
+
+Now, officially, $ \hat C_{L_0} $ is the full subcategory of $ P C_{L_0} $, consisting of all objects $ X : P C_{L_0} $ such that there merely exists $ (r, s) : X \triangleleft \yo(\star) $. However, recall from the previous section that $ P C_{L_0} \cong P C_{L_1} \cong \Pshf L $. Under this equivalence, $ \yo(\star) $ is embedded as the theory presheaf $ L $, and we will work in the full subcategory $ \hat \R \subseteq \Pshf L $ of the objects $ X : \Pshf L $ such that there merely exists $ (r, s) : X \triangleleft L $. Of course, then $ \hat R $ is equivalent to $ \hat C_{L_0} $.
 
 \begin{remark}
-  Again, being a retract of $ \Delta_A L $ is not a mere proposition. For example, consider $ \id L : D(L, L) $:
+  There is a couple of tricks that we will use in this section. First of all, note that retractions can be composed. That is, given $ (r, s) : X \triangleleft Y $ and $ (r^\prime, s^\prime) : Y \triangleleft Z $, we have
+  \[ (r^\prime \cdot r, s \cdot s^\prime) : X \triangleleft Z. \]
+  Therefore, if we need to show that $ X $ is a retract of $ Z $, and we know that $ X $ is a retract of $ Y $, it remains to show that $ Y $ is a retract of $ Z $.
+
+  Also, functors preserve retractions, so if we have a functor $ F : C \to D $ and we have $ (r, s) : X \triangleleft Y $, then we have
+  \[ (F(r), F(s)) : F(X) \triangleleft F(Y). \]
+
+  Now, recall that in $ \R $, everything is a retract of $ U = \lambda x_1, x_1 $. Therefore, by the above, everything in the image of the embedding of $ \R $ into $ \Pshf L $ is a retract of $ L $, and therefore in $ \hat \R $.
+
+  Lastly, if we want to show that we can do some construction on some $ X : \hat \R $, we can often borrow the construction from $ \Pshf L $ to get some object $ Y : \Pshf L $. For this part, we cannot use the $ (r, s) : X \triangleleft L $. To show that $ Y $ is indeed in $ \hat \R $, we must show that there merely exist $ (r^\prime, s^\prime) : Y \triangleleft L $. By the recursion principle of the propositional truncation, we can pretend that we have a concrete $ (r, s) : X \triangleleft L $ to construct $ r^\prime $ and $ s^\prime $.
+\end{remark}
+
+Recall that Paul Taylor's display maps for $ \R $ can be characterized as the retracts of $ \Delta_X U $ (the projection $ p_1: X \times U \to X $) in $ (\R \downarrow X) $. This idea also works for $ \hat \R $, and Hyland defines $ D(Y, X) \subseteq \hat \R(Y, X) $ to consist of the retracts of $ \Delta_X L $ in $ (\hat \R \downarrow X) $. Note that, because $ \hat \R $ is a full subcategory of $ \Pshf L $, $ (\hat \R \downarrow X) $ is equivalent to $ (\Pshf L \downarrow X) $ for $ X : \hat \R $.
+
+\begin{remark}
+  Again, being a retract of $ \Delta_X L $ is usually not a mere proposition. For example, consider the ways in which $ \Delta_X L $ is a retract of itself:
   \begin{center}
     \begin{tikzcd}
-      L \arrow[rr, shift left, "s"] \arrow[rd, "\id L"'] & & L \times L \arrow[ll, shift left, "r"] \arrow[ld, "p_1"]\\
-      & L
+      X \times L \arrow[rr, shift left, "s"] \arrow[rd, "p_1"'] & & X \times L \arrow[ll, shift left, "r"] \arrow[ld, "p_1"]\\
+      & X
     \end{tikzcd}
   \end{center}
-  There are multiple possible retraction-section pairs $ (r, s) $ that make the diagram commute. For example, we can take $ s $ to be the diagonal embedding $ \Delta : L \to L \times L $ (sending $ l $ to $ (l, l) $). Then we can take $ r = p_1 $ or $ r = p_2 $. We can also take $ r = \pi_1 $ and $ s = \langle \id L, g \rangle $ the product morphism of $ \id L $ and any (possibly constant) endomorphism $ g: L \to L $.
+  In this particular case, the fact that $ r $ and $ s $ are morphisms in the slice category requires that $ r \cdot p_1 = p_1 $ and $ s \cdot p_1 = p_1 $, but then we can take
+  \[ r = p_1 \times f \quad \text{and} \quad s = p_1 \times g  \]
+  (or more generally $ \langle p_1, f^\prime \rangle $ and $ \langle p_1, g^\prime \rangle $) for any $ f $ and $ g $ that satisfy $ g \cdot f = \id L $. Two options are
+  \[ f = g = \id L \quad \text{or} \quad f_n(t) = t (\lambda x_{n + 1}, x_{n + 1}), \quad g_n(t) = \lambda x_{n + 1}, \iota_{n, 1}(t), \]
+  and these options are distinct if $ L $ is nontrivial.
 
-  Therefore, we need to take the propositional truncation of the existence of $ r $ and $ s $.
+  Therefore, if we want $ D(Y, X) $ to be a subset of $ \hat \R(Y, X) $, we need to take the propositional truncation of the existence of $ r $ and $ s $.
 \end{remark}
 
-\begin{remark}
-  Taylor would write $ (\Pshf L \downarrow_D A) $ instead of $ \R(A) $, with $ D(X, A) $ the retracts $ f: X \to A $ of $ \Delta_A L $. However, note that $ D $ is not a class of display maps. For example, for $ D $ to be a class of display maps, all terminal projections $ ! : X \to T $ need to be in $ D $. Since for any category $ C $ with terminal object $ T $, we have an equivalence $ (C \downarrow T) \cong C $, having all terminal projections in $ D $ is equivalent to every object in $ \Pshf L $ being a retract of $ L $.
+% \begin{remark}
+%   Taylor would write $ (\Pshf L \downarrow_D A) $ instead of $ \R(A) $, with $ D(X, A) $ the retracts $ f: X \to A $ of $ \Delta_A L $. However, note that $ D $ is not a class of display maps. For example, for $ D $ to be a class of display maps, all terminal projections $ ! : X \to T $ need to be in $ D $. Since for any category $ C $ with terminal object $ T $, we have an equivalence $ (C \downarrow T) \cong C $, having all terminal projections in $ D $ is equivalent to every object in $ \Pshf L $ being a retract of $ L $.
 
-  However, if we take $ X $ to be the initial (empty) presheaf, we see that there are no morphisms $ L \to X $, because the $ L_n $ are nonempty and the $ X_n $ are empty.
+%   However, if we take $ X $ to be the initial (empty) presheaf, we see that there are no morphisms $ L \to X $, because the $ L_n $ are nonempty and the $ X_n $ are empty.
 
-  There also is a more category-theoretical argument: Suppose that every object of $ \Pshf L $ is a retract of $ L $. Via the equivalence $ \Pshf L \cong L_1 $, we see that every object of $ P C_{L_1} $ is a retract of $ \yo(\star) $. However then the embedding of $ \hat \R $ (Definition \ref{def:karoubi'}) into $ P C_{L_1} $ is an adjoint equivalence. Since $ \yo_{\R} \bullet {\op{\iota_{L_1}}}_* : \R \to \hat \R $ and $ {\op{\iota_{L_1}}}_* : P \R \to P C_{L_1} $ are weak equivalences, (Lemma \ref{lem:retracts-rezk}, Corollary \ref{cor:karoubi-presheaf}), $ \yo_\R : \R \to P \R $ is a weak equivalence as well, but the Yoneda embedding is never essentially surjective. For any category $ C $, the constant empty presheaf $ E: c \mapsto \emptyset $ is not representable, since for all $ c : C $, $ \id c = \yo(c)(c) $, so $ \yo(c) $ is not isomorphic to $ E $.
-\end{remark}
+%   There also is a more category-theoretical argument: Suppose that every object of $ \Pshf L $ is a retract of $ L $. Via the equivalence $ \Pshf L \cong L_1 $, we see that every object of $ P C_{L_1} $ is a retract of $ \yo(\star) $. However then the embedding of $ \hat \R $ (Definition \ref{def:karoubi'}) into $ P C_{L_1} $ is an adjoint equivalence. Since $ \yo_{\R} \bullet {\op{\iota_{L_1}}}_* : \R \to \hat \R $ and $ {\op{\iota_{L_1}}}_* : P \R \to P C_{L_1} $ are weak equivalences, (Lemma \ref{lem:retracts-rezk}, Corollary \ref{cor:karoubi-presheaf}), $ \yo_\R : \R \to P \R $ is a weak equivalence as well, but the Yoneda embedding is never essentially surjective. For any category $ C $, the constant empty presheaf $ E: c \mapsto \emptyset $ is not representable, since for all $ c : C $, $ \id c = \yo(c)(c) $, so $ \yo(c) $ is not isomorphic to $ E $.
+% \end{remark}
 
-Recall that $ \Pshf L $ is isomorphic to the presheaf category $ P \mathbf L $, so it is an elementary topos, so it is locally cartesian closed (Example 5.2.5 and Theorem 5.8.4, \autocite{borceux}, Volume 3). Therefore, for a morphism $ f: \Pshf L(Y, X) $, we have adjunctions
+Note that $ D $ is indeed a class of display maps:
+\begin{enumerate}
+  \item Take $ f : D(Y, X) $ and $ g: \hat \R(Z, X) $. We can borrow the pullback from $ \Pshf L $ to get $ Y \times_X Z : \Pshf L $.  We now must show that we have $ (r^\prime, s^\prime) : Y \times_X Z \triangleleft L $, and in this part, we can pretend that all the `merely exists' properties actually give us concrete elements.
+
+    Now, note that taking pullbacks gives a functor $ g^* : (\Pshf L \downarrow X) \to (\Pshf L \downarrow Z) $. Because $ Y $ is a retract of $ X \times L $, $ Y \times_X Z $ is a retract of $ X \times L \times_X Z $, which is isomorphic to $ Z \times L $. Since $ Z $ is a retract of $ L $ (and since $ - \times L $ is a functor), $ Z \times L $ is a retract of $ L \times L $. But this is (isomorphic to) the image of $ U \times U : \R $, so this is is a retract of $ L $, and we can compose this to a retraction
+    \[ Y \times_X Z \triangleleft Z \times L \triangleleft L \times L \triangleleft L. \]
+    Because $ \hat \R $ is a full subcategory of $ \Pshf L $ and $ Y \times_X Z $ is the pullback of $ f $ and $ g $ in $ \Pshf L $, we have that $ Y \times_X Z $ is also the pullback of $ f $ and $ g $ in $ \hat \R $.
+
+  \item Take $ f: D(Z, Y) $ and $ g: D(Y, X) $.
+    \TODO : Composite
+
+  \item Note that $ \Pshf L $ has a terminal presheaf $ I_n = \{ \star \} $. Under the embedding of $ \R $ into $ \Pshf L $, this is (isomorphic to) the image of $ \lambda x_1 x_2, x_2 : \R $, and therefore, it is a retract of $ L $. Now, given $ Y : \hat \R $, note that any morphisms between $ Y $ and $ I \times L $ trivially commute with the terminal projections. Since $ Y : \hat \R $, there merely exists $ (r, s) : Y \triangleleft L $, and since $ L \cong I \times L $, this means that the terminal projection is indeed in $ D(Y, I) $:
+    \begin{center}
+      \begin{tikzcd}
+        Y \arrow[rd, "!"'] \arrow[rr, dashed, shift left, "s"] & & I \times L \arrow[ld, "!"] \arrow[ll, dashed, shift left, "r"]\\
+        & I
+      \end{tikzcd}
+    \end{center}
+\end{enumerate}
+
+Recall that $ \Pshf L $ is isomorphic to the presheaf category $ P \mathbf L $, so it is an elementary topos and it is locally cartesian closed (Example 5.2.5 and Theorem 5.8.4, \autocite{borceux}, Volume 3). Therefore, for a morphism $ f: \Pshf L(Y, X) $, we have adjunctions
 \begin{center}
   \begin{tikzcd}
     (\Pshf L \downarrow X) \arrow[r, "f^*"' description, ""{name=B}] & (\Pshf L \downarrow Y) \arrow[l, bend right, "{\sum_f = - \cdot f}"'{name=A}] \arrow[l, bend left, "\prod_f"{name=C}]
@@ -130,7 +181,7 @@ Recall that $ \Pshf L $ is isomorphic to the presheaf category $ P \mathbf L $, 
 
 Now, Hyland shows the following:
 \begin{theorem}\label{thm:restrict-sum-product}
-  For $ (Y, f) : \R(X) $, we can restrict $ \sum_f $ and $ \prod_f $ to functors from $ \R(Y) $ to $ \R(X) $.
+  For $ f : D(Y, X) $, we can restrict $ \sum_f $ and $ \prod_f $ to functors from $ (\hat \R \downarrow_D Y) $ to $ (\hat \R \downarrow_D X) $.
 \end{theorem}
 \begin{proof}
   This proof proceeds by reducing, step by step, to a known case.
