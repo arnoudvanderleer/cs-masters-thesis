@@ -29,10 +29,10 @@ Lastly, there is a very strong connection between logic and type theory. This is
   \item The disjunction ``$ A $ or $ B $'' is given as the propositional truncation of the coproduct, union or sum type $ A \sqcup B $.
   \item The statement ``For all $ a: A $, $ B(a) $ holds'', for some dependent type $ B $ (i.e. predicate) over $ A $, is given as the dependent product $ \prod_{a: A} B(a) $.
 \end{itemize}
-If we think of types as propositions, the question whether some axiom is assumed or not becomes the question whether some (family of) type(s) is inhabited. Note that most of the axioms that we list here require the notion of mere propositions, propositional truncation and mere existence, which we will cover from Section \ref{sec:homotopy-props-sets} onwards.
+If we think of types as propositions, the question whether some axiom is assumed or not becomes the question whether we assume some (family of) type(s) to be inhabited. Note that most of the axioms that we list here require the notion of mere propositions, propositional truncation and mere existence, which we will cover from Section \ref{sec:homotopy-props-sets} onwards.
 \begin{itemize}
   \item If for all mere propositions $ A $, the type $ \Vert A \lor (A \to \mathbf 0) \Vert $ is inhabited, we say that the type system assumes the \iindex{axiom of excluded middle}: ``Either $ A $ is true, or $ A $ is not true''. This is axiom allows us to prove $ A $ from `not not $ A $'.
-  \item If for all dependent types $ C $ over $ A $ and $ B $, the type
+  \item If for all (homotopy) sets $ A $, dependent sets $ B(a) $ and dependent propositions $ C(a, b) $, the type
     \[ \left(\prod_{a: A} \exists (b: B), C(a, b) \right) \to \exists (f: A \to B), \prod_{a: A} C(a, f(a)) \]
     is inhabited, we say that the type system assumes the \index{axiom of choice!propositional}\textit{propositional axiom of choice}: ``The product of a family of nonempty sets is nonempty''.
   \item In any type theory which has the required constructs, the following holds: For all dependent types $ C $ over $ A $ and $ B $, the type

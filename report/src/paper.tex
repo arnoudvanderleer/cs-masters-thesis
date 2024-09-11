@@ -108,7 +108,9 @@ This is a fine example of a situation where notions that are equivalent in class
 
 The proofs of Scott and Taylor are about $ \overline C_{L_0} $, because they work explicitly with idempotents. The question whether it is possible to lift the proofs to $ \tilde C_{L_0} $ or $ \hat C_{L_0} $, is left for future research. On the other hand, as we will see, Hyland works with presheaves and in this way, he shows that $ \hat C_{L_0} $ is relatively cartesian closed.
 
-Now, officially, $ \hat C_{L_0} $ is the full subcategory of $ P C_{L_0} $, consisting of all objects $ X : P C_{L_0} $ such that there merely exists $ (r, s) : X \triangleleft \yo(\star) $. However, recall from the previous section that $ P C_{L_0} \cong P C_{L_1} \cong \Pshf L $. Under this equivalence, $ \yo(\star) $ is embedded as the theory presheaf $ L $, and we will work in the full subcategory $ \hat \R \subseteq \Pshf L $ of the objects $ X : \Pshf L $ such that there merely exists $ (r, s) : X \triangleleft L $. Of course, then $ \hat R $ is equivalent to $ \hat C_{L_0} $.
+Recall that in this thesis, we use the notation $ \Delta_X $ for the functor $ C \to (C \downarrow X) $, sending $ Y $ to $ p_1 : X \times Y \to X $. Also, we use the notation $ X \triangleleft Y $ to denote the type of retraction-section pairs $ r: Y \to X $ and $ s: X \to Y $. We will sometimes not name $ (r, s) : X \triangleleft Y $ explicitly, but just mention that we have $ X \triangleleft Y $, meaning that we have such $ r $ and $ s $.
+
+Now, officially, $ \hat C_{L_0} $ is the full subcategory of $ P C_{L_0} $, consisting of all objects $ X : P C_{L_0} $ such that there merely exists $ X \triangleleft \yo(\star) $. However, recall from the previous section that $ P C_{L_0} \cong P C_{L_1} \cong \Pshf L $. Under this equivalence, $ \yo(\star) $ is embedded as the theory presheaf $ L $, and we will work in the full subcategory $ \hat \R \subseteq \Pshf L $ of the objects $ X : \Pshf L $ such that there merely exists $ X \triangleleft L $. Of course, then $ \hat \R $ is equivalent to $ \hat C_{L_0} $.
 
 \begin{remark}
   There is a couple of tricks that we will use in this section. First of all, note that retractions can be composed. That is, given $ (r, s) : X \triangleleft Y $ and $ (r^\prime, s^\prime) : Y \triangleleft Z $, we have
@@ -118,9 +120,7 @@ Now, officially, $ \hat C_{L_0} $ is the full subcategory of $ P C_{L_0} $, cons
   Also, functors preserve retractions, so if we have a functor $ F : C \to D $ and we have $ (r, s) : X \triangleleft Y $, then we have
   \[ (F(r), F(s)) : F(X) \triangleleft F(Y). \]
 
-  Now, recall that in $ \R $, everything is a retract of $ U = \lambda x_1, x_1 $. Therefore, by the above, everything in the image of the embedding of $ \R $ into $ \Pshf L $ is a retract of $ L $, and therefore in $ \hat \R $.
-
-  Lastly, if we want to show that we can do some construction on some $ X : \hat \R $, we can often borrow the construction from $ \Pshf L $ to get some object $ Y : \Pshf L $. For this part, we cannot use the $ (r, s) : X \triangleleft L $. To show that $ Y $ is indeed in $ \hat \R $, we must show that there merely exist $ (r^\prime, s^\prime) : Y \triangleleft L $. By the recursion principle of the propositional truncation, we can pretend that we have a concrete $ (r, s) : X \triangleleft L $ to construct $ r^\prime $ and $ s^\prime $.
+  Lastly, if we want to show that we can do some construction on some $ X : \hat \R $, we can often borrow the construction from $ \Pshf L $ to get some object $ Y : \Pshf L $. For this part, we cannot use the $ (r, s) : X \triangleleft L $. To show that $ Y $ is indeed in $ \hat \R $, we must show that there merely exist $ (r^\prime, s^\prime) : Y \triangleleft L $. By the recursion principle of the propositional truncation, we can assume that we have a concrete $ (r, s) : X \triangleleft L $ to construct $ r^\prime $ and $ s^\prime $.
 \end{remark}
 
 Recall that Paul Taylor's display maps for $ \R $ can be characterized as the retracts of $ \Delta_X U $ (the projection $ p_1: X \times U \to X $) in $ (\R \downarrow X) $. This idea also works for $ \hat \R $, and Hyland defines $ D(Y, X) \subseteq \hat \R(Y, X) $ to consist of the retracts of $ \Delta_X L $ in $ (\hat \R \downarrow X) $. Note that, because $ \hat \R $ is a full subcategory of $ \Pshf L $, $ (\hat \R \downarrow X) $ is equivalent to $ (\Pshf L \downarrow X) $ for $ X : \hat \R $.
@@ -142,6 +142,16 @@ Recall that Paul Taylor's display maps for $ \R $ can be characterized as the re
   Therefore, if we want $ D(Y, X) $ to be a subset of $ \hat \R(Y, X) $, we need to take the propositional truncation of the existence of $ r $ and $ s $.
 \end{remark}
 
+\begin{remark}
+  Recall that for all $ X : \R $, we have $ X \triangleleft U = \lambda x_1, x_1 $, so by the above, for all $ Y $ in the image of the embedding of $ \R $ into $ \Pshf L $, we have $ Y \triangleleft L $. In particular, $ Y $ is in $ \hat \R $. Actually, we already knew this, because this essentially describes the embedding of $ \R $ into its Rezk completion $ \hat \R $.
+
+  An important example is $ U \times U : \R $, which maps to something isomorphic to $ L \times L $ (because the Yoneda embedding and any adjoint equivalence preserves limits). The retraction $ (r, s) : L \times L \triangleleft L $ is given explicitly by the (pairing and splitting) morphisms
+  \[ s_n(a, b) = \lambda x_{n + 1}, x_{n + 1} a b \quad \text{and} \quad r_n(a) = (a (\lambda x_{n + 1} x_{n + 2}, x_{n + 1}), a (\lambda x_{n + 1} x_{n + 2}, x_{n + 2})). \]
+  Now, for any $ X, Y : \Pshf L $ and $ f : \Pshf L(Y, X) $, if we have $ (Y, f) \triangleleft \Delta_X L $ in $ \Pshf L $, we have in particular $ Y \triangleleft X \times L $. If we also have $ X \triangleleft L $, we also have $ X \times L \triangleleft L \times L $ because $ - \times L $ is a functor. Then we have
+  \[ Y \triangleleft X \times L \triangleleft L \times L \triangleleft L. \]
+  In particular, for any $ X : \hat \R $, if some $ (Y, f) : (\Pshf L \downarrow X) $ is a retract of $ \Delta_X L $, we know that $ Y $ is in $ \hat \R $.
+\end{remark}
+
 % \begin{remark}
 %   Taylor would write $ (\Pshf L \downarrow_D A) $ instead of $ \R(A) $, with $ D(X, A) $ the retracts $ f: X \to A $ of $ \Delta_A L $. However, note that $ D $ is not a class of display maps. For example, for $ D $ to be a class of display maps, all terminal projections $ ! : X \to T $ need to be in $ D $. Since for any category $ C $ with terminal object $ T $, we have an equivalence $ (C \downarrow T) \cong C $, having all terminal projections in $ D $ is equivalent to every object in $ \Pshf L $ being a retract of $ L $.
 
@@ -152,19 +162,63 @@ Recall that Paul Taylor's display maps for $ \R $ can be characterized as the re
 
 Note that $ D $ is indeed a class of display maps:
 \begin{enumerate}
-  \item Take $ f : D(Y, X) $ and $ g: \hat \R(Z, X) $. We can borrow the pullback from $ \Pshf L $ to get $ Y \times_X Z : \Pshf L $.  We now must show that we have $ (r^\prime, s^\prime) : Y \times_X Z \triangleleft L $, and in this part, we can pretend that all the `merely exists' properties actually give us concrete elements.
+  \item Take $ f : D(Y, X) $ and $ g: \hat \R(Z, X) $. We can borrow the pullback from $ \Pshf L $ to get $ g^*(Y, f) : (\Pshf L \downarrow Z) $. We now must show that there merely exists $ g^* (Y, f) \triangleleft \Delta_Z L $ and in this part, we can assume that the mere existences of retractions are actually given by concrete retraction-section pairs.
 
-    Now, note that taking pullbacks gives a functor $ g^* : (\Pshf L \downarrow X) \to (\Pshf L \downarrow Z) $. Because $ Y $ is a retract of $ X \times L $, $ Y \times_X Z $ is a retract of $ X \times L \times_X Z $, which is isomorphic to $ Z \times L $. Since $ Z $ is a retract of $ L $ (and since $ - \times L $ is a functor), $ Z \times L $ is a retract of $ L \times L $. But this is (isomorphic to) the image of $ U \times U : \R $, so this is is a retract of $ L $, and we can compose this to a retraction
-    \[ Y \times_X Z \triangleleft Z \times L \triangleleft L \times L \triangleleft L. \]
-    Because $ \hat \R $ is a full subcategory of $ \Pshf L $ and $ Y \times_X Z $ is the pullback of $ f $ and $ g $ in $ \Pshf L $, we have that $ Y \times_X Z $ is also the pullback of $ f $ and $ g $ in $ \hat \R $.
-
-  \item Take $ f: D(Z, Y) $ and $ g: D(Y, X) $.
-    \TODO : Composite
-
-  \item Note that $ \Pshf L $ has a terminal presheaf $ I_n = \{ \star \} $. Under the embedding of $ \R $ into $ \Pshf L $, this is (isomorphic to) the image of $ \lambda x_1 x_2, x_2 : \R $, and therefore, it is a retract of $ L $. Now, given $ Y : \hat \R $, note that any morphisms between $ Y $ and $ I \times L $ trivially commute with the terminal projections. Since $ Y : \hat \R $, there merely exists $ (r, s) : Y \triangleleft L $, and since $ L \cong I \times L $, this means that the terminal projection is indeed in $ D(Y, I) $:
+    Now, note that taking pullbacks gives a functor $ g^* : (\Pshf L \downarrow X) \to (\Pshf L \downarrow Z) $. Now, $ (Y, f) \triangleleft \Delta_X L $, gives $ (g^*Y, g^*f) \triangleleft g^*(\Delta_X L) $:
     \begin{center}
       \begin{tikzcd}
-        Y \arrow[rd, "!"'] \arrow[rr, dashed, shift left, "s"] & & I \times L \arrow[ld, "!"] \arrow[ll, dashed, shift left, "r"]\\
+        g^* Y
+          \arrow[rd, "g^*s", shift left]
+          \arrow[dd, "g^* f"]
+          \arrow[rr] &&
+        Y
+          \arrow[rd, "s", shift left]
+          \arrow[dd, "f"] & \\
+        & g^* (X \times L)
+          \arrow[lu, "g^*r", shift left]
+          \arrow[ld, "g^* p_1"]
+          \arrow[rr] & &
+        X \times L
+          \arrow[ld, "p_1"]
+          \arrow[lu, "r", shift left] \\
+        Z
+          \arrow[rr, "g"] & &
+        X &
+      \end{tikzcd}
+    \end{center}
+    The isomorphism between $ g^*(\Delta_X L) $ and $ \Delta_Z L $ (Remark \ref{rem:pullback-of-projection}) shows that we have $ (g^*Y, g^*f) \triangleleft \Delta_Z L $. From this, it also follows that $ g^* Y $ is in $ \hat \R $.
+
+    Now, $ g^*Y $ is the pullback of $ f $ and $ g $ in $ \Pshf L $, and $ \hat \R $ is a full subcategory of $ \Pshf L $, so $ g^* Y $ is also the pullback of $ f $ and $ g $ in $ \hat \R $.
+
+  \item Take $ f: D(Z, Y) $ and $ g: D(Y, X) $. We have to show that there merely exists $ (Z, f \cdot g) \triangleleft \Delta_X L $. Because this is a proposition, we can assume that we have
+  \[ (r_Z, s_Z) : (Z, f) \triangleleft \Delta_Y L \quad \text{and} \quad (r_Y, s_Y) : (Y, g) \triangleleft \Delta_X L. \]
+  Then the following diagram gives $ (Z, f \cdot g) \triangleleft \Delta_X (L \times L) $:
+    \begin{center}
+      \begin{tikzcd}
+        Z \arrow[rd, "f"'] \arrow[rr, "s_Z", shift left] & & Y \times L \arrow[ld, "p_1"] \arrow[ll, shift left, "r_Z"] \arrow[rr, shift left, "s_Y \times \id L"] && X \times L \times L \arrow[ll, shift left, "r_Y \times \id L"] \arrow[ld, "p_1"]\\
+        & Y \arrow[rd, "g"'] \arrow[rr, "s_Y", shift left] & & X \times L \arrow[ld, "p_1"] \arrow[ll, shift left, "r_Y"]\\
+        && X
+      \end{tikzcd}
+    \end{center}
+    Now, as we saw earlier, $ \Delta_X $ is a functor and $ L \times L $ is a retract of $ L $. Therefore, we have $ \Delta_X (L \times L) \triangleleft \Delta_X L $ and $ f \cdot g $ is in $ D(Z, X) $.
+
+    % \begin{align*}
+    %   (r_Y \times \id L) \cdot r_Z \cdot f \cdot g
+    %   &= (r_Y \times \id L) \cdot p_1 \cdot g\\
+    %   &= p_1 \cdot r_Y \cdot g\\
+    %   &= p_1 \cdot p_1\\
+    % \end{align*}
+
+    % \begin{align*}
+    %   s_Z \cdot (s_1 \times \id L) \cdot p_1 \cdot p_1
+    %   &= s_Z \cdot p_1 \cdot s_1 \cdot p_1\\
+    %   &= f \cdot g\\
+    % \end{align*}
+
+  \item Note that $ \Pshf L $ has a terminal presheaf $ I_n = \{ \star \} $. Under the embedding of $ \R $ into $ \Pshf L $, this is (isomorphic to) the image of $ \lambda x_1 x_2, x_2 : \R $, and therefore, it is in $ \hat \R $. Now, given $ Y : \hat \R $, we need to show that the terminal projection $ ! $ is in $ D(Y, I) $. Note that any morphism trivially commutes with the terminal projections. Since $ Y : \hat \R $, we have $ (r, s) : Y \triangleleft L $, and since $ L \cong I \times L $, this means that the terminal projection is indeed in $ D(Y, I) $:
+    \begin{center}
+      \begin{tikzcd}
+        Y \arrow[rd, "!"'] \arrow[r, shift left, "s"] & L \arrow[d, "!"] \arrow[l, shift left, "r"] \arrow[r, "\sim"] & I \times L \arrow[ld, "!"]\\
         & I
       \end{tikzcd}
     \end{center}
@@ -184,11 +238,9 @@ Now, Hyland shows the following:
   For $ f : D(Y, X) $, we can restrict $ \sum_f $ and $ \prod_f $ to functors from $ (\hat \R \downarrow_D Y) $ to $ (\hat \R \downarrow_D X) $.
 \end{theorem}
 \begin{proof}
-  This proof proceeds by reducing, step by step, to a known case.
+  Given $ (Z, g) : (\Pshf L \downarrow Y) $, for $ \prod_F $ we only have to show that if we have $ (Z, g) \triangleleft \Delta_Y L $, then we have $ \prod_f(Z, g) \triangleleft \Delta_X L $. Note that since $ X $ is in $ \hat \R $, this also shows that $ \prod_f Z $ is in $ \hat \R $. Because functors preserve retractions, it suffices to show that we have $ \prod_f \Delta_Y L \triangleleft \Delta_X L $.
 
-  We take $ (Z, g) : \R(Y) $. Since functors preserve retraction-section pairs, $ \prod_f(Z, g) $ is a retract of $ \prod_f \Delta_Y L $. Now, if this is a retract of $ \Delta_X L $, then $ \prod_f(Z, g) $ is a retract of $ \Delta_X L $ as well: We can just compose retractions and sections. Therefore, to show that the image of $ \R(Y) $ under $ \prod_f $ lies within $ \R(X) $, we just need to show that $ \prod_f \Delta_Y L $ lies in $ \R(X) $. In the same way, for $ \sum_f $ we just need to show that $ \sum_f \Delta_Y L $ lies in $ \R(X) $.
-
-  By the definition of $ \R(X) $, $ (Y, f) $ is a retract:
+  Since $ f : D(Y, X) $, we have a retraction
   \begin{center}
     \begin{tikzcd}
       Y \arrow[rd, "f"'] \arrow[r, "s"] & X \times L \arrow[d, "p_1"] \arrow[r, "r"] & Y \arrow[ld, "f"]\\
@@ -223,7 +275,9 @@ Now, Hyland shows the following:
       \prod_f \Delta_Y L
     \end{tikzcd}
   \end{center}
-  In a similar way, $ \sum_f \Delta_Y L $ is a retract of $ \sum_{p_1} \Delta_{X \times L} L $:
+  So it suffices to show that $ \prod_{p_1} \Delta_{X \times L} L $ is a retract of $ \Delta_X L $. By Lemma \ref{lem:constant-dependent-product}, we have $ \prod_{p_1} \Delta_{X \times L} L \cong \Delta_X L^L $. By functoriality of $ \Delta_X $, it suffices to show that $ L^L $ is a retract of $ L $. But we already saw in Theorem \ref{thm:representation-theorem} that $ L^L \cong A(L, 1) $ is a retract of $ L $. This shows that $ \prod_f $ indeed restricts to a functor from $ (\hat \R \downarrow_D Y) $ to $ (\hat \R \downarrow_D X) $.
+
+  The proof for $ \sum_f $ is very similar. $ \sum_f \Delta_Y L $ is a retract of $ \sum_{p_1} \Delta_{X \times L} L $:
   \begin{center}
     \begin{tikzcd}
       & & \sum_{p_1} \Delta_{X \times L} L \\
@@ -239,50 +293,60 @@ Now, Hyland shows the following:
       \sum_f \Delta_Y L
     \end{tikzcd}
   \end{center}
-  So again, by the transitivity of retracts, we only have to show that $ \prod_{p_1} \Delta_{X \times L} L $ and $ \sum_{p_1} \Delta_{X \times L} L $ are retracts of $ \Delta_X L $. By Lemma \ref{lem:constant-dependent-product}, we have $ \prod_{p_1} \Delta_{X \times L} L \cong \Delta_X L^L $. By Lemma \ref{lem:sum-postcomposition}, the functor $ \sum_{p_1} $ is given by postcomposition, so $ \sum_{p_1} \Delta_{X \times L} L \cong \Delta_X (L \times L) $.
-
-  Since $ \Delta_X $ is a functor, and in particular, preserves retracts, we only have to show that $ L \times L $ and $ L^L $ are retracts of $ L $.
-
-  But we already saw in Theorem \ref{thm:representation-theorem} that $ L^L \cong A(L, 1) $ is a retract of $ L $.
-
-  Also, the (pairing and splitting) morphisms $ s: \Pshf L(L \times L, L) $ and $ r: \Pshf L(L, L \times L) $ given by
-  \[ s_n(a, b) = \lambda x_{n + 1}, x_{n + 1} a b \quad \text{and} \quad r_n(a) = (a (\lambda x_{n + 1} x_{n + 2}, x_{n + 1}), a (\lambda x_{n + 1} x_{n + 2}, x_{n + 2})) \]
-  exhibit $ L \times L $ as a retract of $ L $.
+  By Lemma \ref{lem:sum-postcomposition}, the functor $ \sum_{p_1} $ is given by postcomposition, so $ \sum_{p_1} \Delta_{X \times L} L \cong \Delta_X (L \times L) $. As we saw earlier, we have $ L \triangleleft L \times L $, which completes the proof that $ \sum_f $ restricts to a functor from $ (\hat \R \downarrow_D Y) $ to $ (\hat \R \downarrow_D X) $.
 \end{proof}
 
+\begin{corollary}
+  Since the $ (\hat \R \downarrow_D X) $ are full subcategories of the $ (\Pshf L \downarrow X) $, so we can restrict the adjunction $ f^* \dashv \prod_f $ to an adjunction $ \bar f^* \dashv \bar \prod_f $ between $ (\hat \R \downarrow_D X) $ and $ (\hat \R \downarrow_D Y) $, which shows that $ \hat \R $ is cartesian closed relative to the class $ D $ of display maps.
+\end{corollary}
+
 \begin{remark}
-  Now, recall that according to Hyland, Taylor endows the category of retracts $ \R $ with a class of display maps $ D $, such that $ (\R \downarrow_D X) $ consists exactly of the retracts of $ \Delta_X U $.
-
-  Hyland then claims that the fact that $ \R $ is cartesian closed relative to this class of display maps follows from the theorem above. Recall that Taylor already shows relative cartesian closedness directly, which still works in univalent foundations if we assume the axiom of choice.
-
-  Recall that we have a weak equivalence $ \varphi : \R \xrightarrow \sim \hat \R $ (Lemma \ref{lem:retracts-rezk}) and one can imagine that we can extend this to weak equivalences $ \psi_X : (\R \downarrow_D X) \xrightarrow \sim (\hat \R \downarrow_D \varphi(X)) $. Hyland notes that for $ X : \hat \R $, $ \R(\varphi(X)) $ is equivalent to $ (\hat \R \downarrow_D \varphi(X)) $. Implicitly, for $ f: \R(X, Y) $, he wants to lift the functors $ \sum_f $, $ f^* $ and $ \prod_f $ along the equivalences $ \psi $:
-  \begin{center}
-    \begin{tikzcd}[sep=large]
-      (\R \downarrow_D X)
-        \arrow[d, "\psi_X"]
-        \arrow[r, dashed, bend left, "\sum_f"']
-        \arrow[r, dashed, bend right, "\prod_f"]
-      & (\R \downarrow_D Y)
-        \arrow[d, "\psi_Y"]
-        \arrow[l, dashed, "f^*" description]\\
-      \R(\varphi(X))
-        \arrow[r, bend left, "\sum_{\varphi(f)}"']
-        \arrow[r, bend right, "\prod_{\varphi(f)}"]
-      & \R(\varphi(Y))
-        \arrow[l, "\varphi(f)^*" description]\\
-    \end{tikzcd}
-  \end{center}
-  For this to work, we need to turn the weak equivalences $ \psi_X $ into adjoint equivalences. In particular, we know that for every object $ A : \R(\varphi(X)) $, there merely exists a preimage $ \bar A : (\R \downarrow_D X) $ such that $ \psi_X(\bar A) \cong A $, and we need to construct a functor $ \psi_X^{-1}: \R(\varphi(X)) \to (\R \downarrow_D X) $.
-
-  For Taylor's proof, we did a similar thing when we knew that for every object $ X : (\R \downarrow_D A) $, there existed some $ Y : \R^A $, and we needed to construct a pullback functor $ f^* : (\R \downarrow_D A) \to (\R \downarrow_D B) $. We could use the axiom of choice here because the objects of $ \R $ (and therefore also the objects of the relative slices $ (\R \downarrow_D A) $) form a set.
-
-  However, as mentioned in \autocite{univalent-categories} halfway through the introduction, and as explained more thoroughly in \autocite{hottbook}, Lemma 3.8.5, if $ \R(\varphi(X)) $ is not a set (and if $ L $ is nontrivial, it is never a set), then there is no axiom of choice which can turn the `for all \dots, there exists \dots' into a `there exists a function'.
-
-  Therefore, in univalent foundations, the relative cartesian closedness is not a corollary of Theorem \ref{thm:restrict-sum-product}.
+  It is a nice feature of Hyland's approach that in univalent foundations, the proofs that $ D $ is a class of display maps and that we can restrict $ \prod_f $ and $ \sum_f $ work without the axiom of choice.
 \end{remark}
 
+\begin{remark}
+  Recall that to make sure that $ D(Y, X) $ is a subset of $ \hat \R(Y, X) $, we had no choice but to take the propositional truncation of the $ (Y, f) \triangleleft \Delta_X L $. Coincidentally, for $ \hat \R $ we also took the propositional truncation of the $ X \triangleleft L $.
+
+  In the proofs that $ D $ is a class of display maps, and that we can restrict $ \prod_f $, this worked out great. A couple of times, we first did a construction on the presheaves, ignoring the mere existence of the retractions, and then we showed mere existence of one or two retractions, for which we were allowed to assume that we actually had concrete retractions from $ L $ or $ \Delta_X L $.
+
+  Therefore, this only works in $ \hat \R \cong \hat C_{L_0} $. Suppose that we tried to do this in $ \tilde C_{L_0} $. Note that this category is equivalent to the category with as objects $ X : \Pshf L $, together with some $ (r, s) : X \triangleleft L $. Trying to define the pullback functor would already cause problems. To define a pullback, we would need to explicitly construct some retraction $ g^* Y \triangleleft L $, for which we would need a retraction $ Z \triangleleft L $. However, we have only mere existence of this retraction, so we would only be able to show mere existence of pullbacks, like in Taylor's proof. In Taylor's case, we were able to use the axiom of choice because the objects of $ \R $ form a set. However, the objects of $ \tilde \R $ do not form a set, and so we cannot use the axiom of choice here (Lemma 3.8.5 in \autocite{hottbook} shows why the axiom of choice only works for sets).
+
+  Since we have an adjoint equivalence between $ \tilde C_{L_0} $ and $ \overline C_{L_0} = \R $, and since any reasoning about $ \R $ using presheaves would use this equivalence, we would run into the same problems if we tried try to apply Hyland's approach to $ \R $. However, note that there we might be able to use the axiom of choice to show mere existence of a pullback functor, like in Taylor's proof.
+\end{remark}
+
+% \begin{remark}
+%   Now, recall that according to Hyland, Taylor endows the category of retracts $ \R $ with a class of display maps $ D $, such that $ (\R \downarrow_D X) $ consists exactly of the retracts of $ \Delta_X U $.
+
+%   Hyland then claims that the fact that $ \R $ is cartesian closed relative to this class of display maps follows from the theorem above. Recall that Taylor already shows relative cartesian closedness directly, which still works in univalent foundations if we assume the axiom of choice.
+
+%   Recall that we have a weak equivalence $ \varphi : \R \xrightarrow \sim \hat \R $ (Lemma \ref{lem:retracts-rezk}) and one can imagine that we can extend this to weak equivalences $ \psi_X : (\R \downarrow_D X) \xrightarrow \sim (\hat \R \downarrow_D \varphi(X)) $. Hyland notes that for $ X : \hat \R $, $ \R(\varphi(X)) $ is equivalent to $ (\hat \R \downarrow_D \varphi(X)) $. Implicitly, for $ f: \R(X, Y) $, he wants to lift the functors $ \sum_f $, $ f^* $ and $ \prod_f $ along the equivalences $ \psi $:
+%   \begin{center}
+%     \begin{tikzcd}[sep=large]
+%       (\R \downarrow_D X)
+%         \arrow[d, "\psi_X"]
+%         \arrow[r, dashed, bend left, "\sum_f"']
+%         \arrow[r, dashed, bend right, "\prod_f"]
+%       & (\R \downarrow_D Y)
+%         \arrow[d, "\psi_Y"]
+%         \arrow[l, dashed, "f^*" description]\\
+%       \R(\varphi(X))
+%         \arrow[r, bend left, "\sum_{\varphi(f)}"']
+%         \arrow[r, bend right, "\prod_{\varphi(f)}"]
+%       & \R(\varphi(Y))
+%         \arrow[l, "\varphi(f)^*" description]\\
+%     \end{tikzcd}
+%   \end{center}
+%   For this to work, we need to turn the weak equivalences $ \psi_X $ into adjoint equivalences. In particular, we know that for every object $ A : \R(\varphi(X)) $, there merely exists a preimage $ \bar A : (\R \downarrow_D X) $ such that $ \psi_X(\bar A) \cong A $, and we need to construct a functor $ \psi_X^{-1}: \R(\varphi(X)) \to (\R \downarrow_D X) $.
+
+%   For Taylor's proof, we did a similar thing when we knew that for every object $ X : (\R \downarrow_D A) $, there existed some $ Y : \R^A $, and we needed to construct a pullback functor $ f^* : (\R \downarrow_D A) \to (\R \downarrow_D B) $. We could use the axiom of choice here because the objects of $ \R $ (and therefore also the objects of the relative slices $ (\R \downarrow_D A) $) form a set.
+
+%   However, as mentioned in \autocite{univalent-categories} halfway through the introduction, and as explained more thoroughly in \autocite{hottbook}, Lemma 3.8.5, if $ \R(\varphi(X)) $ is not a set (and if $ L $ is nontrivial, it is never a set), then there is no axiom of choice which can turn the `for all \dots, there exists \dots' into a `there exists a function'.
+
+%   Therefore, in univalent foundations, the relative cartesian closedness is not a corollary of Theorem \ref{thm:restrict-sum-product}.
+% \end{remark}
+
 \section{An elementary proof of the `Fundamental Theorem'}\label{sec:elementary-fundamental-theorem}
-The final theorem that Hyland works towards in his paper constructs an equivalence between $ \lambda $-calculi and $ \Lambda $-algebras. In this section, we will provide an elementary proof of this theorem. Then, in the next section, we will give Hyland's original proof, which uses more high-level categorical reasoning.
+The final theorem that Hyland works towards in his paper constructs an equivalence between two ways to reason about the $ \lambda $-calculus using these tools from universal algebra: $ \lambda $-theories and $ \Lambda $-algebras. In this section, we will provide an elementary proof of this theorem. Then, in the next section, we will give Hyland's original proof, which uses more high-level categorical reasoning.
 
 We will assume that $ \Lambda $ (and therefore, any $ \lambda $-theory) satisfies $ \beta $-equality.
 
