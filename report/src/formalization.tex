@@ -1,22 +1,159 @@
+% 996 0
+% 447 37
+% 1383 1017
+% 26 26
+% 6313 889
+% 2562 2332
+% 1255 326
+% 3015 1
+% 4206 1668
+% 940 48
+% 9 5
+% 508 4
+% 1701 1267
+% Total: 23361 7620
+
+% 434 292
+% 1144 58
+% 96 0
+% 469 113
+% 145 42
+% 495 90
+% 508 221
+% Total: 3291 816
+
 \chapter{The formalization}
+In addition to the reading, investigating and writing mathematics that lead up to the previous chapters, this thesis project also had a formalization component. Parts of Hyland's paper were carefully written out in detail in a proof assistant and added to a library of formalized mathematics with the univalent point of view, called \textit{UniMath}.
+
+This chapter will give an overview of what was formalized, as well as point out and evaluate a couple of design decisions that were made.
 
 \section{Statistics}
 
+The code for this project was written over the course of about 18 months, spread over \href{https://github.com/UniMath/UniMath/pulls?q=is%3Apr+author%3Aarnoudvanderleer+is%3Aclosed}{20 pull requests}: 13 with content about Hyland's paper, adding 23.361 and removing 7.620 lines of code, and 7 with only some missing category theoretical preliminaries, adding 3.291 and removing 816 lines.
+
 \section{Components}
+
+\subsection{Hyland's paper}
+The formalized parts of Hyland's paper were collected in a package in the library called \textit{algebraic theories}. This package now consists of a little more than 10.000 lines of code.
+\begin{itemize}
+  \item Defines algebraic theories, $ \lambda $-theories, algebras and presheaves of algebraic theories, together with their morphisms and their categories. Shows that the categories are univalent and shows for the categories of algebraic theories, $ \lambda $-theories and presheaves that they have limits.
+  \item Examples: the terminal algebraic theory, the initial algebraic theory, the $ \lambda $-theory $ \Lambda $.
+  \item The `free object' algebraic theory with a functor from $ C $ to it's algebras. Also the equivalence between the `free monoid' algebraic theory $ T $, together with a proof that the functor from monoids to $ T $-algebras is an equivalence.
+  \item The construction of the endomorphism theory of an object $ X $ in a category $ C $.
+  \item Exponential objects in the category of presheaves.
+  \item The original version of Scott's representation theorem.
+  \item Hyland's version of Scott's representation theorem.
+  \item The construction of a Lawvere theory from an algebraic theory, and the equivalence between
+\end{itemize}
+
+\subsection{Category theoretic preliminaries}
+Since Hyland's paper uses a lot of general category theory, formalizing it meant adding a lot of missing category theory to the library. Among these are:
+\begin{itemize}
+  \item Univalence of the Sigma displayed category.
+  \item The Sigma displayed category creates limits.
+  \item Two definitions for the Karoubi envelope and their preliminaries.
+  \item The contents of Section \ref{sec:monoid-category}: The construction of a one-object category from a monoid, the equivalence between it's presheaves and sets with a right monoid action, properties of the category of sets with a monoid action and restriction and extension of scalars.
+  \item The Yoneda embedding preserves exponential objects.
+  \item The uniqueness of the Rezk completion.
+  \item A precomposition functor is equivalent if ...
+\end{itemize}
+
+\section{Equality, Isomorphisms and Equivalences}
+One of the lessons during this project was that for formalizing, it is always important to choose te right equality for the job. For example, for two categories $ C $ and $ C^\prime $, one can aim to prove either that $ C = C^\prime $ or that we have a functor $ F : C \to C^\prime $ that has a right and left inverse, or that we have a functor $ F : C \to C^\prime $ that is an adjoint equivalence. Even though for univalent categories, these three notions all coincide, in practice it is really hard to show equality of categories directly: To show $ C = C^\prime $, we would need to show that we have an equality $ H : C_0 = C_0^\prime $, and then that for all $ c, c^\prime : C $
+\[ (C(\mathrm{transport}_H(c), \mathrm{transport}_H(c^\prime))) = C^\prime(c, c^\prime). \]
+It is usually much easier to show that there exists a functor $ F $ with an inverse, because then we don't have to show these equalities of types, but can suffice with maps between the types and equalities of the objects and morphisms that are mapped. However, for the morphisms we still have transports.
+
+The easiest option is usually to show that we have an adjoint equivalence. That way, we don't have to show equality of objects, but only isomorphism (even though in a univalent category, that is of course the same). Then we only have to show equality of morphisms, and this is usually very doable.
+
+An example of this is the proof that for the algebraic $ T $ where $ T_n $ is the free monoid on $ \{ x_1, \dots, x_n \} $, the $ T $-algebras are equivalent to monoids. Initially, this was a proof about (weak) equivalence (so under univalence, equality) of the object types, but of course, this says nothing about morphisms, so it is incomplete. However, it was possible to remove parts of the proof, and use the rest to construct an adjoint equivalence.
+
+In general, the formalization is the cleanest and the easiest when we use equality for elements of homotopy sets (morphisms, for example), isomorphisms for objects in a category and adjoint equivalences for categories themselves.
 
 \section{Displayed categories}\label{sec:displayed-categories}
 
-\subsection{Fibrations}
+\index{displayed category}\textit{Displayed categories} (introduced in \autocite{displayed-categories}) are a mathematical idea which provides a great tool in formalizing categories. One of the motivations behind displayed categories is the fact that mathematicians often define a category in terms of another: a monoid is a set together with a binary operation, a group is a monoid in which every element has an inverse, a topological space is a set together with a chosen collection of subsets.
 
-\subsection{Defininig objects by their category instead of the other way around}
+Traditionally, one would say in such a case that we have a `forgetful functor' $ F : C^\prime \to C $. However, working with displayed categories has some advantages over this older approach, both conceptually and practically.
 
-\subsection{\_ax for categories and their objects}
+A displayed category $ D $ over a category $ C $ firstly consists of a type $ D_c $ for every $ c : C $ (corresponding to the type of objects $ F^{-1}(c) $) and a type $ d \to_f d^\prime $ for all $ d: D_c $, $ d^\prime : D_{c^\prime} $ and $ f : C(c, c^\prime) $ (corresponding to $ C^\prime((c, d), (c^\prime, d^\prime)) $). A displayed category also consists of an identity `morphism' $ d \to_{\id c} d $ for all $ d : D_c $, and compositions $ \bar f \cdot \bar g : d \to_{f \cdot g} d^{\prime \prime} $ for $ \bar f : d \to_f d^\prime $ and $ \bar g : d^\prime \to_g d^{\prime \prime} $.
 
-\subsection{Cartesian vs cartesian' for products}
+When we have a displayed category $ D $ over $ C $, we can define two categories. First of all, we can form the \iindex{total category} $ \int_C D $ (which corresponds to the category $ C^\prime $ in the forgetful functor example), consisting of pairs $ (c, d) $ with $ d : D_c $. Then the forgetful functor is given by $ \pi_1 : \int_C D \to C $. Also, for every $ c : C $, we can form the \iindex{fiber category} over $ c $, which we will also denote as $ D c $. The objects here are the displayed objects over $ c $, and the morphisms are the displayed morphisms over $ \id c $. In the forgetful functor example, this is the preimage category $ F^{-1}(c) $. Lastly, note that if we have a displayed category $ D $ over $ C $, and a displayed category $ E $ over $ \int_C D $, then we can form the \iindex{sigma displayed category} $ \sum_D E $ over $ C $, where $ (\sum_D E)_c $ consists of pairs $ (d, e) $ with $ d : D_c $ and $ e : E_{(c, d)} $. Of course, the total categories are equivalent: $ \int_{\int_C D} E \cong \int_C (\sum_D E) $, which boils down to rebracketing $ ((c, d), e) $ to $ (c, (d, e)) $.
+
+One of the reasons why displayed categories are so useful when formalizing, is the fact that for every next category, only the `new' parts have to be defined. If we define a category that consists of `functors with some additional data', we do not again have to show what the identity and composition functors are, but instead it suffices to construct the additional data for those functors. Also, displayed categories come in handy because some properties of $ \int D $ that are hard to prove directly, can be derived from properties of $ C $ and the fiber categories $ D_c $. For example, we can show that the category of groups is univalent, by noting that $ \SET $ is univalent, and by furthermore showing that the fibers of the displayed category of monoids over $ \SET $ and the fibers of the displayed category of groups over the category of monoids, are univalent.
+
+\subsection{The categories in question}\label{subsec:formalized-categories}
+
+Here is a diagram of the displayed structure of the categories of algebraic theories, $ \lambda $-theories, algebraic theory algebras and algebraic theory presheaves, every arrow denotes that a category is displayed over the total category of the next one.
+\begin{center}
+  \begin{tikzcd}
+    \text{algebra} \arrow[d] & \lambda\text{-theory} \arrow[d] & \text{presheaf} \arrow[d] \\
+    \text{algebra data} \arrow[d] & \lambda \text{-theory data} \arrow[d] & \text{presheaf data} \arrow[d] \\
+    {\text{(algebraic theory, set)}} \arrow[r] & \text{algebraic theory} \arrow[d] & {\text{(algebraic theory, indexed set)}} \arrow[l] \\
+    & \text{algebraic theory data}\arrow[d] &\\
+    & \text{indexed set} &
+  \end{tikzcd}
+\end{center}
+In the end, they all derive from the category of indexed sets over the natural numbers, which is the category with as objects all sequences $ T = (T_n)_n $ where the $ T_n $ are sets, and as morphisms from $ T $ to $ S $ all sequences of functions $ (f_n)_n $, with $ f_n : T_n \to S_n $.
+
+Every category of interest is constructed in two stages: in the first step, the displayed objects give the structure (the algebraic theory variables and substitution, the algebra action or the presheaf action) of the objects in question, and the displayed morphisms preserve this structure. In the second step, we take the full subcategory, consisting of the objects that satisfy the right properties. For algebraic theories, these properties are the axioms about interplay between the substitution and the variables.
+
+Note that the algebra data and presheaf data categories are displayed over a product category, which is displayed over the category of algebraic theories (see Subsection \ref{sec:displayed-product}).
+
+The reason why we first construct the category of all algebraic theory algebras together, is because we need we need it to show that that algebras are fibered over algebraic theories (see Subsection \ref{subsec:fibrations}). In fact, we need the category of algebras as a displayed category over the category of algebraic theories. Since in the construction given above, it is displayed over the category of algebra data, we use the sigma construction twice, to bundle all the algebra information in a displayed category of one layer over algebraic theories. Then the category of $ T $-algebras can be defined as the fiber over $ T $ of this displayed category. For presheaves, it is the same story.
+
+Even though the approach of first defining the categories of all algebras or presheaves and then taking a fiber of this, is necessary to talk about fibrations, there is a drawback to this approach. Morphisms in any fiber category are the displayed morphsims over $ \id T $. Therefore, naively composing two morphisms in our fiber gives a displayed morphism over $ \id T \cdot \id T $ and we need to transport over the equality $ \id T \cdot \id T = \id T $ to get morphisms in our fiber category again. So even though we can prove that, as expected, $ (f \cdot g)(a) = g(f(a)) $ for $ f: \Alg T(A, B) $, $ g: \Alg T(B, C) $ and $ a : A $, this is no longer a definitional equality.
+
+\subsection{Univalence}
+All of the categories in the diagram above are univalent. The proofs of this proceed by reducing to know or easy cases. For example, we know that a full subcategory of a univalent category is again univalent because it inherits isomorphisms and equalities. Also, we know that a product of univalent categories is univalent again, since its isomorphisms and equalities are equivalent to pairs of isomorphisms and equalities of its factors. We already knew that $ \SET $ is univalent, and in this project, the category of sets, indexed over a type, was constructed and shown to be univalent.
+
+The most interesting proofs are for the `... data' categories. These proofs reduce to univalence of the underlying category (so we prove univalence layer by layer) and univalence of the fiber categories, so for example the fiber of all algebraic theory data structures on one indexed set $ (T_n)_n $. Showing that this fiber is univalent, means showing that for any two choices of substitution functions $ f_n, g_n: T_m \times T_n^m \to T_n $ and variables $ x_{i, n}, y_{i, n} : T_n $, there is an equivalence between `$ (f_n)_n = (g_n)_n $ and $ (x_{i, n})_{i, n} = (y_{i, n})_{i, n} $' and `the identity on $ T_n $ commutes with $ f_n $ and $ g_n $, and with the $ x_{i, n} $ and $ y_{i, n} $'. Since these are propositions and they imply each other, we indeed have this equivalence.
+
+\subsection{Fibrations}\label{subsec:fibrations}
+
+One of the places where displayed categories are conceptually better to work with than forgetful functors, is in the case of fibrations. Recall that a functor $ P: C^\prime \to C $ is a fibration if for every $ Y : C^\prime $ and $ f : C(X, P(Y)) $, there exists $ \bar X : C^\prime $ with $ P(\bar X) = X $ (and a cartesian morphism $ \bar f : C^\prime(\bar X, Y) $ with $ P(\bar f) = f $). The equality $ P(\bar X) = X $ is on objects in the category, and this violates the \textit{principle of equivalence}: `if something is true for $ A $, and $ A $ is isomorphic to $ B $, then it should also hold for $ B $'. Of course, if the category is univalent, isomorphism and equality are the same, but definitions that use equality on objects still give a bit of conceptual friction.
+
+However, we can also define this using displayed categories. The definition becomes
+\begin{definition}
+  A displayed category $ D $ over $ C $ is a fibration if for every $ \bar Y : D Y $ and $ f: C(X, Y) $, we have $ \bar X : D X $ and a cartesian morphism $ \bar f : \bar X \to_f \bar Y $.
+\end{definition}
+This avoids using equality on objects, because we can just talk about `the objects above $ X $'. Therefore, in UniMath fibrations are defined in this way and the AlgebraicTheories package used this definition to show that the displayed category of algebraic theory algebras, over the category of algebraic theories, is a fibration. However, during a refactoring round, this proof was removed because this particular proof was too much work to adapt to the changes.
+
+\subsection{What comes first: the category or its object?}
+The formalization started with definitions for the objects and morphisms in question: algebraic theories and algebras. Using these, the categories were defined directly. However, since showing univalence is much easier when working with displayed categories, the definitions of the categories were decoupled from the definitions of the objects and morphisms, and instead were constructed as displayed categories. This meant that of every definition, a part was duplicated: once for the object (and morphism) types, and once for the objects and morphisms in the displayed categories. This meant that it was in theory possible to get a mismatch between, for example, the definition of algebraic theories and their category.
+
+Of course, it was possible to get rid of the objects altogether, and just define things in terms of the objects and the morphisms of the categories. However, in practice this causes problems because of \textit{coercions}. For example, if $ X $ is an algebraic theory, mathematicians like to use the name $ X $ also to denote the sequence of sets $ X_n $. Under the hood, this uses a coercion, which allows one to use the same symbol to denote both the entire object, or a part of it, depending on the context. However, when working with displayed categories, the category of algebraic theories is displayed over the category of algebraic theory data, which is displayed over the category of sequences of sets. It turns out that in coq, coercions on categories do not compose very well: If $ X $ is an algebraic theory, and we have coercions from algebraic theories to algebraic theory data, and from algebraic theory data to sequences of sets, we can still only use $ X $ to denote the algebraic theory data, and not the sequence of sets.
+
+In the end, the solution was to first define the category, and then the object and morphism types as the objects and morphisms of the category. The coercions can then be defined on the standalone object and morphism types, which works very well.
+
+\subsection{A product of categories}\label{subsec:displayed-product}
+Given two categories $ C $ and $ C^\prime $, their product $ C \times C^\prime $ can be viewed as a displayed category over $ C $ (or $ C^\prime $), where the objects over any object are the objects of $ C^\prime $, and the displayed morphisms $ g: c \to_f c^\prime $ are the morphisms $ g: C^\prime(c, c^\prime) $. There are two ways to formalize this.
+
+The first approach uses \textit{reindexing}, by taking the unique functor to the unit category $ F : C \to \{ \star \} $, and considering $ C^\prime $ as a displayed category $ D $ over $ \{ \star \} $. Then we have the reindexed (pullback) displayed category $ F^* D $, with $ (F^* D)_c = D_{F(c)} $, with $ \int (F^* D) \cong C \times C^\prime $. The advantage of this approach is that it uses fairly simple general machinery. The disadvantage is that for the general construction of $ (F^* D) $, we need to transport over the equalities
+\[ \id{F(X)} = F(\id X) \quad \text{and} \quad F(f) \cdot F(g) = F(f \cdot g) \]
+in the definitions of, respectively, the displayed identity and composition. In practice, this adds friction to the formalization.
+
+The second approach is by constructing the displayed category $ D $ directly, setting $ D_c = C^\prime $ and $ c \to_f c^\prime = C^\prime(c, c^\prime) $. This is slightly more work, because we do it in an elementary way instead of using category theoretical machinery. Even so, in practice, this approach gives cleaner definitions for the identity and composition morphisms of the total category. Therefore, halfway during the project, a switch was made from the first to the second approach.
 
 \subsection{Limits}
 
 \subsubsection{Limits in a fibered category}
+
+\section{Duplication in definitions}
+One of the adages in software engineering is `DRY': ``Don't Repeat Yourself'': Long expressions and blocks of code that occur multiple times throughout the program should usually be abstracted into a separate function. One of the reasons for this is that it is easier to change code in this function, than to change every instance of the repeated expression or block of code. When writing mathematics, such functions are usually called `lemmas'. However, in this project there was also another example of duplication, which occurred in statements of definitions and lemmas. For example, in the definition of the displayed category of algebraic theories, the displayed object type over a sequence of sets $ T_n $ is
+\[ \left(\prod_n \prod_{i : \{ 1, \dots, n \}} T_n \right) \times \left( \prod_{m, n} T_m \times T_n^m \to T_n \right), \]
+corresponding to the variables and the substitution. Then, the constructor of an algebraic theory takes arguments
+\[ v : \prod_n \prod_{i : \{ 1, \dots, n \}} T_n \quad \text{and} \quad s : \prod_{m, n} T_m \times T_n^m \to T_n. \]
+Also, given an algebraic theory, we have accessors:
+\[ x_{n, i} : T_n \quad \text{and} \quad \bullet_{m, n} : (\prod_{m, n} T_m \times T_n^m \to T_n) \]
+Lastly, when we define a new algebraic theory, we need to provide terms of these types again.
+
+Therefore, in this project, the type of every one of these components is given a name, ending in \texttt{\_ax}, for `axiom'. For example, there are \texttt{var\_ax} and \texttt{subst\_ax} for algebraic theories, \texttt{mor\_var\_ax} and \texttt{mor\_subst\_ax} for their morphisms, \texttt{action\_ax} for algebras and \texttt{app\_ax} and \texttt{abs\_ax} for $ \lambda $-theories. The definition of the displayed categories, the constructors, the accessors and the definitions of new objects can then refer back to this.
+
+This indeed reduces the amount of duplication in the code, and makes it slightly easier to write some definitions, because one does not have to remember and type the exact formulation of every axiom. However, there is no free lunch here: The axioms are not immediately unfolded when they occur. Therefore, if one uses the constructor for an algebraic theory, the goals become \texttt{var\_ax} and \texttt{subst\_ax}, and these have to be unfolded to see what they mean. Also, when coq is asked to state the property of an algebra morphism, it responds with \texttt{mor\_action\_ax}, which is not very informative. This is not a big problem, per se, but it adds some friction when formalizing. This friction could be reduced a lot if coq would have some sort of macros, which would immediately be unfolded upon use, and would never be printed.
+
+Another drawback of this approach is that for algebras and presheaves, there are in fact two different axioms. This is because their categories are displayed over the categories of algebraic theories, and the category of $ T $-algebras and $ T $-presheaves are fibers of the full displayed category. Therefore, the morphisms of $ T $-algebras are given by displayed morphisms over $ \id T $, so the axiom of an algebra morphism $ g $ is
+\[ \mathtt{mor\_action\_ax}: \prod_n \prod_{t : T_n} \prod_{a : A^n} g (t \bullet a) = \id T(t) \bullet (g (a_i))_i, \]
+and in practice, this makes it harder to work with them. There was an instance where one conversion from $ \id T(t) $ to $ t $ added multiple seconds to the compilation time. Therefore, for the algebras and presheaves, some of these axioms have to be stated twice: once to define the displayed category, and once for most of the other occurrences.
 
 \section{Inductive types}
 
@@ -26,7 +163,24 @@ Defining Lambda Calculus in a different way (not as an axiomatized HIT)
   - With a signature
 
 \section{Tuples}
-$ stn m \to A $ vs vec A
+
+A lot of the mathematics in the paper requires us to work with `tuples': terms that bundle a certain number of terms of some type. A tuple type already occurs already as $ T_m^n $ in the definition of the substitution operation of algebraic theories:
+\[ \bullet: T_m \times T_n^m \to T_n. \]
+Now, there are two common ways to formalize such tuples, both with their advantages and disadvantages.
+
+The first option is to say that the type $ A^n $ just denotes the $ n $-fold cartesian product
+\[ A \times (\dots \times (A \times A) \dots). \]
+There are multiple advantages to this approach. First of all, this approach allows us to easily construct `literals', like $ (5, -12) : \mathbb Z^2 $ or $ (\bot, \top, \top) : \mathrm{bool}^3 $. It is also very easy to extend an $ n $-tuple $ a $ with another element $ x $, because this just gives the pair $ (x, a) $. Because of the clear relation between the extended tuple and the original one, this approach also allows for a nice induction principle: a way to prove things about general $ a : A^n $ by proving it for $ () : A^0 $ and by showing that if it holds for any $ a : A^m $, it also holds for $ (x, a) : A^{m + 1} $ for all $ x $ (note that this is a version of \texttt{fold} for lists).
+
+The other approach is to view $ A^n $ as the type of functions from $ \{ 1, \dots, n \} $ to $ A $. An advantage of this is that it becomes trivial to extend a function $ f $ on $ A $ to a function on its tuples, sending $ a $ to $ f \circ a $ (which would be called $ (f(a_i))_i $ in this thesis). Also, this approach makes it very easy to define $ n $-tuples of arbitrary size. For example, $ (x_i)_i : T_n $ (in one of the axioms of an algebraic theory) is just the function that sends $ i $ to the variable $ x_i $. These tuples of arbitrary size have very good computational behaviour, since the value of $ (x_i)_i $ at $ j $ is, by definition, $ x_j $.
+
+Very early on in the project, a choice was made to use the second approach. Since many definitions require extending a mapping to a tuple, and since we don't very often need to extend tuples or do induction on a tuple, this proved to be the right choice.
+
+The main place where we need to be able to extend tuples, is when working with $ \lambda $-theories, for example in the axioms about the relation between substitution and $ \lambda $-abstraction and -application. To accomplish this, we use the equivalence between $ \{ 1, \dots, n + 1 \} $ and $ \{ 1, \dots, n \} \sqcup \{ \star \} $.
+
+Also, when working with a $ \Lambda $-algebra $ A $ (or an algebra) for the free monoid theory, we often want to define an operation, for example $ \circ $, on $ A $ by sending $ a $ and $ b $ to $ (x_1 \circ x_2) \bullet (a, b) $. Since constructing the literal tuple $ (a, b) $ directly as a function quickly becomes a mess, we use the equivalence between $ A \times \dots \times A $ and $ \{ 1, \dots, n \} \to A $ to define literal tuples via the cartesian product, and then transform them to functions.
+
+Using some lemmas about the behaviour of extended tuples and literals defined this way, this slightly mixed approach works fine. However, it would be worth investigating whether it is possible to have a tuple type in the library with all of the operations of both the function and the cartesian product approaches, so that it is no longer necessary to choose between them.
 
 \section{Products}
 $ T \times (T \times \dots \times T) $ vs $ T \times T^n vs T^(S n) $
@@ -45,5 +199,4 @@ KanExtension instead of specific construction at KaroubiEnvelope
 \section{Univalence}
 Univalence bewijzen via isweqhomot vs direct
 
-\section{Equality, Iso's and Equivalence (of categories)}
-It is important to choose the right kind of equality to prove.
+\section{The learning curve}
