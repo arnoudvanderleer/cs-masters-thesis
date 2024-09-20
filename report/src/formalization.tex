@@ -31,31 +31,51 @@ This chapter will give an overview of what was formalized, as well as point out 
 
 The code for this project was written over the course of about 18 months, spread over \href{https://github.com/UniMath/UniMath/pulls?q=is%3Apr+author%3Aarnoudvanderleer+is%3Aclosed}{20 pull requests}: 13 with content about Hyland's paper, adding 23.361 and removing 7.620 lines of code, and 7 with only some missing category theoretical preliminaries, adding 3.291 and removing 816 lines.
 
-\section{Components}
+\section{Overview of the formalized material}
+The material that was formalized can be subdivided into material that is introduced or described in Hyland's paper, and category theoretical preliminaries that are necessary to make the proofs in Hyland's paper work.
 
-\subsection{Hyland's paper}
-The formalized parts of Hyland's paper were collected in a package in the library called \textit{algebraic theories}. This package now consists of a little more than 10.000 lines of code.
+The formalized parts of Hyland's paper are collected in a package in the library called \textit{algebraic theories}. This package now consists of over 14.000 lines of code, and contains
 \begin{itemize}
-  \item Defines algebraic theories, $ \lambda $-theories, algebras and presheaves of algebraic theories, together with their morphisms and their categories. Shows that the categories are univalent and shows for the categories of algebraic theories, $ \lambda $-theories and presheaves that they have limits.
-  \item Examples: the terminal algebraic theory, the initial algebraic theory, the $ \lambda $-theory $ \Lambda $.
-  \item The `free object' algebraic theory with a functor from $ C $ to it's algebras. Also the equivalence between the `free monoid' algebraic theory $ T $, together with a proof that the functor from monoids to $ T $-algebras is an equivalence.
-  \item The construction of the endomorphism theory of an object $ X $ in a category $ C $.
-  \item Exponential objects in the category of presheaves.
+% AlgebraicTheoryCategory.v AlgebraicTheoryCategoryCore.v AlgebraicTheories.v AlgebraicTheoryMorphisms.v
+% LambdaTheories.v LambdaTheoryCategory.v LambdaTheoryCategoryCore.v LambdaTheoryMorphisms.v
+% AlgebraCategory.v AlgebraCategoryCore.v Algebras.v AlgebraMorphisms.v
+% PresheafCategory.v PresheafCategoryCore.v PresheafMorphisms.v Presheaves.v
+  \item Definitions for algebraic theories, $ \lambda $-theories, algebras and presheaves of algebraic theories, together with their morphisms and their categories. Proofs that the categories are univalent, that the categories of algebraic theories, $ \lambda $-theories and presheaves have limits and that the categories of algebras and presheaves are fibered over the category of algebraic theories.
+% FreeTheory.v LambdaCalculus.v OnePointTheory.v ProjectionsTheory.v TheoryAlgebra.v
+  \item The terminal algebraic theory, the free algebraic theory on a set, with as a special case the initial algebraic theory, the $ \lambda $-theory $ \Lambda $, the $ T $-presheaf structure on $ T $ and the $ T $-algebra structure on $ T_n $.
+% FreeMonoidTheory.v FreeObjectTheory.v
+  \item The `free object' algebraic theory with a functor from $ C $ to its algebras. Also the equivalence between the `free monoid' algebraic theory $ T $, together with a proof that the functor from monoids to $ T $-algebras is an equivalence.
+% EndomorphismTheory.v
+  \item The construction of the endomorphism theory $ E(X) $ for some object $ X : C $ in a category $ C $ with finite products.
+% Combinators.v CategoryOfRetracts.v OriginalRepresentationTheorem.v
   \item The original version of Scott's representation theorem.
-  \item Hyland's version of Scott's representation theorem.
-  \item The construction of a Lawvere theory from an algebraic theory, and the equivalence between
+% Plus1Presheaf.v RepresentationTheorem.v
+  \item Hyland's version of Scott's representation theorem, including the construction of the presheaf $ A(P, 1) $ and the proof that it is the exponential object $ P^T $.
+% AlgebraToTheory.v
+  \item The construction of a $ \lambda $-theory from a $ \Lambda $-algebra $ A $ as the endomorphism theory $ E_{\RAct{A_1}}(U_A) $ (Definition \ref{def:lambda-algebra-to-lambda-theory}).
+% AlgebraicTheoryToLawvereTheory.v
+  \item The construction of a Lawvere theory $ L $ from an algebraic theory $ T $, and the equivalence between the presheaf category $ PL $ and the presheaf category $ \Pshf T $.
+% ExtensionsTheory.v LambdaCalculus.v
+  \item The theory of extensions $ T_A $ of a $ T $-algebra.
+  \item An axiomatic definition of the pure $ \lambda $-calculus (see Section \ref{sec:axiomatic-lambda-calculus}).
 \end{itemize}
 
-\subsection{Category theoretic preliminaries}
-Since Hyland's paper uses a lot of general category theory, formalizing it meant adding a lot of missing category theory to the library. Among these are:
+Since Hyland's paper uses a lot of general category theory, formalizing it entailed adding the preliminaries that had not yet been formalized to the library. Among these are:
 \begin{itemize}
   \item Univalence of the Sigma displayed category.
   \item The Sigma displayed category creates limits.
-  \item Two definitions for the Karoubi envelope and their preliminaries.
+  \item The definitions $ \overline C $ and $ \hat C $ for the Karoubi envelope and their preliminaries.
   \item The contents of Section \ref{sec:monoid-category}: The construction of a one-object category from a monoid, the equivalence between it's presheaves and sets with a right monoid action, properties of the category of sets with a monoid action and restriction and extension of scalars.
   \item The Yoneda embedding preserves exponential objects.
   \item The uniqueness of the Rezk completion.
+% FundamentalTheorem/SurjectivePrecomposition.v
   \item A precomposition functor is equivalent if ...
+% FiniteSetSkeleton.v
+  \item The skeleton category $ F $ of finite sets, with
+  \[ F_0 = \{ 0, 1, \dots \} \quad \text{and} \quad F(m, n) = \SET(\{ 1, \dots, n \}, \{ 1, \dots, m \}). \]
+% IndexedSetCategory.v
+  \item The univalent category $ \SET^A $ of indexed sets $ (X_a)_a $ over a type $ A $, which can be defined formally as
+  \[ \SET^A_0 = (A \to \SET) \quad \text{and} \quad \SET^A(X, Y) = \prod_a X_a \to Y_a. \]
 \end{itemize}
 
 \section{Equality, Isomorphisms and Equivalences}
@@ -93,30 +113,74 @@ Here is a diagram of the displayed structure of the categories of algebraic theo
     & \text{indexed set} &
   \end{tikzcd}
 \end{center}
-In the end, they all derive from the category of indexed sets over the natural numbers, which is the category with as objects all sequences $ T = (T_n)_n $ where the $ T_n $ are sets, and as morphisms from $ T $ to $ S $ all sequences of functions $ (f_n)_n $, with $ f_n : T_n \to S_n $.
+In the end, they all derive from the category of indexed sets over the natural numbers (or equivalently, the category of sequences of sets).
 
-Every category of interest is constructed in two stages: in the first step, the displayed objects give the structure (the algebraic theory variables and substitution, the algebra action or the presheaf action) of the objects in question, and the displayed morphisms preserve this structure. In the second step, we take the full subcategory, consisting of the objects that satisfy the right properties. For algebraic theories, these properties are the axioms about interplay between the substitution and the variables.
+Note that every `relevant' category is constructed in two stages: in the first step, in a category called `\dots data', the displayed objects give the structure (the algebraic theory variables and substitution, the algebra action or the presheaf action) of the objects in question, and the displayed morphisms preserve this structure. In the second step, we take the full subcategory, consisting of the objects that satisfy the right properties. For algebraic theories, these properties are the axioms about interplay between the substitution and the variables.
 
-Note that the algebra data and presheaf data categories are displayed over a product category, which is displayed over the category of algebraic theories (see Subsection \ref{sec:displayed-product}).
+Note that the algebra data and presheaf data categories are displayed over a product category, which is displayed over the category of algebraic theories (see Subsection \ref{subsec:displayed-product}).
 
 The reason why we first construct the category of all algebraic theory algebras together, is because we need we need it to show that that algebras are fibered over algebraic theories (see Subsection \ref{subsec:fibrations}). In fact, we need the category of algebras as a displayed category over the category of algebraic theories. Since in the construction given above, it is displayed over the category of algebra data, we use the sigma construction twice, to bundle all the algebra information in a displayed category of one layer over algebraic theories. Then the category of $ T $-algebras can be defined as the fiber over $ T $ of this displayed category. For presheaves, it is the same story.
 
 Even though the approach of first defining the categories of all algebras or presheaves and then taking a fiber of this, is necessary to talk about fibrations, there is a drawback to this approach. Morphisms in any fiber category are the displayed morphsims over $ \id T $. Therefore, naively composing two morphisms in our fiber gives a displayed morphism over $ \id T \cdot \id T $ and we need to transport over the equality $ \id T \cdot \id T = \id T $ to get morphisms in our fiber category again. So even though we can prove that, as expected, $ (f \cdot g)(a) = g(f(a)) $ for $ f: \Alg T(A, B) $, $ g: \Alg T(B, C) $ and $ a : A $, this is no longer a definitional equality.
 
 \subsection{Univalence}
-All of the categories in the diagram above are univalent. The proofs of this proceed by reducing to know or easy cases. For example, we know that a full subcategory of a univalent category is again univalent because it inherits isomorphisms and equalities. Also, we know that a product of univalent categories is univalent again, since its isomorphisms and equalities are equivalent to pairs of isomorphisms and equalities of its factors. We already knew that $ \SET $ is univalent, and in this project, the category of sets, indexed over a type, was constructed and shown to be univalent.
+All of the categories in the diagram above are univalent. The proofs of this proceed by reducing to known or easy cases. For example, we know that a full subcategory of a univalent category is again univalent because it inherits isomorphisms and equalities. Also, we know that a product of univalent categories is univalent again, since its isomorphisms and equalities are equivalent to pairs of isomorphisms and equalities of its factors. We already knew that $ \SET $ is univalent, and in this project, the category of sets, indexed over a type, was constructed and shown to be univalent.
 
-The most interesting proofs are for the `... data' categories. These proofs reduce to univalence of the underlying category (so we prove univalence layer by layer) and univalence of the fiber categories, so for example the fiber of all algebraic theory data structures on one indexed set $ (T_n)_n $. Showing that this fiber is univalent, means showing that for any two choices of substitution functions $ f_n, g_n: T_m \times T_n^m \to T_n $ and variables $ x_{i, n}, y_{i, n} : T_n $, there is an equivalence between `$ (f_n)_n = (g_n)_n $ and $ (x_{i, n})_{i, n} = (y_{i, n})_{i, n} $' and `the identity on $ T_n $ commutes with $ f_n $ and $ g_n $, and with the $ x_{i, n} $ and $ y_{i, n} $'. Since these are propositions and they imply each other, we indeed have this equivalence.
+The most interesting proofs are for the `\dots data' categories. These proofs reduce to univalence of the underlying category (so we prove univalence layer by layer) and univalence of the fiber categories, so for example the fiber of all algebraic theory data structures on one indexed set $ (T_n)_n $. Showing that this fiber is univalent, means showing that for any two choices of substitution functions $ f_n, g_n: T_m \times T_n^m \to T_n $ and variables $ x_{i, n}, y_{i, n} : T_n $, there is an equivalence between `$ (f_n)_n = (g_n)_n $ and $ (x_{i, n})_{i, n} = (y_{i, n})_{i, n} $' and `the identity on $ T_n $ commutes with $ f_n $ and $ g_n $, and with the $ x_{i, n} $ and $ y_{i, n} $'. Since these are mere propositions and they imply each other, we indeed have this equivalence.
 
 \subsection{Fibrations}\label{subsec:fibrations}
 
 One of the places where displayed categories are conceptually better to work with than forgetful functors, is in the case of fibrations. Recall that a functor $ P: C^\prime \to C $ is a fibration if for every $ Y : C^\prime $ and $ f : C(X, P(Y)) $, there exists $ \bar X : C^\prime $ with $ P(\bar X) = X $ (and a cartesian morphism $ \bar f : C^\prime(\bar X, Y) $ with $ P(\bar f) = f $). The equality $ P(\bar X) = X $ is on objects in the category, and this violates the \textit{principle of equivalence}: `if something is true for $ A $, and $ A $ is isomorphic to $ B $, then it should also hold for $ B $'. Of course, if the category is univalent, isomorphism and equality are the same, but definitions that use equality on objects still give a bit of conceptual friction.
 
-However, we can also define this using displayed categories. The definition becomes
+However, we can also define this in the language of displayed categories. The definition becomes
 \begin{definition}
   A displayed category $ D $ over $ C $ is a fibration if for every $ \bar Y : D Y $ and $ f: C(X, Y) $, we have $ \bar X : D X $ and a cartesian morphism $ \bar f : \bar X \to_f \bar Y $.
 \end{definition}
-This avoids using equality on objects, because we can just talk about `the objects above $ X $'. Therefore, in UniMath fibrations are defined in this way and the AlgebraicTheories package used this definition to show that the displayed category of algebraic theory algebras, over the category of algebraic theories, is a fibration. However, during a refactoring round, this proof was removed because this particular proof was too much work to adapt to the changes.
+This avoids using equality on objects, because we can just talk about `the objects above $ X $'. Therefore, in UniMath fibrations are defined in this way and the algebraic theories package uses this definition to show that the displayed categories of algebraic theory algebras and presheaves, over the category of algebraic theories, are fibrations.
+
+\subsection{Limits}
+In this subsection, we will mainly treat binary products, as they are somewhat simpler to understand than limits in general. However, it is not too hard to generalize the material presented here to limits in general, and the formalized proofs treat limits in general, instead of binary products.
+
+Recall from Remark \ref{rem:algebraic-theory-limits} that algebraic theories have all limits, and that given a diagram, the underlying set of the limit is the limit of the underlying sets. Compare this to group or ring theory: for rings $ R $ and $ S $, the set $ R \times S $ can again be given a ring structure, which is the binary product of $ R $ and $ S $ in the category of rings.
+
+This is all very reminiscent of the way that displayed categories `borrow' information from their base category. Now if a category $ C $ has binary products, we say that a displayed category $ D $ over $ C $ \textit{creates binary products}, if for all $ \bar X : D_X $, $ \bar Y : D_Y $, we can `lift' their product. That is, if we can find
+\[ \overline{X \times Y} : D_{X \times Y}, \quad \bar{\pi_1} : \overline{X \times Y} \to_{\pi_1} \bar X \quad \text{and} \quad \bar{\pi_2} : \overline{X \times Y} \to_{\pi_2} \bar Y \]
+and if $ (X \times Y, \overline{X \times Y}) $ with the projections $ (\pi_1, \bar{\pi_1}) $ and $ (\pi_2, \bar{\pi_2}) $ is the product of $ (X, \bar X) $ and $ (Y, \bar Y) $ in $ \int_C D $. By definition, if $ D $ creates binary products, then $ \int_C D $ has binary products.
+
+In itself, this is not a very revolutionary idea. However, when formalizing, this allows us to work layer by layer, every time adding a little bit of new information, and reusing the rest from the layer below to show that every category that we construct has binary products. Also, in the rest of this section we will see that very often, it suffices to formalize a lot less than the full construction of a binary product, and that when we do constructions on displayed categories, like the sigma displayed category or taking a fiber category, we often immediately deduce that the resulting (displayed) category still has (or creates) binary products.
+
+During this project, a small lemma was added to the library, showing that for a full subcategory $ \int_C D \subseteq C $, where $ D_c $ is a mere proposition for all $ c : C $, if for all $ (X, \bar X), (Y, \bar Y) : \int D $, we have $ D_{X \times Y} $ (the $ C $-product of two objects in $ \int D $ is again in $ \int D $), then $ D $ creates binary products. Also, a lemma was added that shows that if a displayed category $ D $ over $ C $, and a displayed category $ E $ over $ D $, both create binary products, then $ \sigma_D E $ also creates binary products.
+
+Note that for many categories, the displayed morphisms are mere propositions. In particular, this holds for the `\dots data' categories of this project. For example, an algebra morphism is a function that `respects the operation', and respecting the operation is a mere proposition. In these categories, it is not necessary to give a full proof that the object $ (X \times Y, \overline{X \times Y}) $ and the morphisms $ (\pi_i, \overline{\pi_i}) $ form a binary product, because it suffices to show that for all $ C, \bar C, f, g $ and all $ \bar f : \bar C \to_f \bar A $ and $ \bar g : \bar C \to_g \bar B $, we can lift the product morphism to
+\[ \overline{\langle f, g \rangle} : \bar C \to_{\langle f, g \rangle} \overline{A \times B} \]
+For example, if the function $ f $ commutes with the algebra actions on $ \bar C $ and $ \bar A $, and $ g $ commutes with the actions on $ \bar C $ and $ \bar B $, then we need to show that the product morphism $ \langle f, g \rangle $ commutes with the actions on $ \bar C $ and $ \overline{A \times B} $. A lemma showing that it suffices to show that we can lift the product morphism was added to the library, and used to show that the `\dots data' displayed categories create binary products.
+
+Now, recall that the categories of $ T $-algebras and $ T $-presheaves are a fiber of a displayed category. Now, if we want a binary product of $ X, Y : \Alg T $ and we take the product of $ (T, X) $ and $ (T, Y) $ in the category of all algebras, we end up with $ (T \times T, X \times Y) $, or $ X \times Y : \Alg {T \times T} $, even though we would like to have $ (T, X) $ for some $ X : \Alg T $. It turns out that here we need the fact that algebras and presheaves are fibered over algebraic theories, and adding the following lemma to the library gave the final brick for showing show that all categories discussed here have limits:
+\begin{lemma}
+  For a displayed category $ D $ over a category $ C $, suppose that $ C $ has binary products, that $ D $ creates binary products, and that $ D $ is a fibration. Then the fiber categories $ D_X $ have binary products.
+\end{lemma}
+\begin{proof}
+  Take $ \bar X_1, \bar X_2 : D_X $. We have a product $ \bar X_1 \times \bar X_2 : D_{X \times X} $ with projections $ \bar \pi_i : \bar X_1 \times \bar X_2 \to_{\pi_i} \bar X_i $. For the diagonal morphism on $ X $, the fibration gives an object $ \bar Y $ and a a cartesian lift:
+  \[ \bar f : \bar Y \to_{\langle \id X, \id X \rangle} \bar X_1 \times \bar X_2, \]
+  so we have projections
+  \[ \bar p_i = \bar f \cdot \bar \pi_i : \bar Y \to_{\id X} \bar X_i. \]
+  In the diagram below, the first row is the fiber $ D_X $ and the second row is the fiber $ D_{X \times X} $.
+  \begin{center}
+    \begin{tikzcd}
+      \bar X_i & \bar Y \arrow[d, "\bar f" description] \arrow[l, "\bar p_i"] & \bar Z \arrow[ll, "\bar g_i"', bend right] \arrow[l, "\bar h"] \arrow[ld, "{\langle \bar g_1, \bar g_2 \rangle}"] \\
+      & \bar X_1 \times \bar X_2 \arrow[lu, "\bar \pi_i"] &
+    \end{tikzcd}
+  \end{center}
+  Now, given some $ \bar g_1: \bar Z \to_{g_1} \bar X_1 $ and $ \bar g_2: \bar Z \to_{g_2} \bar X_2 $, we have
+  \[ \langle \bar g_1, \bar g_2 \rangle : \bar Z \to_{\langle g_1, g_2 \rangle} \bar X_1 \times \bar X_2. \]
+  Because $ \bar f $ is cartesian, we have a unique
+  \[ \bar h: \bar Z \to_{\id X} \bar Y, \]
+  such that
+  \[ \bar h \cdot \bar f = \langle \bar g_1, \bar g_2 \rangle. \]
+  Therefore,
+  \[ \bar h \cdot \bar p_i = \bar h \cdot \bar f \cdot \bar \pi_i = \langle \bar g_1, \bar g_2 \rangle \cdot \bar \pi_i = \bar g_i, \]
+  which shows that $ \bar Y $ is the product of $ \bar X_1 $ and $ \bar X_2 $ in $ D_X $.
+\end{proof}
 
 \subsection{What comes first: the category or its object?}
 The formalization started with definitions for the objects and morphisms in question: algebraic theories and algebras. Using these, the categories were defined directly. However, since showing univalence is much easier when working with displayed categories, the definitions of the categories were decoupled from the definitions of the objects and morphisms, and instead were constructed as displayed categories. This meant that of every definition, a part was duplicated: once for the object (and morphism) types, and once for the objects and morphisms in the displayed categories. This meant that it was in theory possible to get a mismatch between, for example, the definition of algebraic theories and their category.
@@ -133,10 +197,6 @@ The first approach uses \textit{reindexing}, by taking the unique functor to the
 in the definitions of, respectively, the displayed identity and composition. In practice, this adds friction to the formalization.
 
 The second approach is by constructing the displayed category $ D $ directly, setting $ D_c = C^\prime $ and $ c \to_f c^\prime = C^\prime(c, c^\prime) $. This is slightly more work, because we do it in an elementary way instead of using category theoretical machinery. Even so, in practice, this approach gives cleaner definitions for the identity and composition morphisms of the total category. Therefore, halfway during the project, a switch was made from the first to the second approach.
-
-\subsection{Limits}
-
-\subsubsection{Limits in a fibered category}
 
 \section{Duplication in definitions}
 One of the adages in software engineering is `DRY': ``Don't Repeat Yourself'': Long expressions and blocks of code that occur multiple times throughout the program should usually be abstracted into a separate function. One of the reasons for this is that it is easier to change code in this function, than to change every instance of the repeated expression or block of code. When writing mathematics, such functions are usually called `lemmas'. However, in this project there was also another example of duplication, which occurred in statements of definitions and lemmas. For example, in the definition of the displayed category of algebraic theories, the displayed object type over a sequence of sets $ T_n $ is
@@ -157,7 +217,7 @@ and in practice, this makes it harder to work with them. There was an instance w
 
 \section{Inductive types}
 
-\section{The formalization of the \texorpdfstring{$ \lambda $}{lambda}-calculus}
+\section{The formalization of the \texorpdfstring{$ \lambda $}{lambda}-calculus} \label{sec:axiomatic-lambda-calculus}
 Defining Lambda Calculus in a different way (not as an axiomatized HIT)
   - As set quotient instead of HIT
   - With a signature
@@ -196,7 +256,7 @@ Quotients (by hrel or eqrel) vs coproducts (generalizing to arbitrary category w
 \section{The Karoubi envelope}
 KanExtension instead of specific construction at KaroubiEnvelope
 
-\section{Univalence}
-Univalence bewijzen via isweqhomot vs direct
+\section{Constructing equivalences}
+Via isweqhomot or directly
 
 \section{The learning curve}
