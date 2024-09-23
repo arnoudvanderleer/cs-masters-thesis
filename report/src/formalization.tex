@@ -1,34 +1,12 @@
-% 996 0
-% 447 37
-% 1383 1017
-% 26 26
-% 6313 889
-% 2562 2332
-% 1255 326
-% 3015 1
-% 4206 1668
-% 940 48
-% 9 5
-% 508 4
-% 1701 1267
-% Total: 23361 7620
-
-% 434 292
-% 1144 58
-% 96 0
-% 469 113
-% 145 42
-% 495 90
-% 508 221
-% Total: 3291 816
-
+% 996 0; 447 37; 1383 1017; 26 26; 6313 889; 2562 2332; 1255 326; 3015 1; 4206 1668; 940 48; 9 5; 508 4; 1701 1267; Total: 23361 7620
+% 434 292; 1144 58; 96 0; 469 113; 145 42; 495 90; 508 221; Total: 3291 816
 \chapter{The formalization}
 In addition to the reading, investigating and writing mathematics that lead up to the previous chapters, this thesis project also had a formalization component. Parts of Hyland's paper were carefully written out in detail in a proof assistant and added to a library of formalized mathematics with the univalent point of view, called \textit{UniMath}.
 
 This chapter will give an overview of what was formalized, as well as point out and evaluate a couple of design decisions that were made.
 
-\section{Statistics}
 
+\section{Some numbers}
 The code for this project was written over the course of about 18 months, spread over \href{https://github.com/UniMath/UniMath/pulls?q=is%3Apr+author%3Aarnoudvanderleer+is%3Aclosed}{20 pull requests}: 13 with content about Hyland's paper, adding 23.361 and removing 7.620 lines of code, and 7 with only some missing category theoretical preliminaries, adding 3.291 and removing 816 lines.
 
 \section{Overview of the formalized material}
@@ -69,7 +47,9 @@ Since Hyland's paper uses a lot of general category theory, formalizing it entai
   \item The Yoneda embedding preserves exponential objects.
   \item The uniqueness of the Rezk completion.
 % FundamentalTheorem/SurjectivePrecomposition.v
-  \item A precomposition functor is equivalent if ...
+  \item If $ F : C \to C^\prime $ is a fully faithful functor, and $ D $ is a category with colimits, then the precomposition functor $ F \bullet - : [C^\prime, D] \to [C, D] $ is split essentially surjective.
+  A precomposition functor is equivalent if ...
+  \item A proof of a generalized version of Lemma \ref{lem:equivalent-presheaf-cats}, showing that if $ F : C \to C^\prime $ is a functor, if $ F^\prime : C^\prime \to C^{\prime \prime} $ is a fully faithful functor, if $ D $ is a category with colimits and if the precomposition $ (F \bullet F^\prime) \bullet - : [C^{\prime \prime}, D] \to [C, D] $ is an adjoint equivalence, then $ F^\prime \bullet - $ and $ F^\prime \bullet - $ are adjoint equivalences too.
 % FiniteSetSkeleton.v
   \item The skeleton category $ F $ of finite sets, with
   \[ F_0 = \{ 0, 1, \dots \} \quad \text{and} \quad F(m, n) = \SET(\{ 1, \dots, n \}, \{ 1, \dots, m \}). \]
@@ -87,7 +67,7 @@ The easiest option is usually to show that we have an adjoint equivalence. That 
 
 An example of this is the proof that for the algebraic $ T $ where $ T_n $ is the free monoid on $ \{ x_1, \dots, x_n \} $, the $ T $-algebras are equivalent to monoids. Initially, this was a proof about (weak) equivalence (so under univalence, equality) of the object types, but of course, this says nothing about morphisms, so it is incomplete. However, it was possible to remove parts of the proof, and use the rest to construct an adjoint equivalence.
 
-In general, the formalization is the cleanest and the easiest when we use equality for elements of homotopy sets (morphisms, for example), isomorphisms for objects in a category and adjoint equivalences for categories themselves.
+In general, the formalization is the cleanest and the easiest when we use equality for elements of homotopy sets (morphisms, or terms in an algebraic theory, for example), isomorphisms for objects in a category and adjoint equivalences for categories themselves.
 
 \section{Displayed categories}\label{sec:displayed-categories}
 
@@ -196,7 +176,7 @@ The first approach uses \textit{reindexing}, by taking the unique functor to the
 \[ \id{F(X)} = F(\id X) \quad \text{and} \quad F(f) \cdot F(g) = F(f \cdot g) \]
 in the definitions of, respectively, the displayed identity and composition. In practice, this adds friction to the formalization.
 
-The second approach is by constructing the displayed category $ D $ directly, setting $ D_c = C^\prime $ and $ c \to_f c^\prime = C^\prime(c, c^\prime) $. This is slightly more work, because we do it in an elementary way instead of using category theoretical machinery. Even so, in practice, this approach gives cleaner definitions for the identity and composition morphisms of the total category. Therefore, halfway during the project, a switch was made from the first to the second approach.
+The second approach is by constructing the displayed category $ D $ directly, setting $ D_c = C^\prime $ and $ c \to_f c^\prime = C^\prime(c, c^\prime) $. This is slightly more work, because we do it in an elementary way instead of using category theoretical machinery. In return, this approach gives cleaner definitions in practice for the identity and composition morphisms of the total category. Therefore, halfway during the project, a switch was made from the first to the second approach.
 
 \section{Duplication in definitions}
 One of the adages in software engineering is `DRY': ``Don't Repeat Yourself'': Long expressions and blocks of code that occur multiple times throughout the program should usually be abstracted into a separate function. One of the reasons for this is that it is easier to change code in this function, than to change every instance of the repeated expression or block of code. When writing mathematics, such functions are usually called `lemmas'. However, in this project there was also another example of duplication, which occurred in statements of definitions and lemmas. For example, in the definition of the displayed category of algebraic theories, the displayed object type over a sequence of sets $ T_n $ is
@@ -215,12 +195,12 @@ Another drawback of this approach is that for algebras and presheaves, there are
 \[ \mathtt{mor\_action\_ax}: \prod_n \prod_{t : T_n} \prod_{a : A^n} g (t \bullet a) = \id T(t) \bullet (g (a_i))_i, \]
 and in practice, this makes it harder to work with them. There was an instance where one conversion from $ \id T(t) $ to $ t $ added multiple seconds to the compilation time. Therefore, for the algebras and presheaves, some of these axioms have to be stated twice: once to define the displayed category, and once for most of the other occurrences.
 
-\section{Inductive types}
-
 \section{The formalization of the \texorpdfstring{$ \lambda $}{lambda}-calculus} \label{sec:axiomatic-lambda-calculus}
 Defining Lambda Calculus in a different way (not as an axiomatized HIT)
   - As set quotient instead of HIT
   - With a signature
+
+\subsection{\texorpdfstring{$ \beta $}{beta}-reduction in proofs}
 
 \section{Tuples}
 
@@ -243,12 +223,31 @@ Also, when working with a $ \Lambda $-algebra $ A $ (or an algebra) for the free
 Using some lemmas about the behaviour of extended tuples and literals defined this way, this slightly mixed approach works fine. However, it would be worth investigating whether it is possible to have a tuple type in the library with all of the operations of both the function and the cartesian product approaches, so that it is no longer necessary to choose between them.
 
 \section{Products}
-$ T \times (T \times \dots \times T) $ vs $ T \times T^n vs T^(S n) $
-Terminal as product over empty set
-over any set with a function to empty.
+A very similar problem pops up in the proof of the representation theorem, where the definition of the endomorphism theory $ E_{\Pshf L}(L) $ meets the isomorphism $ \Pshf L(L^n, L) \cong L_n $ of the Yoneda lemma for presheaves. First of all, recall that the function $ \lambda_n $ of $ E(L) $ is defined via the following chain of morphisms
+\[ \Pshf L(L^{n + 1}, L) = \Pshf(L^n \times L, L) \cong \Pshf L(L^n, L^L) \xrightarrow{- \cdot \text{abs}} \Pshf L(L^n, L). \]
+To make this easy, we would like to have $ L^{n + 1} = L^n \times L $, and this would give a definition $ L^n = ( \dots (I \times L) \times \dots) \times L $ where $ I $ is the terminal object.
+
+On the other hand, recall that inverse morphism of $ \Pshf L(L^n, L) \cong L_n $ sends $ s: L_n $ to the presheaf morphism that sends $ (t_i)_i : L^n_m $ to $ s \bullet t : L_m $. Here, we would like the sets of $ L^n $ to match the tuple types in the definition of the substitution $ \bullet : L_n \times L_m^n \to L_m $. However, these two are incompatible, since elements of the repeated product are nested pairs, whereas the tuples in $ L_m^n $ are functions from $ \{ 1, \dots, n \} $ to $ L_m $.
+
+In this case, somewhat of a compromise was made. The endomorphism theory was indeed defined using a repeated binary product, and the construction of finite powers from the terminal object and binary products\footnote{Unfortunately, defininig the product of a tuple of objects was much harder than defining the finite power of one object. When generalizing the approach to tuples of objects, some terms suddenly do not have the `correct' type, which has something to do with some equalities like $ ((x_1, \dots, x_n) + (y))_{n + 1} = y $ that do not hold definitionally. Even though this specific problem can be solved using transports, the rest of the proof becomes then much harder because the transports get in the way}. On the other hand, the Yoneda lemma for $ L $-presheaves does indeed use the `usual' notion of products $ L^n $ where the sets are tuple types. Luckily, the library contains a proof that two products are isomorphic, so where the definitions clash, we use the isomorphisms to translate between them. Even though this adds friction, in the end it is pretty straightforward.
+
+Also, this project added a lemma to the library stating that in any category $ C $, $ \prod_{i : \emptyset} X_i $ (for $ X : \emptyset \to T $ a family of objects) is given by the terminal object. However, the repeated binary product construction needed $ \prod_{i : \{ i \mid 1 \leq i \leq 0 \}} X_i $, and $ \emptyset $ is not definitionally equal to $ \{ i \mid 1 \leq i \leq 0 \} $. Initially, this was solved by transporting along the equality $ \emptyset = \{ i \mid 1 \leq i \leq 0 \} $. However, much further down the line, some proof involved an element of this product over $ \{ i \mid 1 \leq i \leq 0 \} $, and because of the transport, coq was not able to see that this product was just $ \{ \star \} $. Therefore, the statement of the lemma about the empty product was changed to ``For a type $ I $ and a family $ X : I \to C $, if we have a function $ f : I \to \emptyset $, the terminal object gives the product $ \prod_{i : I} X_i $''. Note that having the function $ f $ is equivalent to $ I $ being equivalent (and therefore equal) to the empty type. This change in the statement did provide the right amount of generality to make computation down the line much smoother.
 
 \section{The \texorpdfstring{$ n + p $}{n + p}-presheaf}
-L (S n) (for lambda) vs L (n + 1) (stemming from the naive implementation of the L (n + p) presheaf)
+Now, the definition of the endomorphism $ \lambda $-theory $ E_{\Pshf L}(L) $ requires that the theory presheaf $ L $ is exponentiable. As shown before, $ P^L $ is given by $ A(P, 1) $, the `plus 1' presheaf, where the last variable is ignored in the $ L $-action. In fact, one can show that $ P^{L^n} $ is given by $ A(P, n) $ and this was the level of generality at which the statement was formalized. To obtain the action
+\[ \bullet : A(P, p)_m \times L_n^m \to A(P, p)_n, \]
+the equivalence
+\[ \{ 1, \dots, n + p \} \simeq \{ 1, \dots, n \} \sqcup \{ 1, \dots, p \} \]
+was used, which indeed sends the first $ n $ elements to the first set, and the last $ p $ elements to the second. After this, it was time to construct the presheaf morphisms for $ \rho $ and $ \lambda $ between $ L $ and $ A(L, 1) $, but this turned out to be much harder than expected, because $ A(L, 1)_n = L_{n + 1} $, whereas $ \rho $ and $ \lambda $ are functions between $ L_n $ and $ L_{S n} $, where $ S n = 1 + n $. Unfortunately, $ 1 + n $ is not definitionally equal to $ n + 1 $, and even though we might transport along a proof $ h: 1 + n = n + 1 $, this will give problems down the road.
+
+In this case, the cleanest solution was to only do the construction for the special case $ p = 1 $, and formulate it like $ A(P, 1)_n = P_{S n} $. This can use the equivalence
+\[ s_m: \{ 1, \dots, n + 1 \} \simeq \{ 1, \dots, n \} \sqcup \{ \star \}, \]
+with
+\[ s_m(i) = \left\{ \begin{array}{cc}
+    i & i < m\\
+    \star & i = m\\
+    i - 1 & i > m
+\end{array}\right. .  \]
 
 \section{Quotients}
 Quotients (by hrel or eqrel) vs coproducts (generalizing to arbitrary category with coproduct) vs a category with some structure
