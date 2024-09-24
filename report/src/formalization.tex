@@ -201,6 +201,7 @@ Defining Lambda Calculus in a different way (not as an axiomatized HIT)
   - With a signature
 
 \subsection{\texorpdfstring{$ \beta $}{beta}-reduction in proofs}
+Tactic
 
 \section{Tuples}
 
@@ -238,22 +239,54 @@ Now, the definition of the endomorphism $ \lambda $-theory $ E_{\Pshf L}(L) $ re
 \[ \bullet : A(P, p)_m \times L_n^m \to A(P, p)_n, \]
 the equivalence
 \[ \{ 1, \dots, n + p \} \simeq \{ 1, \dots, n \} \sqcup \{ 1, \dots, p \} \]
-was used, which indeed sends the first $ n $ elements to the first set, and the last $ p $ elements to the second. After this, it was time to construct the presheaf morphisms for $ \rho $ and $ \lambda $ between $ L $ and $ A(L, 1) $, but this turned out to be much harder than expected, because $ A(L, 1)_n = L_{n + 1} $, whereas $ \rho $ and $ \lambda $ are functions between $ L_n $ and $ L_{S n} $, where $ S n = 1 + n $. Unfortunately, $ 1 + n $ is not definitionally equal to $ n + 1 $, and even though we might transport along a proof $ h: 1 + n = n + 1 $, this will give problems down the road.
+from the library was used, which sends the first $ n $ elements to the first set, and the last $ p $ elements to the second, so this could indeed be used to construct elements of tuples $ A^{n + p} $, separating them into first a tuple of $ n $ and then a tuple of $ p $. After this, it was time to construct the presheaf morphisms for $ \rho $ and $ \lambda $ between $ L $ and $ A(L, 1) $, but this turned out to be much harder than expected, because $ A(L, 1)_n = L_{n + 1} $, whereas $ \rho $ and $ \lambda $ are functions between $ L_n $ and $ L_{S n} $, where $ S n = 1 + n $. Unfortunately, $ 1 + n $ is not definitionally equal to $ n + 1 $, and even though we might transport along a proof $ h: 1 + n = n + 1 $, this will give problems down the road.
 
-In this case, the cleanest solution was to only do the construction for the special case $ p = 1 $, and formulate it like $ A(P, 1)_n = P_{S n} $. This can use the equivalence
+In this case, the cleanest solution was to only do the construction for the special case $ p = 1 $ and take $ A(P, 1)_n = P_{S n} $, using the equivalence from the library
 \[ s_m: \{ 1, \dots, n + 1 \} \simeq \{ 1, \dots, n \} \sqcup \{ \star \}, \]
 with
 \[ s_m(i) = \left\{ \begin{array}{cc}
     i & i < m\\
     \star & i = m\\
     i - 1 & i > m
-\end{array}\right. .  \]
+\end{array}\right. ,  \]
+taking $ m = n $ in this case.
+
+It is possible that constructing a new equivalence
+\[ \{ 1, \dots, p + n \} \simeq \{1, \dots, n\} \sqcup \{1, \dots, p\}, \]
+makes it possible to generalize the result to general $ p $ again. However, this equivalence would be somewhat weird, because the order of $ n $ and $ p $ are reversed. Also, proving things about these standard finite sets is quite hard, and outside the scope of this project, so this was not attempted in this project, but potentially left for future work.
 
 \section{Quotients}
-Quotients (by hrel or eqrel) vs coproducts (generalizing to arbitrary category with coproduct) vs a category with some structure
+This project used quotients twice, once explicitly and once implicitly. The first occurrence of quotients was the construction of the `extension of scalars' functor $ f_*: \RAct N \to \RAct M $ from Lemma \ref{lem:scalar-extension}. Here, the formalization worked directly with quotients over a relation. However, the relation given by $ R : (x n, m) \sim (x, f(n) \cdot m) $ for all $ a $, is reflexive and transitive, but not necessarily symmetric. Therefore, first the `equivalence closure' $ \bar R $ of $ R $ is taken: the smallest transitive and symmetric relation that contains $ R $. This is then used for the quotient. To construct functions from this, like, the right action of the monoid $ M^\prime $, we use the universal property of the quotient: a function from $ X \times M^\prime $ that sends `related' elements $ (x_1, m_1) $ and $ (x_2, m_2) $ to the same element. However, the quotient is taken over $ \bar R $ instead of $ R $, so it is no longer possible to assume that $ x_2 = x_1 n $ and $ m_1 = f(n) \cdot m_2 $ for some $ n $. In the case of the right $ M^\prime $-action, it sufficed to add the following lemma to the library
+\begin{lemma}
+  For a relation $ S $ on a set $ A $ and a relation $ T $ on a set $ B $, if for $ f: A \to B $, we have that $ S(a_1, a_2) $ implies $ T(f(a_1), f(a_2)) $ for all $ a_1, a_2 : A $, then $ \bar S(a_1, a_2) $ implies $ \bar T(f(a_1), f(a_2)) $ for all $ a_1, a_2 $.
+\end{lemma}
+However, overall, working with these quotients in an elementary way was quite a hassle.
 
-\section{The Karoubi envelope}
-KanExtension instead of specific construction at KaroubiEnvelope
+The second occurrence of quotients was in the proof of Corollary \ref{cor:karoubi-presheaf}, or the lemma that it is based on. Initially, the statement of the lemma was only about $ \SET $, stating that $ \iota_C \bullet - : [\bar C, \SET] \to [C, \SET] $ was an adjoint equivalence. The proof used coequalizers of functors, like in Lemma \ref{lem:karoubi-equivalence}. Note that coequalizers of set-valued functions are given pointwise by coequalizers in $ \SET $, which are formalized using quotients. Because of this, when simplifying, coq usually reduced the goal to elementary statements about quotients, which somewhat obfuscated the relatively simple nature of the construction. Luckily, the construction could be made agnostic to the specific implementation of coequalizers, by introducing a variable
+\[ \mathtt{H : Coequalizers HSET} \]
+and using this instead of our known implementation. Since the proofs did not use any elements of the sets in question, it was then trivial to generalize to any category with coequalizers. It turned out that the construction was a special version of left Kan extension, which uses general colimits, and using the existing definition of Kan extension, the proof was made considerably shorter.
+
+In hindsight, it may have been better to replace the quotient $ Y := X \times M / \sim $ by a coequalizer
+\begin{center}
+  \begin{tikzcd}[sep = huge]
+    N \times X \times M \arrow[r, shift left, "{(n, x, m) \mapsto (x n, m)}"] \arrow[r, shift right, "{(n, x, m) \mapsto (x, f(n) \cdot m)}"'] & X \times M \arrow[r, dashed] & Y
+  \end{tikzcd},
+\end{center}
+which is closer to the way this relation is defined. Under the hood, this still takes a quotient over the equivalence closure, but now it is less visible. Here, the universal property of the coequalizer can be used to define functions out of $ Y $, which may be easier to work with than the universal property of the quotient.
+
+The generalization from $ \SET $ to an arbitrary category with coequalizers, which we saw in the case of Karoubi envelopes, can also be done here, but it would take considerably more effort. The problem is that the definitions of monoids and sets with a monoid action really do use the elements of their underlying sets. For example, a monoid $ M $ has a unit $ u $ and multiplication $ \cdot $, such that $ u \cdot m = m = m \cdot u $ and $ m \cdot (n \cdot l) = (m \cdot n) \cdot l $ for all $ m, n, l : M $. The generalization for an object $ M $ in some category $ C $, turns the unit into a function $ u : I \to M $ from the terminal object and the multiplication into a function $ \mu : M \times M $ from the binary product\footnote{Note that one does not need the full power of binary products to define internal monoids. A category with a product-like structure $ \otimes $ and a terminal-like object $ I $ that one needs to define internal monoids, is called a \index{category!monoidal}\textit{monoidal category}.}, such that the following diagrams commute:
+\begin{center}
+  \begin{tikzcd}
+    M \times (M \times M) \arrow[rr, "{\sim}"] \arrow[d, "{\id M \times \mu}"'] & & (M \times M) \times M \arrow[d, "{\mu \times \id M}"]\\
+    M \times M \arrow[rd, "{\mu}"'] & & M \times M \arrow[ld, "{\mu}"]\\
+    & M
+  \end{tikzcd}
+  \begin{tikzcd}
+    I \times M \arrow[r, "u \times \id M"] \arrow[rd, "\sim"'] & M \times M \arrow[d, "\mu"] & M \times I \arrow[l, "\id M \times u"'] \arrow[ld, "\sim"]\\
+    & M
+  \end{tikzcd}
+\end{center}
+Such a generalization of a monoid to a general category is called an \index{monoid!internal}\textit{internal monoid}. In a similar way, sets with a monoid action can be generalized. However, this all would be a lot of work, and elementary reasoning about internal monoids of $ \SET $ is still much more cumbersome than for the ordinary set-based monoids. Also, for the fundamental theorem we only need the ordinary set-based monoids. Therefore, this generalization was not pursued any further.
 
 \section{Constructing equivalences}
 Via isweqhomot or directly
