@@ -162,7 +162,7 @@ Now, recall that the categories of $ T $-algebras and $ T $-presheaves are a fib
   which shows that $ \bar Y $ is the product of $ \bar X_1 $ and $ \bar X_2 $ in $ D_X $.
 \end{proof}
 
-\subsection{What comes first: the category or its object?}
+\subsection{Chicken or egg?}
 The formalization started with definitions for the objects and morphisms in question: algebraic theories and algebras. Using these, the categories were defined directly. However, since showing univalence is much easier when working with displayed categories, the definitions of the categories were decoupled from the definitions of the objects and morphisms, and instead were constructed as displayed categories. This meant that of every definition, a part was duplicated: once for the object (and morphism) types, and once for the objects and morphisms in the displayed categories. This meant that it was in theory possible to get a mismatch between, for example, the definition of algebraic theories and their category.
 
 Of course, it was possible to get rid of the objects altogether, and just define things in terms of the objects and the morphisms of the categories. However, in practice this causes problems because of \textit{coercions}. For example, if $ X $ is an algebraic theory, mathematicians like to use the name $ X $ also to denote the sequence of sets $ X_n $. Under the hood, this uses a coercion, which allows one to use the same symbol to denote both the entire object, or a part of it, depending on the context. However, when working with displayed categories, the category of algebraic theories is displayed over the category of algebraic theory data, which is displayed over the category of sequences of sets. It turns out that in coq, coercions on categories do not compose very well: If $ X $ is an algebraic theory, and we have coercions from algebraic theories to algebraic theory data, and from algebraic theory data to sequences of sets, we can still only use $ X $ to denote the algebraic theory data, and not the sequence of sets.
@@ -194,14 +194,6 @@ This indeed reduces the amount of duplication in the code, and makes it slightly
 Another drawback of this approach is that for algebras and presheaves, there are in fact two different axioms. This is because their categories are displayed over the categories of algebraic theories, and the category of $ T $-algebras and $ T $-presheaves are fibers of the full displayed category. Therefore, the morphisms of $ T $-algebras are given by displayed morphisms over $ \id T $, so the axiom of an algebra morphism $ g $ is
 \[ \mathtt{mor\_action\_ax}: \prod_n \prod_{t : T_n} \prod_{a : A^n} g (t \bullet a) = \id T(t) \bullet (g (a_i))_i, \]
 and in practice, this makes it harder to work with them. There was an instance where one conversion from $ \id T(t) $ to $ t $ added multiple seconds to the compilation time. Therefore, for the algebras and presheaves, some of these axioms have to be stated twice: once to define the displayed category, and once for most of the other occurrences.
-
-\section{The formalization of the \texorpdfstring{$ \lambda $}{lambda}-calculus} \label{sec:axiomatic-lambda-calculus}
-Defining Lambda Calculus in a different way (not as an axiomatized HIT)
-  - As set quotient instead of HIT
-  - With a signature
-
-\subsection{\texorpdfstring{$ \beta $}{beta}-reduction in proofs}
-Tactic
 
 \section{Tuples}
 
@@ -255,7 +247,7 @@ It is possible that constructing a new equivalence
 \[ \{ 1, \dots, p + n \} \simeq \{1, \dots, n\} \sqcup \{1, \dots, p\}, \]
 makes it possible to generalize the result to general $ p $ again. However, this equivalence would be somewhat weird, because the order of $ n $ and $ p $ are reversed. Also, proving things about these standard finite sets is quite hard, and outside the scope of this project, so this was not attempted in this project, but potentially left for future work.
 
-\section{Quotients}
+\section{Quotients}\label{sec:quotients}
 This project used quotients twice, once explicitly and once implicitly. The first occurrence of quotients was the construction of the `extension of scalars' functor $ f_*: \RAct N \to \RAct M $ from Lemma \ref{lem:scalar-extension}. Here, the formalization worked directly with quotients over a relation. However, the relation given by $ R : (x n, m) \sim (x, f(n) \cdot m) $ for all $ a $, is reflexive and transitive, but not necessarily symmetric. Therefore, first the `equivalence closure' $ \bar R $ of $ R $ is taken: the smallest transitive and symmetric relation that contains $ R $. This is then used for the quotient. To construct functions from this, like, the right action of the monoid $ M^\prime $, we use the universal property of the quotient: a function from $ X \times M^\prime $ that sends `related' elements $ (x_1, m_1) $ and $ (x_2, m_2) $ to the same element. However, the quotient is taken over $ \bar R $ instead of $ R $, so it is no longer possible to assume that $ x_2 = x_1 n $ and $ m_1 = f(n) \cdot m_2 $ for some $ n $. In the case of the right $ M^\prime $-action, it sufficed to add the following lemma to the library
 \begin{lemma}
   For a relation $ S $ on a set $ A $ and a relation $ T $ on a set $ B $, if for $ f: A \to B $, we have that $ S(a_1, a_2) $ implies $ T(f(a_1), f(a_2)) $ for all $ a_1, a_2 : A $, then $ \bar S(a_1, a_2) $ implies $ \bar T(f(a_1), f(a_2)) $ for all $ a_1, a_2 $.
@@ -274,7 +266,9 @@ In hindsight, it may have been better to replace the quotient $ Y := X \times M 
 \end{center}
 which is closer to the way this relation is defined. Under the hood, this still takes a quotient over the equivalence closure, but now it is less visible. Here, the universal property of the coequalizer can be used to define functions out of $ Y $, which may be easier to work with than the universal property of the quotient.
 
-The generalization from $ \SET $ to an arbitrary category with coequalizers, which we saw in the case of Karoubi envelopes, can also be done here, but it would take considerably more effort. The problem is that the definitions of monoids and sets with a monoid action really do use the elements of their underlying sets. For example, a monoid $ M $ has a unit $ u $ and multiplication $ \cdot $, such that $ u \cdot m = m = m \cdot u $ and $ m \cdot (n \cdot l) = (m \cdot n) \cdot l $ for all $ m, n, l : M $. The generalization for an object $ M $ in some category $ C $, turns the unit into a function $ u : I \to M $ from the terminal object and the multiplication into a function $ \mu : M \times M $ from the binary product\footnote{Note that one does not need the full power of binary products to define internal monoids. A category with a product-like structure $ \otimes $ and a terminal-like object $ I $ that one needs to define internal monoids, is called a \index{category!monoidal}\textit{monoidal category}.}, such that the following diagrams commute:
+The generalization from $ \SET $ to an arbitrary category with coequalizers, which we saw in the case of Karoubi envelopes, can also be done here, but it would take considerably more effort. The problem is that the definitions of monoids and sets with a monoid action really do use the elements of their underlying sets. For example, a monoid $ M $ has a unit $ u $ and multiplication $ \cdot $, such that $ u \cdot m = m = m \cdot u $ and $ m \cdot (n \cdot l) = (m \cdot n) \cdot l $ for all $ m, n, l : M $. The generalization for an object $ M $ in some category $ C $, turns the unit into a function $ u : I \to M $ from the terminal object and the multiplication into a function $ \mu : M \times M $ from the binary product
+\footnote{Note that one does not need the full power of binary products or terminal objects to define internal monoids. A category with the product-like structure $ \otimes $ and terminal-like object $ I $ that one needs to define internal monoids, is called a \index{category!monoidal}\textit{monoidal category}.},
+such that the following diagrams commute:
 \begin{center}
   \begin{tikzcd}
     M \times (M \times M) \arrow[rr, "{\sim}"] \arrow[d, "{\id M \times \mu}"'] & & (M \times M) \times M \arrow[d, "{\mu \times \id M}"]\\
@@ -288,7 +282,103 @@ The generalization from $ \SET $ to an arbitrary category with coequalizers, whi
 \end{center}
 Such a generalization of a monoid to a general category is called an \index{monoid!internal}\textit{internal monoid}. In a similar way, sets with a monoid action can be generalized. However, this all would be a lot of work, and elementary reasoning about internal monoids of $ \SET $ is still much more cumbersome than for the ordinary set-based monoids. Also, for the fundamental theorem we only need the ordinary set-based monoids. Therefore, this generalization was not pursued any further.
 
-\section{Constructing equivalences}
-Via isweqhomot or directly
+\section{The formalization of the \texorpdfstring{$ \lambda $}{lambda}-calculus} \label{sec:axiomatic-lambda-calculus}
+One of the important classes of objects in this thesis is the class of $ \Lambda $-algebras: algebras for the initial $ \lambda $-theory $ \Lambda $, corresponding to the `pure' $ \lambda $-calculus. Therefore, much of this project required the pure $ \lambda $-calculus to be formalized. Now, in this thesis, it is defined as a quotient of an inductive type. However, in the UniMath library, the use of inductive types (other than a handful of basic ones like \texttt{empty}, \texttt{bool}, \texttt{nat} and \texttt{coprod}) is prohibited
+\footnote{This is because allowing inductive types requires a much larger trusted codebase of the proof assistant, and because most of mathematics can be formalized with $ \sum $-types or using initial algebras of functors, instead of inductive and record types.}. Also, as we saw in section \ref{sec:quotients}, working with quotients can be somewhat complicated.
+
+The inductive type approach has a variation, which instead of a quotient uses a higher inductive type to force the required elements to be equal. Unfortunately, even if the use of inductive types was allowed, coq does not support higher inductive types.
+
+Instead, a different, more axiomatic approach was taken. A class in group theory often starts with laying out a couple of axioms, like: ``We have a set $ G $, with a binary operation $ b $, a unary operation $ u $ and an element $ e $. $ b $ is associative, $ u $ is a left and right inverse for $ b $ and $ e $ is a unit for $ b $.'' Afterwards, this structure is usually bundled into the declaration ``Let $ G $ be a group.'' In the same spirit, every section in the formalization that needs the pure $ \lambda $-calculus, starts with ``Let $ L $ be the pure $ \lambda $-calculus with $ \beta $-equality.'' To this end, there is a definition \texttt{lambda\_calculus}, consisting of
+\begin{itemize}
+  \item A sequence of sets $ (L_n)_n $;
+  \item Variables, app, abs, subst:
+    \[ \mathtt{var}_{n, i} : L_n, \quad \mathtt{app}_n: L_n \times L_n \to L_n, \quad \mathtt{abs}_n : L_{S n} \to L_n \quad \text{and} \quad \mathtt{subst}_{m, n}: L_m \times L_n^m \to L_n; \]
+  \item A couple of identities about the interactions between the constructors. In particular, $ \beta $-equality:
+    \[
+      \mathtt{subst}(\mathtt{var}_i, t) = t_i, \quad
+      \dots, \quad
+      \mathtt{app}(\mathtt{abs}(s), t) = \mathtt{subst}(s, (\mathtt{var}_i)_i + (t));
+    \]
+  \item The induction principle, which coincides with the induction principle that a higher inductive type would have: Given, for all $ t : L_n $, a type $ A_{n, t} $, it is possible to construct, for every $ t : L_n $, an element $ f(t) : A_{n, t} $ by just giving elements and functions, corresponding to the constructors
+    \begin{align*}
+      f_{\mathtt{var}(n, i)} &:A_{\mathtt{var}_{n, i}}\\
+      f_{\mathtt{app}(s, t)} &:A_s \times A_t \to A_{\mathtt{app}(s, t)}\\
+      f_{\mathtt{abs}(t)} &:A_t \to A_{\mathtt{abs}(t)}\\
+      f_{\mathtt{subst}(s, t)} &:A_s \times A_{t_1} \times \dots \times A_{t_n} \to A_{\mathtt{subst}(s, t)}\\
+    \end{align*}
+    and by showing that they are compatible with the identities on $ L $. For example, for $ \beta $-equality, this is equality between
+    \[ f_{\mathtt{app}}(f_{\mathtt{abs}}(s), t): A_{\mathtt{app}(\mathtt{abs}(s), t)} \quad \text{and} \quad f_{\mathtt{subst}}(s, f_{\mathtt{var}_1}, \dots, f_{\mathtt{var}_n}, t): A_{\mathtt{subst}(s, (\mathtt{var}_i)_i + (t))}. \]
+    Note that the left and right hand side live in different types, so the equality can only be stated using a transport over $ \beta $-equality.
+  \item A couple of identities about the interaction between induction and the constructors: if $ f $ is defined using the induction principle as above,
+  \begin{align*}
+    f(\mathtt{var}_i) &= f_{\mathtt{var}_i}\\
+    f(\mathtt{app}(s, t)) &= f_{\mathtt{app}(s, t)}(f(s), f(t))\\
+    f(\mathtt{abs}(t)) &= f_{\mathtt{abs}(t)}(f(t))\\
+    f(\mathtt{subst}(s, t)) &= f_{\mathtt{subst}(s, t)}(f(s), (f(t_i))_i).
+  \end{align*}
+\end{itemize}
+
+\begin{remark}
+  Note that the first three bullets just give $ L $ a $ \lambda $-theory structure. Only by the induction principle, it becomes clear that $ L $ is the (unique) pure $ \lambda $-calculus.
+\end{remark}
+
+\begin{remark}
+  The induction principle has two common uses: $ A_{n, t} $ can be taken to be a constant type $ A $ (or potentially $ A_n $), in which case induction results in functions $ L_n \to A $. The $ A_{n, t} $ can also be taken to be mere propositions, in which case induction `proves' something about all $ t : L_n $.
+
+  In both cases, the rules about respecting the identities like $ \beta $-equality become simpler: in the first case, the transports disappear, and in the second case, the rules are satisfied automatically.
+\end{remark}
+
+\begin{remark}
+  Often, the pure $ \lambda $-calculus is defined using just the constructors $ \mathtt{var} $, $ \mathtt{app} $ and $ \mathtt{abs} $. $ \mathtt{subst} $ is usually defined using induction, which gives the identities about the interaction between $ \mathtt{subst} $ and the others for free. However, since this is a definition of the $ \lambda $-calculus with $ \beta $-equality, the induction principle must include a rule about compatibility with the $ \beta $-equality. Since the definition of $ \beta $-equality already uses $ \mathtt{subst} $, it is not possible to define $ \mathtt{subst} $ using induction. This is why it is added as an additional constructor, along with requirements about its interaction with the other constructors. This approach is called \iindex{explicit substitution}.
+\end{remark}
+
+\subsection{Propagation of substitution}
+Once the pure $ \lambda $-calculus is defined, it is not very hard to give it a $ \lambda $-theory structure, using the induction principle a couple of times to show that some identities are satisfied.
+
+Now, as mentioned in Subsection \ref{subsec:lambda-calculus-operations}, any $ \lambda $-theory allows the operations $ \mathtt{var} $, $ \mathtt{app} $, $ \mathtt{abs} $ and $ \mathtt{subst} $ with the same interaction as for the pure $ \lambda $-calculus. Therefore, given any $ \lambda $-calculus, it is possible to start defining more complicated structures like the $ a \circ b $, $ \langle a, b \rangle $ and $ A \times B $ from Section \ref{sec:retracts-category}, which is indeed done in the original proof of Scott's representation theorem. However the equalities about the interaction between $ \mathtt{subst} $ and the other operations are not definitional, even for the pure $ \lambda $-calculus. Consider the following term (using concatenation for application):
+\[ \lambda x_5, x_5 (x_1 x_2 (x_4 x_3)) \bullet (x_1, x_2, x_3, x_1) : L_3. \]
+It is not hard to see that this results in $ \lambda x_4, x_4 (x_1 x_2 (x_1 x_3)) $. However, it takes a lot of steps to rewrite this: moving the substitution past the $ \lambda $-abstraction, then into 4 instances of application, and lastly using 5 instances of the interaction between variables and substitution, resulting in a total of 10 rewrites for a seemingly trivial term. It is not unheard of to have 40 of these rewrites consecutively in a proof, and since there is a lot of things to prove, this quickly becomes tedious.
+
+Therefore, a tactic was added to the project. A first version of this tactic was a variation of
+\begin{lstlisting}
+Ltac reduce_lambda := (
+  rewrite subst_var +
+  rewrite subst_l_var +
+  ...
+  rewrite beta_equality
+).
+\end{lstlisting}
+attempting to rewrite (once) with at least one, but possible multiple of the equalities. The statement \texttt{repeat reduce\_lambda} sometimes took a couple of seconds, but this saved a lot of manual work. Still, there was much room for improvement.
+
+Therefore, along with the original proof of Scott's representation theorem, a new version of the tactic, called \texttt{propagate\_subst} has been added. It recursively traverses the $ \lambda $-term in the left-hand side of the goal, checking whether the term matches a form that can be rewritten into something else. It performs the possible rewrites, and also prints these rewrite statements which can replace it. For example, if the goal is
+\begin{lstlisting}
+(λ'm, (inflate a (inflate b var (stnweq (inr tt))))) • c =
+(λ'n, (inflate (a • c) (inflate (b • c) var (stnweq (inr tt)))))
+\end{lstlisting}
+a call to \texttt{repeat reduce\_lambda} would take about a second, but a call to \texttt{propagate\_subst ()} runs in about $ \frac 1 3 $ of a second and prints
+\begin{lstlisting}
+refine '(subst_abs _ _ _ @ _).
+refine '(_ @ !maponpaths (λ x, (abs (app x _))) (inflate_subst _ _ _)).
+refine '(_ @ !maponpaths (λ x, (abs (app _ (app x _)))) (inflate_subst _ _ _)).
+refine '(maponpaths (λ x, (abs x)) (subst_app _ _ _ _) @ _).
+refine '(maponpaths (λ x, (abs (app x _))) (subst_inflate _ _ _) @ _).
+refine '(maponpaths (λ x, (abs (app _ x))) (subst_app _ _ _ _) @ _).
+refine '(maponpaths (λ x, (abs (app _ (app x _)))) (subst_inflate _ _ _) @ _).
+refine '(maponpaths (λ x, (abs (app _ (app _ x)))) (var_subst _ _ _) @ _).
+refine '(maponpaths (λ x, (abs (app _ (app _ x)))) (extend_tuple_inr _ _ _) @ _).
+\end{lstlisting}
+Replacing the call to \texttt{propagate\_subst} by these statements, results in the same rewrites, but these only take $ \frac{1}{25} $ of a second.
+
+Now, on top of the speedup, the new tactic is modular and extensible. It is modular, in the sense that some of its parts are also tactics themselves, and can be used for other tactics as well. For example, the \texttt{traverse} tactic, which traverses a $ \lambda $-term in the goal and executes something for every subterm, is also used in a new tactic that is called \texttt{generate\_refine}, which takes a pattern, and for every subterm that matches it, prints a
+\begin{lstlisting}
+refine '(maponpaths (λ x, ... x ...) _ @ _).
+\end{lstlisting}
+statement, which can be used to quickly generate statements that very precisely rewrite one subterm. The \texttt{propagate\_subst} tactic is also extensible, in the sense that the patterns for both the subterm traversal and the rewrites are kept in a list, which can be extended when new combinators are defined. For example, at the point where the tactics are defined, the traversal only works for the constructors $ \mathtt{var} $, $ \mathtt{app} $, $ \mathtt{abs} $ and $ \mathtt{subst} $, and the rewrites only work for the interactions between these operations. Using this, composition $ a \circ b $ is defined, and so a pattern to branch into $ a $ and $ b $ is added to the traversals, and a rewrite with
+\[ (a \circ b) \bullet t = (a \bullet t) \circ (b \bullet t) \]
+is added. Progressing through the file, the same is done for combinators like the pair $ (a, b) $, the projection $ \pi_1 $ (including a rewrite $ \pi_1 \langle a, b \rangle = a $), $ \mathtt{curry} $ and $ \mathtt{n\_tuple} $ (consisting of nested pairs).
+
+It would be interesting to see whether parts of these tactics can be generalized. For example, whether it is possible to create an extensible tactic which shows that some type is a homotopy set, or a mere proposition, and prints the coq statements that can replace the tactic call. Or whether it would be possible to generalize \texttt{generate\_refine} to very qukickly generate very fast and precise rewrite statements for large and complicated goals.
 
 \section{The learning curve}
+% \section{The direct approach}
+% Via isweqhomot or directly
