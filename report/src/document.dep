@@ -125,6 +125,7 @@
   *{file}   {pgfmath.code.tex}{0000/00/00 v0.0}
   *{file}   {pgffor.code.tex}{0000/00/00 v0.0}
   *{file}   {tikz.code.tex}{0000/00/00 v0.0}
+  *{package}{enumitem}    {2019/06/20 v3.9}
   *{package}{imakeidx}    {2016/10/15 v1.3e}
   *{package}{multicol}    {2023/03/30 v1.9f}
   *{package}{subcaption}  {2023/07/28 v1.6b}
@@ -165,9 +166,6 @@
   *{file}   {mt-msa.cfg}  {2006/02/04 v1.1}
   *{file}   {mt-msb.cfg}  {2005/06/01 v1.0}
   *{file}   {mt-cmr.cfg}  {2013/05/19 v2.2}
-  *{file}   {img/tudelft_logo_bw.eps}{0000/00/00 v0.0}
-  *{file}   {000-abstract.tex}{0000/00/00 v0.0}
-  *{file}   {000-committee.tex}{0000/00/00 v0.0}
   *{file}   {category-theory.tex}{0000/00/00 v0.0}
   *{file}   {univalent-foundations.tex}{0000/00/00 v0.0}
   *{file}   {./svg-inkscape/homotopy-plane_svg-tex.pdf_tex}{0000/00/00 v0.0}

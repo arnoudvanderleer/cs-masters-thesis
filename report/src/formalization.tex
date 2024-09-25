@@ -380,5 +380,25 @@ is added. Progressing through the file, the same is done for combinators like th
 It would be interesting to see whether parts of these tactics can be generalized. For example, whether it is possible to create an extensible tactic which shows that some type is a homotopy set, or a mere proposition, and prints the coq statements that can replace the tactic call. Or whether it would be possible to generalize \texttt{generate\_refine} to very qukickly generate very fast and precise rewrite statements for large and complicated goals.
 
 \section{The learning curve}
-% \section{The direct approach}
-% Via isweqhomot or directly
+Let me conclude this chapter with a more personal note about formalization. In the past fifteen years, I have worked with a plethora of different programming languages, and I would like to think that in all this time, I have learned a great deal about programming. When I start working with a new language, it takes me a couple of minutes to figure things out, and within an hour, I can probably get a small program up and running, with some help from google. However, when I started working with coq and UniMath, I kind of had to start from scratch again. As it turns out, the naive or direct approach is often not the right one when working with a proof assistant, and of the code that I wrote in the first months, almost nothing remains. Even though every programming language has some sort of learning curve, formalizing in a proof assistant is especially unforgiving: You often have to change an old definition, or start over when you are halfway through a proof, because your current approach gets bogged down further and further with, for example, unintelligible transports. For every line of code that ends up in a pull request, many lines are written and erased again.
+
+For example, if we want to show that two types $ X $ and $ Y $ are equivalent, we need to construct an equivalence, which has the following type:
+\[ X \simeq Y := \{ f : X \to Y \mid \forall y, \mathtt{is\_contractible}(\{ x \mid f(x) = y \}) \}. \]
+One can view this as having an `isomorphism'
+\[ f: X \to Y, \quad g : Y \to X, \quad h_1(x): g(f(x)) = x \quad \text{and} \quad h_2(y) : f(g(y)) = y, \]
+but then together with a proof $ h_3 $, showing that applying $ f $ to $ h_1(x) $ is the same as taking $ h_2(f(x)) $. This last part is to ensure that `$ f $ is a weak equivalence' is a mere proposition, even if $ X $ and $ Y $ are not sets: if $ X $ and $ Y $ are not sets, there can be multiple paths $ h_1 $ and $ h_2 $, so $ f $ can be an isomorphism `in multiple ways'. It can be tempting to just close our eyes and start constructing this equivalence part by part. When we then get to defining $ h_3 $, however, it is easy to get stuck, because reasoning about paths is complicated. Luckily, there is a surjection
+\[ \mathtt{isweq\_iso} : \mathtt{is\_iso}(f) \twoheadrightarrow \mathtt{isweq}(f), \]
+which allows us to construct an isomorphism and then get an equivalence (with $ h_3 $) for free.
+
+Another example: When we want to define a category, usually we start by defining what the objects and morphisms in the category look like, and then constructing a category from that. Since we work in univalent foundations here, we want to show that the category is univalent, so that $ \mathrm{idtoiso}: (a = b) \to (a \cong b) $ is an equivalence. However, if we try to show this directly, the proof quickly accumulates piles of transports, that are very hard to resolve. Instead, there are two common `indirect' approaches:
+\begin{itemize}
+  \item Either we first construct multiple smaller equivalences, ignoring $ \mathrm{idtoiso} $ for the time being:
+    \begin{align*}
+      (a = b) &\simeq \{ \text{componentwise equalities between $ a $ and $ b $} \}\\
+      &\simeq \{ \text{componentwise isomorphisms between $ a $ and $ b $} \}\\
+      &\simeq (a \cong b),
+    \end{align*}
+    and then use a proof that if we have an equivalence $ f: X \simeq Y $, and we have some $ g : X \to Y $ with $ f(x) = g(x) $ for all $ x : X $, we know that $ g $ is an equivalence as well.
+  \item We transform the category into a stack of displayed categories, derive definitions for our objects from this displayed category, and then do the easy proofs that the fibers of every layer are univalent.
+\end{itemize}
+Both of these approaches are not what we would think of in the first place, but they are the approaches that turn out to work very well. In short, there is a very steep learning curve for working with a proof assistant and it takes a lot of experience to formalize mathematics. Not only to know what kind of tactics are available, but also to get a feeling for the theorems, lemmas and constructions that work well for proving or constructing something.
