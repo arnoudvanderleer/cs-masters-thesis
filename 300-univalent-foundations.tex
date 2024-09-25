@@ -90,7 +90,7 @@ We call such a univalent category a \iindex{Rezk completion} of $ C $.
 \end{remark}
 
 \section{The univalence axiom}
-Now, even for a basic category, like the category of types, it seems impossible to prove that the univalence principle holds. However, this is no surprise: it turns out that it is independent of the axioms of Martin-Löf type theory (\TODO \textbf{Is this true? I need a reference for this, but could not find one}). That is: it cannot be proven, but assuming it as an axiom does not yield contradictions.
+Now, even for a basic category, like the category of types, it seems impossible to prove that the univalence principle holds. However, this is no surprise: It turns out that there is a model in set theory for Martin-Löf type theory with univalence (\autocite{simplicial-set-model}), but also for Martin-Löf type theory with proof irrelevance (\autocite{proof-irrelevant-model}). In the latter, the type $ x = y $ has at most one element for all $ x, y : T $ and all types $ T $, which contradicts univalence. Therefore, univalence is independent of the axioms of Martin-Löf type theory: both univalence or its negation cannot be proved, but either can be assumed as an axiom.
 
 As mentioned before, univalent foundations attempts to develop as much of mathematics as possible along the univalence principle. Therefore, we assume as our first axiom the \iindex{univalence axiom}:
 \begin{axiom}
