@@ -17,7 +17,7 @@
 *.xdv
 *-converted-to.*
 # these rules might exclude image files for figures etc.
-report/src/svg-inkscape/*
+svg-inkscape/*
 # *.ps
 # *.eps
 # *.pdf
@@ -275,3 +275,5 @@ TSWLatexianTemp*
 
 # Makeindex log files
 *.lpz
+
+missfont.log
