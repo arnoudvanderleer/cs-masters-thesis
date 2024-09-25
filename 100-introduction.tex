@@ -1,0 +1,22 @@
+\chapter{Introduction}
+
+The $ \lambda $-calculus is an abstract tool that is used in an area where mathematics meets computer science, to study algorithms, programming languages and even category theory. It was conceived by Alonzo Church, primarily as a foundation for mathematics instead of set theory or type theory (\autocite{church-lambda-calculus}). A couple of years later, Church used it to show that the `Entscheidungsproblem' was unsolvable: the problem asked for an algorithm that could tell about any mathematical statement whether it was true or false, and Church showed that such a function could not exist (\autocite{church-number-theory}). A year later, Alan Turing showed, using previous work of Kleene (\autocite{kleene-lambda}), that a function is definable using the $ \lambda $-calculus if and only if it is definable using a Turing machine (\autocite{turing-lambda}), solidifying the position of both the $ \lambda $-calculus and Turing machines as abstract models for algorithmic computation.
+
+Later, all kinds of different flavours and extensions of the $ \lambda $-calculus were put forth, with colorful names like `simply typed $ \lambda $-calculus', `System T' and `PCF'. Even though the $ \lambda $-calculus was originally a very abstract tool, it was also the inspiration for function programming languages, and traces of it can be seen in imperative programming languages, where unnamed functions are commonly called `lambda functions' and are sometimes even written like \texttt{lambda x y : (x - y) * (x + y)}.
+
+Even so, the theoretical study of the $ \lambda $-calculus and its extensions continues to this day. For example, in 2013, a paper by Martin Hyland was published, named `classical lambda calculus in modern dress' (\autocite{Hyland}). In this paper, Hyland approaches the $ \lambda $-calculus from the viewpoint of universal algebra, using algebraic theories, and more generally category theory, to study it. This way, he obtains two new proofs for old theorems. The paper also contains a theorem that shows that two different ways to study the $ \lambda $-calculus using universal algebra are equivalent.
+
+In this thesis, we study the paper through the lens of univalent foundations, a foundation of mathematics based on type theory set forth by Vladimir Voevodsky. We work out the details of the proofs from the paper, see where subtleties arise when converting from set theory to univalent foundations and discuss the formalization of part of the material. Of particular interest is the discussion of Hyland's proof of the locally cartesian closedness of a category of retracts (or Karoubi envelope) in Section \ref{sec:locally-cartesian-closed}, which was proved earlier by Paul Taylor in a different way. It turns out that in the translation from set theory to univalent foundations, the definition of the category of retracts `branches' into two nonequivalent definitions, and that Taylor's proof is about one definition, whereas Hyland's proof is about the other.
+
+% 600-paper.tex
+Now, most of this thesis works towards Chapter \ref{ch:the-paper}, about Hyland's paper.
+% 500-previous-work.tex
+He builds upon work of other authors, though, and understanding their work, exposited in Chapter \ref{ch:previous-work}, helps to understand Hyland's paper.
+% 200-category-theory.tex
+Since both Hyland and the other authors use a lot of category theory, Chapter \ref{ch:category-theory} establishes most of the preliminary knowledge regarding category theory. It is probably wise to skim this chapter, and sporadically come back to it to better understand the material in the other chapters.
+% 300-univalent-foundations.tex
+Because this thesis works from a univalent standpoint, Chapter \ref{ch:univalent-foundations} introduces univalent foundations and builds the preliminary knowledge in that area for the rest of the paper.
+% 400-algebraic-structures.tex
+Then Chapter \ref{ch:algebraic-structures} introduces the main objects that are studied by Hyland, namely $ \lambda $-theories and $ \Lambda $-algebras, together with related notions and examples.
+% 700-formalization.tex
+Lastly, the formalization of part of the material is discussed in Chapter \ref{ch:the-formalization}.
