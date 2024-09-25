@@ -166,8 +166,9 @@
   *{file}   {mt-msa.cfg}  {2006/02/04 v1.1}
   *{file}   {mt-msb.cfg}  {2005/06/01 v1.0}
   *{file}   {mt-cmr.cfg}  {2013/05/19 v2.2}
-  *{file}   {category-theory.tex}{0000/00/00 v0.0}
-  *{file}   {univalent-foundations.tex}{0000/00/00 v0.0}
+  *{file}   {100-introduction.tex}{0000/00/00 v0.0}
+  *{file}   {200-category-theory.tex}{0000/00/00 v0.0}
+  *{file}   {300-univalent-foundations.tex}{0000/00/00 v0.0}
   *{file}   {./svg-inkscape/homotopy-plane_svg-tex.pdf_tex}{0000/00/00 v0.0}
   *{file}   {./svg-inkscape/homotopy-plane_svg-tex.pdf}{0000/00/00 v0.0}
   *{file}   {./svg-inkscape/homotopy-plane_svg-tex.pdf}{0000/00/00 v0.0}
@@ -185,11 +186,12 @@
   *{file}   {./svg-inkscape/transport_svg-tex.pdf}{0000/00/00 v0.0}
   *{file}   {./svg-inkscape/transport_svg-tex.pdf}{0000/00/00 v0.0}
   *{file}   {./svg-inkscape/transport_svg-tex.pdf}{0000/00/00 v0.0}
-  *{file}   {algebraic-structures.tex}{0000/00/00 v0.0}
-  *{file}   {previous-work.tex}{0000/00/00 v0.0}
-  *{file}   {paper.tex}   {0000/00/00 v0.0}
-  *{file}   {formalization.tex}{0000/00/00 v0.0}
-  *{file}   {alternative-definitions.tex}{0000/00/00 v0.0}
-  *{file}   {weak-cartesian-closed.tex}{0000/00/00 v0.0}
+  *{file}   {400-algebraic-structures.tex}{0000/00/00 v0.0}
+  *{file}   {500-previous-work.tex}{0000/00/00 v0.0}
+  *{file}   {600-paper.tex}{0000/00/00 v0.0}
+  *{file}   {700-formalization.tex}{0000/00/00 v0.0}
+  *{file}   {800-conclusion.tex}{0000/00/00 v0.0}
+  *{file}   {910-alternative-definitions.tex}{0000/00/00 v0.0}
+  *{file}   {920-weak-cartesian-closed.tex}{0000/00/00 v0.0}
   *{file}   {document.ind}{0000/00/00 v0.0}
 }
