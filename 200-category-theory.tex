@@ -3,46 +3,40 @@
 I will assume a familiarity with the category-theoretical concepts presented in \autocite{CT4P}. These include categories, functors, isomorphisms, natural transformations, adjunctions, equivalences and limits.
 
 \section{Notation}
-For an object $ c $ in a category $ C $, I will write $ c: C $.
-
-For a morphism $ f $ between objects $ c $ and $ c^\prime $ in a category $ C $, I will write $ f: C(c, c^\prime) $ or $ f: c \to c^\prime $.
-
-For composition of morphisms $ f: C(c, d) $ and $ g: C(d, e) $, I will write $ f \cdot g $.
-
-For composition of functors $ F: A \to B $ and $ G: B \to C $, I will write $ F \bullet G $.
+Throughout this thesis, an object $ X $ in a category $ C $ will be denoted by $ X : C $. A morphism $ f $ between objects $ X $ and $ Y $ in a category $ C $ will be denoted by $ f: C(X, Y) $ or sometimes $ f: X \to Y $. Composition of morphisms $ f: C(X, Y) $ and $ g: C(Y, Z) $ will be denoted by $ f \cdot g $. And composition of functors $ F: A \to B $ and $ G: B \to C $ will be denoted by $ F \bullet G $.
 
 \section{Universal Arrows}
 
 One concept in category theory that can be used to describe a lot of limits and adjunctions is that of a universal arrow (see for example \autocite{MacLane}, Part III)
 \begin{definition}
-  A \iindex{universal arrow} from an object $ c: C $ to a functor $ F: D \to C $ consists of an object $ d: D $ and a morphism $ f: D(c, F(d)) $ such that for every similar pair $ (d^\prime, f^\prime) $, $ f^\prime $ factors uniquely as $ f \cdot F(g) $ for some $ g: C(d, d^\prime) $:
+  A \iindex{universal arrow} from an object $ X: D $ to a functor $ F: C \to D $ consists of an object $ Y: C $ and a morphism $ f: D(X, F(Y)) $ such that for every similar pair $ (Y^\prime, f^\prime) $, $ f^\prime $ factors uniquely as $ f \cdot F(g) $ for some $ g: C(Y, Y^\prime) $:
   \begin{center}
     \begin{tikzcd}
-      c \arrow[d, "f"'] \arrow[rd, "f^\prime"] &\\
-      F(d) \arrow[r, "F(g)"', dashed] & F(d^\prime)
+      X \arrow[d, "f"'] \arrow[rd, "f^\prime"] &\\
+      F(Y) \arrow[r, "F(g)"', dashed] & F(Y^\prime)
     \end{tikzcd}
   \end{center}
 \end{definition}
 
 Alternatively, we can characterize universal arrows by their action on hom-sets:
 \begin{lemma}
-  Let $ F: C \to D $ be a functor and $ d: D $ an object. An object $ c: C $ and an arrow $ f: D(d, F(c)) $ form a universal arrow from $ d $ to $ F $ if and only if the function
-  \[ (g \mapsto f \cdot F(g)) : C(c, x) \cong D(d, F(x)) \]
+  Let $ F: C \to D $ be a functor and $ X: D $ an object. An object $ Y: C $ and an arrow $ f: D(X, F(Y)) $ form a universal arrow from $ X $ to $ F $ if and only if the function
+  \[ (g \mapsto f \cdot F(g)) : C(Y, x) \cong D(X, F(x)) \]
   is a bijection.
 
-  Conversely, for all $ c: C $ and $ d: D $, every bijection
-  \[ C(c, x) \cong D(d, F(x)) \]
-  that is natural in $ x $ arises in this way from some universal arrow $ f: D(d, F(c)) $.
+  Conversely, for all $ Y: C $ and $ X: D $, every bijection
+  \[ C(Y, Z) \cong D(X, F(Z)) \]
+  that is natural in $ Z $ arises in this way from some universal arrow $ f: D(X, F(Y)) $.
 \end{lemma}
 \begin{proof}
   See \autocite{MacLane}, Chapter III.2, Proposition 1.
 \end{proof}
 
-There is also the dual concept of a universal arrow $ (d, f) $ from a functor $ F $ to an object $ c: C $. Its universal property can be summarized in the following diagram:
+There is also the dual concept of a universal arrow $ (X, f) $ from a functor $ F $ to an object $ Y: C $. Its universal property can be summarized in the following diagram:
 \begin{center}
   \begin{tikzcd}
-    F(d^\prime)\arrow[rd, "f^\prime"']  \arrow[r, "F(g)", dashed] & F(d) \arrow[d, "f"]\\
-    & c
+    F(X^\prime)\arrow[rd, "f^\prime"']  \arrow[r, "F(g)", dashed] & F(X) \arrow[d, "f"]\\
+    & Y
   \end{tikzcd}
 \end{center}
 
@@ -71,13 +65,13 @@ such that the diagrams
 commute (these are called the \iindex{triangle identities} or \iindex{zigzag identities}). Here the natural transformation $ \eta \bullet L: L \bullet R \bullet L $ is the natural transformation $ \eta $ whiskered on the right by $ L $, and the other whiskered transformations are similar.
 
 An alternative characterization (see \autocite{MacLane}, chapter IV.1, Theorem 2) of an adjunction $ L \dashv R $ is as a natural bijection
-\[ \varphi: D(L(c), d) \xrightarrow{\sim} C(c, R(d)). \]
-Naturality means that for all $ f: C(c^\prime, c) $, $ g: D(d, d^\prime) $ and $ h: D(L(c), d) $,
+\[ \varphi: D(L(X), Y) \xrightarrow{\sim} C(X, R(Y)). \]
+Naturality means that for all $ f: C(X^\prime, X) $, $ g: D(Y, Y^\prime) $ and $ h: D(L(X), Y) $,
 \[ \varphi(L(f) \cdot h \cdot g) = f \cdot \varphi(h) \cdot R(g). \]
 
-Lastly, one can construct an adjunction using universal arrows. This lends itself particularly well for a formalization, where it is often preferable to have as little `demonstranda' as possible:
+Lastly, one can construct an adjunction using universal arrows. This lends itself particularly well for a formalization, where it is often preferable to have as few `demonstranda' as possible:
 \begin{lemma}
-  One can construct an adjunction $ (L, R, \eta, \epsilon) $ as above from only the functor $ L: C \to D $ and, for each $ c: C $, a universal arrow $ (R(c), \epsilon_c) $ from $ L $ to $ c $.
+  One can construct an adjunction $ (L, R, \eta, \epsilon) $ as above from only the functor $ L: C \to D $ and, for each $ X: C $, a universal arrow $ (R(X), \epsilon_X) $ from $ L $ to $ X $.
 \end{lemma}
 \begin{proof}
   See \autocite{MacLane}, Chapter IV.1, Theorem 2 (iv).
@@ -97,19 +91,19 @@ There is also the notion of `weak equivalence'. In some cases, this is equivalen
 \end{definition}
 
 \subsection{Exponential objects}
-Note that in the category of sets, for all $ X, Y: \SET $, we have a set $ (X \to Y) $. Also, for all $ X, Y, Z $, there is a (natural) bijection
+Note that in the category of sets, for all $ X, Y: \SET $, we have a set of functions $ (X \to Y) $. Also, for all $ X, Y, Z $, there is a (natural) bijection
 \[ (X \times Y \to Z) \cong (X \to (Y \to Z)) \]
 which we can also write as
 \[ \SET(X \times Y, Z) \cong \SET(X, (Y \to Z)). \]
 In other words, we have functors $ X \mapsto X \times Y $ and $ Z \mapsto (Y \to Z) $, and these two form an adjunction. The following generalizes this
 \begin{definition}
-  A category $ C $ has \textit{exponential objects}\index{exponential objects} (or \textit{exponentials}) if for all $ c: C $, the functor $ c^\prime \mapsto c^\prime \times c $ has a right adjoint, which we denote $ d \mapsto d^c $.
+  A category $ C $ has \textit{exponential objects}\index{exponential objects} (or \textit{exponentials}) if for all $ X: C $, the functor $ X^\prime \mapsto X^\prime \times X $ has a right adjoint, which we denote $ Y \mapsto Y^X $.
 \end{definition}
 
 \begin{remark}
-  It is actually very well possible that a category does not have all exponentials, but it has some objects $ c, d, d^c: C $ with a natural bijection
-  \[ C(d^\prime \times c, d) \cong C(d^\prime, d^c). \]
-  Then $ d^c $ is still called an exponential object.
+  It is actually very well possible that a category does not have all exponentials, but it has some objects $ X, Y, Y^X: C $ with a bijection
+  \[ C(X^\prime \times X, Y) \cong C(X^\prime, Y^X) \]
+  that is natural in $ X^\prime $. Then $ Y^X $ is still called an exponential object.
 \end{remark}
 
 \subsection{Forgetful functors and free objects}
@@ -121,7 +115,7 @@ In mathematics, we often deal with objects that are `based on' other objects. Fo
 \end{definition}
 
 \begin{example}
-  Consider the forgetful functor from the category of commutative rings to the category of sets, sending a ring to its underlying set. This has a left adjoint, sending the set $ \{ 1, 2, \dots, n \} $ to the polynomial ring $ \mathbb Z[X_1, \dots, X_n] $, and more generally, sending $ S $ to the polynomial ring $ \mathbb Z[X_s]_{s : S} $. This ring is then called `the free commutative ring on $ S $'. If $ S $ is finite of size $ n $, the ring is also called `the free commutative ring on $ n $ generators'.
+  Consider the forgetful functor from the category of commutative rings to the category of sets, sending a ring to its underlying set. This has a left adjoint, sending the set $ \{ 1, 2, \dots, n \} $ to the polynomial ring $ \mathbb Z[X_1, \dots, X_n] $, and more generally, sending $ S $ to the polynomial ring $ \mathbb Z[X_s]_{s : S} $. This ring is then called `the free commutative ring on $ S $'. If $ S $ has $ n $ elements, the ring is also called `the free commutative ring on $ n $ generators'.
 
   The free functor sends a function $ f: S \to T $ to the ring morphism $ \mathbb Z[X_s]_{s: S} \to \mathbb Z[X_t]_{t: T} $ that sends $ X_s $ to $ X_{f(s)} $.
 
@@ -130,31 +124,31 @@ In mathematics, we often deal with objects that are `based on' other objects. Fo
   then sends $ f: \mathbf{Rng}(\mathbb Z[X_s]_{s : S}, R) $ to $ s \mapsto f(X_s) $ and $ g: \SET(S, R) $ to the morphism that sends $ X_s $ to $ g(s) $.
 \end{example}
 
-However, sometimes, we have a forgetful functor $ F: C \to D $, but we cannot give a free functor on the entire category $ D $. In such a case, we might still talk about free `objects':
+However, as with exponential object, sometimes we have a forgetful functor $ F: C \to D $, but we cannot give a free functor on the entire category $ D $. In such a case, we might still talk about free `objects':
 \begin{definition}
-  Let $ F: C \to D $ be a forgetful functor. Given $ d: D $, the \textit{free object}\index{free!object} on $ d $ is a universal arrow $ (c, f) $ from $ d $ to $ F $.
+  Let $ F: C \to D $ be a forgetful functor. Given $ X: D $, the \textit{free object}\index{free!object} on $ X $ is a universal arrow $ (Y, f) $ from $ X $ to $ F $.
 \end{definition}
 
 \begin{remark}
-  By \autocite{MacLane}, Chapter IV.1, Theorem 2 (ii), if we have a free object on every $ d: D $, we can piece these together to get a free functor associated to $ F $.
+  By \autocite{MacLane}, Chapter IV.1, Theorem 2 (ii), if we have a free object on every $ X: D $, we can piece these together to get a free functor associated to $ F $.
 \end{remark}
 
 \section{Yoneda}
 We can embed a category $ C $ fully faithfully into the functor category $ P C = [\op C, \SET] $ as follows (see \autocite{Kashiwara}, Section 1.4):
 \begin{definition}\label{def:Yoneda-embedding}
-  The \iindex{Yoneda embedding} $ \yo : C \hookrightarrow P C $ is given on objects by $ \yo(c) = C(-, c) $:
-  \[ \yo(c)(d) = C(d, c) \quad \text{and} \quad \yo(c)(f)(g) = f \cdot g \]
-  for $ d: C $, $ f: C(d, d^\prime) $ and $ g: C(d^\prime, c) $. It sends a morphism $ f: C(c, c^\prime) $ to the natural transformation $ \yo(f): C(-, c) \Rightarrow C(-, c^\prime) $ given by
-  \[ \yo(f)(d)(g) = g \cdot f \]
-  for $ d: C $ and $ g: C(d, c) $.
+  The \iindex{Yoneda embedding} $ \yo : C \hookrightarrow P C $ is given on objects by $ \yo(Y) = C(-, Y) $:
+  \[ \yo(Y)(X) = C(X, Y) \quad \text{and} \quad \yo(Y)(f)(g) = f \cdot g \]
+  for $ X: C $, $ f: C(X, X^\prime) $ and $ g: C(X^\prime, Y) $. It sends a morphism $ f: C(Y, Y^\prime) $ to the natural transformation $ \yo(f): C(-, Y) \Rightarrow C(-, Y^\prime) $ given by
+  \[ \yo(f)(X)(g) = g \cdot f \]
+  for $ X: C $ and $ g: C(X, Y) $.
 \end{definition}
 
 Now, this embedding has a couple of properties:
 \begin{lemma}
-  For any $ A: C $ and $ F : P C $, we have an equivalence $ P C(\yo(A), F) \simeq F(A) $, and this equivalence is natural in $ c $ and $ F $.
+  For any $ Y: C $ and $ F : P C $, we have an equivalence $ P C(\yo(Y), F) \simeq F(Y) $, and this equivalence is natural in $ Y $ and $ F $.
 \end{lemma}
 \begin{proof}
-  It sends a natural transformation $ \alpha: P C(\yo(A), F) $ to the element $ \alpha_A(\id A) $. Conversely, it sends an element $ x : P(A) $ to the natural transformation $ \alpha $ given by $ \alpha_B(f) = P(f)(x) $ for all $ f: \yo(A)(B) = C(B, A) $. For more details, see \autocite{Kashiwara}, Proposition 1.4.3.
+  It sends a natural transformation $ \alpha: P C(\yo(Y), F) $ to the element $ \alpha_Y(\id Y) $. Conversely, it sends an element $ X : P(Y) $ to the natural transformation $ \alpha $ given by $ \alpha_X(f) = P(f)(X) $ for all $ f: \yo(Y)(X) = C(X, Y) $. For more details, see \autocite{Kashiwara}, Proposition 1.4.3.
 \end{proof}
 
 \begin{remark}
@@ -163,24 +157,24 @@ Now, this embedding has a couple of properties:
 
 \begin{remark}
   Also, for any small category $ C $ (small means that the collection of objects is a type in our type universe. For example: for a fixed universe of types, $ \TYPE $ or $ \SET $ are not small categories, the universe of types is not contained in itself), the presheaf category $ P C $ has exponential objects, given by
-  \[ (F^G)(X) = \hom{PC}(\yo(X) \times G, F) \]
+  \[ (F^G)(X) = PC(\yo(X) \times G, F), \]
   the natural transformations from the product functor of the Yoneda embedding of $ X $ and $ G $, to $ F $ (see \autocite{MacLane-Moerdijk}, Section I.6, Proposition 1).
 \end{remark}
 
 \begin{definition}
-  Suppose that we have a functor $ F: C \to D $, and $ C $ and $ D $ both have binary products. Then for $ A, B : C $, we have morphisms $ \pi_1: A \times B \to A $ and $ \pi_2 : A \times B \to B $ and applying $ F $ to these yields morphisms from $ F(A \times B) $ to $ F(A) $ and $ F(B) $. We then have a product morphism
-  \[ \langle F(\pi_1), F(\pi_2) \rangle: F(A \times B) \to F(A) \times F(B). \]
-  Now, if this morphism is an isomorphism for all $ A, B : C $, we say that $ F $ \index{preservation of binary products}\textit{preserves binary products}.
+  Suppose that we have a functor $ F: C \to D $, and $ C $ and $ D $ both have binary products. Then for $ X, Y : C $, we have morphisms $ \pi_1: X \times Y \to X $ and $ \pi_2 : X \times Y \to Y $ and applying $ F $ to these yields morphisms from $ F(X \times Y) $ to $ F(X) $ and $ F(Y) $. We then have a product morphism
+  \[ \langle F(\pi_1), F(\pi_2) \rangle: F(X \times Y) \to F(X) \times F(Y). \]
+  Now, if this morphism is an isomorphism for all $ X, Y : C $, we say that $ F $ \index{preservation of binary products}\textit{preserves binary products}.
 
-  One can imagine that there exists a similar definition of preservation of limits in general, in which the limit morphism of $ F $ applied to the projections from the limit is an isomorphism for any limit in $ C $.
+  One can imagine that there exists a similar definition of preservation of limits in general, in which the limit morphism of `$ F $ applied to the projections from the limit' is an isomorphism, for any limit in $ C $.
 \end{definition}
 
 \begin{definition}\label{def:exponentials-preservation}
-  Suppose that we have a functor $ F: C \to D $ that preserves binary products, and $ C $ and $ D $ have exponential objects. Then for $ A, B : C $, we have natural bijections
-  \[ \varphi: C(A^B \times B, A) \xrightarrow \sim C(A^B, A^B) \quad \text{and} \quad \psi: D(F(A^B) \times F(B), F(A)) \xrightarrow \sim D(F(A^B), F(A)^{F(B)}) \]
-  This gives a morphism $ F(\varphi^{-1}(\id{A^B})) : D(F(A^B \times B), F(A)) $. Precomposing with the inverse of the isomorphism $ f: F(A^B \times B) \xrightarrow \sim F(A^B) \times F(B) $ and applying $ \psi $ gives
-  \[ \psi(f^{-1} \cdot \varphi^{-1}(\id{A^B})) : D(F(A^B), F(A)^{F(B)}). \]
-  We say that $ F $ \index{preservation of exponentials}\textit{preserves exponentials} if this morphism is an isomorphism for all $ A, B : C $. A name for a functor that preserves exponentials is a\iindex{cartesian functor}.
+  Suppose that we have a functor $ F: C \to D $ that preserves binary products, and $ C $ and $ D $ have exponential objects. Then for $ X, Y : C $, we have natural bijections
+  \[ \varphi: C(X^Y \times Y, X) \xrightarrow \sim C(X^Y, X^Y) \quad \text{and} \quad \psi: D(F(X^Y) \times F(Y), F(X)) \xrightarrow \sim D(F(X^Y), F(X)^{F(Y)}) \]
+  This gives a morphism $ F(\varphi^{-1}(\id{X^Y})) : D(F(X^Y \times Y), F(X)) $. Precomposing with the inverse of the isomorphism $ f: F(X^Y \times Y) \xrightarrow \sim F(X^Y) \times F(Y) $ and applying $ \psi $ gives
+  \[ \psi(f^{-1} \cdot \varphi^{-1}(\id{X^Y})) : D(F(X^Y), F(X)^{F(Y)}). \]
+  We say that $ F $ \index{preservation of exponentials}\textit{preserves exponentials} if this morphism is an isomorphism for all $ X, Y : C $. A name for a functor that preserves exponentials is a \iindex{cartesian functor}.
 \end{definition}
 
 \begin{lemma}
@@ -188,30 +182,30 @@ Now, this embedding has a couple of properties:
 \end{lemma}
 \begin{proof}
   See \autocite{borceux}, Volume 1, Proposition 2.15.5 for the full proof, but note that for binary products, we have bijections
-  \[ \yo(A \times B)(X) \xrightarrow \sim \yo(A)(X) \times \yo(B)(X) \]
-  sending $ f : C(X, A \times B) $ to the pair $ (f \cdot \pi_1, f \cdot \pi_2) $ and conversely, sending a pair $ (g_1, g_2) : C(X, A) \times C(X, B) $ to the product morphism $ \langle g_1, g_2 \rangle : \yo(X, A \times B) $. This idea is also the core of the proof about general limits.
+  \[ \yo(X \times Y)(Z) \xrightarrow \sim \yo(X)(Z) \times \yo(Y)(Z) \]
+  sending $ f : C(Z, X \times Y) $ to the pair $ (f \cdot \pi_1, f \cdot \pi_2) $ and conversely, sending a pair $ (g_1, g_2) : C(Z, X) \times C(Z, Y) $ to the product morphism $ \langle g_1, g_2 \rangle : \yo(Z, X \times Y) $. This idea is also the core of the proof about general limits.
 \end{proof}
 
 \begin{lemma}\label{lem:Yoneda-preserves-exponentials}
   The Yoneda embedding preserves exponentials.
 \end{lemma}
 \begin{proof}
-  First of all, note that for $ A, B, X : C $, we have a sequence of isomorphisms  (\autocite{stackexchange:yoneda-exponentials})
+  First of all, note that for $ X, Y, Z : C $, we have a sequence of isomorphisms  (\autocite{stackexchange:yoneda-exponentials})
   \begin{align*}
-    \yo(A^B)(X) &\cong P C(\yo(X), \yo(A^B))\\
-    &\cong C(X, A^B)\\
-    &\cong C(X \times B, A)\\
-    &\cong P C(\yo(X \times B), \yo(A))\\
-    &\cong P C(\yo(X) \times \yo(B), \yo(A))\\
-    &\cong P C(\yo(X), \yo(A)^\yo(B))\\
-    &\cong (\yo(A)^\yo(B))(X)
+    \yo(X^Y)(Z) &\cong P C(\yo(Z), \yo(X^Y))\\
+    &\cong C(Z, X^Y)\\
+    &\cong C(Z \times Y, X)\\
+    &\cong P C(\yo(Z \times Y), \yo(X))\\
+    &\cong P C(\yo(Z) \times \yo(Y), \yo(X))\\
+    &\cong P C(\yo(Z), \yo(X)^\yo(Y))\\
+    &\cong (\yo(X)^\yo(Y))(Z)
   \end{align*}
   using (once or twice) the Yoneda lemma, fully faithfulness of the Yoneda embedding, the property of the exponential object, and the fact that the Yoneda embedding preserves binary products.
 
-  Some calculating shows that when applying this isomorphism to some $ f: \yo(A^B)(X) $, we get the natural transformation $ h: P C(\yo(X) \times \yo(B), \yo(A)) $ given by
+  Some calculating shows that when applying this isomorphism to some $ f: \yo(X^Y)(Z) $, we get the natural transformation $ h: P C(\yo(Z) \times \yo(Y), \yo(X)) $ given by
   \[ h_Z(g_1, g_2) = \langle g_1, g_2 \rangle \cdot \varphi^{-1}(f) \]
-  for all $ Z: C $ and $ (g_1, g_2) : \yo(X)(Z) \times \yo(B)(Z) $ and with the natural bijection
-  \[ \varphi: C(X \times B, A) \xrightarrow \sim C(X, A^B). \]
+  for all $ Z: C $ and $ (g_1, g_2) : \yo(Z)(Z) \times \yo(Y)(Z) $ and with the natural bijection
+  \[ \varphi: C(Z \times Y, X) \xrightarrow \sim C(Z, X^Y). \]
 
   It turns out that when we apply the morphism in Definition \ref{def:exponentials-preservation} to $ f $, we get exactly the same natural transformation. Therefore, the morphism in Definition \ref{def:exponentials-preservation} is the isomorphism defined here and we conclude that $ \yo $ preserves exponentials.
 \end{proof}
@@ -223,104 +217,104 @@ For a functor between categories $ f: C \to D $, given the Yoneda embeddings $ \
     P C & P D \arrow[l, "\op f_*"]
   \end{tikzcd}
 \end{center}
-Note that the arrows in this diagram are functors, so objects in a category, instead of elements of a set. Therefore, it does not make sense to talk about `equality' of the morphisms along the different paths, but we rather talk about isomorphism in the functor category $ [C, P C] $. If we have such an isomorphism, we say the diagram `2-commutes':
+Note that the arrows in this diagram are functors, so objects in a category, instead of elements of a set. Therefore, it often does not make a lot of sense to talk about `equality' of the functors along the different paths, but we rather talk about isomorphism in the functor category $ [C, P C] $. If we have such an isomorphism, we say the diagram `2-commutes':
 \begin{lemma}\label{lem:Yoneda-restriction-commutes}
   If $ f: C \to D $ is a fully faithful functor, the diagram above 2-commutes.
 \end{lemma}
 \begin{proof}
-  For $ c, d : C $, since $ f $ is fully faithful, we have isomorphisms of sets, given by
-  \[ \yo(c)(d) = C(d, c) \xrightarrow[f_{d, c}]{\sim} D(f(d), f(c)) = \op f_*(\yo(f(c)))(d). \]
-  Also, for $ g: C(d^\prime, d) $, the following diagram commutes
+  For $ Y, X : C $, since $ f $ is fully faithful, we have isomorphisms of sets, given by
+  \[ \yo(Y)(X) = C(X, Y) \xrightarrow[f_{X, Y}]{\sim} D(f(X), f(Y)) = \op f_*(\yo(f(Y)))(X). \]
+  Also, for $ g: C(X^\prime, X) $, the following diagram commutes
   \begin{center}
     \begin{tikzcd}
-      \yo(c)(d) \arrow[d, "g \cdot -"] \arrow[r, "f_{d, c}"] & \op f_*(\yo(f(c)))(d) \arrow[d, "f_{d^\prime, d}(g) \cdot -"]\\
-      \yo(c)(d^\prime) \arrow[r, "f_{d^\prime, c}"] & \op f_*(\yo(f(c)))(d^\prime)
+      \yo(Y)(X) \arrow[d, "g \cdot -"] \arrow[r, "f_{X, Y}"] & \op f_*(\yo(f(Y)))(X) \arrow[d, "f_{X^\prime, X}(g) \cdot -"]\\
+      \yo(Y)(X^\prime) \arrow[r, "f_{X^\prime, Y}"] & \op f_*(\yo(f(Y)))(X^\prime)
     \end{tikzcd}
   \end{center}
-  so the isomorphism is natural in $ d $ and we have $ \yo(c) \cong \op f_*(\yo(f(c))) $ in $ P C $. Lastly, for $ g: C(c, c^\prime) $ and $ d: C $, the following diagram commutes
+  so the isomorphism is natural in $ X $ and we have $ \yo(Y) \cong \op f_*(\yo(f(Y))) $ in $ P C $. Lastly, for $ g: C(Y, Y^\prime) $ and $ X: C $, the following diagram commutes
   \begin{center}
     \begin{tikzcd}
-      \yo(c)(d) \arrow[d, "- \cdot g"] \arrow[r, "f_{d, c}"] & \op f_*(\yo(f(c)))(d) \arrow[d, "- \cdot f_{c, c^\prime}(g)"]\\
-      \yo(c^\prime)(d) \arrow[r, "f_{d, c^\prime}"] & \op f_*(\yo(f(c^\prime)))(d)
+      \yo(Y)(X) \arrow[d, "- \cdot g"] \arrow[r, "f_{X, Y}"] & \op f_*(\yo(f(Y)))(X) \arrow[d, "- \cdot f_{Y, Y^\prime}(g)"]\\
+      \yo(Y^\prime)(X) \arrow[r, "f_{X, Y^\prime}"] & \op f_*(\yo(f(Y^\prime)))(X)
     \end{tikzcd}
   \end{center}
-  so the isomorphism is natural in $ c $ and we have $ \yo \cong f \bullet \yo \bullet \op f_* $ in $ [C, P C] $.
+  so the isomorphism is natural in $ Y $ and we have $ \yo \cong f \bullet \yo \bullet \op f_* $ in $ [C, P C] $.
 \end{proof}
 
 \section{Fibrations}
-Let $ P : E \to B $ be a functor. In this case, we will view this as the category $ E $ `lying over' the category $ B $, with for every point $ b: B $, a slice $ E_b = P^{-1}(B) $ lying `above' $ b $.
+Let $ P : E \to B $ be a functor. In this case, we will view this as the category $ E $ `lying over' the category $ B $, with for every point $ X: B $, a slice $ E_X = P^{-1}(B) $ lying `above' $ X $.
 
 \begin{definition}
-  A morphism $ f: E(y, z) $ is called \iindex{cartesian} if for all $ g: E(x, z) $ and $ h: B(P(x), P(y)) $ with $ h \cdot P(f) = P(g) $, there exists $ \bar h: E(x, y) $ such that $ P(\bar h) = h $ and $ \bar h \cdot f = g $, like illustrated in the following diagram from \autocite{nlab:grothendieck_fibration}
+  A morphism $ f: E(Y, Z) $ is called \iindex{cartesian} if for all $ g: E(X, Z) $ and $ h: B(P(X), P(Y)) $ with $ h \cdot P(f) = P(g) $, there exists $ \bar h: E(X, Y) $ such that $ P(\bar h) = h $ and $ \bar h \cdot f = g $, like illustrated in the following diagram from \autocite{nlab:grothendieck_fibration}
   \begin{center}
     \begin{tikzcd}[sep=large]
-      E \arrow[d, "P"] &x \arrow[rr, "\forall g", bend left] \arrow[r, "\exists! \bar h"', dashed] & y \arrow[r, "f"'] & z\\
-      B & P(x) \arrow[r, "\forall h"'] \arrow[rr, "P(g)", bend left] & P(y) \arrow[r, "P(f)"'] & P(z)
+      E \arrow[d, "P"] &X \arrow[rr, "\forall g", bend left] \arrow[r, "\exists! \bar h"', dashed] & Y \arrow[r, "f"'] & Z\\
+      B & P(X) \arrow[r, "\forall h"'] \arrow[rr, "P(g)", bend left] & P(Y) \arrow[r, "P(f)"'] & P(Z)
     \end{tikzcd}
   \end{center}
 \end{definition}
 
 \begin{definition}
-  $ P $ is a \iindex{fibration} if for all $ y: E $ and morphisms $ f: B(x, P(y)) $, there exist an object $ \bar x: E $ and a cartesian morphism $ \bar f: E(\bar x, y) $ such that $ P(\bar x) = x $ and $ P(\bar f) = f $:
+  $ P $ is a \iindex{fibration} if for all $ Y: E $ and morphisms $ f: B(X, P(Y)) $, there exist an object $ \bar X: E $ and a cartesian morphism $ \bar f: E(\bar X, Y) $ such that $ P(\bar X) = X $ and $ P(\bar f) = f $:
   \begin{center}
     \begin{tikzcd}
-      E \arrow[d, "P"] & \bar x \arrow[r, "\exists \bar f", dashed] & y\\
-      B & x \arrow[r, "\forall f"] & P(y)
+      E \arrow[d, "P"] & \bar X \arrow[r, "\exists \bar f", dashed] & Y\\
+      B & X \arrow[r, "\forall f"] & P(Y)
     \end{tikzcd}
   \end{center}
 \end{definition}
 
 \section{(Co)slice categories}
-Given an object in a category $ c: C $, the morphisms to and from $ c $ constitute the slice and coslice categories
+Given an object in a category $ X: C $, the morphisms to and from $ X $ constitute the slice and coslice categories
 \begin{definition}
-  The \iindex{slice category} $ C \downarrow c $ is the category with as objects the morphisms to $ c $:
-  \[ (C \downarrow c)_0 = \sum_{c^\prime: C} C(c^\prime, c). \]
-  The morphisms from $ (c^\prime, f) $ to $ (c^{\prime\prime}, f^\prime) $ are the morphisms $ g: c^\prime \to c^{\prime\prime} $ making the following diagram commute.
+  The \iindex{slice category} $ C \downarrow X $ is the category with as objects the morphisms to $ X $:
+  \[ (C \downarrow X)_0 = \sum_{Y: C} C(Y, X). \]
+  The morphisms from $ (Y_1, f_1) $ to $ (Y_2, f_2) $ are the morphisms $ g: Y_1 \to Y_2 $ making the following diagram commute.
   \begin{center}
     \begin{tikzcd}
-      c^\prime \arrow[rr, "g"] \arrow[rd, "f"'] & & c^{\prime\prime} \arrow[ld, "f^\prime"]\\
-      & c
+      Y_1 \arrow[rr, "g"] \arrow[rd, "f_1"'] & & Y_2 \arrow[ld, "f_2"]\\
+      & X
     \end{tikzcd}
   \end{center}
 \end{definition}
-The \textit{coslice category}\index{slice category!co-} $ c \downarrow C $ is similar, but with the morphisms \textit{from} $ c $ instead of \textit{to} $ c $:
-\[ (c \downarrow C)_0 = \sum_{c^\prime: C} C(c, c^\prime). \]
+The \textit{coslice category}\index{slice category!co-} $ X \downarrow C $ is similar, but with the morphisms \textit{from} $ X $ instead of \textit{to} $ X $:
+\[ (X \downarrow C)_0 = \sum_{Y: C} C(X, Y). \]
 
 Now, if we have an object in a slice category, we can again look at the slice of the slice category over that object. However, this gives us nothing new:
 \begin{lemma}
-  Let $ (d, f) $ be an object in the slice category $ (C \downarrow c) $. The slice category $ ((C \downarrow c) \downarrow (d, f)) $ is equivalent to $ (C \downarrow d) $.
+  Let $ (Y, f) $ be an object in the slice category $ (C \downarrow X) $. The slice category $ ((C \downarrow X) \downarrow (Y, f)) $ is equivalent to $ (C \downarrow Y) $.
 \end{lemma}
 \begin{proof}
-  An object of $ ((e, g), \alpha) : ((C \downarrow c) \downarrow (d, f)) $ is an object $ (e, g) : (C \downarrow c) $, together with a morphism $ \alpha: (C \downarrow c)((e, g), (d, f)) $. That is, a morphism $ \alpha: C(e, d) $ such that the obvious triangle commutes (shown in the diagram below on the far left).
+  An object of $ ((Z, g), \alpha) : ((C \downarrow X) \downarrow (Y, f)) $ is an object $ (Z, g) : (C \downarrow X) $, together with a morphism $ \alpha: (C \downarrow X)((Z, g), (Y, f)) $. That is, a morphism $ \alpha: C(Z, Y) $ such that the obvious triangle commutes (shown in the diagram below on the far left).
 
-  Then a morphism between $ ((e, g), \alpha) $ and $ ((e^\prime, g^\prime), \alpha^\prime) $ is a morphism $ \beta $ between $ (e, g) $ and $ (e^\prime, g^\prime) $ that commutes with $ \alpha $ and $ \alpha^\prime $. Note that a morphism between $ (e, g) $ and $ (e^\prime, g^\prime) $ is a morphism between $ e $ and $ e^\prime $ that commutes with $ g $ and $ g^\prime $.
+  Then a morphism between $ ((Z_1, g_1), \alpha_1) $ and $ ((Z_2, g_2), \alpha_2) $ is a morphism $ \beta $ between $ (Z_1, g_1) $ and $ (Z_2, g_2) $ that commutes with $ \alpha_1 $ and $ \alpha_2 $. Note that a morphism between $ (Z_1, g_1) $ and $ (Z_2, g_2) $ is a morphism between $ Z_1 $ and $ Z_2 $ that commutes with $ g_1 $ and $ g_2 $.
   \begin{center}
     \begin{tikzcd}
-      e \arrow[rdd, "g"'] \arrow[rd, "\alpha"] \arrow[rr, "\beta"] && e^\prime \arrow[ldd, "g^\prime"] \arrow[ld, "\alpha^\prime"']\\
-      & d \arrow[d, "f" description]\\
-      & c
+      Z_1 \arrow[rdd, "g_1"'] \arrow[rd, "\alpha_1"] \arrow[rr, "\beta"] && Z_2 \arrow[ldd, "g_2"] \arrow[ld, "\alpha_2"']\\
+      & Y \arrow[d, "f" description]\\
+      & X
     \end{tikzcd}
     $ \Leftrightarrow $
     \begin{tikzcd}
-      e \arrow[rd, "\alpha"] \arrow[rr, "\beta"] && e^\prime \arrow[ld, "\alpha^\prime"']\\
-      & d
+      Z_1 \arrow[rd, "\alpha_1"] \arrow[rr, "\beta"] && Z_2 \arrow[ld, "\alpha_2"']\\
+      & Y
     \end{tikzcd}
   \end{center}
 
-  Now, note that $ g $ and $ g^\prime $ are completely determined by $ g = \alpha \cdot f $ and $ g^\prime = \alpha^\prime \cdot f $, so we can leave them out. Also, if $ \beta $ commutes with $ \alpha $ and $ \alpha^\prime $, it automatically also commutes with $ g $ and $ g^\prime $. Therefore, as shown above, we have a correspondence between objects and morphisms
-  \[ \beta: ((e, g), \alpha) \to ((e^\prime, g^\prime), \alpha^\prime) \Leftrightarrow \beta: (e, \alpha) \to (e^\prime, \alpha^\prime). \]
+  Now, note that $ g_1 $ and $ g_2 $ are completely determined by $ g_i = \alpha_i \cdot f $, so we can leave them out. Also, if $ \beta $ commutes with $ \alpha_1 $ and $ \alpha_2 $, it automatically also commutes with $ g_1 $ and $ g_2 $. Therefore, as shown above, we have a correspondence between objects and morphisms
+  \[ \beta: ((Z_1, g_1), \alpha_1) \to ((Z_2, g_2), \alpha_2) \Leftrightarrow \beta: (Z_1, \alpha_1) \to (Z_2, \alpha_2). \]
 \end{proof}
 
-Also, it turns out that we can derive some structure of the slice categories from the original category:
+Now, the slice categories inherit some structure from the original category:
 \begin{lemma}
-  For $ (d, f), (d^\prime, f^\prime) : (C \downarrow c) $, their product in the slice category is given by their pullback / fibered product $ d \times_c d^\prime $, together with the induced morphism $ g: d \times_c d^\prime \dasharrow c $.
+  For $ (Y_1, f_1), (Y_2, f_2) : (C \downarrow X) $, their product in the slice category is given by their pullback, or fibered product, $ Y_1 \times_X Y_2 $, together with the induced morphism $ g: Y_1 \times_X Y_2 \dasharrow X $.
 \end{lemma}
 \begin{proof}
-  Consider the diagram below. The fibered product gives `projections' $ h $ and $ h^\prime $. Also, if we have some $ (e, \alpha) : (C \downarrow c) $, together with morphisms $ \beta : (e, \alpha) \to (d, f) $ and $ \beta^\prime : (e, \alpha) \to (d^\prime, f^\prime) $. Then $ \beta $ and $ \beta^\prime $ commute with $ f $ and $ f^\prime $, so by the universal property of the fibred product, there exists a unique morphism $ \gamma : e \to d \times_c d^\prime $ that makes the triangles with $ \beta $ and $ h $, and with $ \beta^\prime $ and $ h^\prime $ commute. Then $ \gamma $ commutes with $ \alpha $ and $ g $ as well, so it is a morphism in $ (C \downarrow c) $. This shows that $ (d \times_c d^\prime, g) $ has the universal property of the product in $ (C \downarrow c) $.
+  Consider the diagram below. The fibered product gives `projections' $ h_1 $ and $ h_2 $. Also, if we have some $ (Z, \alpha) : (C \downarrow X) $, together with morphisms $ \beta_1 : (Z, \alpha) \to (Y_1, f_1) $ and $ \beta_2 : (Z, \alpha) \to (Y_2, f_2) $. Then $ \beta_1 $ and $ \beta_2 $ commute with $ f_1 $ and $ f_2 $, so by the universal property of the fibred product, there exists a unique morphism $ \gamma : Z \to Y_1 \times_X Y_2 $ that makes the triangles with $ \beta_1 $ and $ h_1 $, and with $ \beta_2 $ and $ h_2 $ commute. Then $ \gamma $ commutes with $ \alpha $ and $ g $ as well, so it is a morphism in $ (C \downarrow X) $. This shows that $ (Y_1 \times_X Y_2, g) $ has the universal property of the product in $ (C \downarrow X) $.
   \begin{center}
     \begin{tikzcd}
-      e \arrow[rd, "\beta"] \arrow[rr, "\beta^\prime", bend left] \arrow[rrd, "\alpha"', bend right=49, shift right] \arrow[r, dashed, "\gamma"] & d \times_c d^\prime \arrow[r, "h^\prime"'] \arrow[d, "h"] \arrow[rd, dashed, "g"] & d^\prime \arrow[d, "f^\prime"] \\
-      & d \arrow[r, "f"] & c
+      Z \arrow[rd, "\beta_1"] \arrow[rr, "\beta_2", bend left] \arrow[rrd, "\alpha"', bend right=49, shift right] \arrow[r, dashed, "\gamma"] & Y_1 \times_X Y_2 \arrow[r, "h_2"'] \arrow[d, "h_1"] \arrow[rd, dashed, "g"] & Y_2 \arrow[d, "f_2"] \\
+      & Y_1 \arrow[r, "f_1"] & X
     \end{tikzcd}
   \end{center}
 \end{proof}
@@ -332,15 +326,15 @@ In fact, $ \Delta_X : C \to C / X $ is a functor, with $ \Delta_X(f) = \id X \ti
   $ \Delta_X $ preserves all limits.
 \end{lemma}
 \begin{proof}
-  Take a diagram $ ((A_i)_i, (f_j)_j) $ in $ C $. Suppose that this has a limit $ (L, (g_i)_i) : C $. Now, consider an object $ (B, q) : (C \downarrow X) $, together with morphisms $ h_i : (C \downarrow X)((B, q), \Delta_X A_i) $, that commute with the $ \Delta_X f_j $:
+  Take a diagram $ ((Y_i)_i, (f_j)_j) $ in $ C $. Suppose that this has a limit $ L : C $ with projections $ g_i : C(L, Y_i) $. Now, consider an object $ (Z, q) : (C \downarrow X) $, together with morphisms $ h_i : (C \downarrow X)((Z, q), \Delta_X Y_i) $, that commute with the $ \Delta_X f_j $:
   \begin{center}
     \begin{tikzcd}
-      & B \arrow[ldd, "h_{m_j}"'] \arrow[rdd, "h_{n_j}"]\\
+      & Z \arrow[ldd, "h_{m_j}"'] \arrow[rdd, "h_{n_j}"]\\
       & X \times L \arrow[ld, "\Delta_X g_{m_j}"] \arrow[rd, "\Delta_X g_{n_j}"']\\
-      X \times A_{m_j} \arrow[rr, "\Delta_X f_j"'] & & X \times A_{n_j}
+      X \times Y_{m_j} \arrow[rr, "\Delta_X f_j"'] & & X \times Y_{n_j}
     \end{tikzcd}
   \end{center}
-  Then the morphisms in $ (C \downarrow X)((B, q), \Delta_X L) $, commuting with the $ \Delta_X g_j $ and $ h_j $ are the morphisms in $ C(B, X \times L) \cong C(B, X) \times C(B, L) $ that commute with the projections to $ X $ and the $ \id X \times g_j $ and $ h_j $. Since the morphisms in $ C(B, X) $ commuting with $ q $ and $ \id X $ are exactly $ q $, we can forget about this component, and the morphisms we are looking for correspond to the morphisms in $ C(B, L) $ that commute with the $ g_j $ and $ h_j \cdot p_1 $. Since $ (L, (g_j)_j) $ is a limit, this is a unique morphism.
+  Then the morphisms in $ (C \downarrow X)((Z, q), \Delta_X L) $, commuting with the $ \Delta_X g_j $ and $ h_j $ are the morphisms in $ C(Z, X \times L) \cong C(Z, X) \times C(Z, L) $ that commute with the projections to $ X $ and the $ \id X \times g_j $ and $ h_j $. Since the morphisms in $ C(Z, X) $ commuting with $ q $ and $ \id X $ are exactly $ q $, we can forget about this component, and the morphisms we are looking for correspond to the morphisms in $ C(Z, L) $ that commute with the $ g_j $ and $ h_j \cdot p_1 $. Since $ (L, (g_j)_j) $ is a limit, this is a unique morphism.
 \end{proof}
 
 \begin{lemma}\label{lem:delta-exponentials}
@@ -349,55 +343,55 @@ In fact, $ \Delta_X : C \to C / X $ is a functor, with $ \Delta_X(f) = \id X \ti
 \begin{proof}
   See \autocite{borceux}, Volume 3, Lemma 5.8.2. This lemma shows this via the following equivalences:
   \begin{align*}
-    (C \downarrow X)((A, f), \Delta_X Y^Z) &\cong C(A, Y^Z)\\
-    &\cong C(A \times Z, Y)\\
-    &\cong (C \downarrow X)((A \times X \times Z, \langle f, p_1 \rangle), \Delta_X Y)\\
-    &\cong (C \downarrow X)((A, f) \times \Delta_X Z, \Delta_X Y)\\
+    (C \downarrow X)((W, f), \Delta_X Y^Z) &\cong C(W, Y^Z)\\
+    &\cong C(W \times Z, Y)\\
+    &\cong (C \downarrow X)((W \times (X \times Z), \langle f, p_1 \rangle), \Delta_X Y)\\
+    &\cong (C \downarrow X)((W, f) \times \Delta_X Z, \Delta_X Y)\\
   \end{align*}
 \end{proof}
 
 \section{Dependent products and sums}\label{sec:dependent-products}
 The following is based loosely on Section 4.1 of \autocite{taylor}.
 
-Take a category $ C $. To talk about dependent sums $ \sum_{a: A} X_a $ and products $ \prod_{a: A} X_a $ in $ C $, we first need some way to construct the family of objects $ (X_a)_a $. Of course, we can do this \textit{externally} using a set $ A $, and picking an object $ X_a : C $ for every element $ a : A $. We then have a category of such families $ C^A $, with objects $ (X_a)_a $ and morphisms $ (f_a)_a: C^A((X_a)_a, (Y_a)_a) $, with $ f_a: X_a \to Y_a $. We write $ C^A $ because we can view this as just the $ A $-fold power of $ C $. Now, this assignment of categories $ A \mapsto C^A $ can be turned into a contravariant (pseudo)functor of $ 2 $-categories $ \op \SET \to \Cat $. It sends a morphism $ f: A \to B $ to the `relabeling' or `substitution' functor $ C^B \to C^A $, $ (X_b)_b \mapsto (X_{f(a)})_a $.
+Take a category $ C $. To talk about dependent sums $ \sum_{x: X} Y_x $ and products $ \prod_{x: X} Y_x $ in $ C $, we first need some way to construct the family of objects $ (Y_x)_x $. Of course, we can do this \textit{externally} using a set $ X $, and picking an object $ Y_x : C $ for every element $ x : X $. We then have a category of such families $ C^X $, with objects $ (Y_x)_x $ and morphisms $ (f_x)_x: C^X((Y_x)_x, (Z_x)_x) $, with $ f_x: Y_x \to Z_x $. We write $ C^X $ because we can view this as just the $ X $-fold power of $ C $. Now, this assignment of categories $ X \mapsto C^X $ can be turned into a contravariant (pseudo)functor of $ 2 $-categories $ \op \SET \to \Cat $. It sends a morphism $ f: X_1 \to X_2 $ to the `relabeling' or `substitution' functor $ C^{X_2} \to C^{X_1} $, $ (Y_x)_x \mapsto (Y_{f(x)})_x $.
 
-However, there is also an \textit{internal} representation, as a morphism $ X \to A $. We can turn the collection of these morphisms over all the $ A : C $ simultaneously into a category $ C^2 $ (abusing notation a bit, writing $ 2 $ for the two-point category $ \bullet \to \bullet $). Then taking codomains $ (X \to A) \mapsto A $ gives a functor $ C^2 \to C $. The fiber of this functor above $ A $ is the slice category $ (C \downarrow A) $.
+However, there is also an \textit{internal} representation, as a morphism $ Y \to X $. We can turn the collection of these morphisms over all the $ X : C $ simultaneously into a category $ C^2 $ (abusing notation a bit, writing $ 2 $ for the two-point category $ \bullet \to \bullet $). Then taking codomains $ (Y \to X) \mapsto X $ gives a functor $ C^2 \to C $. The fiber of this functor above $ X $ is the slice category $ (C \downarrow X) $.
 
-In $ \SET $, the external and internal ways of indexing are actually equivalent, because given a family $ (X_a)_a $ we can construct a morphism $ f: \sum_{a : A} X_a \to A $ and conversely, we can recover the family $ (X_a)_a $ as $ (f^{-1}(a))_a $.
+In $ \SET $, the external and internal ways of indexing are actually equivalent, because given a family $ (Y_x)_x $ we can construct a morphism $ f = \pi_1: \sum_{x : X} Y_x \to X $ and conversely, we can recover the family $ (Y_x)_x $ as $ (f^{-1}(x))_x $.
 
-Also note that for $ \SET $, if we consider an indexed family $ (X_a)_a $ as some function $ X: A \to \SET $, then substitution over $ \alpha: B \to A $ is just given by postcomposition $ X \circ \alpha: B \to \SET $. It turns out that in the internal representation this arises as the pullback
+Also note that for $ \SET $, if we consider an indexed family $ (Z_y)_y $ as some function $ Z: Y \to \SET $, then substitution over $ f: X \to Y $ is just given by postcomposition $ Z \circ f: X \to \SET $. It turns out that in the internal representation this is a pullback
 \begin{center}
   \begin{tikzcd}
-    \sum_{b : B} X_{\alpha(b)} \arrow[r] \arrow[d, "\alpha^* f"] \arrow[dr, phantom, "\lrcorner", very near start] & \sum_{a : A} X_a \arrow[d, "f"]\\
-    B \arrow[r, "\alpha"] & A
+    \sum_{x : X} Z_{f(x)} \arrow[r] \arrow[d, "\pi_1"] \arrow[dr, phantom, "\lrcorner", very near start] & \sum_{y : Y} Z_y \arrow[d, "\pi_1"]\\
+    X \arrow[r, "f"] & Y
   \end{tikzcd}
 \end{center}
-This can be turned into a pullback or `substitution' functor $ \alpha^* $, which Taylor calls $ \mathtt{P}\alpha $. This turns the functor $ \SET^2 \to \SET $ into a fibration. We can construct $ \alpha^* : (C \downarrow A) \to (C \downarrow B) $ for any category $ C $ with pullbacks and any morphism $ \alpha: C(B, A) $. The existence of this pullback makes the functor $ C^2 \to C $ into a fibration.
+This can be extended to a pullback or `substitution' functor $ f^* : (\SET \downarrow Y) \to (\SET \downarrow X) $, which Taylor calls $ \mathtt{P} f $. This turns the functor $ \SET^2 \to \SET $ into a fibration. We can construct such a functor $ f^* $ for any category $ C $ with pullbacks and any morphism $ f: C(X, Y) $, and this makes the functor $ C^2 \to C $ into a fibration.
 
-Now, in $ \SET $, for a family $ (X_a)_a $, consider the dependent product $ \prod_{a : A} X_a $. Its elements $ (x_a)_a $ can be identified with morphisms from the terminal set: $ \{ \star \} \to \prod_{a : A} X_a $, sending $ \star $ to $ (x_a)_a $. However, they can also be identified with the morphisms $ \varphi: A \to \sum_{a : A} X_a $ that make the following diagram commute, sending $ a $ to $ x_a $:
+Now, in $ \SET $, for a family $ (Y_x)_x $, consider the dependent product $ \prod_{x : X} Y_x $. Its elements $ (y_x)_x $ can be identified with morphisms from the terminal set: $ \{ \star \} \to \prod_{x : X} Y_x $, sending $ \star $ to $ (y_x)_x $. However, they can also be identified with the morphisms $ f: X \to \sum_{x : X} Y_x $ that make the following diagram commute, sending $ x $ to $ y_x $:
 \begin{center}
   \begin{tikzcd}
-    A \arrow[rd, "\id A"] \arrow[rr, " \varphi "] & & \sum_{a : A} X_a \arrow[ld, "f"]\\
-    & A
+    X \arrow[rd, "\id X"'] \arrow[rr, "f"] & & \sum_{x : X} Y_x \arrow[ld, "\pi_1"]\\
+    & X
   \end{tikzcd}
 \end{center}
-These are morphisms in $ (\SET \downarrow A) $ from $ (A, \id A) $ to $ (\sum_{a : A} X_a, f) $. Note that for the terminal morphism $ \alpha: A \to \{ \star \} $, we have $ \id A = \alpha^*(\id{\{\star\}}) $. To summarize, we have an equivalence
-\[ (\SET \downarrow A)(\alpha^*(\id{\{\star\}}), f) \simeq (\SET \downarrow {\{\star\}})( \id{\{ \star \}}, \prod_{a : A} X_a). \]
-Now, given a family of families $ ((X_b)_{b : B_a})_{a : A} $, we can wonder whether we can construct the family of dependent products $ (\prod_{b : B_a} X_b)_a $. In $ \SET $, this is definitely possible, and from this, we get an equivalence again
-\[ (\SET \downarrow (\sum_{a : A} B_a))(\alpha^*(\id A), f) \simeq (\SET \downarrow A)(\id A, (\prod_{b : B_a} X_b)_a). \]
-These equivalences suggest an adjunction $ \alpha^* \dashv \prod_{\dots} $. We can use this to define in general
+These are morphisms in $ (\SET \downarrow X) $ from $ (X, \id X) $ to $ (\sum_{x : X} Y_x, \pi_1) $. Note that for the terminal morphism $ f: X \to \{ \star \} $, we have $ (X, \id X) = f^*(\{\star\}, \id{\{\star\}}) $. To summarize, we have an equivalence
+\[ (\SET \downarrow X)\left(f^*(\{ \star \}, \id{\{\star\}}), \left(\sum_{x : X} Y_x, \pi_1 \right) \right) \simeq (\SET \downarrow {\{\star\}})\left( (\{\star\}, \id{\{ \star \}}), \left( \prod_{x : X} Y_x, ! \right) \right) \]
+for $ ! $ the terminal morphism. Now, for an internal indexed family $ f : Y \to X $ and given a family of families $ ((Z_y)_{y : Y_x})_{x : X} $, we can wonder whether we can construct the family of dependent products $ (\prod_{y : Y_x} Z_y)_x $. In $ \SET $, this is definitely possible, and from this, we get an equivalence again
+\[ \left(\SET \downarrow \sum_{x : X} Y_x \right)\left(f^*(X, \id X), (\sum_{x : X} \sum_{y : Y_x} Z_y, p) \right) \simeq (\SET \downarrow A)\left((X, \id X), \left(\sum_{x : X} \prod_{y : Y_x} Z_y, \pi_1\right)\right). \]
+with $ p : \sum_{x : X} \sum_{y : Y_x} Z_y \to \sum_{x : X} Y_x $ defined as $ p(x, y, z) = (x, y) $. These equivalences suggest an adjunction $ f^* \dashv \prod_{\dots} $. We can use this to define in general
 \begin{definition}
-  For a category $ C $ and a morphism $ \alpha: B \to A $, the \iindex{dependent product} along $ \alpha $ is, if it exists, the right adjoint to the pullback functor:
+  For a category $ C $ and a morphism $ f: Y \to X $, the \iindex{dependent product} along $ f $ is, if it exists, the right adjoint to the pullback functor:
   \begin{center}
     \begin{tikzcd}
-      (C \downarrow A) \arrow[r, shift left=2, "\alpha^*"{name=A}] &
-      (C \downarrow B) \arrow[l, shift left=2, "\prod_\alpha"{name=B}]
+      (C \downarrow A) \arrow[r, shift left=2, "f^*"{name=A}] &
+      (C \downarrow B) \arrow[l, shift left=2, "\prod_f"{name=B}]
       \ar[from=A, to=B, symbol=\dashv]
     \end{tikzcd}
   \end{center}
 \end{definition}
 \begin{remark}
-  As argued above, we can recover the familiar dependent product $ \prod_{a : A} X_a $ of a family $ (X_a)_a $ as the dependent product $ \prod_\alpha f $ along the terminal morphism $ \alpha: A \to I $, with $ f: \sum_a X_a \to A $ the internal representation of the family. Here we use the equivalence between $ (C \downarrow I) $ and $ C $.
+  As argued above, we can recover the familiar dependent product $ \prod_{x : X} Y_x $ of a family $ (Y_x)_x $ as the dependent product $ \prod_f (\sum_x Y_x, \pi_1) $ along the terminal morphism $ f: X \to I $. Here we use the equivalence between $ (C \downarrow I) $ and $ C $.
 \end{remark}
 
 Now we turn our attention to dependent sums. In $ \SET $, let $ (X_a)_a $ and $ (B_a)_a $ be two families over $ A $ and let $ ((Y_b)_{b : B_a})_{a : A} $ be a family of families. Let $ \alpha: \sum_{a : A} B_a \to A $ be the internal representation of $ (B_a)_a $. A family of maps $ f_a : (\sum_{b : B_a} Y_b)_a \to X_a $ consists of maps $ Y_b \to X_a $ for all $ b : B_a $, so these are maps $ f_b : Y_b \to X_{\alpha(b)} $. This gives an equivalence
