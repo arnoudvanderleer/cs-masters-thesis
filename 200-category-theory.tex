@@ -376,9 +376,9 @@ Now, in $ \SET $, for a family $ (Y_x)_x $, consider the dependent product $ \pr
   \end{tikzcd}
 \end{center}
 These are morphisms in $ (\SET \downarrow X) $ from $ (X, \id X) $ to $ (\sum_{x : X} Y_x, \pi_1) $. Note that for the terminal morphism $ f: X \to \{ \star \} $, we have $ (X, \id X) = f^*(\{\star\}, \id{\{\star\}}) $. To summarize, we have an equivalence
-\[ (\SET \downarrow X)\left(f^*(\{ \star \}, \id{\{\star\}}), \left(\sum_{x : X} Y_x, \pi_1 \right) \right) \simeq (\SET \downarrow {\{\star\}})\left( (\{\star\}, \id{\{ \star \}}), \left( \prod_{x : X} Y_x, ! \right) \right) \]
+\[ (\SET \downarrow X)\left(f^*(\{ \star \}, \id{\{\star\}}), (Y_x)_x \right) \simeq (\SET \downarrow {\{\star\}})\left( (\{\star\}, \id{\{ \star \}}), \left( \prod_{x : X} Y_x, ! \right) \right) \]
 for $ ! $ the terminal morphism. Now, for an internal indexed family $ f : Y \to X $ and given a family of families $ ((Z_y)_{y : Y_x})_{x : X} $, we can wonder whether we can construct the family of dependent products $ (\prod_{y : Y_x} Z_y)_x $. In $ \SET $, this is definitely possible, and from this, we get an equivalence again
-\[ \left(\SET \downarrow \sum_{x : X} Y_x \right)\left(f^*(X, \id X), (\sum_{x : X} \sum_{y : Y_x} Z_y, p) \right) \simeq (\SET \downarrow A)\left((X, \id X), \left(\sum_{x : X} \prod_{y : Y_x} Z_y, \pi_1\right)\right). \]
+\[ \left(\SET \downarrow \sum_{x : X} Y_x \right)\left(f^*(X, \id X), (Z_y)_{x, y} \right) \simeq (\SET \downarrow X)\left((X, \id X), \left(\prod_{y : Y_x} Z_y\right)_x\right). \]
 with $ p : \sum_{x : X} \sum_{y : Y_x} Z_y \to \sum_{x : X} Y_x $ defined as $ p(x, y, z) = (x, y) $. These equivalences suggest an adjunction $ f^* \dashv \prod_{\dots} $. We can use this to define in general
 \begin{definition}
   For a category $ C $ and a morphism $ f: Y \to X $, the \iindex{dependent product} along $ f $ is, if it exists, the right adjoint to the pullback functor:
@@ -394,15 +394,15 @@ with $ p : \sum_{x : X} \sum_{y : Y_x} Z_y \to \sum_{x : X} Y_x $ defined as $ p
   As argued above, we can recover the familiar dependent product $ \prod_{x : X} Y_x $ of a family $ (Y_x)_x $ as the dependent product $ \prod_f (\sum_x Y_x, \pi_1) $ along the terminal morphism $ f: X \to I $. Here we use the equivalence between $ (C \downarrow I) $ and $ C $.
 \end{remark}
 
-Now we turn our attention to dependent sums. In $ \SET $, let $ (X_a)_a $ and $ (B_a)_a $ be two families over $ A $ and let $ ((Y_b)_{b : B_a})_{a : A} $ be a family of families. Let $ \alpha: \sum_{a : A} B_a \to A $ be the internal representation of $ (B_a)_a $. A family of maps $ f_a : (\sum_{b : B_a} Y_b)_a \to X_a $ consists of maps $ Y_b \to X_a $ for all $ b : B_a $, so these are maps $ f_b : Y_b \to X_{\alpha(b)} $. This gives an equivalence
-\[ (\SET \downarrow A)((\sum_{b : B_a} Y_b)_a, (X_a)_a) \simeq (\SET \downarrow (\sum_{a : A} B_a))((Y_b)_b, \alpha^*((X_a)_a)). \]
+Now we turn our attention to dependent sums. In $ \SET $, let $ (Y_x)_x $ and $ (Y^\prime_x)_x $ be two families over $ X $ and let $ ((Z_y)_{y : Y_x})_{x : X} $ be a family of families. Let $ f: \sum_{x : X} Y_x \to X $ be the internal representation of $ (Y_x)_x $. A family of maps $ g_x : (\sum_{y : Y_x} Z_y)_x \to Y^\prime_x $ consists of maps $ Z_y \to Y^\prime_x $ for all $ y : Y_x $, so these are maps $ g_y : Z_y \to Y^\prime_{f(y)} $. This gives an equivalence
+\[ (\SET \downarrow X)\left(\left( \sum_{y : Y_x} Z_y \right)_x, (Y^\prime_x)_x \right) \simeq \left(\SET \downarrow \left(\sum_{x : X} Y_x \right) \right)((Z_y)_y, f^*((Y^\prime_x)_x)). \]
 This, again, suggests an adjunction which we will use as a definition.
 \begin{definition}
-  For a category $ C $ and a morphism $ \alpha: B \to A $, the \iindex{dependent sum} along $ \alpha $ is, if it exists, the left adjoint to the pullback functor:
+  For a category $ C $ and a morphism $ f: Y \to X $, the \iindex{dependent sum} along $ f $ is, if it exists, the left adjoint to the pullback functor:
   \begin{center}
     \begin{tikzcd}
-      (C \downarrow A) \arrow[r, shift right=2, "\alpha^*"'{name=B}] &
-      (C \downarrow B) \arrow[l, shift right=2, "\sum_\alpha"'{name=A}]
+      (C \downarrow X) \arrow[r, shift right=2, "f^*"'{name=B}] &
+      (C \downarrow Y) \arrow[l, shift right=2, "\sum_f"'{name=A}]
       \ar[from=A, to=B, symbol=\dashv]
     \end{tikzcd}
   \end{center}
@@ -410,32 +410,32 @@ This, again, suggests an adjunction which we will use as a definition.
 
 However, note that the conversion from an external to an internal representation in $ \SET $ already contained a dependent sum, which is no coincidence. It turns out that in practice, we will never have a hard time obtaining dependent sums:
 \begin{lemma}\label{lem:sum-postcomposition}
-  Let $ \alpha : C(B, A) $ be a morphism in a category. If the pullback functor $ \alpha^*: (C \downarrow A) \to (C \downarrow B) $ exists, it has a left adjoint given by postcomposition with $ \alpha $.
+  Let $ f : C(Y, X) $ be a morphism in a category. If the pullback functor $ f^*: (C \downarrow X) \to (C \downarrow Y) $ exists, it has a left adjoint given by postcomposition with $ f $.
 \end{lemma}
 \begin{proof}
-  For morphisms $ f: X \to A $, $ g: Y \to B $, the universal property of the pullback, with the following diagram
+  For morphisms $ g: Z \to X $, $ h: W \to Y $, the universal property of the pullback, with the following diagram
   \begin{center}
     \begin{tikzcd}
-      Y \arrow[r, dashed, "\varphi"'] \arrow[rr, "\psi", bend left] \arrow[dr, "g"'] & \alpha^* X \arrow[d, "\alpha^* f"'] \arrow[r] \arrow[rd, phantom, "\lrcorner", very near start] & X \arrow[d, "f"]\\
-      & B \arrow[r, "\alpha"'] & A
+      W \arrow[r, dashed, "\varphi"'] \arrow[rr, "\psi", bend left] \arrow[dr, "h"'] & f^* Z \arrow[d, "f^* g"'] \arrow[r] \arrow[rd, phantom, "\lrcorner", very near start] & Z \arrow[d, "g"]\\
+      & Y \arrow[r, "f"'] & X
     \end{tikzcd}
   \end{center}
-  gives an equivalence between morphisms $ \varphi: Y \to \alpha^* X $ that commute with $ g $ and $ \alpha^* f $, and morphisms $ \psi: Y \to X $ that commute with $ g $, $ f $ and $ \alpha $. In other words:
-  \[ (C \downarrow A)(g \cdot \alpha, f) \simeq (C \downarrow B)(g, \alpha^*(f)), \]
+  gives an equivalence between morphisms $ \varphi: W \to f^* Z $ that commute with $ h $ and $ f^* g $, and morphisms $ \psi: W \to Z $ that commute with $ h $, $ g $ and $ f $. In other words:
+  \[ (C \downarrow X)(h \cdot f, g) \simeq (C \downarrow Y)(h, f^*(g)), \]
   which shows the adjunction.
 \end{proof}
 
-Now, let $ f : X \to A $ be the internal representation of an indexed family $ (X_a)_a $ and let $ \alpha : A \to I $ be the terminal projection. We have $ \sum_{a : A} X_a = f \circ \alpha : X \to I $. By the equivalence between $ (C \downarrow I) $ and $ C $, we see that the dependent sum of the family $ (X_a)_a $ is exactly $ X $. Therefore, our attention is mainly focused on the dependent product.
+Now, let $ g : Y \to X $ be the internal representation of an indexed family $ (Y_x)_x $ and let $ f : X \to I $ be the terminal projection. We have $ \sum_{x : X} Y_x = g \cdot f : Y \to I $. By the equivalence between $ (C \downarrow I) $ and $ C $, we see that the dependent sum of the family $ (Y_x)_x $ is exactly $ Y $. Therefore, our attention is mainly focused on the dependent product.
 
 We will close this section with a name for a category that has all dependent products:
 
 \begin{definition}
-  A \index{cartesian closed!locally}\textit{locally cartesian closed} category is a category $ C $ with pullbacks such that each pullback functor $ \alpha^* $ has a right adjoint.
+  A \index{cartesian closed!locally}\textit{locally cartesian closed} category is a category $ C $ with pullbacks such that each pullback functor $ f^* $ has a right adjoint.
 \end{definition}
 
 Apart from having dependent sums and products, there also is the following theorem that shows the significance of locally cartesian closedness:
 \begin{lemma}\label{lem:locally-cartesian-closed}
-  A category $ C $ is locally cartesian closed iff $ (C \downarrow A) $ is cartesian closed for each $ A : C $.
+  A category $ C $ is locally cartesian closed iff $ (C \downarrow X) $ is cartesian closed for each $ X : C $.
 \end{lemma}
 \begin{proof}
   See the end of Section 1.3 of \autocite{freyd}.
@@ -446,33 +446,33 @@ Apart from having dependent sums and products, there also is the following theor
   \begin{center}
     \begin{tikzcd}
       Y \times Z \arrow[d, "p_1"] \arrow[r, "f \times \id Z"] & X \times Z \arrow[d, "p_1"] \arrow[r, "p_2"] & Z \arrow[d, "!"]\\
-      Y \arrow[r, "f"] & X \arrow [r, "!"] & T
+      Y \arrow[r, "f"] & X \arrow [r, "!"] & I
     \end{tikzcd}
   \end{center}
 \end{remark}
 
 \begin{lemma}\label{lem:constant-dependent-product}
-  For $ W, X, Z : C $ and $ p_1 : X \times Z \to X $,
-  \[ \prod_{p_1} \Delta_{X \times Z} W \cong \Delta_X W^Z \]
+  For $ Z, X, Y : C $ and $ p_1 : X \times Y \to X $,
+  \[ \prod_{p_1} \Delta_{X \times Y} Z \cong \Delta_X Z^Y \]
 \end{lemma}
 \begin{proof}
-  First of all, note that $ (C \downarrow X \times Z) \cong ((C \downarrow X) \downarrow \Delta_X Z) $. Also note that the composite morphism $ (X \times Z) \times W \xrightarrow{p_1} X \times Z \xrightarrow{p_1} X $ is the element $ \Delta_X (W \times Z) : (C \downarrow X) $.
+  First of all, note that $ (C \downarrow X \times Y) \cong ((C \downarrow X) \downarrow \Delta_X Y) $. Also note that the composite morphism $ (X \times Y) \times Z \xrightarrow{p_1} X \times Y \xrightarrow{p_1} X $ is the element $ \Delta_X (Z \times Y) : (C \downarrow X) $.
 
-  By Proposition 1.34 in \autocite{freyd}, $ \prod_{p_1} \Delta_{X \times Z} W $ is given as the following pullback:
+  By Proposition 1.34 in \autocite{freyd}, $ \prod_{p_1} \Delta_{X \times Y} Z $ is given as the following pullback:
   \begin{center}
     \begin{tikzcd}
-      \prod_{p_1} \Delta_{X \times Z} W \arrow[r] \arrow[d] & (\Delta_X Z \times W)^{\Delta_X Z} \arrow[d, "(\Delta_X p_1)^{\Delta_X Z}"]\\
-      X \arrow[r] & (\Delta_X Z)^{\Delta_X Z}
+      \prod_{p_1} \Delta_{X \times Y} Z \arrow[r] \arrow[d] & (\Delta_X Y \times Z)^{\Delta_X Y} \arrow[d, "(\Delta_X p_1)^{\Delta_X Y}"]\\
+      X \arrow[r] & (\Delta_X Y)^{\Delta_X Y}
     \end{tikzcd}
   \end{center}
 
-  By Lemma \ref{lem:delta-exponentials}, $ \Delta_X $ preserves exponential objects, so the morphism on the right is $ \Delta_X p_1^Z : (C \downarrow X)(\Delta_X (Z \times W)^Z, \Delta_X Z^Z) $. However, we have an isomorphism $ (Z \times W)^Z \cong Z^Z \times Z^W $, and then the morphism on the right becomes
-  \[ \Delta_X p_1 : (C \downarrow X)(\Delta_X(Z^Z \times Z^W), \Delta_X Z^Z) \]
-  We also have an isomorphism $ X \cong \Delta_X T $. Then by Lemma \ref{lem:delta-limits} and Remark \ref{rem:pullback-of-projection}, the pullback of this diagram is $ \Delta_X W^Z $:
+  By Lemma \ref{lem:delta-exponentials}, $ \Delta_X $ preserves exponential objects, so the morphism on the right is $ \Delta_X p_1^Y : (C \downarrow X)(\Delta_X (Y \times Z)^Y, \Delta_X Y^Y) $. However, we have an isomorphism $ (Y \times Z)^Y \cong Y^Y \times Y^Z $, and then the morphism on the right becomes
+  \[ \Delta_X p_1 : (C \downarrow X)(\Delta_X(Y^Y \times Y^Z), \Delta_X Y^Y) \]
+  We also have an isomorphism $ X \cong \Delta_X I $. Then by Lemma \ref{lem:delta-limits} and Remark \ref{rem:pullback-of-projection}, the pullback of this diagram is $ \Delta_X Z^Y $:
   \begin{center}
     \begin{tikzcd}
-      \Delta_X W^Z \arrow[r] \arrow[d] & \Delta_X (Z^Z \times W^Z) \arrow[d, "\Delta_X p_1"]\\
-      \Delta_X T \arrow[r] & \Delta_X Z^Z
+      \Delta_X Z^Y \arrow[r] \arrow[d] & \Delta_X (Y^Y \times Z^Y) \arrow[d, "\Delta_X p_1"]\\
+      \Delta_X I \arrow[r] & \Delta_X Y^Y
     \end{tikzcd}
   \end{center}
 \end{proof}
@@ -480,11 +480,11 @@ Apart from having dependent sums and products, there also is the following theor
 
 \section{(Weakly) terminal objects}
 \begin{definition}
-  If a category has an object $ t $, such that there is a (not necessarily unique) morphism to it from every other object in the category, $ t $ is said to be a \iindex{weakly terminal object}.
+  If a category has an object $ I $, such that there is a (not necessarily unique) morphism to it from every other object in the category, $ I $ is said to be a \iindex{weakly terminal object}.
 \end{definition}
 
 \begin{definition}
-  Let $ C $ be a category with terminal object $ t $. For an object $ c: C $, a \iindex{global element} of $ c $ is a morphism $ f: C(t, c) $.
+  Let $ C $ be a category with terminal object $ I $. For an object $ X: C $, a \iindex{global element} of $ X $ is a morphism $ f: C(I, X) $.
 \end{definition}
 
 
