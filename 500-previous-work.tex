@@ -61,13 +61,13 @@ Later on, we will need not only pairs and their projects, but also $ n $-tuples 
 \end{align*}
 for some constant $ c $, which usually is someting like $ \lambda x_{n + 1}, x_{n + 1} $.
 
-\begin{definition}
+\begin{definition}[\coqident{AlgebraicTheories.CategoryOfRetracts}{R}]
   We define the category \index{R}$ \R $ as the Karoubi envelope $ \overline C_{L_0} $ of the one-point category based on the monoid of the $ \lambda $-terms without free variables under composition. In this case, we choose to interpret the Karoubi envelope as the very syntactical construction using idempotents, because Scott reasons about them in this way:
   \[ \R_0 = \{ A : L_0 \mid A \circ A = A \} \quad \text{and} \quad \R(A, B) = \{ f: L_0 \mid B \circ f \circ A = f \}, \]
   with $ \id A = A $ and composition given by $ \circ $.
 \end{definition}
 
-\begin{remark}
+\begin{remark}[\coqident{AlgebraicTheories.CategoryOfRetracts}{R_ob_weq_R'}]
   Hyland instead defines $ \R $ as the Karoubi envelope $ \overline C_{L_1} $ (again, the construction using the idempotents) of the monoid $ (L_1, - \bullet (-)) $ with identity element $ x_{1, 1} $:
   \[ \R_0 = \{ A : L_1 \mid A \bullet A = A \} \quad \text{and} \quad \R(A, B) = \{ f : L_1 \mid B \bullet f \bullet A = f \}, \]
   writing $ s \bullet t $ instead of $ s \bullet (t) $ for $ s, t : L_1 $. Note that we have a monoid morphism:
@@ -90,7 +90,7 @@ Now, to give a bit more intuition for the objects of $ \R $, we can pretend that
   for $ f : L_n^m $ and $ a : L_m $ such that $ \iota_{0, m}(A) a = a $.
 \end{definition}
 
-It turns out that this embeds $ \R $ as a full subcategory of $ \Pshf L $:
+It turns out that this is an embedding:
 \begin{lemma}
   This functor $ \varphi $ is fully faithful.
 \end{lemma}
@@ -117,19 +117,19 @@ It turns out that this embeds $ \R $ as a full subcategory of $ \Pshf L $:
   These are the identity, and the automorphism (of order 2) that swaps the elements of the pair. To see that these are indeed different morphisms, note that applying them (or their lifted versions) to $ (x_{2, 1}, x_{2, 2}) $ gives respectively $ x_{2, 1} $ and $ x_{2, 2} $, which are distinct elements by Lemma \ref{lem:nontrivial-algebraic-theory}.
 \end{remark}
 
-In the next chapter, the `universal object' $ U : \R $, given by the identity $ \lambda x_1, x_1 $, plays a major role. Note that for all $ A: \R $, we have morphisms $ A: \R(U, A) $ and $ A: \R(A, U) $, which exhibit $ A $ as a retract of $ U $. Also note that $ \varphi(U) = L $.
+In the next chapter, the `universal object' $ U : \R $, given by the identity $ \lambda x_1, x_1 $ (\coqident{AlgebraicTheories.CategoryOfRetracts}{U}), plays a major role. Note that for all $ A: \R $, we have morphisms $ A: \R(U, A) $ and $ A: \R(A, U) $, which exhibit $ A $ as a retract of $ U $ (\coqident{AlgebraicTheories.CategoryOfRetracts}{R_retraction_is_retraction}). Also note that $ \varphi(U) = L $.
 
-Note that $ \R $ has many (isomorphic, but not equal for nontrivial $ L $) terminal objects, given by $ I_c := \lambda x_1, \iota_{0, 1}(c) : \R $ for any $ c: L_0 $. These are terminal because for $ f: A \to I_c $, we have $ f = I_c \circ f = I_c $. Note that $ \varphi(I_c)_n = \{ \iota_{0, n}(c) \} $. We will choose $ I = \lambda x_1 x_2, x_2 : \R $ as our main example of the terminal object.
+Note that $ \R $ has many (isomorphic, but not equal for nontrivial $ L $) terminal objects, given by $ I_c := \lambda x_1, \iota_{0, 1}(c) : \R $ for any $ c: L_0 $ (\coqident{AlgebraicTheories.CategoryOfRetracts}{R_terminal}). These are terminal because for $ f: A \to I_c $, we have $ f = I_c \circ f = I_c $. Note that $ \varphi(I_c)_n = \{ \iota_{0, n}(c) \} $. We will choose $ I = \lambda x_1 x_2, x_2 : \R $ as our main example of the terminal object.
 
-We might wonder whether $ \R $ also has an initial object $ O $. However, for any $ c: L_0 $, we would have a constant morphism
-\[ I_c = \lambda x_1, \iota_{0, 1}(c) : \R(O, U), \]
+We might wonder whether $ \R $ also has an initial object $ O $. However, for all $ c: L_0 $, we would have a constant morphism to the universal object
+\[ \lambda x_1, \iota_{0, 1}(c) : \R(O, U), \]
 so if $ L $ is nontrivial, $ \R $ has no initial object.
 
-$ \R $ has binary products with projections and product morphisms
+$ \R $ has binary products with projections and product morphisms (\coqident{AlgebraicTheories.CategoryOfRetracts}{R_binproducts})
 \[ A_1 \times A_2 = \langle p_1, p_2 \rangle, \quad p_i = A_i \circ \pi_i \quad \text{and} \quad \langle f, g \rangle. \]
 Recall that for any object $ A $, we have $ A = \id A $, which for $ A_1 \times A_2 $ is $ \langle p_1, p_2 \rangle $ by the universal property of the product, which explains why the product is of this form.
 
-$ \R $ also has exponential objects
+$ \R $ also has exponential objects (\coqident{AlgebraicTheories.CategoryOfRetracts}{R_exponentials})
 \[ C^B = \lambda x_1, C \circ x_1 \circ B \]
 with evaluation morphism $ \epsilon_{BC}: C^B \times B \to C $ given by
 \[ \epsilon_{BC} = \lambda x_1, C(\pi_1 x_1 (B (\pi_2 x_1))), \]
@@ -160,7 +160,7 @@ with
 \[ f \circ I = f \not = g = g \circ I, \]
 so the diagram does not commute, and $ Q $ is not a pullback of this cospan.
 
-Taylor notes (\autocite{taylor}, Section 1.5) that the objects in $ \R $ have very strong properties with respect to fixpoints. One of the properties also arises via Lawvere's fixed point theorem (\autocite{lawvere-fixpoints}, page 136): For all $ B: \R $, since $ B^U $ is a retract of $ U $, every endomorphism $ f: B \to B $ has a fixpoint. That is, there exists $ s: I \to B $ such that $ f \circ s = s $. Working out the proof even yields an explicit term:
+Taylor notes (\autocite{taylor}, Section 1.5) that the objects in $ \R $ have very strong properties with respect to fixpoints. One of the properties also arises via Lawvere's fixed point theorem (\autocite{lawvere-fixpoints}, page 136): For all $ B: \R $, since $ B^U $ is a retract of $ U $, every endomorphism $ f: B \to B $ has a fixpoint (\coqident{AlgebraicTheories.CategoryOfRetracts}{fixpoint_is_fixpoint}). That is, there exists $ s: I \to B $ such that $ f \circ s = s $. Working out the proof even yields an explicit term:
 \[ s = \lambda i, (\lambda x, f (x x)) (\lambda x, f (x x)). \]
 Indeed, $ s = \lambda i, f ((\lambda x, f (x x)) (\lambda x, f (x x))) = f \circ s $, and $ B \circ s = B \circ f \circ s = s = s \circ I $, so $ s : \R(I, B) $.
 
@@ -216,7 +216,7 @@ The correspondence in Section \ref{sec:lambek-correspondence} between simply-typ
 \end{remark}
 
 Since Lambek showed an equivalence between simply typed $ \lambda $-calculi and cartesian closed categories, and since we have a construction for an untyped $ \lambda $-calculus from a cartesian closed category with a reflexive object, we can wonder whether this construction constitutes contitutes an equivalence between untyped $ \lambda $-calculi and some class of categories. This question finds a partial answer in the following theorem, originally proved in a very syntactical way by Dana Scott (see \autocite{curry}, page 418).
-\begin{theorem}\label{thm:Scott}
+\begin{theorem}[\coqident{AlgebraicTheories.OriginalRepresentationTheorem}{representation_theorem_iso}]\label{thm:Scott}
   We can obtain every untyped $ \lambda $-calculus as the endomorphism theory of some object in some category.
 \end{theorem}
 \begin{proof}
