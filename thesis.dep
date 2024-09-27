@@ -103,7 +103,7 @@
   *{package}{ifplatform}  {2017/10/13 v0.4a}
   *{package}{catchfile}   {2019/12/09 v1.8}
   *{package}{etexcmds}    {2019/12/15 v1.7}
-  *{file}   {"document.w18"}{0000/00/00 v0.0}
+  *{file}   {"thesis.w18"}{0000/00/00 v0.0}
   *{package}{transparent} {2018/11/18 v1.3}
   *{package}{pgfsys}      {2023-01-15 v3.1.10}
   *{package}{pgfrcs}      {2023-01-15 v3.1.10}
@@ -158,11 +158,11 @@
   *{file}   {umsb.fd}     {2013/01/14 v3.01}
   *{file}   {Ustmry.fd}   {0000/00/00 v0.0}
   *{-------}{Document-specific files:}{----}
-  *{file}   {document.out}{0000/00/00 v0.0}
-  *{file}   {document.out}{0000/00/00 v0.0}
+  *{file}   {thesis.out}  {0000/00/00 v0.0}
+  *{file}   {thesis.out}  {0000/00/00 v0.0}
   *{file}   {mt-Palatino.cfg}{2012/03/10 v1.0}
   *{file}   {english.lbx} {2023/03/05 v3.19}
-  *{file}   {document.bbl}{0000/00/00 v0.0}
+  *{file}   {thesis.bbl}  {0000/00/00 v0.0}
   *{file}   {mt-msa.cfg}  {2006/02/04 v1.1}
   *{file}   {mt-msb.cfg}  {2005/06/01 v1.0}
   *{file}   {mt-cmr.cfg}  {2013/05/19 v2.2}
@@ -193,5 +193,5 @@
   *{file}   {800-conclusion.tex}{0000/00/00 v0.0}
   *{file}   {910-alternative-definitions.tex}{0000/00/00 v0.0}
   *{file}   {920-weak-cartesian-closed.tex}{0000/00/00 v0.0}
-  *{file}   {document.ind}{0000/00/00 v0.0}
+  *{file}   {thesis.ind}  {0000/00/00 v0.0}
 }
