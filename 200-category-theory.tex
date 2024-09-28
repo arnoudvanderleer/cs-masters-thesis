@@ -3,13 +3,15 @@
 I will assume a familiarity with the category-theoretical concepts presented in \autocite{CT4P}. These include categories, functors, isomorphisms, natural transformations, adjunctions, equivalences and limits.
 
 \section{Notation}
-Throughout this thesis, an object $ X $ in a category $ C $ will be denoted by $ X : C $. A morphism $ f $ between objects $ X $ and $ Y $ in a category $ C $ will be denoted by $ f: C(X, Y) $ or sometimes $ f: X \to Y $. Composition of morphisms $ f: C(X, Y) $ and $ g: C(Y, Z) $ will be denoted by $ f \cdot g $. And composition of functors $ F: A \to B $ and $ G: B \to C $ will be denoted by $ F \bullet G $.
+Throughout this thesis, objects of a homotopy set, for example morphisms, will usually be denoted with lowercase letters like $ f, g, h $ and sometimes with greek letters like $ \epsilon, \eta, \varphi, \psi $. Objects of a homotopy $ 1 $-type, like objects in a category, will usually be denoted with capital letters like $ X, Y, Z $. Lastly, (displayed) (bi)categories themselves will usually be denoted with boldface capital letters like $ \SET $ or $ \D $.
+
+Throughout this thesis, an object $ X $ in a category $ \C $ will be denoted by $ X : \C $. A morphism $ f $ between objects $ X $ and $ Y $ in a category $ \C $ will be denoted by $ f: \C(X, Y) $ or sometimes $ f: X \to Y $. Composition of morphisms $ f: \C(X, Y) $ and $ g: \C(Y, Z) $ will be denoted by $ f \cdot g $. And composition of functors $ F: \A \to \B $ and $ G: \B \to \C $ will be denoted by $ F \bullet G $.
 
 \section{Universal Arrows}
 
 One concept in category theory that can be used to describe a lot of limits and adjunctions is that of a universal arrow (see for example \autocite{MacLane}, Part III)
 \begin{definition}
-  A \iindex{universal arrow} from an object $ X: D $ to a functor $ F: C \to D $ consists of an object $ Y: C $ and a morphism $ f: D(X, F(Y)) $ such that for every similar pair $ (Y^\prime, f^\prime) $, $ f^\prime $ factors uniquely as $ f \cdot F(g) $ for some $ g: C(Y, Y^\prime) $:
+  A \iindex{universal arrow} from an object $ X: \D $ to a functor $ F: \C \to \D $ consists of an object $ Y: \C $ and a morphism $ f: \D(X, F(Y)) $ such that for every similar pair $ (Y^\prime, f^\prime) $, $ f^\prime $ factors uniquely as $ f \cdot F(g) $ for some $ g: \C(Y, Y^\prime) $:
   \begin{center}
     \begin{tikzcd}
       X \arrow[d, "f"'] \arrow[rd, "f^\prime"] &\\
@@ -20,19 +22,19 @@ One concept in category theory that can be used to describe a lot of limits and 
 
 Alternatively, we can characterize universal arrows by their action on hom-sets:
 \begin{lemma}
-  Let $ F: C \to D $ be a functor and $ X: D $ an object. An object $ Y: C $ and an arrow $ f: D(X, F(Y)) $ form a universal arrow from $ X $ to $ F $ if and only if the function
-  \[ (g \mapsto f \cdot F(g)) : C(Y, x) \cong D(X, F(x)) \]
+  Let $ F: \C \to \D $ be a functor and $ X: \D $ an object. An object $ Y: \C $ and an arrow $ f: \D(X, F(Y)) $ form a universal arrow from $ X $ to $ F $ if and only if the function
+  \[ (g \mapsto f \cdot F(g)) : \C(Y, x) \cong \D(X, F(x)) \]
   is a bijection.
 
-  Conversely, for all $ Y: C $ and $ X: D $, every bijection
-  \[ C(Y, Z) \cong D(X, F(Z)) \]
-  that is natural in $ Z $ arises in this way from some universal arrow $ f: D(X, F(Y)) $.
+  Conversely, for all $ Y: \C $ and $ X: \D $, every bijection
+  \[ \C(Y, Z) \cong \D(X, F(Z)) \]
+  that is natural in $ Z $ arises in this way from some universal arrow $ f: \D(X, F(Y)) $.
 \end{lemma}
 \begin{proof}
   See \autocite{MacLane}, Chapter III.2, Proposition 1.
 \end{proof}
 
-There is also the dual concept: a universal arrow $ (X, f) $ from a functor $ F $ to an object $ Y: C $. Its universal property can be summarized in the following diagram:
+There is also the dual concept: a universal arrow $ (X, f) $ from a functor $ F $ to an object $ Y: \C $. Its universal property can be summarized in the following diagram:
 \begin{center}
   \begin{tikzcd}
     F(X^\prime)\arrow[rd, "f^\prime"']  \arrow[r, "F(g)", dashed] & F(X) \arrow[d, "f"]\\
@@ -45,11 +47,11 @@ There is also the dual concept: a universal arrow $ (X, f) $ from a functor $ F 
 Recall that an \iindex{adjunction} $ L \dashv R $ is a pair of functors
 \begin{center}
   \begin{tikzcd}
-    D \arrow[r, bend right, "R"'{name=R}] & C \arrow[l, bend right, "L"'{name=L}]
+    \D \arrow[r, bend right, "R"'{name=R}] & \C \arrow[l, bend right, "L"'{name=L}]
   \end{tikzcd}
 \end{center}
 with natural transformations (the unit and counit)
-\[ \eta: \id C \Rightarrow L \bullet R \quad \text{and} \quad \epsilon: R \bullet L \Rightarrow \id D \]
+\[ \eta: \id \C \Rightarrow L \bullet R \quad \text{and} \quad \epsilon: R \bullet L \Rightarrow \id \D \]
 such that the diagrams
 \begin{center}
   \begin{tikzcd}
@@ -65,13 +67,13 @@ such that the diagrams
 commute (these are called the \iindex{triangle identities} or \iindex{zigzag identities}). Here the natural transformation $ \eta \bullet L: L \bullet R \bullet L $ is the natural transformation $ \eta $ whiskered on the right by $ L $, and the other whiskered transformations are similar.
 
 An alternative characterization (see \autocite{MacLane}, chapter IV.1, Theorem 2) of an adjunction $ L \dashv R $ is as a natural bijection
-\[ \varphi: D(L(X), Y) \xrightarrow{\sim} C(X, R(Y)). \]
-Naturality means that for all $ f: C(X^\prime, X) $, $ g: D(Y, Y^\prime) $ and $ h: D(L(X), Y) $,
+\[ \varphi: \D(L(X), Y) \xrightarrow{\sim} \C(X, R(Y)). \]
+Naturality means that for all $ f: \C(X^\prime, X) $, $ g: \D(Y, Y^\prime) $ and $ h: \D(L(X), Y) $,
 \[ \varphi(L(f) \cdot h \cdot g) = f \cdot \varphi(h) \cdot R(g). \]
 
 Lastly, one can construct an adjunction using universal arrows. This lends itself particularly well for a formalization, where it is often preferable to have as few `demonstranda' as possible:
 \begin{lemma}
-  One can construct an adjunction $ (L, R, \eta, \epsilon) $ as above from only the functor $ L: C \to D $ and, for each $ X: C $, a universal arrow $ (R(X), \epsilon_X) $ from $ L $ to $ X $.
+  One can construct an adjunction $ (L, R, \eta, \epsilon) $ as above from only the functor $ L: \C \to \D $ and, for each $ X: \C $, a universal arrow $ (R(X), \epsilon_X) $ from $ L $ to $ X $.
 \end{lemma}
 \begin{proof}
   See \autocite{MacLane}, Chapter IV.1, Theorem 2 (iv).
@@ -81,13 +83,13 @@ Lastly, one can construct an adjunction using universal arrows. This lends itsel
 An (adjoint) equivalence of categories has multiple definitions. The one we will use here is the following:
 
 \begin{definition}\label{def:equivalence-of-categories}
-  An \iindex{adjoint equivalence} between categories $ C $ and $ D $ is a pair of adjoint functors $ L \dashv R $ like above such that the unit $ \eta: \id{C} \Rightarrow L \bullet R $ and counit $ \epsilon: R \bullet L \Rightarrow \id{D} $ are isomorphisms of functors.
+  An \iindex{adjoint equivalence} between categories $ \C $ and $ \D $ is a pair of adjoint functors $ L \dashv R $ like above such that the unit $ \eta: \id{\C} \Rightarrow L \bullet R $ and counit $ \epsilon: R \bullet L \Rightarrow \id{\D} $ are isomorphisms of functors.
 \end{definition}
 
 \subsection{Weak equivalences}
 There is also the notion of `weak equivalence'. In some cases, this is equivalent to an adjoint equivalence (for example, when its domain is univalent, see Section \ref{sec:univalence-principle}).
 \begin{definition}
-  A functor $ F: C \to D $ is called a \iindex{weak equivalence} if it is essentially surjective and fully faithful.
+  A functor $ F: \C \to \D $ is called a \iindex{weak equivalence} if it is essentially surjective and fully faithful.
 \end{definition}
 
 \subsection{Exponential objects}
@@ -97,12 +99,12 @@ which we can also write as
 \[ \SET(X \times Y, Z) \cong \SET(X, (Y \to Z)). \]
 In other words, we have functors $ X \mapsto X \times Y $ and $ Z \mapsto (Y \to Z) $, and these two form an adjunction. The following generalizes this
 \begin{definition}
-  A category $ C $ has \textit{exponential objects}\index{exponential objects} (or \textit{exponentials}) if for all $ X: C $, the functor $ X^\prime \mapsto X^\prime \times X $ has a right adjoint, which we denote $ Y \mapsto Y^X $.
+  A category $ \C $ has \textit{exponential objects}\index{exponential objects} (or \textit{exponentials}) if for all $ X: \C $, the functor $ X^\prime \mapsto X^\prime \times X $ has a right adjoint, which we denote $ Y \mapsto Y^X $.
 \end{definition}
 
 \begin{remark}
-  It is actually very well possible that a category does not have all exponentials, but it has some objects $ X, Y, Y^X: C $ with a bijection
-  \[ C(X^\prime \times X, Y) \cong C(X^\prime, Y^X) \]
+  It is actually very well possible that a category does not have all exponentials, but it has some objects $ X, Y, Y^X: \C $ with a bijection
+  \[ \C(X^\prime \times X, Y) \cong \C(X^\prime, Y^X) \]
   that is natural in $ X^\prime $. Then $ Y^X $ is still called an exponential object.
 \end{remark}
 
@@ -111,7 +113,7 @@ In other words, we have functors $ X \mapsto X \times Y $ and $ Z \mapsto (Y \to
 In mathematics, we often deal with objects that are `based on' other objects. For example, a ring is a set with some additional structure. Often, this is a relation between the respective categories (for example, in the case of a displayed category, see Section \ref{sec:displayed-categories}), and such a relation gives rise to a \iindex{forgetful functor}, that `forgets' about the additional structure. In the examples of rings and sets, the forgetful functor sends a ring to its underlying set, and a ring morphism to the function between the sets. However, note that there is no formal definition of forgetful functors. The name is more of a way to talk about the perceived relation between the categories.
 
 \begin{definition}
-  Given a forgetful functor $ F: C \to D $, we define the \textit{free functor}\index{free!functor} associated to $ F $ to be the left adjoint to $ F $, if it exists.
+  Given a forgetful functor $ F: \C \to \D $, we define the \textit{free functor}\index{free!functor} associated to $ F $ to be the left adjoint to $ F $, if it exists.
 \end{definition}
 
 \begin{example}
@@ -124,57 +126,57 @@ In mathematics, we often deal with objects that are `based on' other objects. Fo
   then sends $ f: \mathbf{Rng}(\mathbb Z[X_s]_{s : S}, R) $ to $ s \mapsto f(X_s) $ and $ g: \SET(S, R) $ to the morphism that sends $ X_s $ to $ g(s) $.
 \end{example}
 
-However, as with exponential object, sometimes we have a forgetful functor $ F: C \to D $, but we cannot give a free functor on the entire category $ D $. In such a case, we might still talk about free `objects':
+However, as with exponential object, sometimes we have a forgetful functor $ F: \C \to \D $, but we cannot give a free functor on the entire category $ \D $. In such a case, we might still talk about free `objects':
 \begin{definition}
-  Let $ F: C \to D $ be a forgetful functor. Given $ X: D $, the \textit{free object}\index{free!object} on $ X $ is a universal arrow $ (Y, f) $ from $ X $ to $ F $.
+  Let $ F: \C \to \D $ be a forgetful functor. Given $ X: \D $, the \textit{free object}\index{free!object} on $ X $ is a universal arrow $ (Y, f) $ from $ X $ to $ F $.
 \end{definition}
 
 \begin{remark}
-  By \autocite{MacLane}, Chapter IV.1, Theorem 2 (ii), if we have a free object on every $ X: D $, we can piece these together to get a free functor associated to $ F $.
+  By \autocite{MacLane}, Chapter IV.1, Theorem 2 (ii), if we have a free object on every $ X: \D $, we can piece these together to get a free functor associated to $ F $.
 \end{remark}
 
 \section{Yoneda}
-We can embed a category $ C $ fully faithfully into the functor category $ P C = [\op C, \SET] $ as follows (see \autocite{Kashiwara}, Section 1.4):
+We can embed a category $ \C $ fully faithfully into the functor category $ P \C = [\op \C, \SET] $ as follows (see \autocite{Kashiwara}, Section 1.4):
 \begin{definition}\label{def:Yoneda-embedding}
-  The \iindex{Yoneda embedding} $ \yo : C \hookrightarrow P C $ is given on objects by $ \yo(Y) = C(-, Y) $:
-  \[ \yo(Y)(X) = C(X, Y) \quad \text{and} \quad \yo(Y)(f)(g) = f \cdot g \]
-  for $ X: C $, $ f: C(X, X^\prime) $ and $ g: C(X^\prime, Y) $. It sends a morphism $ f: C(Y, Y^\prime) $ to the natural transformation $ \yo(f): C(-, Y) \Rightarrow C(-, Y^\prime) $ given by
+  The \iindex{Yoneda embedding} $ \yo : \C \hookrightarrow P \C $ is given on objects by $ \yo(Y) = \C(-, Y) $:
+  \[ \yo(Y)(X) = \C(X, Y) \quad \text{and} \quad \yo(Y)(f)(g) = f \cdot g \]
+  for $ X: \C $, $ f: \C(X, X^\prime) $ and $ g: \C(X^\prime, Y) $. It sends a morphism $ f: \C(Y, Y^\prime) $ to the natural transformation $ \yo(f): \C(-, Y) \Rightarrow \C(-, Y^\prime) $ given by
   \[ \yo(f)(X)(g) = g \cdot f \]
-  for $ X: C $ and $ g: C(X, Y) $.
+  for $ X: \C $ and $ g: \C(X, Y) $.
 \end{definition}
 
 Now, this embedding has a couple of properties:
 \begin{lemma}
-  For any $ Y: C $ and $ F : P C $, we have an equivalence $ P C(\yo(Y), F) \simeq F(Y) $, and this equivalence is natural in $ Y $ and $ F $.
+  For any $ Y: \C $ and $ F : P \C $, we have an equivalence $ P \C(\yo(Y), F) \simeq F(Y) $, and this equivalence is natural in $ Y $ and $ F $.
 \end{lemma}
 \begin{proof}
-  It sends a natural transformation $ \alpha: P C(\yo(Y), F) $ to the element $ \alpha_Y(\id Y) $. Conversely, it sends an element $ X : P(Y) $ to the natural transformation $ \alpha $ given by $ \alpha_X(f) = P(f)(X) $ for all $ f: \yo(Y)(X) = C(X, Y) $. For more details, see \autocite{Kashiwara}, Proposition 1.4.3.
+  It sends a natural transformation $ a: P \C(\yo(Y), F) $ to the element $ a_Y(\id Y) $. Conversely, it sends an element $ X : P(Y) $ to the natural transformation $ a $ given by $ a_X(f) = P(f)(X) $ for all $ f: \yo(Y)(X) = \C(X, Y) $. For more details, see \autocite{Kashiwara}, Proposition 1.4.3.
 \end{proof}
 
 \begin{remark}
-  For any category $ D $, the category $ [C, D] $ has (co)limits of some kind (terminal or initial object, (co)products, (co)equalizers) iff $ D $ does. These (co)limits are computed pointwise: for example, for binary products, $ (F \times G)(X) = F(X) \times G(X) $. In particular $ P C $ has all limits and colimits because $ \SET $ has all limits and colimits.
+  For any category $ \D $, the category $ [\C, \D] $ has (co)limits of some kind (terminal or initial object, (co)products, (co)equalizers) iff $ \D $ does. These (co)limits are computed pointwise: for example, for binary products, $ (F \times G)(X) = F(X) \times G(X) $. In particular $ P \C $ has all limits and colimits because $ \SET $ has all limits and colimits.
 \end{remark}
 
 \begin{remark}
-  Also, for any small category $ C $ (small means that the collection of objects is a type in our type universe. For example: for a fixed universe of types, $ \TYPE $ or $ \SET $ are not small categories, the universe of types is not contained in itself), the presheaf category $ P C $ has exponential objects, given by
-  \[ (F^G)(X) = PC(\yo(X) \times G, F), \]
+  Also, for any small category $ \C $ (small means that the collection of objects is a type in our type universe. For example: for a fixed universe of types, $ \TYPE $ or $ \SET $ are not small categories, the universe of types is not contained in itself), the presheaf category $ P \C $ has exponential objects, given by
+  \[ (F^G)(X) = P\C(\yo(X) \times G, F), \]
   the natural transformations from the product functor of the Yoneda embedding of $ X $ and $ G $, to $ F $ (see \autocite{MacLane-Moerdijk}, Section I.6, Proposition 1).
 \end{remark}
 
 \begin{definition}
-  Suppose that we have a functor $ F: C \to D $, and $ C $ and $ D $ both have binary products. Then for $ X, Y : C $, we have morphisms $ \pi_1: X \times Y \to X $ and $ \pi_2 : X \times Y \to Y $ and applying $ F $ to these yields morphisms from $ F(X \times Y) $ to $ F(X) $ and $ F(Y) $. We then have a product morphism
+  Suppose that we have a functor $ F: \C \to \D $, and $ \C $ and $ \D $ both have binary products. Then for $ X, Y : \C $, we have morphisms $ \pi_1: X \times Y \to X $ and $ \pi_2 : X \times Y \to Y $ and applying $ F $ to these yields morphisms from $ F(X \times Y) $ to $ F(X) $ and $ F(Y) $. We then have a product morphism
   \[ \langle F(\pi_1), F(\pi_2) \rangle: F(X \times Y) \to F(X) \times F(Y). \]
-  Now, if this morphism is an isomorphism for all $ X, Y : C $, we say that $ F $ \index{preservation of binary products}\textit{preserves binary products}.
+  Now, if this morphism is an isomorphism for all $ X, Y : \C $, we say that $ F $ \index{preservation of binary products}\textit{preserves binary products}.
 
-  One can imagine that there exists a similar definition of preservation of limits in general, in which the limit morphism of `$ F $ applied to the projections from the limit' is an isomorphism, for any limit in $ C $.
+  One can imagine that there exists a similar definition of preservation of limits in general, in which the limit morphism of `$ F $ applied to the projections from the limit' is an isomorphism, for any limit in $ \C $.
 \end{definition}
 
 \begin{definition}\label{def:exponentials-preservation}
-  Suppose that we have a functor $ F: C \to D $ that preserves binary products, and $ C $ and $ D $ have exponential objects. Then for $ X, Y : C $, we have natural bijections
-  \[ \varphi: C(X^Y \times Y, X) \xrightarrow \sim C(X^Y, X^Y) \quad \text{and} \quad \psi: D(F(X^Y) \times F(Y), F(X)) \xrightarrow \sim D(F(X^Y), F(X)^{F(Y)}) \]
-  This gives a morphism $ F(\varphi^{-1}(\id{X^Y})) : D(F(X^Y \times Y), F(X)) $. Precomposing with the inverse of the isomorphism $ f: F(X^Y \times Y) \xrightarrow \sim F(X^Y) \times F(Y) $ and applying $ \psi $ gives
-  \[ \psi(f^{-1} \cdot \varphi^{-1}(\id{X^Y})) : D(F(X^Y), F(X)^{F(Y)}). \]
-  We say that $ F $ \index{preservation of exponentials}\textit{preserves exponentials} if this morphism is an isomorphism for all $ X, Y : C $. A name for a functor that preserves exponentials is a \iindex{cartesian functor}.
+  Suppose that we have a functor $ F: \C \to \D $ that preserves binary products, and $ \C $ and $ \D $ have exponential objects. Then for $ X, Y : \C $, we have natural bijections
+  \[ \varphi: \C(X^Y \times Y, X) \xrightarrow \sim \C(X^Y, X^Y) \quad \text{and} \quad \psi: \D(F(X^Y) \times F(Y), F(X)) \xrightarrow \sim \D(F(X^Y), F(X)^{F(Y)}) \]
+  This gives a morphism $ F(\varphi^{-1}(\id{X^Y})) : \D(F(X^Y \times Y), F(X)) $. Precomposing with the inverse of the isomorphism $ f: F(X^Y \times Y) \xrightarrow \sim F(X^Y) \times F(Y) $ and applying $ \psi $ gives
+  \[ \psi(f^{-1} \cdot \varphi^{-1}(\id{X^Y})) : \D(F(X^Y), F(X)^{F(Y)}). \]
+  We say that $ F $ \index{preservation of exponentials}\textit{preserves exponentials} if this morphism is an isomorphism for all $ X, Y : \C $. A name for a functor that preserves exponentials is a \iindex{cartesian functor}.
 \end{definition}
 
 \begin{lemma}
@@ -183,92 +185,92 @@ Now, this embedding has a couple of properties:
 \begin{proof}
   See \autocite{borceux}, Volume 1, Proposition 2.15.5 for the full proof, but note that for binary products, we have bijections
   \[ \yo(X \times Y)(Z) \xrightarrow \sim \yo(X)(Z) \times \yo(Y)(Z) \]
-  sending $ f : C(Z, X \times Y) $ to the pair $ (f \cdot \pi_1, f \cdot \pi_2) $ and conversely, sending a pair $ (g_1, g_2) : C(Z, X) \times C(Z, Y) $ to the product morphism $ \langle g_1, g_2 \rangle : \yo(Z, X \times Y) $. This idea is also the core of the proof about general limits.
+  sending $ f : \C(Z, X \times Y) $ to the pair $ (f \cdot \pi_1, f \cdot \pi_2) $ and conversely, sending a pair $ (g_1, g_2) : \C(Z, X) \times \C(Z, Y) $ to the product morphism $ \langle g_1, g_2 \rangle : \yo(Z, X \times Y) $. This idea is also the core of the proof about general limits.
 \end{proof}
 
 \begin{lemma}[\coqident{CategoryTheory.YonedaExponentials}{yoneda_preserves_exponentials}]\label{lem:Yoneda-preserves-exponentials}
   The Yoneda embedding preserves exponentials.
 \end{lemma}
 \begin{proof}
-  First of all, note that for $ X, Y, Z : C $, we have a sequence of isomorphisms  (\autocite{stackexchange:yoneda-exponentials})
+  First of all, note that for $ X, Y, Z : \C $, we have a sequence of isomorphisms  (\autocite{stackexchange:yoneda-exponentials})
   \begin{align*}
-    \yo(X^Y)(Z) &\cong P C(\yo(Z), \yo(X^Y))\\
-    &\cong C(Z, X^Y)\\
-    &\cong C(Z \times Y, X)\\
-    &\cong P C(\yo(Z \times Y), \yo(X))\\
-    &\cong P C(\yo(Z) \times \yo(Y), \yo(X))\\
-    &\cong P C(\yo(Z), \yo(X)^\yo(Y))\\
+    \yo(X^Y)(Z) &\cong P \C(\yo(Z), \yo(X^Y))\\
+    &\cong \C(Z, X^Y)\\
+    &\cong \C(Z \times Y, X)\\
+    &\cong P \C(\yo(Z \times Y), \yo(X))\\
+    &\cong P \C(\yo(Z) \times \yo(Y), \yo(X))\\
+    &\cong P \C(\yo(Z), \yo(X)^\yo(Y))\\
     &\cong (\yo(X)^\yo(Y))(Z)
   \end{align*}
   using (once or twice) the Yoneda lemma, fully faithfulness of the Yoneda embedding, the property of the exponential object, and the fact that the Yoneda embedding preserves binary products.
 
-  Some calculating shows that when applying this isomorphism to some $ f: \yo(X^Y)(Z) $, we get the natural transformation $ h: P C(\yo(Z) \times \yo(Y), \yo(X)) $ given by
+  Some calculating shows that when applying this isomorphism to some $ f: \yo(X^Y)(Z) $, we get the natural transformation $ h: P \C(\yo(Z) \times \yo(Y), \yo(X)) $ given by
   \[ h_Z(g_1, g_2) = \langle g_1, g_2 \rangle \cdot \varphi^{-1}(f) \]
-  for all $ Z: C $ and $ (g_1, g_2) : \yo(Z)(Z) \times \yo(Y)(Z) $ and with the natural bijection
-  \[ \varphi: C(Z \times Y, X) \xrightarrow \sim C(Z, X^Y). \]
+  for all $ Z: \C $ and $ (g_1, g_2) : \yo(Z)(Z) \times \yo(Y)(Z) $ and with the natural bijection
+  \[ \varphi: \C(Z \times Y, X) \xrightarrow \sim \C(Z, X^Y). \]
 
   It turns out that when we apply the morphism in Definition \ref{def:exponentials-preservation} to $ f $, we get exactly the same natural transformation. Therefore, the morphism in Definition \ref{def:exponentials-preservation} is the isomorphism defined here and we conclude that $ \yo $ preserves exponentials.
 \end{proof}
 
-For a functor between categories $ f: C \to D $, given the Yoneda embeddings $ \yo_C : C \to P C $ and $ \yo_D : D \to P D $ (we will often omit the subscript $ C $ and $ D $), we can create a diagram
+For a functor between categories $ f: \C \to \D $, given the Yoneda embeddings $ \yo_\C : \C \to P \C $ and $ \yo_\D : \D \to P \D $ (we will often omit the subscript $ \C $ and $ \D $), we can create a diagram
 \begin{center}
   \begin{tikzcd}
-    C \arrow[r, "f"] \arrow[d, hookrightarrow, "\yo"] & D \arrow[d, hookrightarrow, "\yo"]\\
-    P C & P D \arrow[l, "\op f_*"]
+    \C \arrow[r, "f"] \arrow[d, hookrightarrow, "\yo"] & \D \arrow[d, hookrightarrow, "\yo"]\\
+    P \C & P \D \arrow[l, "\op f_*"]
   \end{tikzcd}
 \end{center}
-Note that the arrows in this diagram are functors, so objects in a category, instead of elements of a set. Therefore, it often does not make a lot of sense to talk about `equality' of the functors along the different paths, but we rather talk about isomorphism in the functor category $ [C, P C] $. If we have such an isomorphism, we say the diagram `2-commutes':
+Note that the arrows in this diagram are functors, so objects in a category, instead of elements of a set. Therefore, it often does not make a lot of sense to talk about `equality' of the functors along the different paths, but we rather talk about isomorphism in the functor category $ [\C, P \C] $. If we have such an isomorphism, we say the diagram `2-commutes':
 \begin{lemma}\label{lem:Yoneda-restriction-commutes}
-  If $ f: C \to D $ is a fully faithful functor, the diagram above 2-commutes.
+  If $ f: \C \to \D $ is a fully faithful functor, the diagram above 2-commutes.
 \end{lemma}
 \begin{proof}
-  For $ Y, X : C $, since $ f $ is fully faithful, we have isomorphisms of sets, given by
-  \[ \yo(Y)(X) = C(X, Y) \xrightarrow[f_{X, Y}]{\sim} D(f(X), f(Y)) = \op f_*(\yo(f(Y)))(X). \]
-  Also, for $ g: C(X^\prime, X) $, the following diagram commutes
+  For $ Y, X : \C $, since $ f $ is fully faithful, we have isomorphisms of sets, given by
+  \[ \yo(Y)(X) = \C(X, Y) \xrightarrow[f_{X, Y}]{\sim} \D(f(X), f(Y)) = \op f_*(\yo(f(Y)))(X). \]
+  Also, for $ g: \C(X^\prime, X) $, the following diagram commutes
   \begin{center}
     \begin{tikzcd}
       \yo(Y)(X) \arrow[d, "g \cdot -"] \arrow[r, "f_{X, Y}"] & \op f_*(\yo(f(Y)))(X) \arrow[d, "f_{X^\prime, X}(g) \cdot -"]\\
       \yo(Y)(X^\prime) \arrow[r, "f_{X^\prime, Y}"] & \op f_*(\yo(f(Y)))(X^\prime)
     \end{tikzcd}
   \end{center}
-  so the isomorphism is natural in $ X $ and we have $ \yo(Y) \cong \op f_*(\yo(f(Y))) $ in $ P C $. Lastly, for $ g: C(Y, Y^\prime) $ and $ X: C $, the following diagram commutes
+  so the isomorphism is natural in $ X $ and we have $ \yo(Y) \cong \op f_*(\yo(f(Y))) $ in $ P \C $. Lastly, for $ g: \C(Y, Y^\prime) $ and $ X: \C $, the following diagram commutes
   \begin{center}
     \begin{tikzcd}
       \yo(Y)(X) \arrow[d, "- \cdot g"] \arrow[r, "f_{X, Y}"] & \op f_*(\yo(f(Y)))(X) \arrow[d, "- \cdot f_{Y, Y^\prime}(g)"]\\
       \yo(Y^\prime)(X) \arrow[r, "f_{X, Y^\prime}"] & \op f_*(\yo(f(Y^\prime)))(X)
     \end{tikzcd}
   \end{center}
-  so the isomorphism is natural in $ Y $ and we have $ \yo \cong f \bullet \yo \bullet \op f_* $ in $ [C, P C] $.
+  so the isomorphism is natural in $ Y $ and we have $ \yo \cong f \bullet \yo \bullet \op f_* $ in $ [\C, P \C] $.
 \end{proof}
 
 \section{Fibrations}
-Let $ P : E \to B $ be a functor. In this case, we will view this as the category $ E $ `lying over' the category $ B $, with for every point $ X: B $, a slice $ E_X = P^{-1}(B) $ lying `above' $ X $.
+Let $ P : \E \to \B $ be a functor. In this case, we will view this as the category $ \E $ `lying over' the category $ \B $, with for every point $ X: \B $, a slice $ \E_X = P^{-1}(\B) $ lying `above' $ X $.
 
 \begin{definition}
-  A morphism $ f: E(Y, Z) $ is called \iindex{cartesian} if for all $ g: E(X, Z) $ and $ h: B(P(X), P(Y)) $ with $ h \cdot P(f) = P(g) $, there exists $ \bar h: E(X, Y) $ such that $ P(\bar h) = h $ and $ \bar h \cdot f = g $, like illustrated in the following diagram from \autocite{nlab:grothendieck_fibration}
+  A morphism $ f: \E(Y, Z) $ is called \iindex{cartesian} if for all $ g: \E(X, Z) $ and $ h: \B(P(X), P(Y)) $ with $ h \cdot P(f) = P(g) $, there exists $ \bar h: \E(X, Y) $ such that $ P(\bar h) = h $ and $ \bar h \cdot f = g $, like illustrated in the following diagram from \autocite{nlab:grothendieck_fibration}
   \begin{center}
     \begin{tikzcd}[sep=large]
-      E \arrow[d, "P"] &X \arrow[rr, "\forall g", bend left] \arrow[r, "\exists! \bar h"', dashed] & Y \arrow[r, "f"'] & Z\\
-      B & P(X) \arrow[r, "\forall h"'] \arrow[rr, "P(g)", bend left] & P(Y) \arrow[r, "P(f)"'] & P(Z)
+      \E \arrow[d, "P"] &X \arrow[rr, "\forall g", bend left] \arrow[r, "\exists! \bar h"', dashed] & Y \arrow[r, "f"'] & Z\\
+      \B & P(X) \arrow[r, "\forall h"'] \arrow[rr, "P(g)", bend left] & P(Y) \arrow[r, "P(f)"'] & P(Z)
     \end{tikzcd}
   \end{center}
 \end{definition}
 
 \begin{definition}
-  $ P $ is a \iindex{fibration} if for all $ Y: E $ and morphisms $ f: B(X, P(Y)) $, there exist an object $ \bar X: E $ and a cartesian morphism $ \bar f: E(\bar X, Y) $ such that $ P(\bar X) = X $ and $ P(\bar f) = f $:
+  $ P $ is a \iindex{fibration} if for all $ Y: \E $ and morphisms $ f: \B(X, P(Y)) $, there exist an object $ \bar X: \E $ and a cartesian morphism $ \bar f: \E(\bar X, Y) $ such that $ P(\bar X) = X $ and $ P(\bar f) = f $:
   \begin{center}
     \begin{tikzcd}
-      E \arrow[d, "P"] & \bar X \arrow[r, "\exists \bar f", dashed] & Y\\
-      B & X \arrow[r, "\forall f"] & P(Y)
+      \E \arrow[d, "P"] & \bar X \arrow[r, "\exists \bar f", dashed] & Y\\
+      \B & X \arrow[r, "\forall f"] & P(Y)
     \end{tikzcd}
   \end{center}
 \end{definition}
 
 \section{(Co)slice categories}
-Given an object in a category $ X: C $, the morphisms to and from $ X $ constitute the slice and coslice categories
+Given an object in a category $ X: \C $, the morphisms to and from $ X $ constitute the slice and coslice categories
 \begin{definition}
-  The \iindex{slice category} $ C \downarrow X $ is the category with as objects the morphisms to $ X $:
-  \[ (C \downarrow X)_0 = \sum_{Y: C} C(Y, X). \]
+  The \iindex{slice category} $ \C \downarrow X $ is the category with as objects the morphisms to $ X $:
+  \[ (\C \downarrow X)_0 = \sum_{Y: \C} \C(Y, X). \]
   The morphisms from $ (Y_1, f_1) $ to $ (Y_2, f_2) $ are the morphisms $ g: Y_1 \to Y_2 $ making the following diagram commute.
   \begin{center}
     \begin{tikzcd}
@@ -277,56 +279,56 @@ Given an object in a category $ X: C $, the morphisms to and from $ X $ constitu
     \end{tikzcd}
   \end{center}
 \end{definition}
-The \textit{coslice category}\index{slice category!co-} $ X \downarrow C $ is similar, but with the morphisms \textit{from} $ X $ instead of \textit{to} $ X $:
-\[ (X \downarrow C)_0 = \sum_{Y: C} C(X, Y). \]
+The \textit{coslice category}\index{slice category!co-} $ X \downarrow \C $ is similar, but with the morphisms \textit{from} $ X $ instead of \textit{to} $ X $:
+\[ (X \downarrow \C)_0 = \sum_{Y: \C} \C(X, Y). \]
 
 Now, if we have an object in a slice category, we can again look at the slice of the slice category over that object. However, this gives us nothing new:
 \begin{lemma}
-  Let $ (Y, f) $ be an object in the slice category $ (C \downarrow X) $. The slice category $ ((C \downarrow X) \downarrow (Y, f)) $ is equivalent to $ (C \downarrow Y) $.
+  Let $ (Y, f) $ be an object in the slice category $ (\C \downarrow X) $. The slice category $ ((\C \downarrow X) \downarrow (Y, f)) $ is equivalent to $ (\C \downarrow Y) $.
 \end{lemma}
 \begin{proof}
-  An object of $ ((Z, g), \alpha) : ((C \downarrow X) \downarrow (Y, f)) $ is an object $ (Z, g) : (C \downarrow X) $, together with a morphism $ \alpha: (C \downarrow X)((Z, g), (Y, f)) $. That is, a morphism $ \alpha: C(Z, Y) $ such that the obvious triangle commutes (shown in the diagram below on the far left).
+  An object of $ ((Z, g), a) : ((\C \downarrow X) \downarrow (Y, f)) $ is an object $ (Z, g) : (\C \downarrow X) $, together with a morphism $ a: (\C \downarrow X)((Z, g), (Y, f)) $. That is, a morphism $ a: \C(Z, Y) $ such that the obvious triangle commutes (shown in the diagram below on the far left).
 
-  Then a morphism between $ ((Z_1, g_1), \alpha_1) $ and $ ((Z_2, g_2), \alpha_2) $ is a morphism $ \beta $ between $ (Z_1, g_1) $ and $ (Z_2, g_2) $ that commutes with $ \alpha_1 $ and $ \alpha_2 $. Note that a morphism between $ (Z_1, g_1) $ and $ (Z_2, g_2) $ is a morphism between $ Z_1 $ and $ Z_2 $ that commutes with $ g_1 $ and $ g_2 $.
+  Then a morphism between $ ((Z_1, g_1), a_1) $ and $ ((Z_2, g_2), a_2) $ is a morphism $ b $ between $ (Z_1, g_1) $ and $ (Z_2, g_2) $ that commutes with $ a_1 $ and $ a_2 $. Note that a morphism between $ (Z_1, g_1) $ and $ (Z_2, g_2) $ is a morphism between $ Z_1 $ and $ Z_2 $ that commutes with $ g_1 $ and $ g_2 $.
   \begin{center}
     \begin{tikzcd}
-      Z_1 \arrow[rdd, "g_1"'] \arrow[rd, "\alpha_1"] \arrow[rr, "\beta"] && Z_2 \arrow[ldd, "g_2"] \arrow[ld, "\alpha_2"']\\
+      Z_1 \arrow[rdd, "g_1"'] \arrow[rd, "a_1"] \arrow[rr, "b"] && Z_2 \arrow[ldd, "g_2"] \arrow[ld, "a_2"']\\
       & Y \arrow[d, "f" description]\\
       & X
     \end{tikzcd}
     $ \Leftrightarrow $
     \begin{tikzcd}
-      Z_1 \arrow[rd, "\alpha_1"] \arrow[rr, "\beta"] && Z_2 \arrow[ld, "\alpha_2"']\\
+      Z_1 \arrow[rd, "a_1"] \arrow[rr, "b"] && Z_2 \arrow[ld, "a_2"']\\
       & Y
     \end{tikzcd}
   \end{center}
 
-  Now, note that $ g_1 $ and $ g_2 $ are completely determined by $ g_i = \alpha_i \cdot f $, so we can leave them out. Also, if $ \beta $ commutes with $ \alpha_1 $ and $ \alpha_2 $, it automatically also commutes with $ g_1 $ and $ g_2 $. Therefore, as shown above, we have a correspondence between objects and morphisms
-  \[ \beta: ((Z_1, g_1), \alpha_1) \to ((Z_2, g_2), \alpha_2) \Leftrightarrow \beta: (Z_1, \alpha_1) \to (Z_2, \alpha_2). \]
+  Now, note that $ g_1 $ and $ g_2 $ are completely determined by $ g_i = a_i \cdot f $, so we can leave them out. Also, if $ b $ commutes with $ a_1 $ and $ a_2 $, it automatically also commutes with $ g_1 $ and $ g_2 $. Therefore, as shown above, we have a correspondence between objects and morphisms
+  \[ b: ((Z_1, g_1), a_1) \to ((Z_2, g_2), a_2) \Leftrightarrow b: (Z_1, a_1) \to (Z_2, a_2). \]
 \end{proof}
 
 Now, the slice categories inherit some structure from the original category:
 \begin{lemma}
-  For $ (Y_1, f_1), (Y_2, f_2) : (C \downarrow X) $, their product in the slice category is given by their pullback, or fibered product, $ Y_1 \times_X Y_2 $, together with the induced morphism $ g: Y_1 \times_X Y_2 \dasharrow X $.
+  For $ (Y_1, f_1), (Y_2, f_2) : (\C \downarrow X) $, their product in the slice category is given by their pullback, or fibered product, $ Y_1 \times_X Y_2 $, together with the induced morphism $ g: Y_1 \times_X Y_2 \dasharrow X $.
 \end{lemma}
 \begin{proof}
-  Consider the diagram below. The fibered product gives `projections' $ h_1 $ and $ h_2 $. Also, if we have some $ (Z, \alpha) : (C \downarrow X) $, together with morphisms $ \beta_1 : (Z, \alpha) \to (Y_1, f_1) $ and $ \beta_2 : (Z, \alpha) \to (Y_2, f_2) $. Then $ \beta_1 $ and $ \beta_2 $ commute with $ f_1 $ and $ f_2 $, so by the universal property of the fibred product, there exists a unique morphism $ \gamma : Z \to Y_1 \times_X Y_2 $ that makes the triangles with $ \beta_1 $ and $ h_1 $, and with $ \beta_2 $ and $ h_2 $ commute. Then $ \gamma $ commutes with $ \alpha $ and $ g $ as well, so it is a morphism in $ (C \downarrow X) $. This shows that $ (Y_1 \times_X Y_2, g) $ has the universal property of the product in $ (C \downarrow X) $.
+  Consider the diagram below. The fibered product gives `projections' $ h_1 $ and $ h_2 $. Also, if we have some $ (Z, a) : (\C \downarrow X) $, together with morphisms $ b_1 : (Z, a) \to (Y_1, f_1) $ and $ b_2 : (Z, a) \to (Y_2, f_2) $. Then $ b_1 $ and $ b_2 $ commute with $ f_1 $ and $ f_2 $, so by the universal property of the fibred product, there exists a unique morphism $ \gamma : Z \to Y_1 \times_X Y_2 $ that makes the triangles with $ b_1 $ and $ h_1 $, and with $ b_2 $ and $ h_2 $ commute. Then $ \gamma $ commutes with $ a $ and $ g $ as well, so it is a morphism in $ (\C \downarrow X) $. This shows that $ (Y_1 \times_X Y_2, g) $ has the universal property of the product in $ (\C \downarrow X) $.
   \begin{center}
     \begin{tikzcd}
-      Z \arrow[rd, "\beta_1"] \arrow[rr, "\beta_2", bend left] \arrow[rrd, "\alpha"', bend right=49, shift right] \arrow[r, dashed, "\gamma"] & Y_1 \times_X Y_2 \arrow[r, "h_2"'] \arrow[d, "h_1"] \arrow[rd, dashed, "g"] & Y_2 \arrow[d, "f_2"] \\
+      Z \arrow[rd, "b_1"] \arrow[rr, "b_2", bend left] \arrow[rrd, "a"', bend right=49, shift right] \arrow[r, dashed, "\gamma"] & Y_1 \times_X Y_2 \arrow[r, "h_2"'] \arrow[d, "h_1"] \arrow[rd, dashed, "g"] & Y_2 \arrow[d, "f_2"] \\
       & Y_1 \arrow[r, "f_1"] & X
     \end{tikzcd}
   \end{center}
 \end{proof}
 
-For a category $ C $ with products, Hyland introduces the notation $ \Delta_X Y $ for the element $ (X \times Y, p_1) : (C \downarrow X) $, and we will follow his example in this.
+For a category $ \C $ with products, Hyland introduces the notation $ \Delta_X Y $ for the element $ (X \times Y, p_1) : (\C \downarrow X) $, and we will follow his example in this.
 
-In fact, $ \Delta_X : C \to C / X $ is a functor, with $ \Delta_X(f) = \id X \times f $ for $ f: C(Y, Y^\prime) $. This functor preserves the terminal object, products and pullbacks:
+In fact, $ \Delta_X : \C \to (\C \downarrow X) $ is a functor, with $ \Delta_X(f) = \id X \times f $ for $ f: \C(Y, Y^\prime) $. This functor preserves the terminal object, products and pullbacks:
 \begin{lemma}\label{lem:delta-limits}
   $ \Delta_X $ preserves all limits.
 \end{lemma}
 \begin{proof}
-  Take a diagram $ ((Y_i)_i, (f_j)_j) $ in $ C $. Suppose that this has a limit $ L : C $ with projections $ g_i : C(L, Y_i) $. Now, consider an object $ (Z, q) : (C \downarrow X) $, together with morphisms $ h_i : (C \downarrow X)((Z, q), \Delta_X Y_i) $, that commute with the $ \Delta_X f_j $:
+  Take a diagram $ ((Y_i)_i, (f_j)_j) $ in $ \C $. Suppose that this has a limit $ L : \C $ with projections $ g_i : \C(L, Y_i) $. Now, consider an object $ (Z, q) : (\C \downarrow X) $, together with morphisms $ h_i : (\C \downarrow X)((Z, q), \Delta_X Y_i) $, that commute with the $ \Delta_X f_j $:
   \begin{center}
     \begin{tikzcd}
       & Z \arrow[ldd, "h_{m_j}"'] \arrow[rdd, "h_{n_j}"]\\
@@ -334,7 +336,7 @@ In fact, $ \Delta_X : C \to C / X $ is a functor, with $ \Delta_X(f) = \id X \ti
       X \times Y_{m_j} \arrow[rr, "\Delta_X f_j"'] & & X \times Y_{n_j}
     \end{tikzcd}
   \end{center}
-  Then the morphisms in $ (C \downarrow X)((Z, q), \Delta_X L) $, commuting with the $ \Delta_X g_j $ and $ h_j $ are the morphisms in $ C(Z, X \times L) \cong C(Z, X) \times C(Z, L) $ that commute with the projections to $ X $ and the $ \id X \times g_j $ and $ h_j $. Since the morphisms in $ C(Z, X) $ commuting with $ q $ and $ \id X $ are exactly $ q $, we can forget about this component, and the morphisms we are looking for correspond to the morphisms in $ C(Z, L) $ that commute with the $ g_j $ and $ h_j \cdot p_1 $. Since $ (L, (g_j)_j) $ is a limit, this is a unique morphism.
+  Then the morphisms in $ (\C \downarrow X)((Z, q), \Delta_X L) $, commuting with the $ \Delta_X g_j $ and $ h_j $ are the morphisms in $ \C(Z, X \times L) \cong \C(Z, X) \times \C(Z, L) $ that commute with the projections to $ X $ and the $ \id X \times g_j $ and $ h_j $. Since the morphisms in $ \C(Z, X) $ commuting with $ q $ and $ \id X $ are exactly $ q $, we can forget about this component, and the morphisms we are looking for correspond to the morphisms in $ \C(Z, L) $ that commute with the $ g_j $ and $ h_j \cdot p_1 $. Since $ (L, (g_j)_j) $ is a limit, this is a unique morphism.
 \end{proof}
 
 \begin{lemma}\label{lem:delta-exponentials}
@@ -343,19 +345,19 @@ In fact, $ \Delta_X : C \to C / X $ is a functor, with $ \Delta_X(f) = \id X \ti
 \begin{proof}
   See \autocite{borceux}, Volume 3, Lemma 5.8.2. This lemma shows this via the following equivalences:
   \begin{align*}
-    (C \downarrow X)((W, f), \Delta_X Y^Z) &\cong C(W, Y^Z)\\
-    &\cong C(W \times Z, Y)\\
-    &\cong (C \downarrow X)((W \times (X \times Z), \langle f, p_1 \rangle), \Delta_X Y)\\
-    &\cong (C \downarrow X)((W, f) \times \Delta_X Z, \Delta_X Y)\\
+    (\C \downarrow X)((W, f), \Delta_X Y^Z) &\cong \C(W, Y^Z)\\
+    &\cong \C(W \times Z, Y)\\
+    &\cong (\C \downarrow X)((W \times (X \times Z), \langle f, p_1 \rangle), \Delta_X Y)\\
+    &\cong (\C \downarrow X)((W, f) \times \Delta_X Z, \Delta_X Y)\\
   \end{align*}
 \end{proof}
 
 \section{Dependent products and sums}\label{sec:dependent-products}
 The following is based loosely on Section 4.1 of \autocite{taylor}.
 
-Take a category $ C $. To talk about dependent sums $ \sum_{x: X} Y_x $ and products $ \prod_{x: X} Y_x $ in $ C $, we first need some way to construct the family of objects $ (Y_x)_x $. Of course, we can do this \textit{externally} using a set $ X $, and picking an object $ Y_x : C $ for every element $ x : X $. We then have a category of such families $ C^X $, with objects $ (Y_x)_x $ and morphisms $ (f_x)_x: C^X((Y_x)_x, (Z_x)_x) $, with $ f_x: Y_x \to Z_x $. We write $ C^X $ because we can view this as just the $ X $-fold power of $ C $. Now, this assignment of categories $ X \mapsto C^X $ can be turned into a contravariant (pseudo)functor of $ 2 $-categories $ \op \SET \to \Cat $. It sends a morphism $ f: X_1 \to X_2 $ to the `relabeling' or `substitution' functor $ C^{X_2} \to C^{X_1} $, $ (Y_x)_x \mapsto (Y_{f(x)})_x $.
+Take a category $ \C $. To talk about dependent sums $ \sum_{x: X} Y_x $ and products $ \prod_{x: X} Y_x $ in $ \C $, we first need some way to construct the family of objects $ (Y_x)_x $. Of course, we can do this \textit{externally} using a set $ X $, and picking an object $ Y_x : \C $ for every element $ x : X $. We then have a category of such families $ \C^X $, with objects $ (Y_x)_x $ and morphisms $ (f_x)_x: \C^X((Y_x)_x, (Z_x)_x) $, with $ f_x: Y_x \to Z_x $. We write $ \C^X $ because we can view this as just the $ X $-fold power of $ \C $. Now, this assignment of categories $ X \mapsto \C^X $ can be turned into a contravariant (pseudo)functor of $ 2 $-categories $ \op \SET \to \Cat $. It sends a morphism $ f: X_1 \to X_2 $ to the `relabeling' or `substitution' functor $ \C^{X_2} \to \C^{X_1} $, $ (Y_x)_x \mapsto (Y_{f(x)})_x $.
 
-However, there is also an \textit{internal} representation, as a morphism $ Y \to X $. We can turn the collection of these morphisms over all the $ X : C $ simultaneously into a category $ C^2 $ (abusing notation a bit, writing $ 2 $ for the two-point category $ \bullet \to \bullet $). Then taking codomains $ (Y \to X) \mapsto X $ gives a functor $ C^2 \to C $. The fiber of this functor above $ X $ is the slice category $ (C \downarrow X) $.
+However, there is also an \textit{internal} representation, as a morphism $ Y \to X $. We can turn the collection of these morphisms over all the $ X : \C $ simultaneously into a category $ \C^2 $ (abusing notation a bit, writing $ 2 $ for the two-point category $ \bullet \to \bullet $). Then taking codomains $ (Y \to X) \mapsto X $ gives a functor $ \C^2 \to \C $. The fiber of this functor above $ X $ is the slice category $ (\C \downarrow X) $.
 
 In $ \SET $, the external and internal ways of indexing are actually equivalent, because given a family $ (Y_x)_x $ we can construct a morphism $ f = \pi_1: \sum_{x : X} Y_x \to X $ and conversely, we can recover the family $ (Y_x)_x $ as $ (f^{-1}(x))_x $.
 
@@ -366,7 +368,7 @@ Also note that for $ \SET $, if we consider an indexed family $ (Z_y)_y $ as som
     X \arrow[r, "f"] & Y
   \end{tikzcd}
 \end{center}
-This can be extended to a pullback or `substitution' functor $ f^* : (\SET \downarrow Y) \to (\SET \downarrow X) $, which Taylor calls $ \mathtt{P} f $. This turns the functor $ \SET^2 \to \SET $ into a fibration. We can construct such a functor $ f^* $ for any category $ C $ with pullbacks and any morphism $ f: C(X, Y) $, and this makes the functor $ C^2 \to C $ into a fibration.
+This can be extended to a pullback or `substitution' functor $ f^* : (\SET \downarrow Y) \to (\SET \downarrow X) $, which Taylor calls $ \mathtt{P} f $. This turns the functor $ \SET^2 \to \SET $ into a fibration. We can construct such a functor $ f^* $ for any category $ \C $ with pullbacks and any morphism $ f: \C(X, Y) $, and this makes the functor $ \C^2 \to \C $ into a fibration.
 
 Now, in $ \SET $, for a family $ (Y_x)_x $, consider the dependent product $ \prod_{x : X} Y_x $. Its elements $ (y_x)_x $ can be identified with morphisms from the terminal set: $ \{ \star \} \to \prod_{x : X} Y_x $, sending $ \star $ to $ (y_x)_x $. However, they can also be identified with the morphisms $ f: X \to \sum_{x : X} Y_x $ that make the following diagram commute, sending $ x $ to $ y_x $:
 \begin{center}
@@ -381,28 +383,28 @@ for $ ! $ the terminal morphism. Now, for an internal indexed family $ f : Y \to
 \[ \left(\SET \downarrow \sum_{x : X} Y_x \right)\left(f^*(X, \id X), (Z_y)_{x, y} \right) \simeq (\SET \downarrow X)\left((X, \id X), \left(\prod_{y : Y_x} Z_y\right)_x\right). \]
 with $ p : \sum_{x : X} \sum_{y : Y_x} Z_y \to \sum_{x : X} Y_x $ defined as $ p(x, y, z) = (x, y) $. These equivalences suggest an adjunction $ f^* \dashv \prod_{\dots} $. We can use this to define in general
 \begin{definition}
-  For a category $ C $ and a morphism $ f: Y \to X $, the \iindex{dependent product} along $ f $ is, if it exists, the right adjoint to the pullback functor:
+  For a category $ \C $ and a morphism $ f: Y \to X $, the \iindex{dependent product} along $ f $ is, if it exists, the right adjoint to the pullback functor:
   \begin{center}
     \begin{tikzcd}
-      (C \downarrow A) \arrow[r, shift left=2, "f^*"{name=A}] &
-      (C \downarrow B) \arrow[l, shift left=2, "\prod_f"{name=B}]
+      (\C \downarrow X) \arrow[r, shift left=2, "f^*"{name=A}] &
+      (\C \downarrow Y) \arrow[l, shift left=2, "\prod_f"{name=B}]
       \ar[from=A, to=B, symbol=\dashv]
     \end{tikzcd}
   \end{center}
 \end{definition}
 \begin{remark}
-  As argued above, we can recover the familiar dependent product $ \prod_{x : X} Y_x $ of a family $ (Y_x)_x $ as the dependent product $ \prod_f (\sum_x Y_x, \pi_1) $ along the terminal morphism $ f: X \to I $. Here we use the equivalence between $ (C \downarrow I) $ and $ C $.
+  As argued above, we can recover the familiar dependent product $ \prod_{x : X} Y_x $ of a family $ (Y_x)_x $ as the dependent product $ \prod_f (\sum_x Y_x, \pi_1) $ along the terminal morphism $ f: X \to I $. Here we use the equivalence between $ (\C \downarrow I) $ and $ \C $.
 \end{remark}
 
 Now we turn our attention to dependent sums. In $ \SET $, let $ (Y_x)_x $ and $ (Y^\prime_x)_x $ be two families over $ X $ and let $ ((Z_y)_{y : Y_x})_{x : X} $ be a family of families. Let $ f: \sum_{x : X} Y_x \to X $ be the internal representation of $ (Y_x)_x $. A family of maps $ g_x : (\sum_{y : Y_x} Z_y)_x \to Y^\prime_x $ consists of maps $ Z_y \to Y^\prime_x $ for all $ y : Y_x $, so these are maps $ g_y : Z_y \to Y^\prime_{f(y)} $. This gives an equivalence
 \[ (\SET \downarrow X)\left(\left( \sum_{y : Y_x} Z_y \right)_x, (Y^\prime_x)_x \right) \simeq \left(\SET \downarrow \left(\sum_{x : X} Y_x \right) \right)((Z_y)_y, f^*((Y^\prime_x)_x)). \]
 This, again, suggests an adjunction which we will use as a definition.
 \begin{definition}
-  For a category $ C $ and a morphism $ f: Y \to X $, the \iindex{dependent sum} along $ f $ is, if it exists, the left adjoint to the pullback functor:
+  For a category $ \C $ and a morphism $ f: Y \to X $, the \iindex{dependent sum} along $ f $ is, if it exists, the left adjoint to the pullback functor:
   \begin{center}
     \begin{tikzcd}
-      (C \downarrow X) \arrow[r, shift right=2, "f^*"'{name=B}] &
-      (C \downarrow Y) \arrow[l, shift right=2, "\sum_f"'{name=A}]
+      (\C \downarrow X) \arrow[r, shift right=2, "f^*"'{name=B}] &
+      (\C \downarrow Y) \arrow[l, shift right=2, "\sum_f"'{name=A}]
       \ar[from=A, to=B, symbol=\dashv]
     \end{tikzcd}
   \end{center}
@@ -410,7 +412,7 @@ This, again, suggests an adjunction which we will use as a definition.
 
 However, note that the conversion from an external to an internal representation in $ \SET $ already contained a dependent sum, which is no coincidence. It turns out that in practice, we will never have a hard time obtaining dependent sums:
 \begin{lemma}\label{lem:sum-postcomposition}
-  Let $ f : C(Y, X) $ be a morphism in a category. If the pullback functor $ f^*: (C \downarrow X) \to (C \downarrow Y) $ exists, it has a left adjoint given by postcomposition with $ f $.
+  Let $ f : \C(Y, X) $ be a morphism in a category. If the pullback functor $ f^*: (\C \downarrow X) \to (\C \downarrow Y) $ exists, it has a left adjoint given by postcomposition with $ f $.
 \end{lemma}
 \begin{proof}
   For morphisms $ g: Z \to X $, $ h: W \to Y $, the universal property of the pullback, with the following diagram
@@ -421,28 +423,28 @@ However, note that the conversion from an external to an internal representation
     \end{tikzcd}
   \end{center}
   gives an equivalence between morphisms $ \varphi: W \to f^* Z $ that commute with $ h $ and $ f^* g $, and morphisms $ \psi: W \to Z $ that commute with $ h $, $ g $ and $ f $. In other words:
-  \[ (C \downarrow X)(h \cdot f, g) \simeq (C \downarrow Y)(h, f^*(g)), \]
+  \[ (\C \downarrow X)(h \cdot f, g) \simeq (\C \downarrow Y)(h, f^*(g)), \]
   which shows the adjunction.
 \end{proof}
 
-Now, let $ g : Y \to X $ be the internal representation of an indexed family $ (Y_x)_x $ and let $ f : X \to I $ be the terminal projection. We have $ \sum_{x : X} Y_x = g \cdot f : Y \to I $. By the equivalence between $ (C \downarrow I) $ and $ C $, we see that the dependent sum of the family $ (Y_x)_x $ is exactly $ Y $. Therefore, our attention is mainly focused on the dependent product.
+Now, let $ g : Y \to X $ be the internal representation of an indexed family $ (Y_x)_x $ and let $ f : X \to I $ be the terminal projection. We have $ \sum_{x : X} Y_x = g \cdot f : Y \to I $. By the equivalence between $ (\C \downarrow I) $ and $ \C $, we see that the dependent sum of the family $ (Y_x)_x $ is exactly $ Y $. Therefore, our attention is mainly focused on the dependent product.
 
 We will close this section with a name for a category that has all dependent products:
 
 \begin{definition}
-  A \index{cartesian closed!locally}\textit{locally cartesian closed} category is a category $ C $ with pullbacks such that each pullback functor $ f^* $ has a right adjoint.
+  A \index{cartesian closed!locally}\textit{locally cartesian closed} category is a category $ \C $ with pullbacks such that each pullback functor $ f^* $ has a right adjoint.
 \end{definition}
 
 Apart from having dependent sums and products, there also is the following theorem that shows the significance of locally cartesian closedness:
 \begin{lemma}\label{lem:locally-cartesian-closed}
-  A category $ C $ is locally cartesian closed iff $ (C \downarrow X) $ is cartesian closed for each $ X : C $.
+  A category $ \C $ is locally cartesian closed iff $ (\C \downarrow X) $ is cartesian closed for each $ X : \C $.
 \end{lemma}
 \begin{proof}
   See the end of Section 1.3 of \autocite{freyd}.
 \end{proof}
 
 \begin{remark}\label{rem:pullback-of-projection}
-  Note that for $ X, Y, Z : C $ and $ f: C(Y, X) $, the following diagram shows that $ f^* \Delta_X Z \cong \Delta_Y Z $:
+  Note that for $ X, Y, Z : \C $ and $ f: \C(Y, X) $, the following diagram shows that $ f^* \Delta_X Z \cong \Delta_Y Z $:
   \begin{center}
     \begin{tikzcd}
       Y \times Z \arrow[d, "p_1"] \arrow[r, "f \times \id Z"] & X \times Z \arrow[d, "p_1"] \arrow[r, "p_2"] & Z \arrow[d, "!"]\\
@@ -452,11 +454,11 @@ Apart from having dependent sums and products, there also is the following theor
 \end{remark}
 
 \begin{lemma}\label{lem:constant-dependent-product}
-  For $ Z, X, Y : C $ and $ p_1 : X \times Y \to X $,
+  For $ Z, X, Y : \C $ and $ p_1 : X \times Y \to X $,
   \[ \prod_{p_1} \Delta_{X \times Y} Z \cong \Delta_X Z^Y \]
 \end{lemma}
 \begin{proof}
-  First of all, note that $ (C \downarrow X \times Y) \cong ((C \downarrow X) \downarrow \Delta_X Y) $. Also note that the composite morphism $ (X \times Y) \times Z \xrightarrow{p_1} X \times Y \xrightarrow{p_1} X $ is the element $ \Delta_X (Z \times Y) : (C \downarrow X) $.
+  First of all, note that $ (\C \downarrow X \times Y) \cong ((\C \downarrow X) \downarrow \Delta_X Y) $. Also note that the composite morphism $ (X \times Y) \times Z \xrightarrow{p_1} X \times Y \xrightarrow{p_1} X $ is the element $ \Delta_X (Z \times Y) : (\C \downarrow X) $.
 
   By Proposition 1.34 in \autocite{freyd}, $ \prod_{p_1} \Delta_{X \times Y} Z $ is given as the following pullback:
   \begin{center}
@@ -466,8 +468,8 @@ Apart from having dependent sums and products, there also is the following theor
     \end{tikzcd}
   \end{center}
 
-  By Lemma \ref{lem:delta-exponentials}, $ \Delta_X $ preserves exponential objects, so the morphism on the right is $ \Delta_X p_1^Y : (C \downarrow X)(\Delta_X (Y \times Z)^Y, \Delta_X Y^Y) $. However, we have an isomorphism $ (Y \times Z)^Y \cong Y^Y \times Y^Z $, and then the morphism on the right becomes
-  \[ \Delta_X p_1 : (C \downarrow X)(\Delta_X(Y^Y \times Y^Z), \Delta_X Y^Y) \]
+  By Lemma \ref{lem:delta-exponentials}, $ \Delta_X $ preserves exponential objects, so the morphism on the right is $ \Delta_X p_1^Y : (\C \downarrow X)(\Delta_X (Y \times Z)^Y, \Delta_X Y^Y) $. However, we have an isomorphism $ (Y \times Z)^Y \cong Y^Y \times Y^Z $, and then the morphism on the right becomes
+  \[ \Delta_X p_1 : (\C \downarrow X)(\Delta_X(Y^Y \times Y^Z), \Delta_X Y^Y) \]
   We also have an isomorphism $ X \cong \Delta_X I $. Then by Lemma \ref{lem:delta-limits} and Remark \ref{rem:pullback-of-projection}, the pullback of this diagram is $ \Delta_X Z^Y $:
   \begin{center}
     \begin{tikzcd}
@@ -484,7 +486,7 @@ Apart from having dependent sums and products, there also is the following theor
 \end{definition}
 
 \begin{definition}
-  Let $ C $ be a category with terminal object $ I $. For an object $ X: C $, a \iindex{global element} of $ X $ is a morphism $ f: C(I, X) $.
+  Let $ \C $ be a category with terminal object $ I $. For an object $ X: \C $, a \iindex{global element} of $ X $ is a morphism $ f: \C(I, X) $.
 \end{definition}
 
 
@@ -495,80 +497,80 @@ One of the most general and abstract concepts in category theory is the concept 
 
 In this thesis, we will use left Kan extension a handful of times. It comes in handy when we want to extend a functor along another functor in the following way:
 
-Let $ A $, $ B $ and $ C $ be categories and let $ F : A \to B $ be a functor.
+Let $ \A $, $ \B $ and $ \C $ be categories and let $ F : \A \to \B $ be a functor.
 \begin{definition}
-  Precomposition gives a functor between functor categories $ F_* : [B, C] \to [A, C] $. If $ F_* $ has a left adjoint, we will denote call this adjoint functor the \textit{left Kan extension}\index{Kan extension!left} along $ F $ and denote it $ \mathrm{Lan}_F : [A, C] \to [B, C] $.
+  Precomposition gives a functor between functor categories $ F_* : [\B, \C] \to [\A, \C] $. If $ F_* $ has a left adjoint, we will denote call this adjoint functor the \textit{left Kan extension}\index{Kan extension!left} along $ F $ and denote it $ \mathrm{Lan}_F : [\A, \C] \to [\B, \C] $.
 
   \begin{center}
     \begin{tikzcd}
-      A \arrow[rr, "F"] \arrow[rd, dashed, "F_* G"'] & & B \arrow[ld, "G"]\\
-      & C
+      \A \arrow[rr, "F"] \arrow[rd, dashed, "F_* G"'] & & \B \arrow[ld, "G"]\\
+      & \C
     \end{tikzcd}
     \qquad
     \begin{tikzcd}
-      A \arrow[rr, "F"] \arrow[rd, "G"'] & & B \arrow[ld, dashed, "\Lan F G"]\\
-      & C
+      \A \arrow[rr, "F"] \arrow[rd, "G"'] & & \B \arrow[ld, dashed, "\Lan F G"]\\
+      & \C
     \end{tikzcd}
   \end{center}
 
-  Analogously, when $ F_* $ has a right adjoint, one calls this the \textit{right Kan extension}\index{Kan extension!right} along $ F $ and denote it $ \mathrm{Ran}_F: [A, C] \to [B, C] $.
+  Analogously, when $ F_* $ has a right adjoint, one calls this the \textit{right Kan extension}\index{Kan extension!right} along $ F $ and denote it $ \mathrm{Ran}_F: [\A, \C] \to [\B, \C] $.
 \end{definition}
 
 If a category has limits (resp. colimits), we can construct the right (resp. left) Kan extension in a `pointwise' fashion (see Theorem X.3.1 in \autocite{MacLane} or Theorem 2.3.3 in \autocite{Kashiwara}). Below, I will outline the parts of the construction that we will need explicitly in this thesis.
 \begin{lemma}
-  If $ C $ has colimits, $ \Lan F {} $ exists.
+  If $ \C $ has colimits, $ \Lan F {} $ exists.
 \end{lemma}
 \begin{proof}
-  First of all, for objects $ b: B $, we take
-  \[ \Lan F G(b) := \text{colim} \left( (F \downarrow b) \to A \xrightarrow G C \right). \]
+  First of all, for objects $ X: \B $, we take
+  \[ (\Lan F G)(X) := \text{colim} \left( (F \downarrow X) \to \A \xrightarrow G \C \right). \]
 
-  Here, $ (F \downarrow b) $ denotes the comma category with as objects the morphisms $ B(F(a), b) $ for all $ a: A $, and as morphisms from $ f: B(F(a), b) $ to $ f^\prime: B(F(a^\prime), b) $ the morphisms $ g: A(a, a^\prime) $ that make the diagram commute:
+  Here, $ (F \downarrow X) $ denotes the comma category with as objects the morphisms $ \B(F(Y), X) $ for all $ Y: \A $, and as morphisms from $ f_1: \B(F(Y_1), X) $ to $ f_2: \B(F(Y_2), X) $ the morphisms $ g: \A(Y_1, Y_2) $ that make the diagram commute:
   \begin{center}
     \begin{tikzcd}
-      F(a) \arrow[rr, "F(g)"] \arrow[rd, "f"'] & & F(a^\prime) \arrow[ld, "f^\prime"]\\
-      & b
+      F(Y_1) \arrow[rr, "F(g)"] \arrow[rd, "f_1"'] & & F(Y_2) \arrow[ld, "f_2"]\\
+      & X
     \end{tikzcd}
   \end{center}
-  and $ (F \downarrow b) \to A $ denotes the projection functor that sends $ f: B(F(a_1), b) $ to $ a_1 $.
+  and $ (F \downarrow X) \to \A $ denotes the projection functor that sends $ f: \B(F(Y), X) $ to $ Y $.
 
-  Now, a morphism $ h: B(b, b^\prime) $ gives a morphism of diagrams, sending the $ F(a) $ corresponding to $ f: B(G(a), b) $ to the $ F(a) $ corresponding to $ f \cdot h: B(G(a), b^\prime) $. From this, we get a morphism $ \Lan F G(h): C(\Lan F G(b), \Lan F G(b^\prime)) $.
+  Now, a morphism $ h: \B(X_1, X_2) $ gives a morphism of diagrams, sending the $ G(Y) $ corresponding to $ f: \B(F(Y), X_1) $ to the $ G(Y) $ corresponding to $ f \cdot h: \B(F(Y), X_2) $. From this, we get a morphism $ (\Lan F G)(h): \C((\Lan F G)(X_1), (\Lan F G)(X_2)) $.
 
-  The unit of the adjunction is a natural transformation $ \eta: \id{[A, C]} \Rightarrow \Lan F {} \bullet F_* $. We will define this pointwise, for $ G: [A, C] $ and $ a: A $. Our diagram contains the $ G(a) $ corresponding to $ \id{F(a)}: (F \downarrow F(a)) $ and the colimit cocone gives a morphism
-  \[ \eta_G(a) : C(G(a), \Lan F G (F(a))), \]
-  the latter being equal to $ (\Lan F {} \bullet F_*)(G)(a) $.
+  The unit of the adjunction is a natural transformation $ \eta: \id{[\A, \C]} \Rightarrow \Lan F {} \bullet F_* $. We will define this pointwise, for $ G: [\A, \C] $ and $ Y: \A $. Our diagram contains the $ G(Y) $ corresponding to $ \id{F(Y)}: (F \downarrow F(Y)) $ and the colimit cocone gives a morphism
+  \[ \eta_G(Y) : \C(G(Y), \Lan F G (F(Y))), \]
+  the latter being equal to $ (\Lan F {} \bullet F_*)(G)(Y) $.
 
-  The counit of the adjunction is a natural transformation $ \epsilon: F_* \bullet \Lan F {} \Rightarrow \id{[B, C]} $. We will also define this pointwise, for $ G: [B, C] $ and $ b: B $. The diagram for $ \Lan F (F_* G)(b) $ consists of $ G(F(a)) $ for all $ f: B(F(a), b) $. Then, by the universal property of the colimit, the morphisms $ G(f): C(G(F(a)), G(b)) $ induce a morphism
-  \[ \epsilon_G(b) : C(\Lan F (F_* G)(b), G(b)). \]
+  The counit of the adjunction is a natural transformation $ \epsilon: F_* \bullet \Lan F {} \Rightarrow \id{[\B, \C]} $. We will also define this pointwise, for $ G: [\B, \C] $ and $ X: \B $. The diagram for $ \Lan F (F_* G)(X) $ consists of $ G(F(Y)) $ for all $ f: \B(F(Y), X) $. Then, by the universal property of the colimit, the morphisms $ G(f): \C(G(F(Y)), G(X)) $ induce a morphism
+  \[ \epsilon_G(X) : \C(\Lan F (F_* G)(X), G(X)). \]
 \end{proof}
 
 \begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.SurjectivePrecomposition}{pre_comp_split_essentially_surjective}]\label{lem:lan-precomp-iso}
-  If $ F : A \to B $ is a fully faithful functor, and $ C $ is a category with colimits, $ \eta: \id{[A, C]} \Rightarrow \Lan F {} \bullet F_* $ is a natural isomorphism.
+  If $ F : \A \to \B $ is a fully faithful functor, and $ \C $ is a category with colimits, $ \eta: \id{[\A, \C]} \Rightarrow \Lan F {} \bullet F_* $ is a natural isomorphism.
 \end{lemma}
 \begin{proof}
-  To show that $ \eta $ is a natural isomorphism, we have to show that $ \eta_G(a^\prime): G(a^\prime) \Rightarrow \Lan F G(F(a^\prime)) $ is an isomorphism for all $ G: [A, C] $ and $ a^\prime: A $. Since a left adjoint is unique up to natural isomorphism (\autocite{CT4P}, Exercise 153), we can assume that $ \Lan F G(F(a^\prime)) $ is given by
-  \[ \text{colim} ((F \downarrow F(a^\prime)) \to A \xrightarrow G C). \]
-  Now, the diagram for this colimit consists of $ G(a) $ for each arrow $ f: B(F(a), F(a^\prime)) $. Since $ F $ is fully faithful, we have $ f = F(\overline f) $ for some $ \overline f: A(a, a^\prime) $. If we now take the arrows $ G(\overline f): C(G(a), G(a^\prime)) $, the universal property of the colimit gives an arrow
-  \[ \varphi: C(\Lan F G(F(a^\prime)), G(a^\prime)) \]
-  which constitutes an inverse to $ \eta_G(a^\prime) $. The proof of this revolves around properties of the colimit and its (induced) morphisms.
+  To show that $ \eta $ is a natural isomorphism, we have to show that $ \eta_G(Y): G(Y) \Rightarrow \Lan F G(F(Y)) $ is an isomorphism for all $ G: [\A, \C] $ and $ Y: \A $. Since a left adjoint is unique up to natural isomorphism (\autocite{CT4P}, Exercise 153), we can assume that $ \Lan F G(F(Y)) $ is given by
+  \[ \text{colim} ((F \downarrow F(Y)) \to \A \xrightarrow G \C). \]
+  Now, the diagram for this colimit consists of $ G(X) $ for each arrow $ f: \B(F(X), F(Y)) $. Since $ F $ is fully faithful, we have $ f = F(\overline f) $ for some $ \overline f: \A(X, Y) $. If we now take the arrows $ G(\overline f): \C(G(X), G(Y)) $, the universal property of the colimit gives an arrow
+  \[ \varphi: \C(\Lan F G(F(Y)), G(Y)) \]
+  which constitutes an inverse to $ \eta_G(Y) $. The proof of this revolves around properties of the colimit and its (induced) morphisms.
 \end{proof}
 
 \begin{remark}
-  In the same way, if $ C $ has limits, $ \epsilon $ is a natural isomorphism.
+  In the same way, if $ \C $ has limits, $ \epsilon $ is a natural isomorphism.
 \end{remark}
 
 \begin{corollary}\label{cor:surjective-precomposition}
-  If $ C $ has limits or colimits, precomposition of functors $ [B, C] $ along a fully faithful functor is (split) essentially surjective.
+  If $ \C $ has limits or colimits, precomposition of functors $ [\B, \C] $ along a fully faithful functor is (split) essentially surjective.
 \end{corollary}
 \begin{proof}
-  For each $ G: [A, C] $ we take $ \Lan F G: [B, C] $, and we have $ F_*(\Lan F G) \cong G $.
+  For each $ G: [\A, \C] $ we take $ \Lan F G: [\B, \C] $, and we have $ F_*(\Lan F G) \cong G $.
 \end{proof}
 
 \begin{corollary}
-  If $ C $ has colimits (resp. limits), left (resp. right) Kan extension of functors $ [A, C] $ along a fully faithful functor is fully faithful.
+  If $ \C $ has colimits (resp. limits), left (resp. right) Kan extension of functors $ [\A, \C] $ along a fully faithful functor is fully faithful.
 \end{corollary}
 \begin{proof}
   Since left Kan extension along $ F $ is the left adjoint to precomposition, we have
-  \[ [A, C](\Lan F G, \Lan F G^\prime) \cong [B, C](G, F_*(\Lan F G^\prime)) \cong [B, C](G, G^\prime). \]
+  \[ [\A, \C](\Lan F G, \Lan F G^\prime) \cong [\B, \C](G, F_*(\Lan F G^\prime)) \cong [\B, \C](G, G^\prime). \]
 \end{proof}
 
 \section{Coends}\label{sec:coends}
@@ -576,31 +578,31 @@ This section is based on Section 1.2 of \autocite{riehl}.
 
 In this thesis, we will encounter co-ends a couple of times, so we will introduce them here.
 \begin{definition}
-  Let $ C, D $ be categories and $ F : \op C \times C \to D $ a functor. We define the \iindex{coend} $ \int^{c : C} F(c, c) $ to be the colimit
+  Let $ \C, \D $ be categories and $ F : \op \C \times \C \to \D $ a functor. We define the \iindex{coend} $ \int^{X : \C} F(X, X) $ to be the colimit
   \begin{center}
     \begin{tikzcd}
-      \displaystyle\coprod_{\substack{f : C(a, b)}} F(b, a)
-        \arrow[r, shift left, "{F(f, \id b)}"]
-        \arrow[r, shift right, "{F(\id a, f)}"'] &
-      \displaystyle\coprod_{c : C} F(c, c)
+      \displaystyle\coprod_{f : \C(Y, Z)} F(Z, Y)
+        \arrow[r, shift left, "{F(f, \id Z)}"]
+        \arrow[r, shift right, "{F(\id Y, f)}"'] &
+      \displaystyle\coprod_{X : \C} F(X, X)
         \arrow[r, dashed] &
-      \displaystyle\int^C F
+      \displaystyle\int^\C F
     \end{tikzcd}
   \end{center}
 \end{definition}
 
 \begin{remark}
-  An alternative way to phrase this, is that $ \int^C F : D $ is an object, equipped with arrows $ F(c, c) \to \int^C F $ such that for all $ f: C(a, b) $, the following diagram must commute
+  An alternative way to phrase this, is that $ \int^\C F : \D $ is an object, equipped with arrows $ F(X, X) \to \int^\C F $ such that for all $ f: \C(Y, Z) $, the following diagram must commute
   \begin{center}
     \begin{tikzcd}
-      F(b, a) \arrow[r, "{F(f, \id a)}"] \arrow[d, "{F(\id b, f)}"] & F(a, a) \arrow[d]\\
-      F(b, b) \arrow[r] & \int^C F
+      F(Z, Y) \arrow[r, "{F(f, \id Y)}"] \arrow[d, "{F(\id Z, f)}"] & F(Y, Y) \arrow[d]\\
+      F(Z, Z) \arrow[r] & \int^\C F
     \end{tikzcd}
   \end{center}
-  and such that for any other $ G : D $ with the same properties, we have a unique morphism $ \int_C F \to G $, making the triangles commute
+  and such that for any other $ G : \D $ with the same properties, we have a unique morphism $ \int_\C F \to G $, making the triangles commute
   \begin{center}
     \begin{tikzcd}
-      F(c, c) \arrow[r] \arrow[rd] & \int_C F \arrow[d]\\
+      F(X, X) \arrow[r] \arrow[rd] & \int_\C F \arrow[d]\\
       & G
     \end{tikzcd}
   \end{center}
@@ -612,34 +614,34 @@ In this thesis, we will encounter co-ends a couple of times, so we will introduc
 
 \begin{remark}
   Left Kan extension can be expressed as a coend:
-  \[ \Lan F G(b) = \int^{a : A} D(F a, b) \cdot G a \]
-  where $ S \cdot X $ for $ S $ a set and $ X : C $ denotes the `copower', which in most cases can be defined as
-  \[ S \cdot X = \coprod_{s : S} X. \]
+  \[ \Lan F G(Y) = \int^{X : \A} \D(F a, Y) \cdot G X \]
+  where $ S \cdot Z $ for $ S $ a set and $ Z : \C $ denotes the `copower', which intuitively acts as the $ S $-fold coproduct:
+  \[ S \cdot Z = \coprod_{s : S} Z. \]
 \end{remark}
 
 
 \section{Monoids as categories}\label{sec:monoid-category}
 Take a monoid $ M $.
 \begin{definition}[\coqident{CategoryTheory.Categories.MonoidToCategory}{monoid_to_category_ob}]
-  We can construct a category $ C_M $ with $ C_{M0} = \{ \star \} $, $ C_M(\star, \star) = M $. The identity morphism on $ \star $ is the identity $ 1: M $. The composition is given by multiplication $ g \cdot_{C_M} f = f \cdot_M g $.
+  We can construct a category $ \C_M $ with $ \C_{M0} = \{ \star \} $, $ \C_M(\star, \star) = M $. The identity morphism on $ \star $ is the identity $ 1: M $. The composition is given by multiplication $ g \cdot_{\C_M} f = f \cdot_M g $.
 \end{definition}
 
 \begin{remark}[\coqident{CategoryTheory.Categories.MonoidToCategory}{monoid_to_category}]
   Actually, we have a functor from the category of monoids to the category of setcategories (categories whose object type is a set).
 
-  A monoid morphism $ f: M \to M^\prime $ is equivalent to a functor $ F_f: C_M \to C_{M^\prime} $. Any functor between $ C_M $ and $ C_{M^\prime} $ sends $ \star_M $ to $ \star_{M^\prime} $. The monoid morphism manifests as $ F_f(m) = f(m) $ for $ m: C_M(\star, \star) = M $.
+  A monoid morphism $ f: M \to N $ is equivalent to a functor $ F_f: \C_M \to \C_N $. Any functor $ F_f : \C_M \to \C_N $ sends $ \star_M $ to $ \star_N $ and corresponds to the monoid morphism as $ F_f(m) = f(m) $ for $ m: \C_M(\star, \star) = M $.
 \end{remark}
 
 \begin{lemma}
   An isomorphism of monoids gives an (adjoint) equivalence of categories.
 \end{lemma}
 \begin{proof}
-  Given an isomorphism $ f: M \to M^\prime $. Then we have functors $ F_f: C_M \to C_{M^\prime} $ and $ F_{f^{-1}}: C_{M^\prime} \to C_M $. Take the identity natural transformations $ \eta: \id{C_M} \Rightarrow F_f \bullet F_{f^{-1}} $ and $ \epsilon: F_{f^{-1}} \bullet F_f \Rightarrow \id{C_{M^\prime}} $. Of course these are natural isomorphisms.
+  Given an isomorphism $ f: M \xrightarrow \sim N $, we have functors $ F_f: \C_M \to \C_N $ and $ F_{f^{-1}}: \C_N \to \C_M $. Take the identity natural transformations $ \eta: \id{\C_M} \Rightarrow F_f \bullet F_{f^{-1}} $ and $ \epsilon: F_{f^{-1}} \bullet F_f \Rightarrow \id{\C_N} $. Of course these are natural isomorphisms.
 \end{proof}
 
 \begin{definition}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.MonoidActions}{monoid_action}]
-  A \textit{right monoid action}\index{monoid action} of $ M $ on a set $ X $ is a function $ X \times M \to X $ such that for all $ x: X $, $ m, m^\prime: M $,
-  \[ x 1 = x \qquad \text{and} \qquad (x m) m^\prime = x (m \cdot m^\prime). \]
+  A \textit{right monoid action}\index{monoid action} of $ M $ on a set $ X $ is a function $ X \times M \to X $ such that for all $ x: X $, $ m, n: M $,
+  \[ x 1 = x \qquad \text{and} \qquad (x m) n = x (m \cdot n). \]
 \end{definition}
 
 \begin{definition}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.MonoidActions}{monoid_action_morphism}]
@@ -649,119 +651,119 @@ Take a monoid $ M $.
 These, together with the identity and composition from $ \SET $, constitute a category \iindex{$ \RAct M $} of right $ M $-actions (\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.MonoidActions}{monoid_action_cat}).
 
 \begin{lemma}[\coqident{CategoryTheory.Categories.MonoidToCategory}{monoid_presheaf_action_equivalence}]
-  Presheaves on $ C_M $ are equivalent to sets with a right $ M $-action.
+  There is an adjoint equivalence between the presheaf category $ P \C_M $ and $ \RAct M $.
 \end{lemma}
 \begin{proof}
   This correspondence sends a presheaf $ F $ to the set $ F(\star) $, and conversely, the set $ X $ to the presheaf $ F $ given by $ F(\star) := X $. The $ M $-action corresponds to the presheaf acting on morphisms as $ xm = F(m)(x) $. A morphism (natural transformation) between presheaves $ F \Rightarrow G $ corresponds to a function $ F(\star) \to G(\star) $ that is $ M $-equivariant, which is exactly a monoid action morphism.
 \end{proof}
 
 \begin{remark}
-  Since the category of sets with an $ M $-action is equivalent to a presheaf category, it has all limits. However, we can make this concrete. The set of the product $ \prod_i X_i $ is the product of the underlying sets. The action is given pointwise by $ (x_i)_i m = (x_i m)_i $.
+  Since $ \RAct M $ is equivalent to a presheaf category, it has all limits. However, we can make this concrete. The set of the product $ \prod_i X_i $ is the product of the underlying sets. The action is given pointwise by $ (x_i)_i m = (x_i m)_i $.
 \end{remark}
 
 Note that the terminal set with $ M $-action is $ \{ \star \} $, with action $ \star m = \star $ (\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.MonoidActions}{terminal_monoid_action}).
 
 \begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.MonoidActions}{monoid_action_global_element_fixpoint_iso}]\label{lem:global-action-elements}
-  The global elements of a set with right $ M $-action correspond to the elements that are invariant under the $ M $-action.
+  The global elements of $ X : \RAct M $ correspond to $ x : X $ that are invariant under the $ M $-action.
 \end{lemma}
 \begin{proof}
-  A global element of $ X $ is a morphism $ \varphi: \{ \star \} \to X $ such that for all $ m: M $, $ \varphi(\star)m = \varphi(\star m) = \varphi(\star) $. Therefore, it is given precisely by the element $ \varphi(\star): X $, which must be invariant under the $ M $-action.
+  A global element of $ X $ is a morphism $ f: \{ \star \} \to X $ such that for all $ m: M $, $ f(\star)m = f(\star m) = f(\star) $. Therefore, it is given precisely by the element $ f(\star): X $, which must be invariant under the $ M $-action.
 \end{proof}
 
 \begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.MonoidActions}{is_exponentiable_monoid_action}]
-  The category $ C $ of sets with an $ M $-action has exponentials.
+  The category $ \RAct M $ has exponentials.
 \end{lemma}
 \begin{proof}
-  Given sets with $ M $-action $ X $ and $ Y $. Consider the set $ C(M \times X, Y) $ with an $ M $-action given by $ \phi m^\prime(m, x) = \phi(m^\prime m, x) $. This is the exponential object $ X^Y $, with the (universal) evaluation morphism $ X \times X^Y \to Y $ given by $ (x, \phi) \mapsto \phi(1, x) $. Explicitly, we get a natural isomorphism $ \psi: \RAct M(Z \times Y, X) \xrightarrow \sim \RAct M(Z, X^Y) $ given by
+  Given $ X, Y : \RAct M $. Consider the set $ \C(M \times X, Y) $ with an $ M $-action given by $ (f m^\prime)(m, x) = f(m^\prime m, x) $ for $ f : \C(M \times X, Y) $. This is the exponential object $ X^Y $, with the (universal) evaluation morphism $ X \times X^Y \to Y $ given by $ (x, f) \mapsto f(1, x) $. Explicitly, we get a natural isomorphism $ \psi: \RAct M(Z \times Y, X) \xrightarrow \sim \RAct M(Z, X^Y) $ given by
   \[ \psi(f)(z)(m, y) = f(z m, y) \quad \text{and} \quad \psi^{-1}(g)(z, y) = g(z)(1, y). \]
 \end{proof}
 
 \begin{definition}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.MonoidActions}{monoid_monoid_action}]
-  We can view $ M $ as a set $ U_M $ with right $ M $-action $ m n = m \cdot n $ for $ m: U_M $ and $ n: M $. Note that this is the Yoneda embedding of the object $ \star : C_M $.
+  We can view $ M $ as a set $ U_M $ with right $ M $-action $ m n = m \cdot n $ for $ m: U_M $ and $ n: M $. Note that $ U_M $ is the Yoneda embedding of the object $ \star : \C_M $.
 \end{definition}
 
 \subsection{Extension and restriction of scalars}
 
-Let $ \varphi: M \to M^\prime $ be a morphism of monoids.
+Let $ f: M \to N $ be a morphism of monoids.
 
-Remember that sets with a right monoid action are equivalent to presheaves on the monoid category. Also, $ \varphi $ is equivalent to a functor between the monoid categories. The following is a specific case of the concepts in the section about Kan extension:
+Remember that $ \RAct M $ is equivalent to the functor category $ P \C_M $. Also, $ f $ is equivalent to a functor $ F_f : \C_M \to \C_N $. The following is a specific case of the concepts in the section about Kan extension:
 
 \begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.MonoidActions}{scalar_restriction_functor}]
-  We get a \iindex{restriction of scalars} functor $ \varphi^* $ from sets with a right $ M^\prime $-action to sets with a right $ M $-action.
+  We get a \iindex{restriction of scalars} functor $ f^* : \RAct N \to \RAct M $.
 \end{lemma}
 \begin{proof}
-  Given a set $ X $ with right $ M^\prime $-action, take the set $ X $ again, and give it a right $ M $-action, sending $ (x, m) $ to $ x \varphi(m) $.
+  Given a set $ X $ with right $ N $-action, take the set $ X $ again, and give it a right $ M $-action, sending $ (x, m) $ to $ x f(m) $.
 
-  On morphisms, send an $ M^\prime $-equivariant morphism $ f: X \to X^\prime $ to the $ M $-equivariant morphism $ f: X \to X^\prime $.
+  On morphisms, send an $ N $-equivariant morphism $ f: X \to Y $ to the $ M $-equivariant morphism $ f: X \to Y $.
 \end{proof}
 
-Since $ \SET $ has colimits, and restriction of scalars corresponds to precomposition of presheaves (on $ C_{M^\prime} $), we can give it a left adjoint. This is the (pointwise) left Kan extension, which boils down to a very concrete definition, reminiscent of a tensor product:
+Since $ \SET $ has colimits, and restriction of scalars corresponds to precomposition of $ \C_{N} $-presheaves, we can give it a left adjoint. This is the (pointwise) left Kan extension, which boils down to a very concrete definition, reminiscent of a tensor product:
 
 \begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.MonoidActions}{scalar_extension_functor}]\label{lem:scalar-extension}
-  We get an \iindex{extension of scalars} functor $ \varphi_* $ from sets with a right $ M $-action to sets with a right $ M^\prime $-action.
+  We get an \iindex{extension of scalars} functor $ f_* : \RAct M \to \RAct N $.
 \end{lemma}
 \begin{proof}
-  Given a set $ X $ with right $ M $-action. Take $ Y = X \times M^\prime / \sim $ with the relation $ (x m, m^\prime) \sim (x, \varphi(m) \cdot m^\prime) $ for $ m: M $. This has a right $ M^\prime $-action given by $ (x, m^\prime)n^\prime = (x, m^\prime n^\prime) $.
+  Given $ X : \RAct M $, take $ Y = X \times N / \sim $ with the relation $ (x m, n) \sim (x, f(m) \cdot n) $ for $ m: M $. This has a right $ N $-action given by $ (x, n_1)n_2 = (x, n_1 n_2) $.
 
-  On morphisms, it sends the $ m $-equivariant $ f: X \to X^\prime $ to the morphism $ (x, m^\prime) \mapsto (f(x), m^\prime) $.
+  On morphisms, it sends the $ m $-equivariant $ f: X \to X^\prime $ to the morphism $ (x, n) \mapsto (f(x), n) $.
 \end{proof}
 
 \begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.MonoidActions}{scalar_extension_preserves_monoid_monoid_action}]\label{lem:scalar-extension-monoid-monoid-action}
-  For $ U_M $ the set $ M $ with right $ M $-action, we have $ \varphi_*(U_M) \cong U_{M^\prime} $.
+  For $ U_M $ the set $ M $ with right $ M $-action, we have $ f_*(U_M) \cong U_{N} $.
 \end{lemma}
 \begin{proof}
-  The proof relies on the fact that for all $ m: U_M $ and $ m^\prime : M^\prime $, we have
-  \[ (m, m^\prime) \sim (1, \varphi(m) m^\prime). \]
+  The proof relies on the fact that for all $ m: U_M $ and $ n : N $, we have
+  \[ (m, n) \sim (1, f(m) n). \]
 \end{proof}
 
-Consider the category $ D $ with $ D_0 = M^\prime $ and
-\[ D(m^\prime, \overline m^\prime) = \{ m: M \mid \varphi(m) \cdot m^\prime = \overline m^\prime \}. \]
+Consider the category $ \D $ with $ \D_0 = N $ and
+\[ \D(n_1, n_2) = \{ m: M \mid f(m) \cdot n_1 = n_2 \}. \]
 
 \begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.MonoidActions}{scalar_extension_preserves_terminal}]\label{lem:scalar-extension-terminal}
-  Suppose that $ D $ has a weakly terminal element. Then for $ I_M $ the terminal object in the category of sets with a right $ M $-action, we have $ \varphi_*(I_M) \cong I_{M^\prime} $.
+  Suppose that $ \D $ has a weakly terminal element. Then for $ I_M : \RAct M $ the terminal object, we have $ f_*(I_M) \cong I_{N} $.
 \end{lemma}
 \begin{proof}
-  If $ D $ has a weakly terminal object, there exists $ m_0 : M^\prime $ such that for all $ m^\prime: M^\prime $, there exists $ m: M $ such that $ \varphi(m) \cdot m^\prime = m_0 $.
+  If $ \D $ has a weakly terminal object, there exists $ n_0 : N $ such that for all $ n: N $, there exists $ m: M $ such that $ f(m) \cdot n = n_0 $.
 
-  The proof relies on the fact that every element of $ \varphi_*(I_M) $ is given by some $ (\star, m^\prime) $, but then
-  \[ (\star, m^\prime) = (\star \cdot m, m^\prime) \sim (\star, \varphi(m) \cdot m^\prime) = (\star, m_0), \]
-  so $ \varphi_*(I_M) $ has exactly $ 1 $ element.
+  The proof then relies on the fact that every element of $ f_*(I_M) $ is given by some $ (\star, n) $, but then there exists some $ m : M $ such that
+  \[ (\star, n) = (\star \cdot m, n) \sim (\star, f(m) \cdot n) = (\star, n_0), \]
+  so $ f_*(I_M) $ has exactly $ 1 $ element.
 \end{proof}
 
 \begin{remark}
-  For $ \varphi_* $ to preserve terminal objects, we actually only need $ D $ to be connected. The fact that $ \varphi_*(I_M) $ is a quotient by a symmetric and transitive relation then allows us to `walk' from any $ (\star, m^\prime_1) $ to any other $ (\star, m^\prime_2) $ in small steps.
+  For $ f_* $ to preserve terminal objects, we actually only need $ \D $ to be connected. The fact that $ f_*(I_M) $ is a quotient by a symmetric and transitive relation then allows us to `walk' from any $ (\star, n_1) $ to any other $ (\star, n_2) $ in small steps.
 \end{remark}
 
-For any $ m^\prime_1, m^\prime_2: M^\prime $, consider the category $ D_{m^\prime_1, m^\prime_2} $, given by
-\[ D_{m^\prime_1, m^\prime_2, 0} = \{ (m^\prime, m_1, m_2): M^\prime \times M \times M \mid m_i^\prime = \varphi(m_i) \cdot m^\prime \} \]
+For any $ n_1, n_2: N $, consider the category $ \D_{n_1, n_2} $, given by
+\[ \D_{n_1, n_2, 0} = \{ (n, m_1, m_2): N \times M \times M \mid n_i = f(m_i) \cdot n \} \]
 and
-\[ D_{m^\prime_1, m^\prime_2}((m^\prime, m_1, m_2), (\overline m^\prime, \overline m_1, \overline m_2)) = \{ m: M \mid \varphi(m) \cdot m^\prime = \overline m^\prime, m_i = \overline m_i \cdot m \}. \]
+\[ \D_{n_1, n_2}((n, m_1, m_2), (\overline n, \overline m_1, \overline m_2)) = \{ m: M \mid f(m) \cdot n = \overline n, m_i = \overline m_i \cdot m \}. \]
 
 \begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.MonoidActions}{scalar_extension_preserves_binproducts}]\label{lem:scalar-extension-product}
-  Suppose that $ D_{m^\prime_1, m^\prime_2} $ has a weakly terminal object for all $ m^\prime_1, m^\prime_2: M^\prime $. Then for sets $ A $ and $ B $ with right $ M $-action, we have $ \varphi_*(A \times B) \cong \varphi_*(A) \times \varphi_*(B) $.
+  Suppose that $ \D_{n_1, n_2} $ has a weakly terminal object for all $ n_1, n_2: N $. Then for $ X, Y : \RAct M $, we have $ f_*(X \times Y) \cong f_*(X) \times f_*(Y) $.
 \end{lemma}
 \begin{proof}
-  Now, any element in $ \varphi_*(A) \times \varphi_*(B) = (A \times M^\prime / \sim) \times (B \times M^\prime / \sim) $ is given by some $ (a, m^\prime_1, b, m^\prime_2) $.
+  Now, any element in $ f_*(X) \times f_*(Y) = (X \times N / \sim) \times (Y \times N / \sim) $ is given by some $ (a, n_1, b, n_2) $.
 
-  The fact that $ D_{m^\prime_1, m^\prime_2} $ has a weakly terminal object means that we have some $ \overline m^\prime: M^\prime $ and $ \overline m_1, \overline m_2: M $ with $ m_i^\prime = \varphi(\overline m_i) \cdot \overline m^\prime $. Therefore,
-  \[ (a, m^\prime_1, b, m^\prime_2) = (a, \varphi(\overline m_1) \cdot \overline m^\prime, b, \varphi(\overline m_2) \cdot \overline m^\prime) \sim (a \overline m_1, \overline m^\prime, b \overline m_2, \overline m^\prime), \]
-  so this is equivalent to some element in $ \varphi_*(A \times B) = (A \times B \times M^\prime / \sim) $. Note that this trivially respects the right $ M^\prime $-action.
+  The fact that $ \D_{n_1, n_2} $ has a weakly terminal object means that we have some $ \overline n: N $ and $ \overline m_1, \overline m_2: M $ with $ n_i = f(\overline m_i) \cdot \overline n $. Therefore,
+  \[ (a, n_1, b, n_2) = (a, f(\overline m_1) \cdot \overline n, b, f(\overline m_2) \cdot \overline n) \sim (a \overline m_1, \overline n, b \overline m_2, \overline n), \]
+  so this is equivalent to $ (a \overline m_1, b \overline m_2, \overline n) : f_*(X \times Y) $. Note that this trivially respects the right $ N $-action.
 
-  The fact that $ (\overline m^\prime, \overline m_1, \overline m_2) $ is weakly terminal also means that for all $ m^\prime: M^\prime $ and $ m_1, m_2: M $ with $ m_i^\prime = \varphi(m_i) \cdot m^\prime $, there exists $ m: M $ such that $ \varphi(m) \cdot m^\prime = \overline m^\prime $ and $ m_i = \overline m_i \cdot m $. This means that the equivalence that we established is actually well-defined: equivalent elements in $ \varphi_*(A) \times \varphi_*(B) $ are sent to equivalent elements in $ \varphi_*(A \times B) $.
+  The fact that $ (\overline n, \overline m_1, \overline m_2) $ is weakly terminal also means that for all $ n: N $ and $ m_1, m_2: M $ with $ n_i = f(m_i) \cdot n $, there exists $ m: M $ such that $ f(m) \cdot n = \overline n $ and $ m_i = \overline m_i \cdot m $. This means that the equivalence that we established is actually well-defined: equivalent elements in $ f_*(X) \times f_*(Y) $ are sent to equivalent elements in $ f_*(X \times Y) $.
 
-  Therefore, we have an isomorphism $ \psi: \varphi^*(A) \times \varphi^*(B) \xrightarrow{\sim} \varphi^*(A \times B) $. Now we only need to show that the projections are preserved by this isomorphism. To that end, take $ x = (a, m^\prime_1, b, m^\prime_2) \sim (a \overline m_1, \overline m^\prime, b \overline m_2, \overline m^\prime) : \varphi^*(A) \times \varphi^*(B) $. We have
-  \[ \varphi^*(\pi_1)(\psi(x)) = (a \overline m_1, \overline m^\prime) = \pi^\prime_1(x). \]
-  In the same way, $ \varphi^*(\pi_2) \circ \psi = \pi^\prime_2 $ and this concludes the proof.
+  Therefore, we have an isomorphism $ \psi: f^*(X) \times f^*(Y) \xrightarrow{\sim} f^*(X \times Y) $. Now we only need to show that the projections are preserved by this isomorphism. To that end, take $ x = (a, n_1, b, n_2) \sim (a \overline m_1, \overline n, b \overline m_2, \overline n) : f^*(X) \times f^*(Y) $. We have
+  \[ f^*(\pi_1)(\psi(x)) = (a \overline m_1, \overline n) = \pi^\prime_1(x). \]
+  In the same way, $ f^*(\pi_2) \circ \psi = \pi^\prime_2 $ and this concludes the proof.
 \end{proof}
 
 
 \section{The Karoubi envelope}
-Let $ C $ be a category and $ X, Y : C $ objects. We will denote the type of section-retraction pairs of $ Y $ onto $ X $ with
-\[ X \triangleleft Y := \sum_{r : C(Y, X)} \sum_{s : C(X, Y)} s \cdot r = \id X. \]
-Now, note that for $ (r, s) : X \triangleleft Y $, $ r \cdot s: C(Y, Y) $ is an idempotent morphism, since $ r \cdot s \cdot r \cdot s = r \cdot s $. We can also wonder whether for an idempotent morphism $ f: C(X, X) $, we can find some $ Y : C $ and some $ (r, s) : X \triangleleft Y $ such that $ f = r \cdot s $. If this is the case, we say that the idempotent $ f $ \textit{splits}\index{split idempotent}. If $ f $ does not split, we can wonder whether we can find an embedding $ \iota_C : C \hookrightarrow \overline C $ into some category $ \overline C $ such that the idempotent $ \iota_C(f): \overline C(\iota_C(X), \iota_C(X)) $ does split. This is one way to arrive at the \textit{Karoubi envelope}:
+Let $ \C $ be a category and $ X, Y : \C $ objects. We will denote the type of section-retraction pairs of $ Y $ onto $ X $ with
+\[ X \triangleleft Y := \sum_{r : \C(Y, X)} \sum_{s : \C(X, Y)} s \cdot r = \id X. \]
+Now, note that for $ (r, s) : X \triangleleft Y $, $ r \cdot s: \C(Y, Y) $ is an idempotent morphism, since $ r \cdot s \cdot r \cdot s = r \cdot s $. We can also wonder whether for an idempotent morphism $ f: \C(X, X) $, we can find some $ Y : \C $ and some $ (r, s) : X \triangleleft Y $ such that $ f = r \cdot s $. If this is the case, we say that the idempotent $ f $ \textit{splits}\index{split idempotent}. If $ f $ does not split, we can wonder whether we can find an embedding $ \iota_\C : \C \hookrightarrow \overline \C $ into some category $ \overline \C $ such that the idempotent $ \iota_\C(f): \overline \C(\iota_\C(X), \iota_\C(X)) $ does split. This is one way to arrive at the \textit{Karoubi envelope}:
 
 \begin{definition}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_envelope}]
-  We define the category $ \overline C $. The objects of $ \overline C $ are tuples $ (X, f) $ with $ X: C $, $ f: C(X, X) $ such that $ f \cdot f = f $. The morphisms between $ (X_1, f_1) $ and $ (X_2, f_2) $ are morphisms $ g: C(X_1, X_2) $ such that $ f_1 \cdot g \cdot f_2 = g $. This can be summarized in the following diagram:
+  We define the category $ \overline \C $. The objects of $ \overline \C $ are tuples $ (X, f) $ with $ X: \C $, $ f: \C(X, X) $ such that $ f \cdot f = f $. The morphisms between $ (X_1, f_1) $ and $ (X_2, f_2) $ are morphisms $ g: \C(X_1, X_2) $ such that $ f_1 \cdot g \cdot f_2 = g $. This can be summarized in the following diagram:
   \begin{center}
     \begin{tikzcd}
       X_1
@@ -771,75 +773,75 @@ Now, note that for $ (r, s) : X \triangleleft Y $, $ r \cdot s: C(Y, Y) $ is an 
         \arrow["f_2"', loop, distance=2em, in=30, out=-30]
     \end{tikzcd}
   \end{center}
-  The identity morphism on $ (X, f) $ is given by $ f $ and $ \overline C $ inherits morphism composition from $ C $.
+  The identity morphism on $ (X, f) $ is given by $ f $ and $ \overline \C $ inherits morphism composition from $ \C $.
 \end{definition}
-This category is called the \iindex{Karoubi envelope}, the \textit{idempotent completion}\index{idempotent completion|see{Karoubi envelope}}, the \textit{category of retracts}\index{category of retracts|see{Karoubi envelope}}, or the \textit{Cauchy completion}\index{Cauchy completion|see{Karoubi envelope}} of $ C $.
+This category is called the \iindex{Karoubi envelope}, the \textit{idempotent completion}\index{idempotent completion|see{Karoubi envelope}}, the \textit{category of retracts}\index{category of retracts|see{Karoubi envelope}}, or the \textit{Cauchy completion}\index{Cauchy completion|see{Karoubi envelope}} of $ \C $.
 
 \begin{remark}
-  Note that for a morphism $ f: \overline C((c, a), (d, b)) $,
+  Note that for a morphism $ f: \overline \C((X, a), (Y, b)) $,
   \[ a \cdot f = a \cdot a \cdot f \cdot b = a \cdot f \cdot b = f \]
   and in the same way, $ f \cdot b = f $.
 \end{remark}
 
 \begin{definition}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_envelope_inclusion}]
-  We have an embedding $ \iota_C: C \to \overline C $, sending $ c: C $ to $ (c, \id{c}) $ and $ f: C(c, d) $ to $ f $.
+  We have an embedding $ \iota_\C: \C \to \overline \C $, sending $ X: \C $ to $ (X, \id{X}) $ and $ f: \C(X, Y) $ to $ f $.
 \end{definition}
 
 \begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_envelope_is_retract}]\label{lem:karoubi-is-retract}
-  Every object $ c: \overline C $ is a retract of $ \iota_C(c_0) $ for some $ c_0: C $.
+  Every object $ X: \overline \C $ is a retract of $ \iota_\C(Y) $ for some $ Y: \C $.
 \end{lemma}
 \begin{proof}
-  Note that $ c = (c_0, a) $ for some $ c_0: C $ and an idempotent $ a: c \to c $. We have
-  \[ (a, a) : (c, a) \triangleleft \iota_C(c), \]
-  since $ a \cdot a = a = \id{(c, a)} $, so $ (c, a) $ is a retract of $ \iota_C(c) $.
+  Note that $ X = (Y, a) $ for some $ Y: \C $ and an idempotent $ a: Y \to Y $. We have
+  \[ (a, a) : (Y, a) \triangleleft \iota_\C(Y), \]
+  since $ a \cdot a = a = \id{X} $, so $ X $ is a retract of $ \iota_\C(Y) $.
 \end{proof}
 
 \begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_envelope_idempotent_splits}]
-  In $ \overline C $, every idempotent splits.
+  In $ \overline \C $, every idempotent splits.
 \end{lemma}
 \begin{proof}
-  Take an idempotent $ e: \overline C(c, c) $. Note that $ c $ is given by an object $ c_0: C $ and an idempotent $ a: C(c_0, c_0) $. Also, $ e $ is given by some idempotent $ e: C(c_0, c_0) $ with $ a \cdot e \cdot a = e $.
+  Take an idempotent $ f: \overline \C(X, X) $. Note that $ X $ is given by an object $ Y: \C $ and an idempotent $ a: \C(Y, Y) $. Also, $ f $ is given by some idempotent $ f: \C(Y, Y) $ with $ a \cdot f \cdot a = f $.
 
-  Now, we have $ (c_0, e): \overline C $ and
-  \[ (e, e) : (c_0, e) \triangleleft (c_0, a), \]
-  because $ e \cdot e = e = \id{(c_0, e)} $. Also, $ e = e \cdot e $, so $ e $ is split.
+  Now, we have $ (Y, f): \overline \C $ and
+  \[ (f, f) : (Y, f) \triangleleft X, \]
+  because $ f \cdot f = f = \id{(Y, f)} $. Also, $ f = f \cdot f $, so $ f $ is split.
 \end{proof}
 
 \begin{remark}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_envelope_inclusion_fully_faithful}]
-  Note that $ \iota_C $ is fully faithful, since
-  \[ \overline C((c, \id c), (d, \id d)) = \{ f: C(c, d) \mid \id c \cdot f \cdot \id d = f \} = C(c, d). \]
+  Note that $ \iota_\C $ is fully faithful, since
+  \[ \overline \C((X, \id X), (Y, \id Y)) = \{ f: \C(X, Y) \mid \id X \cdot f \cdot \id Y = f \} = \C(X, Y). \]
 \end{remark}
 
 \begin{remark}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{retract_functor_is_equalizer}, \coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{retract_functor_is_coequalizer}]\label{rem:retract-coequalizer}
-  Let $ D $ be a category and suppose that we have two objects $ d, d^\prime : D $ and a retraction
-  \[ (r, s) : d^\prime \triangleleft d. \]
-  Then $ d^\prime $ is the equalizer of \begin{tikzcd}
-    d \arrow[r, shift left, "\id d"] \arrow[r, shift right, "r \cdot s"'] & d \end{tikzcd} in the following way:
+  Let $ \D $ be a category and suppose that we have two objects $ X, Y : \D $ and a retraction
+  \[ (r, s) : Y \triangleleft X. \]
+  Then $ Y $ is the equalizer of \begin{tikzcd}
+    X \arrow[r, shift left, "\id X"] \arrow[r, shift right, "r \cdot s"'] & X \end{tikzcd} in the following way:
 
-  Suppose that we have an object $ c: D $ and a morphism $ f $ with $ (r \cdot s) \cdot f = f $. Then we get a morphism $ s \cdot f: D(d^\prime, c) $ such that $ f $ factors as $ r \cdot (s \cdot f) $. Also, for any $ g: D(d^\prime, c) $ with $ r \cdot g = f $, we have $ g = s \cdot r \cdot g = s \cdot f $:
+  Suppose that we have an object $ Z: \D $ and a morphism $ f $ with $ (r \cdot s) \cdot f = f $. Then $ f $ factors as $ r \cdot (s \cdot f) $. Also, for any $ g: \D(Y, Z) $ with $ r \cdot g = f $, we have $ g = s \cdot r \cdot g = s \cdot f $:
   \begin{center}
     \begin{tikzcd}
-      d \arrow[r, left, "r"] \arrow[rd, "f"'] & d^\prime \arrow[r, "s"] \arrow[d, "s \cdot f" description] & d \arrow[ld, "f"]\\
-      & c
+      X \arrow[r, left, "r"] \arrow[rd, "f"'] & Y \arrow[r, "s"] \arrow[d, "s \cdot f" description] & X \arrow[ld, "f"]\\
+      & Z
     \end{tikzcd}.
   \end{center}
 
-  In a similar way, $ d^\prime $ is also the coequalizer of the given diagram.
+  In a similar way, $ Y $ is also the coequalizer of the given diagram.
 
-  Now, note that if we have a coequalizer $ c^\prime $ of $ \id c $ and $ a $, and an equalizer $ d^\prime $ of $ \id d $ and $ b $, the universal properties of these give an equivalence
-  \[ D(c^\prime, d^\prime) \cong \{ f: D(c, d^\prime) \mid a \cdot f = f \} \cong \{ f: D(c, d) \mid a \cdot f = f = f \cdot b \}. \]
+  Now, note that if we have a coequalizer $ W $ of $ \id Z $ and $ a $, and an equalizer $ Y $ of $ \id X $ and $ b $ (in particular, if $ W $ and $ Y $ are retracts), the universal properties of these give an equivalence
+  \[ \D(W, Y) \cong \{ f: \D(Z, Y) \mid a \cdot f = f \} \cong \{ f: \D(Z, X) \mid a \cdot f = f = f \cdot b \}. \]
   \begin{center}
     \begin{tikzcd}
-      c \arrow[r, shift left, "\id c"] \arrow[r, shift right, "a"'] & c \arrow[r] \arrow[d] \arrow[rd] & c^\prime \arrow[d]\\
-      d & d \arrow[l, shift right, "\id d"'] \arrow[l, shift left, "b"] & d^\prime \arrow[l]
+      Z \arrow[r, shift left, "\id Z"] \arrow[r, shift right, "a"'] & Z \arrow[r] \arrow[d] \arrow[rd] & W \arrow[d]\\
+      X & X \arrow[l, shift left, "\id X"] \arrow[l, shift right, "b"'] & Y \arrow[l]
     \end{tikzcd}
   \end{center}
 \end{remark}
 
-Besides $ \overline C $, there is also another (classically equivalent) definition of the Karoubi envelope. An object in this alternative category is a presheaf $ F : PC $ that is a retract of the Yoneda embedding $ \yo(X) $ of an object $ X : C $. Note that there are two different ways to translate this to univalent foundations. We can either interpret the existence of the object $ X $ and the retraction $ (r, s) : F \triangleleft \yo(X) $ as additional \textit{structure} on $ F $, or we can treat it as a \textit{property} and ask for \textit{mere existence} (see Definition \ref{def:mere-existence}) of $ X $, $ r $ and $ s $. This gives rise to two different categories:
+Besides $ \overline \C $, there is also another (classically equivalent) definition of the Karoubi envelope. An object in this alternative category is a presheaf $ F : P\C $ that is a retract of the Yoneda embedding $ \yo(X) $ of an object $ X : \C $. Note that there are two different ways to translate this to univalent foundations. We can either interpret the existence of the object $ X $ and the retraction $ (r, s) : F \triangleleft \yo(X) $ as additional \textit{structure} on $ F $, or we can treat it as a \textit{property} and ask for \textit{mere existence} (see Definition \ref{def:mere-existence}) of $ X $, $ r $ and $ s $. This gives rise to two different categories:
 
 \begin{definition}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_envelope'}]\label{def:karoubi'}
-  We define the category $ \tilde C $ in which every object is a presheaf $ F : P C $, together with an object $ X : C $ and a retraction-section pair $ (r, s) : F \triangleleft \yo (X) $. The morphisms from $ (F_1, X_1, r_1, s_1) $ to $ (F_2, X_2, r_2, s_2) $ are just the presheaf morphisms $ f: PC(F_1, F_2) $. This can be summarized in the following diagram:
+  We define the category $ \tilde \C $ in which every object is a presheaf $ F : P \C $, together with an object $ X : \C $ and a retraction-section pair $ (r, s) : F \triangleleft \yo (X) $. The morphisms from $ (F_1, X_1, r_1, s_1) $ to $ (F_2, X_2, r_2, s_2) $ are just the presheaf morphisms $ f: P\C(F_1, F_2) $. This can be summarized in the following diagram:
   \begin{center}
     \begin{tikzcd}
       \yo(X_1) \arrow[r, "r_1", bend left] &
@@ -851,7 +853,7 @@ Besides $ \overline C $, there is also another (classically equivalent) definiti
 \end{definition}
 
 \begin{definition}\label{def:karoubi''}
-  We define the category $ \hat C $ as the full subcategory of $ P C $ consisting of objects $ F : P C $ such that there merely exist an object $ X: C $ and a retraction-section pair $ (r, s) : F \triangleleft \yo(X) $, summarized in the following diagram:
+  We define the category $ \hat \C $ as the full subcategory of $ P \C $ consisting of objects $ F : P \C $ such that there merely exist an object $ X: \C $ and a retraction-section pair $ (r, s) : F \triangleleft \yo(X) $, summarized in the following diagram:
   \begin{center}
     \begin{tikzcd}
       \mathit{\yo(X_1)} \arrow[r, "r_1", bend left, dashed] &
@@ -864,57 +866,57 @@ Besides $ \overline C $, there is also another (classically equivalent) definiti
 
 This gives us what we need to translate the classical equivalence between the two notions of Karoubi envelope to type theory:
 \begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_envelope_is_retract}]\label{lem:karoubi-equivalence}
-  We have an adjoint equivalence $ \overline C \xrightarrow \sim \tilde C $.
+  We have an adjoint equivalence $ \overline \C \xrightarrow \sim \tilde \C $.
 \end{lemma}
 \begin{proof}
-  As shown in Remark \ref{rem:retract-coequalizer}, an object $ (X, f) : \overline C $ is the equalizer of $ \id X $ and $ f $. Therefore, we send it to the equalizer
+  As shown in Remark \ref{rem:retract-coequalizer}, an object $ (X, f) : \overline \C $ is the equalizer of $ \id X $ and $ f $. Therefore, we send it to the equalizer
   \begin{center}
     \begin{tikzcd}
-      F \arrow[r, "s"] & \yo(X) \arrow[r, shift left, "\id{\yo X}"] \arrow[r, shift right, "\yo(f)"'] & \yo(X)
+      F \arrow[r, "s"] & \yo(X) \arrow[r, shift left, "\id{\yo(X)}"] \arrow[r, shift right, "\yo(f)"'] & \yo(X)
     \end{tikzcd}
   \end{center}
-  Note that for $ \yo(f) $, we have $ \yo(f) \cdot \yo(f) = \yo(f) \cdot \id{\yo X} $, so the universal property of the equalizer gives a morphism $ r: PC(\yo(X), F) $ such that $ r \cdot s = \yo(f) $. Using this same universal property, we can show that $ s \cdot r = \id F $.
-  We send a morphism $ g: \overline C((X_1, f_1), (X_2, f_2)) $ to
-  \[ s_1 \cdot \yo(g) \cdot r_2 : PC(F_1, F_2). \]
-  Note that this is an equivalence on the morphisms: For any morphism $ \bar g : PC(F_1, F_2) $, we have
-  \[ r_1 \cdot \bar g \cdot s_2 : PC(\yo(X_1), \yo(X_2)). \]
-  By the fully faithfulness of the Yoneda lemma, this corresponds to a morphism $ g : C(X_1, X_2) $ and we can show that these two maps between $ C((X_1, f_1), (X_2, f_2)) $ and $ \overline C(F_1, F_2) $ are inverses of each other.
+  Note that for $ \yo(f) $, we have $ \yo(f) \cdot \yo(f) = \yo(f) \cdot \id{\yo(X)} $, so the universal property of the equalizer gives a morphism $ r: P\C(\yo(X), F) $ such that $ r \cdot s = \yo(f) $. Using this same universal property, we can show that $ s \cdot r = \id F $.
+  We send a morphism $ g: \overline \C((X_1, f_1), (X_2, f_2)) $ to
+  \[ s_1 \cdot \yo(g) \cdot r_2 : P\C(F_1, F_2). \]
+  Note that this is an equivalence on the morphisms: For any morphism $ \bar g : P\C(F_1, F_2) $, we have
+  \[ r_1 \cdot \bar g \cdot s_2 : P\C(\yo(X_1), \yo(X_2)). \]
+  By the fully faithfulness of the Yoneda lemma, this corresponds to a morphism $ g : \C(X_1, X_2) $ and we can show that these two maps between $ \C((X_1, f_1), (X_2, f_2)) $ and $ \overline \C(F_1, F_2) $ are inverses of each other.
   \begin{center}
     \begin{tikzcd}
-      F_1 \arrow[r, shift left, "s_1"] \arrow[d, "\bar g"] & \yo(X_1) \arrow[l, shift left, "r_1"] \arrow[r, shift left, "\id{\yo X_1}"] \arrow[r, shift right, "\yo(f_1)"'] \arrow[d, "\yo(g)"] & \yo(X_1)\\
-      F_2 \arrow[r, shift left, "s_2"] & \yo(X_2) \arrow[l, shift left, "r_2"] \arrow[r, shift left, "\id{\yo X_2}"] \arrow[r, shift right, "\yo(f_2)"'] & \yo(X_2)\\
+      F_1 \arrow[r, shift left, "s_1"] \arrow[d, "\bar g"] & \yo(X_1) \arrow[l, shift left, "r_1"] \arrow[r, shift left, "\id{\yo(X_1)}"] \arrow[r, shift right, "\yo(f_1)"'] \arrow[d, "\yo(g)"] & \yo(X_1)\\
+      F_2 \arrow[r, shift left, "s_2"] & \yo(X_2) \arrow[l, shift left, "r_2"] \arrow[r, shift left, "\id{\yo(X_2)}"] \arrow[r, shift right, "\yo(f_2)"'] & \yo(X_2)\\
     \end{tikzcd}
   \end{center}
 
-  Now, note that this map is also split essentially surjective. For some $ (F, X, r, s) : \tilde C $, $ r \cdot s $ is an idempotent morphism on $ \yo(X) $, and by fully faithfulness of the Yoneda Lemma, it corresponds to an idempotent morphism $ f $ on $ X $. We send $ (F, X, r, s) $ to $ (X, f) $. Note that both $ F $ and the image of $ (X, f) $ are equalizers of $ \id{\yo X} $ and $ r \cdot s $, so they are isomorphic.
+  Now, note that this map is also split essentially surjective. For some $ (F, X, r, s) : \tilde \C $, $ r \cdot s $ is an idempotent morphism on $ \yo(X) $, and by fully faithfulness of the Yoneda Lemma, it corresponds to an idempotent morphism $ f $ on $ X $. We send $ (F, X, r, s) $ to $ (X, f) $. Note that both $ F $ and the image of $ (X, f) $ are equalizers of $ \id{\yo(X)} $ and $ r \cdot s $, so they are isomorphic.
 
   The fact that a fully faithful and split essentially surjective functor is an adjoint equivalence concludes the proof.
 \end{proof}
 
 \begin{remark}
-  Note that since the morphism types of $ \tilde C $ and $ \hat C $ are the same, and since the objects of $ \hat C $ are just truncated versions of the objects in $ \tilde C $, we have a fully faithful embedding
-  \[ \tilde C \hookrightarrow \hat C, \]
-  which just forgets the choices for $ X $, $ r $ and $ s $ on the objects. Note that this is also essentially surjective: by definition, for any $ (F, H) : \hat C $, there merely exist $ X $, $ r $ and $ s $ such that $ (X, r, s) $ truncates to $ H $.
-  Therefore, we have a weak equivalence from $ \tilde C $ to $ \hat C $. However, as we will see, $ \tilde C $ is usually not univalent, so this does not give an adjoint equivalence of categories.
+  Note that since the morphism types of $ \tilde \C $ and $ \hat \C $ are the same, and since the objects of $ \hat \C $ are just truncated versions of the objects in $ \tilde \C $, we have a fully faithful embedding
+  \[ \tilde \C \hookrightarrow \hat \C, \]
+  which just forgets the choices for $ X $, $ r $ and $ s $ on the objects. Note that this is also essentially surjective: by definition, for any $ (F, H) : \hat \C $, there merely exist $ X $, $ r $ and $ s $ such that $ (X, r, s) $ truncates to $ H $.
+  Therefore, we have a weak equivalence from $ \tilde \C $ to $ \hat \C $. However, as we will see, $ \tilde \C $ is usually not univalent, so this does not give an adjoint equivalence of categories.
 \end{remark}
 
 This all leads up to:
 \begin{corollary}\label{cor:karoubi-candidates}
-  We have three candidates for the category of retracts, which are related to each other and to $ C $ and $ PC $ as follows:
+  We have three candidates for the category of retracts, which are related to each other and to $ \C $ and $ P\C $ as follows:
   \begin{center}
     \begin{tikzcd}
-      C \arrow[r, hook, "\iota_C"] & \overline C \arrow[r, "\sim"] & \tilde C \arrow[r, hook, two heads] & \hat C \arrow[r, phantom, "\subseteq"] & PC
+      \C \arrow[r, hook, "\iota_\C"] & \overline \C \arrow[r, "\sim"] & \tilde \C \arrow[r, hook, two heads] & \hat \C \arrow[r, phantom, "\subseteq"] & P\C
     \end{tikzcd}
   \end{center}
-  The fact that $ \hat C $ is univalent, and has weak equivalences from $ \overline C $ and $ \tilde C $ exhibits $ \hat C $ as the Rezk completion of $ \overline C $ and $ \tilde C $.
+  The fact that $ \hat \C $ is univalent, and has weak equivalences from $ \overline \C $ and $ \tilde \C $ exhibits $ \hat \C $ as the Rezk completion of $ \overline \C $ and $ \tilde \C $.
 \end{corollary}
 
 Even though univalence and the Rezk completion in general will be covered in Section \ref{sec:univalence-principle}, we will study univalence of the Karoubi envelope here:
 
 \begin{remark}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_univalence}]
-  The fully faithful embedding $ i_C : C \hookrightarrow \overline C $ induces equivalences $ (X \cong Y) \simeq (\iota_C(X) \cong \iota_C(Y)) $. We also have an equivalence $ (X = Y) \simeq (\iota_C(X) = \iota_C(Y)) $, because, as it turns out, any equality between $ X $ and $ Y $ also preserves the identity of $ X $. Therefore, if $ \overline C $ is univalent, we have a chain of equivalences
-  \[ (X = Y) \simeq (\iota_C(X) = \iota_C(Y)) \simeq (\iota_C(X) \cong \iota_C(Y)) \simeq (X \cong Y), \]
-  which shows that $ C $ is univalent as well.
+  The fully faithful embedding $ \iota_\C : \C \hookrightarrow \overline \C $ induces equivalences $ (X \cong Y) \simeq (\iota_\C(X) \cong \iota_\C(Y)) $. We also have an equivalence $ (X = Y) \simeq (\iota_\C(X) = \iota_\C(Y)) $, because, as it turns out, any equality between $ X $ and $ Y $ also preserves the identity of $ X $. Therefore, if $ \overline \C $ is univalent, we have a chain of equivalences
+  \[ (X = Y) \simeq (\iota_\C(X) = \iota_\C(Y)) \simeq (\iota_\C(X) \cong \iota_\C(Y)) \simeq (X \cong Y), \]
+  which shows that $ \C $ is univalent as well.
 \end{remark}
 
 \begin{remark}
@@ -930,54 +932,54 @@ Even though univalence and the Rezk completion in general will be covered in Sec
       -1 & 0\\0 & 0
     \end{pmatrix}
   \]
-  under matrix multiplication. As we saw in Section \ref{sec:monoid-category}, we can turn this into a category $ C_M $ with one object $ \star $, and the three morphisms $ a $, $ b $ and $ c $. Only $ a $ is an isomorphism and since $ \star = \star $ has exactly one inhabitant, $ C_M $ is univalent.
+  under matrix multiplication. As we saw in Section \ref{sec:monoid-category}, we can turn this into a category $ \C_M $ with one object $ \star $, and the three morphisms $ a $, $ b $ and $ c $. Only $ a $ is an isomorphism and since $ \star = \star $ has exactly one inhabitant, $ \C_M $ is univalent.
 
-  When we construct the Karoubi envelope $ \overline C_M $, we get a category with objects $ a $ and $ b $. Now, note that since $ M $ is a set, $ b = b $ still has one inhabitant. Of course, $ b \cong b $ contains the identity automorphism. However, since
+  When we construct the Karoubi envelope $ \overline \C_M $, we get a category with objects $ a $ and $ b $. Now, note that since $ M $ is a set, $ b = b $ still has one inhabitant. Of course, $ b \cong b $ contains the identity automorphism. However, since
   \[ b \cdot c = c \quad \text{and} \quad c \cdot c = b, \]
-  $ c $ is also an automorphism of $ b $. Therefore, $ \overline C_M $ is not univalent.
+  $ c $ is also an automorphism of $ b $. Therefore, $ \overline \C_M $ is not univalent.
 
-  In a somewhat more complicated way, we can show that $ \tilde C_M $ is not univalent either: the counterpart of $ b $ in that category has two automorphisms, corresponding to $ b $ and $ c $, but only one equality, which is the identity. This is because isomorphisms only have to respect the presheaf structure, whereas equalities also have to respect the section (and retraction). Note that presheaves are univalent, so equality of presheaves is equivalent to isomorphism of presheaves.
+  In a somewhat more complicated way, we can show that $ \tilde \C_M $ is not univalent either: the counterpart of $ b $ in that category has two automorphisms, corresponding to $ b $ and $ c $, but only one equality, which is the identity. This is because isomorphisms only have to respect the presheaf structure, whereas equalities also have to respect the section (and retraction). Note that presheaves are univalent, so equality of presheaves is equivalent to isomorphism of presheaves.
 
-  Therefore, $ \overline C $ and $ \tilde C $ are usually more pathological than $ C $ itself. On the other hand, since $ \hat C $ is a full subcategory of $ PC $, it is univalent.
+  Therefore, $ \overline \C $ and $ \tilde \C $ are usually more pathological than $ \C $ itself. On the other hand, since $ \hat \C $ is a full subcategory of $ P\C $, it is univalent.
 \end{remark}
 
 \begin{remark}
-  As we saw in this section, there are multiple candidates for the `Karoubi envelope'. Two of these candidates are equivalent to each other, but the third is not. Therefore, we need to be careful which definition we choose, because this choice has consequences. One one hand, $ \hat C $ is univalent, but very abstract. In this category, there are classical constructions that we cannot do, because for every object, we only have mere existence of an idempotent morphism, and because the objects of $ \hat C $ do not form a set, we cannot use the axiom of choice to pick an idempotent morphism. On the other hand, $ \overline C $ and $ \tilde C $ are very elementary and concrete, which sometimes helps when doing constructions. However, they are not univalent, which makes working with them complicated in a different way.
+  As we saw in this section, there are multiple candidates for the `Karoubi envelope'. Two of these candidates are equivalent to each other, but the third is not. Therefore, we need to be careful which definition we choose, because this choice has consequences. On one hand, $ \hat \C $ is univalent, but very abstract. In this category, there are classical constructions that we cannot do, because for every object, we only have mere existence of an idempotent morphism, and because the objects of $ \hat \C $ do not form a set, we cannot use the axiom of choice to pick an idempotent morphism. On the other hand, $ \overline \C $ and $ \tilde \C $ are very elementary and concrete, which sometimes helps when doing constructions. However, they are not univalent, which makes working with them complicated in a different way.
 \end{remark}
 
-The remainder of this section works towards the adjoint equivalence between $ PC $ and $ P \overline C $.
+The remainder of this section works towards the adjoint equivalence between $ P\C $ and $ P \overline \C $.
 
-Since a functor preserves retracts, and since every object of $ \overline C $ is a retract of an object in $ C $, we can generalize the construction of the functor that we do in Lemma \ref{lem:karoubi-equivalence} for the functor $ \yo: C \to PC $, to general functors $ F: C \to D $ for categories $ D $ with (co)equalizers.
+Since a functor preserves retracts, and since every object of $ \overline \C $ is a retract of an object in $ \C $, we can generalize the construction of the functor that we do in Lemma \ref{lem:karoubi-equivalence} for the functor $ \yo: \C \to P\C $, to general functors $ F: \C \to \D $, if $ \D $ has (co)equalizers.
 
 For convenience, the lemma below works very abstractly with pointwise left Kan extension using colimits, but one could also prove this using just (co)equalizers (or right Kan extension using limits).
 \begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_pullback_equivalence}]
-  Let $ D $ be a category with colimits. We have an adjoint equivalence between $ [C, D] $ and $ [\overline C, D] $.
+  Let $ \D $ be a category with colimits. We have an adjoint equivalence between $ [\C, \D] $ and $ [\overline \C, \D] $.
 \end{lemma}
 \begin{proof}
-  We already have an adjunction $ \Lan {\iota_C} {} \dashv \iota_{C*} $. Also, since $ \iota_C $ is fully faithful, we know that $ \eta $ is a natural isomorphism. Therefore, we only have to show that $ \epsilon $ is a natural isomorphism. That is, we need to show that $ \epsilon_G(c, a): D(\Lan {\iota_C} (\iota_{C*} G) (c, a), G(c, a)) $ is an isomorphism for all $ G: [\overline C, D] $ and $ (c, a): \overline C $.
+  We already have an adjunction $ \Lan {\iota_\C} {} \dashv \iota_{\C*} $. Also, since $ \iota_\C $ is fully faithful, we know that $ \eta $ is a natural isomorphism. Therefore, we only have to show that $ \epsilon $ is a natural isomorphism. That is, we need to show that $ \epsilon_G(X, a): \D(\Lan {\iota_\C} (\iota_{\C*} G) (X, a), G(X, a)) $ is an isomorphism for all $ G: [\overline \C, \D] $ and $ (X, a): \overline \C $.
 
-  One of the components in the diagram of $ \Lan {\iota_C} (\iota_{C*} G) (c, a) $ is the $ \iota_{C*} G(c) = G(c, \id c) $ corresponding to $ a: \iota_C(c) \to (c, a) $. This component has a morphism into our colimit
-  \[ \varphi: C(G(\iota_C(c)), \Lan {\iota_C} (\iota_{C*} G) (c, a)). \]
-  Note that we can view $ a $ as a morphism $ a: \overline C((c, a), \iota_C(c)) $. This gives us our inverse morphism
-  \[ G(a) \cdot \varphi: C(G(c, a), \Lan {\iota_C} (\iota_{C*} G) (c, a)). \]
+  One of the components in the diagram of $ \Lan {\iota_\C} (\iota_{\C*} G) (X, a) $ is the $ G(\iota_\C(X)) $ corresponding to $ a: \overline \C(\iota_\C(X), (X, a)) $. This component has a morphism into our colimit
+  \[ \varphi: \C(G(\iota_\C(X)), \Lan {\iota_\C} (\iota_{\C*} G) (X, a)). \]
+  Note that we can also view $ a $ as a morphism $ a: \overline \C((X, a), \iota_\C(X)) $. This gives us our inverse morphism
+  \[ G(a) \cdot \varphi: \C(G(X, a), \Lan {\iota_\C} (\iota_{\C*} G) (X, a)). \]
 \end{proof}
 
 \begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{opp_karoubi}]
   The formation of the opposite category commutes with the formation of the Karoubi envelope.
 \end{lemma}
 \begin{proof}
-  An object in $ \overline{\op C} $ is an object $ c: \op C $ (which is just an object $ c: C $), together with an idempotent morphism $ a: \op C(c, c) = C(c, c) $. This is the same as an object in $ \op{\overline C} $.
+  An object in $ \overline{\op \C} $ is an object $ X: \op \C $ (which is just an object $ X: \C $), together with an idempotent morphism $ a: \op \C(X, X) = \C(X, X) $. This is the same as an object in $ \op{\overline \C} $.
 
-  A morphism in $ \overline{\op C}((c, a), (d, b)) $ is a morphism $ f: \op C(c, d) = C(d, c) $ such that
-  \[ b \cdot_C f \cdot_C a = a \cdot_{\op C} f \cdot_{\op C} b = f. \]
-  A morphism in $ \op{\overline C}((c, a), (d, b)) = \overline C((d, b), (c, a)) $ is a morphism $ f: C(d, c) $ such that $ b \cdot f \cdot a = f $.
+  A morphism in $ \overline{\op \C}((X, a), (Y, b)) $ is a morphism $ f: \op \C(X, Y) = \C(Y, X) $ such that
+  \[ b \cdot_\C f \cdot_\C a = a \cdot_{\op \C} f \cdot_{\op \C} b = f. \]
+  A morphism in $ \op{\overline \C}((X, a), (Y, b)) = \overline \C((Y, b), (X, a)) $ is a morphism $ f: \C(Y, X) $ such that $ b \cdot f \cdot a = f $.
 
-  Now, in both categories, the identity morphism on $ (c, a) $ is given by $ a $.
+  Now, in both categories, the identity morphism on $ (X, a) $ is given by $ a $.
 
-  Lastly, $ \overline {\op C} $ inherits morphism composition from $ \op C $, which is the opposite of composition in $ C $. On the other hand, composition in $ \op{\overline C} $ is the opposite of composition in $ \overline C $, which inherits composition from $ C $.
+  Lastly, $ \overline {\op \C} $ inherits morphism composition from $ \op \C $, which is the opposite of composition in $ \C $. On the other hand, composition in $ \op{\overline \C} $ is the opposite of composition in $ \overline \C $, which inherits composition from $ \C $.
 \end{proof}
 
 \begin{corollary}\label{cor:karoubi-presheaf}
-  As the category $ \SET $ is cocomplete, we have an equivalence between the category of presheaves on $ C $ and the category of presheaves on $ \overline C $:
-  \[ [\op C, \SET] \cong [\overline{\op C}, \SET] \cong [\op{\overline C}, \SET]. \]
+  As the category $ \SET $ is cocomplete, we have an equivalence between the category of presheaves on $ \C $ and the category of presheaves on $ \overline \C $:
+  \[ [\op \C, \SET] \cong [\overline{\op \C}, \SET] \cong [\op{\overline \C}, \SET]. \]
 \end{corollary}
