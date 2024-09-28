@@ -4,7 +4,7 @@
 \section{Scott's Representation Theorem}
 
 Now, Scott's representation theorem, which asks whether we can represent any $ \lambda $-theory as the endomorphism theory of some reflexive object in some cartesian closed category, can be answered using the presheaf category.
-\begin{theorem}\label{thm:representation-theorem}
+\begin{theorem}[\coqident{AlgebraicTheories.RepresentationTheorem}{representation_theorem_iso}]\label{thm:representation-theorem}
   Any $ \lambda $-theory $ L $ is isomorphic to the endomorphism $ \lambda $-theory $ E_{\Pshf L}(L) $, with $ L $ viewed as a presheaf.
 \end{theorem}
 \begin{proof}
@@ -54,7 +54,7 @@ Write $ i: \op{L_1} \hookrightarrow \op{\mathbf L} $ and $ j: \op{\mathbf L} \ho
 \end{center}
 The two equivalences in this diagram are due to Lemma \ref{lem:lawvere-presheaf} and Corollary \ref{cor:karoubi-presheaf}.
 
-\begin{lemma}\label{lem:equivalent-presheaf-cats}
+\begin{lemma}[\coqident{CategoryTheory.Equivalences.EquivalenceFromComp}{adjoint_equivalence_1_from_comp}]\label{lem:equivalent-presheaf-cats}
   The precomposition functors $ i_* $ and $ j_* $ are adjoint equivalences.
 \end{lemma}
 \begin{proof}
@@ -516,7 +516,7 @@ The following shows that `functions in $ n $ variables' are indeed all in $ A_n 
   In particular, $ \mathbf 1_m \circ \mathbf 1_n = \mathbf 1_{\max(m, n)} $. From this, it follows that $ A_m \subseteq A_n $ for $ m \leq n $. It also follows that $ a \mapsto \mathbf 1_n \circ a $ gives a function from $ A $ to $ A_n $ (and also from $ A_m \subseteq A $ to $ A_n $).
 \end{corollary}
 
-\begin{definition}[The monoid of a $ \Lambda $-algebra]
+\begin{definition}[\coqident{AlgebraicTheories.FundamentalTheorem.AlgebraToTheory}{lambda_algebra_monoid}]
   We make $ A_1 $, the `functional elements' of $ A $, into a monoid under composition $ \circ $ with unit $ \mathbf 1_1 $. The fact that this is a monoid follows from the remarks above.
 \end{definition}
 
@@ -553,7 +553,7 @@ Recall that we have an equivalence $ [\op{C_{A_1}}, \SET] \cong \RAct{A_1} $.
   Composition $ \circ $ gives a right $ A_1 $-action on the $ A_n $, so we have $ A_n : \RAct{A_1} $. In particular, $ A_1 $ acts on itself, and we will call this set with right $ A_1 $-action $ U_A $.
 \end{definition}
 
-\begin{lemma}
+\begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.AlgebraToTheory}{universal_monoid_exponential_iso}]
   $ A_2 $ is isomorphic to the exponential object $ U_A^{U_A} $ in $ \RAct{A_1} $.
 \end{lemma}
 \begin{proof}
@@ -581,7 +581,7 @@ Recall that we have an equivalence $ [\op{C_{A_1}}, \SET] \cong \RAct{A_1} $.
   Recall that the embedding $ \R_A \hookrightarrow \RAct{A_1} $ is the composition of a Yoneda embedding and two adjoint equivalences. These all preserve exponential objects (see Lemma \ref{lem:Yoneda-preserves-exponentials}). Now, note that $ A_1 $ is the image of $ U : \R_A $, so the exponential $ U_A^{U_A} $ is $ A_2 $, the image of $ U^U = \lambda x_1 x_2, x_1 x_2 = \mathbf 1_2 $.
 \end{remark}
 
-\begin{definition}[Construction of the $ \lambda $-theory]\label{def:lambda-algebra-to-lambda-theory}
+\begin{definition}[\coqident{AlgebraicTheories.FundamentalTheorem.AlgebraToTheory}{lambda_algebra_theory}]\label{def:lambda-algebra-to-lambda-theory}
   Recall that $ A_2 \subseteq U_A $, and that we have a retraction $ a \mapsto \mathbf 1_2 \circ a : U_A \to A_2 $.
 
   Therefore, $ U_A $ is a reflexive object in $ \RAct{A_1} $, and we get a $ \lambda $-theory $ E(U_A) $.
@@ -967,8 +967,6 @@ The fundamental theorem of the $ \lambda $-calculus that Hyland shows is actuall
 
 Let $ \llbracket n \rrbracket $ denote the finite set $ \{ 1, 2, \dots, n \} $. For $ T $ an algebraic theory, let $ \mathbf L $ be its corresponding Lawvere theory (Lemma \ref{lem:lawvere-clone}).
 
-(\TODO Is it maybe a good idea to move the coproducts and theory of extensions to chapter 3?)
-
 \begin{lemma}\label{lem:algebra-coproducts}
   Let $ T $ be an algebraic theory. The category of $ T $-algebras has coproducts.
 \end{lemma}
@@ -989,7 +987,7 @@ Let $ \llbracket n \rrbracket $ denote the finite set $ \{ 1, 2, \dots, n \} $. 
   \[ t \bullet ((f_i \bullet a)_i + (g_j \bullet b)_j) = (t \bullet ((f_i \bullet (x_{m + n, j})_j)_i + (g_i \bullet (x_{m + n, m + j})_j)_i)) \bullet (a + b) \]
   for $ t : T_{m^\prime + n^\prime} $, $ a : A^m $ and $ b : B^n $.
 
-  Then it becomes clear what the action of $ T $ will be on $ A + B $, although the precise definition looks a bit complex because we have to juggle a bit with the variables in the different $ T_{m + n} $. For $ s : T_l $, $ t_i : T_{m_i + n_i} $, $ a_i : A^{m_i} $ and $ b_i : B^{n_i} $, define the disjoint embeddings
+  Then it becomes clear what the action of $ T $ will be on $ A + B $, although the precise definition looks complicated because we have to juggle a bit with the variables in the different $ T_{m + n} $. For $ s : T_l $, $ t_i : T_{m_i + n_i} $, $ a_i : A^{m_i} $ and $ b_i : B^{n_i} $, define the disjoint embeddings
   \[ d_i : \left\llbracket m_i + n_i \right\rrbracket \cong \left\llbracket m_i \right\rrbracket \sqcup \left\llbracket n_i \right\rrbracket \hookrightarrow \left\llbracket \sum_j m_j \right\rrbracket \sqcup \left\llbracket \sum_j n_j \right\rrbracket \cong \left\llbracket \sum_j m_j + \sum_j n_j \right\rrbracket, \]
   which we will use to make sure that the $ x_j $ in the different $ t_i $ are mapped to distinct variables. Then we can define
   \[ s \bullet (t_i \bullet a_i + b_i) = (s \bullet (t_i \bullet (x_{d_i(j)})_j)_i) \bullet (a_1 + b_1 + \dots + a_l + b_l). \]
@@ -1007,7 +1005,7 @@ Let $ \llbracket n \rrbracket $ denote the finite set $ \{ 1, 2, \dots, n \} $. 
   which ultimately can be used to show that $ A + B $ indeed has the universal property of the coproduct.
 \end{proof}
 
-\begin{definition}[Theory of extensions]
+\begin{definition}
   Let $ T $ be an algebraic theory and $ A $ a $ T $-algebra. We can define an algebraic theory $ T_A $ called the \iindex{theory of extensions} of $ A $' with $ (T_A)_n = A + T_n $. The right injection of the variables $ x_i : T_n $ gives the variables.
 
   For $ h: (A + T_n)^m $, sending $ g: T_m $ to $ g \bullet h $ gives a $ T $-algebra morphism $ T_m \to T_n + A $. Together with the right injection morphism of $ A $ into $ T_n + A $, this gives us a $ T $-algebra morphism from the coproduct: $ T_m + A \to T_n + A $. Doing this for every $ h: (A + T_n)^m $ gives us the substitution $ (T_m + A) \times (T_n + A)^m \to T_n + A $.
@@ -1015,7 +1013,7 @@ Let $ \llbracket n \rrbracket $ denote the finite set $ \{ 1, 2, \dots, n \} $. 
   Showing that this is indeed an algebraic theory involves invoking the universal property of the coproduct and using properties of $ T $-algebras and $ T $-algebra morphisms.
 \end{definition}
 
-\begin{remark}
+\begin{remark}[\coqident{AlgebraicTheories.Examples.ExtensionsTheory}{extensions_theory}]
   We can turn the map $ A \mapsto T_A $ into a functor $ T_- : \Alg T \to \AlgTh $. For a morphism $ f: \Alg T(A, B) $, we get maps
   \[ f + \id{T_n} : \Alg T(A + T_n, B + T_n). \]
   We can combine these into a morphism $ T_f = (f + \id{T_n})_n $, and this makes $ T_- $ into a functor from $ \Alg T $ to $ \AlgTh $.
@@ -1032,7 +1030,7 @@ Let $ \llbracket n \rrbracket $ denote the finite set $ \{ 1, 2, \dots, n \} $. 
 \end{remark}
 
 The following result explains why we are interested in the theory of extensions:
-\begin{lemma}\label{lem:extensions-algebra-coslice}
+\begin{lemma}[\coqident{AlgebraicTheories.Examples.ExtensionsTheory}{algebra_coslice_equivalence}]\label{lem:extensions-algebra-coslice}
   For $ T $ an algebraic theory and $ A $ a $ T $-algebra, we have an adjoint equivalence $ \Alg{T_A} \cong (A \downarrow \Alg T) $ between algebras for $ T_A $ and the coslice category under $ A $.
 \end{lemma}
 \begin{proof}
@@ -1045,11 +1043,11 @@ The following result explains why we are interested in the theory of extensions:
 \end{proof}
 
 \begin{example}
-  Take $ T_n = Z[X_1, \dots, X_n] $, the polynomial rings in $ n $ variables. $ T $-algebras correspond to commutative rings, so we can call $ T $ `the theory of commutative rings'. Now, for a commutative ring $ R $, $ \Alg{T_R} $ is equivalent to the coslice category $ (R \downarrow \Alg T) $, which is the category of $ R $-algebras. Therefore, the theory of extensions $ T_R $ can be considered to be the theory of $ R $-algebras.
+  Take $ T_n = Z[X_1, \dots, X_n] $, the polynomial ring (the free commutative ring) in $ n $ variables. $ T $-algebras are equivalent to commutative rings, so we can call $ T $ `the theory of commutative rings'. Now, for a commutative ring $ R $, $ \Alg{T_R} $ is equivalent to the coslice category $ (R \downarrow \Alg T) $, which is the category of $ R $-algebras. Therefore, the theory of extensions $ T_R $ can be considered to be the theory of $ R $-algebras.
 \end{example}
 
-\begin{lemma}\label{lem:factor-through-extensions}
-  Any algebraic theory morphism $ f: \AlgTh(S, T) $ factorizes through the embedding of $ S $ into the theory of extensions of the pullback of the algebra $ T_0 $:
+\begin{lemma}[\coqident{AlgebraicTheories.Examples.ExtensionsTheory}{factorization}]\label{lem:factor-through-extensions}
+  Any algebraic theory morphism $ f: \AlgTh(S, T) $ factors through the embedding of $ S $ into the theory of extensions of the pullback of the algebra $ T_0 $:
   \begin{center}
     \begin{tikzcd}
       S \arrow[r] \arrow[rr, bend right, "f"'] & S_{f^*(T_0)} \arrow[r] & T

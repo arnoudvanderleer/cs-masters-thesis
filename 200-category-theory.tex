@@ -32,7 +32,7 @@ Alternatively, we can characterize universal arrows by their action on hom-sets:
   See \autocite{MacLane}, Chapter III.2, Proposition 1.
 \end{proof}
 
-There is also the dual concept of a universal arrow $ (X, f) $ from a functor $ F $ to an object $ Y: C $. Its universal property can be summarized in the following diagram:
+There is also the dual concept: a universal arrow $ (X, f) $ from a functor $ F $ to an object $ Y: C $. Its universal property can be summarized in the following diagram:
 \begin{center}
   \begin{tikzcd}
     F(X^\prime)\arrow[rd, "f^\prime"']  \arrow[r, "F(g)", dashed] & F(X) \arrow[d, "f"]\\
@@ -186,7 +186,7 @@ Now, this embedding has a couple of properties:
   sending $ f : C(Z, X \times Y) $ to the pair $ (f \cdot \pi_1, f \cdot \pi_2) $ and conversely, sending a pair $ (g_1, g_2) : C(Z, X) \times C(Z, Y) $ to the product morphism $ \langle g_1, g_2 \rangle : \yo(Z, X \times Y) $. This idea is also the core of the proof about general limits.
 \end{proof}
 
-\begin{lemma}\label{lem:Yoneda-preserves-exponentials}
+\begin{lemma}[\coqident{CategoryTheory.YonedaExponentials}{yoneda_preserves_exponentials}]\label{lem:Yoneda-preserves-exponentials}
   The Yoneda embedding preserves exponentials.
 \end{lemma}
 \begin{proof}
@@ -541,7 +541,7 @@ If a category has limits (resp. colimits), we can construct the right (resp. lef
   \[ \epsilon_G(b) : C(\Lan F (F_* G)(b), G(b)). \]
 \end{proof}
 
-\begin{lemma}\label{lem:lan-precomp-iso}
+\begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.SurjectivePrecomposition}{pre_comp_split_essentially_surjective}]\label{lem:lan-precomp-iso}
   If $ F : A \to B $ is a fully faithful functor, and $ C $ is a category with colimits, $ \eta: \id{[A, C]} \Rightarrow \Lan F {} \bullet F_* $ is a natural isomorphism.
 \end{lemma}
 \begin{proof}
@@ -620,11 +620,11 @@ In this thesis, we will encounter co-ends a couple of times, so we will introduc
 
 \section{Monoids as categories}\label{sec:monoid-category}
 Take a monoid $ M $.
-\begin{definition}
+\begin{definition}[\coqident{CategoryTheory.Categories.MonoidToCategory}{monoid_to_category_ob}]
   We can construct a category $ C_M $ with $ C_{M0} = \{ \star \} $, $ C_M(\star, \star) = M $. The identity morphism on $ \star $ is the identity $ 1: M $. The composition is given by multiplication $ g \cdot_{C_M} f = f \cdot_M g $.
 \end{definition}
 
-\begin{remark}
+\begin{remark}[\coqident{CategoryTheory.Categories.MonoidToCategory}{monoid_to_category}]
   Actually, we have a functor from the category of monoids to the category of setcategories (categories whose object type is a set).
 
   A monoid morphism $ f: M \to M^\prime $ is equivalent to a functor $ F_f: C_M \to C_{M^\prime} $. Any functor between $ C_M $ and $ C_{M^\prime} $ sends $ \star_M $ to $ \star_{M^\prime} $. The monoid morphism manifests as $ F_f(m) = f(m) $ for $ m: C_M(\star, \star) = M $.
@@ -637,18 +637,18 @@ Take a monoid $ M $.
   Given an isomorphism $ f: M \to M^\prime $. Then we have functors $ F_f: C_M \to C_{M^\prime} $ and $ F_{f^{-1}}: C_{M^\prime} \to C_M $. Take the identity natural transformations $ \eta: \id{C_M} \Rightarrow F_f \bullet F_{f^{-1}} $ and $ \epsilon: F_{f^{-1}} \bullet F_f \Rightarrow \id{C_{M^\prime}} $. Of course these are natural isomorphisms.
 \end{proof}
 
-\begin{definition}
+\begin{definition}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.MonoidActions}{monoid_action}]
   A \textit{right monoid action}\index{monoid action} of $ M $ on a set $ X $ is a function $ X \times M \to X $ such that for all $ x: X $, $ m, m^\prime: M $,
   \[ x 1 = x \qquad \text{and} \qquad (x m) m^\prime = x (m \cdot m^\prime). \]
 \end{definition}
 
-\begin{definition}
+\begin{definition}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.MonoidActions}{monoid_action_morphism}]
   A \textit{morphism}\index{monoid action!morphism} between sets $ X $ and $ Y $ with a right $ M $-action is an $ M $-equivariant function $ f: X \to Y $: a function such that $ f(xm) = f(x)m $ for all $ x: X $ and $ m: M $.
 \end{definition}
 
-These, together with the identity and composition from $ \SET $, constitute a category \iindex{$ \RAct M $} of right $ M $-actions.
+These, together with the identity and composition from $ \SET $, constitute a category \iindex{$ \RAct M $} of right $ M $-actions (\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.MonoidActions}{monoid_action_cat}).
 
-\begin{lemma}
+\begin{lemma}[\coqident{CategoryTheory.Categories.MonoidToCategory}{monoid_presheaf_action_equivalence}]
   Presheaves on $ C_M $ are equivalent to sets with a right $ M $-action.
 \end{lemma}
 \begin{proof}
@@ -659,16 +659,16 @@ These, together with the identity and composition from $ \SET $, constitute a ca
   Since the category of sets with an $ M $-action is equivalent to a presheaf category, it has all limits. However, we can make this concrete. The set of the product $ \prod_i X_i $ is the product of the underlying sets. The action is given pointwise by $ (x_i)_i m = (x_i m)_i $.
 \end{remark}
 
-Note that the initial set with $ M $-action is $ \{ \star \} $, with action $ \star m = \star $.
+Note that the terminal set with $ M $-action is $ \{ \star \} $, with action $ \star m = \star $ (\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.MonoidActions}{terminal_monoid_action}).
 
-\begin{lemma}\label{lem:global-action-elements}
+\begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.MonoidActions}{monoid_action_global_element_fixpoint_iso}]\label{lem:global-action-elements}
   The global elements of a set with right $ M $-action correspond to the elements that are invariant under the $ M $-action.
 \end{lemma}
 \begin{proof}
   A global element of $ X $ is a morphism $ \varphi: \{ \star \} \to X $ such that for all $ m: M $, $ \varphi(\star)m = \varphi(\star m) = \varphi(\star) $. Therefore, it is given precisely by the element $ \varphi(\star): X $, which must be invariant under the $ M $-action.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.MonoidActions}{is_exponentiable_monoid_action}]
   The category $ C $ of sets with an $ M $-action has exponentials.
 \end{lemma}
 \begin{proof}
@@ -676,8 +676,8 @@ Note that the initial set with $ M $-action is $ \{ \star \} $, with action $ \s
   \[ \psi(f)(z)(m, y) = f(z m, y) \quad \text{and} \quad \psi^{-1}(g)(z, y) = g(z)(1, y). \]
 \end{proof}
 
-\begin{definition}
-  We can view $ M $ as a set $ U_M $ with right $ M $-action $ m n = m \cdot_M n $ for $ m: U_M $ and $ n: M $.
+\begin{definition}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.MonoidActions}{monoid_monoid_action}]
+  We can view $ M $ as a set $ U_M $ with right $ M $-action $ m n = m \cdot n $ for $ m: U_M $ and $ n: M $. Note that this is the Yoneda embedding of the object $ \star : C_M $.
 \end{definition}
 
 \subsection{Extension and restriction of scalars}
@@ -686,7 +686,7 @@ Let $ \varphi: M \to M^\prime $ be a morphism of monoids.
 
 Remember that sets with a right monoid action are equivalent to presheaves on the monoid category. Also, $ \varphi $ is equivalent to a functor between the monoid categories. The following is a specific case of the concepts in the section about Kan extension:
 
-\begin{lemma}
+\begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.MonoidActions}{scalar_restriction_functor}]
   We get a \iindex{restriction of scalars} functor $ \varphi^* $ from sets with a right $ M^\prime $-action to sets with a right $ M $-action.
 \end{lemma}
 \begin{proof}
@@ -697,7 +697,7 @@ Remember that sets with a right monoid action are equivalent to presheaves on th
 
 Since $ \SET $ has colimits, and restriction of scalars corresponds to precomposition of presheaves (on $ C_{M^\prime} $), we can give it a left adjoint. This is the (pointwise) left Kan extension, which boils down to a very concrete definition, reminiscent of a tensor product:
 
-\begin{lemma}\label{lem:scalar-extension}
+\begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.MonoidActions}{scalar_extension_functor}]\label{lem:scalar-extension}
   We get an \iindex{extension of scalars} functor $ \varphi_* $ from sets with a right $ M $-action to sets with a right $ M^\prime $-action.
 \end{lemma}
 \begin{proof}
@@ -706,7 +706,7 @@ Since $ \SET $ has colimits, and restriction of scalars corresponds to precompos
   On morphisms, it sends the $ m $-equivariant $ f: X \to X^\prime $ to the morphism $ (x, m^\prime) \mapsto (f(x), m^\prime) $.
 \end{proof}
 
-\begin{lemma}\label{lem:scalar-extension-monoid-monoid-action}
+\begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.MonoidActions}{scalar_extension_preserves_monoid_monoid_action}]\label{lem:scalar-extension-monoid-monoid-action}
   For $ U_M $ the set $ M $ with right $ M $-action, we have $ \varphi_*(U_M) \cong U_{M^\prime} $.
 \end{lemma}
 \begin{proof}
@@ -717,7 +717,7 @@ Since $ \SET $ has colimits, and restriction of scalars corresponds to precompos
 Consider the category $ D $ with $ D_0 = M^\prime $ and
 \[ D(m^\prime, \overline m^\prime) = \{ m: M \mid \varphi(m) \cdot m^\prime = \overline m^\prime \}. \]
 
-\begin{lemma}\label{lem:scalar-extension-terminal}
+\begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.MonoidActions}{scalar_extension_preserves_terminal}]\label{lem:scalar-extension-terminal}
   Suppose that $ D $ has a weakly terminal element. Then for $ I_M $ the terminal object in the category of sets with a right $ M $-action, we have $ \varphi_*(I_M) \cong I_{M^\prime} $.
 \end{lemma}
 \begin{proof}
@@ -737,7 +737,7 @@ For any $ m^\prime_1, m^\prime_2: M^\prime $, consider the category $ D_{m^\prim
 and
 \[ D_{m^\prime_1, m^\prime_2}((m^\prime, m_1, m_2), (\overline m^\prime, \overline m_1, \overline m_2)) = \{ m: M \mid \varphi(m) \cdot m^\prime = \overline m^\prime, m_i = \overline m_i \cdot m \}. \]
 
-\begin{lemma}\label{lem:scalar-extension-product}
+\begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.MonoidActions}{scalar_extension_preserves_binproducts}]\label{lem:scalar-extension-product}
   Suppose that $ D_{m^\prime_1, m^\prime_2} $ has a weakly terminal object for all $ m^\prime_1, m^\prime_2: M^\prime $. Then for sets $ A $ and $ B $ with right $ M $-action, we have $ \varphi_*(A \times B) \cong \varphi_*(A) \times \varphi_*(B) $.
 \end{lemma}
 \begin{proof}
@@ -760,7 +760,7 @@ Let $ C $ be a category and $ X, Y : C $ objects. We will denote the type of sec
 \[ X \triangleleft Y := \sum_{r : C(Y, X)} \sum_{s : C(X, Y)} s \cdot r = \id X. \]
 Now, note that for $ (r, s) : X \triangleleft Y $, $ r \cdot s: C(Y, Y) $ is an idempotent morphism, since $ r \cdot s \cdot r \cdot s = r \cdot s $. We can also wonder whether for an idempotent morphism $ f: C(X, X) $, we can find some $ Y : C $ and some $ (r, s) : X \triangleleft Y $ such that $ f = r \cdot s $. If this is the case, we say that the idempotent $ f $ \textit{splits}\index{split idempotent}. If $ f $ does not split, we can wonder whether we can find an embedding $ \iota_C : C \hookrightarrow \overline C $ into some category $ \overline C $ such that the idempotent $ \iota_C(f): \overline C(\iota_C(X), \iota_C(X)) $ does split. This is one way to arrive at the \textit{Karoubi envelope}:
 
-\begin{definition}
+\begin{definition}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_envelope}]
   We define the category $ \overline C $. The objects of $ \overline C $ are tuples $ (X, f) $ with $ X: C $, $ f: C(X, X) $ such that $ f \cdot f = f $. The morphisms between $ (X_1, f_1) $ and $ (X_2, f_2) $ are morphisms $ g: C(X_1, X_2) $ such that $ f_1 \cdot g \cdot f_2 = g $. This can be summarized in the following diagram:
   \begin{center}
     \begin{tikzcd}
@@ -781,11 +781,11 @@ This category is called the \iindex{Karoubi envelope}, the \textit{idempotent co
   and in the same way, $ f \cdot b = f $.
 \end{remark}
 
-\begin{definition}
+\begin{definition}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_envelope_inclusion}]
   We have an embedding $ \iota_C: C \to \overline C $, sending $ c: C $ to $ (c, \id{c}) $ and $ f: C(c, d) $ to $ f $.
 \end{definition}
 
-\begin{lemma}\label{lem:karoubi-is-retract}
+\begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_envelope_is_retract}]\label{lem:karoubi-is-retract}
   Every object $ c: \overline C $ is a retract of $ \iota_C(c_0) $ for some $ c_0: C $.
 \end{lemma}
 \begin{proof}
@@ -794,7 +794,7 @@ This category is called the \iindex{Karoubi envelope}, the \textit{idempotent co
   since $ a \cdot a = a = \id{(c, a)} $, so $ (c, a) $ is a retract of $ \iota_C(c) $.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_envelope_idempotent_splits}]
   In $ \overline C $, every idempotent splits.
 \end{lemma}
 \begin{proof}
@@ -805,12 +805,12 @@ This category is called the \iindex{Karoubi envelope}, the \textit{idempotent co
   because $ e \cdot e = e = \id{(c_0, e)} $. Also, $ e = e \cdot e $, so $ e $ is split.
 \end{proof}
 
-\begin{remark}
+\begin{remark}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_envelope_inclusion_fully_faithful}]
   Note that $ \iota_C $ is fully faithful, since
   \[ \overline C((c, \id c), (d, \id d)) = \{ f: C(c, d) \mid \id c \cdot f \cdot \id d = f \} = C(c, d). \]
 \end{remark}
 
-\begin{remark}\label{rem:retract-coequalizer}
+\begin{remark}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{retract_functor_is_equalizer}, \coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{retract_functor_is_coequalizer}]\label{rem:retract-coequalizer}
   Let $ D $ be a category and suppose that we have two objects $ d, d^\prime : D $ and a retraction
   \[ (r, s) : d^\prime \triangleleft d. \]
   Then $ d^\prime $ is the equalizer of \begin{tikzcd}
@@ -838,7 +838,7 @@ This category is called the \iindex{Karoubi envelope}, the \textit{idempotent co
 
 Besides $ \overline C $, there is also another (classically equivalent) definition of the Karoubi envelope. An object in this alternative category is a presheaf $ F : PC $ that is a retract of the Yoneda embedding $ \yo(X) $ of an object $ X : C $. Note that there are two different ways to translate this to univalent foundations. We can either interpret the existence of the object $ X $ and the retraction $ (r, s) : F \triangleleft \yo(X) $ as additional \textit{structure} on $ F $, or we can treat it as a \textit{property} and ask for \textit{mere existence} (see Definition \ref{def:mere-existence}) of $ X $, $ r $ and $ s $. This gives rise to two different categories:
 
-\begin{definition}\label{def:karoubi'}
+\begin{definition}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_envelope'}]\label{def:karoubi'}
   We define the category $ \tilde C $ in which every object is a presheaf $ F : P C $, together with an object $ X : C $ and a retraction-section pair $ (r, s) : F \triangleleft \yo (X) $. The morphisms from $ (F_1, X_1, r_1, s_1) $ to $ (F_2, X_2, r_2, s_2) $ are just the presheaf morphisms $ f: PC(F_1, F_2) $. This can be summarized in the following diagram:
   \begin{center}
     \begin{tikzcd}
@@ -863,7 +863,7 @@ Besides $ \overline C $, there is also another (classically equivalent) definiti
 \end{definition}
 
 This gives us what we need to translate the classical equivalence between the two notions of Karoubi envelope to type theory:
-\begin{lemma}\label{lem:karoubi-equivalence}
+\begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_envelope_is_retract}]\label{lem:karoubi-equivalence}
   We have an adjoint equivalence $ \overline C \xrightarrow \sim \tilde C $.
 \end{lemma}
 \begin{proof}
@@ -911,7 +911,7 @@ This all leads up to:
 
 Even though univalence and the Rezk completion in general will be covered in Section \ref{sec:univalence-principle}, we will study univalence of the Karoubi envelope here:
 
-\begin{remark}
+\begin{remark}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_univalence}]
   The fully faithful embedding $ i_C : C \hookrightarrow \overline C $ induces equivalences $ (X \cong Y) \simeq (\iota_C(X) \cong \iota_C(Y)) $. We also have an equivalence $ (X = Y) \simeq (\iota_C(X) = \iota_C(Y)) $, because, as it turns out, any equality between $ X $ and $ Y $ also preserves the identity of $ X $. Therefore, if $ \overline C $ is univalent, we have a chain of equivalences
   \[ (X = Y) \simeq (\iota_C(X) = \iota_C(Y)) \simeq (\iota_C(X) \cong \iota_C(Y)) \simeq (X \cong Y), \]
   which shows that $ C $ is univalent as well.
@@ -950,7 +950,7 @@ The remainder of this section works towards the adjoint equivalence between $ PC
 Since a functor preserves retracts, and since every object of $ \overline C $ is a retract of an object in $ C $, we can generalize the construction of the functor that we do in Lemma \ref{lem:karoubi-equivalence} for the functor $ \yo: C \to PC $, to general functors $ F: C \to D $ for categories $ D $ with (co)equalizers.
 
 For convenience, the lemma below works very abstractly with pointwise left Kan extension using colimits, but one could also prove this using just (co)equalizers (or right Kan extension using limits).
-\begin{lemma}
+\begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_pullback_equivalence}]
   Let $ D $ be a category with colimits. We have an adjoint equivalence between $ [C, D] $ and $ [\overline C, D] $.
 \end{lemma}
 \begin{proof}
@@ -962,7 +962,7 @@ For convenience, the lemma below works very abstractly with pointwise left Kan e
   \[ G(a) \cdot \varphi: C(G(c, a), \Lan {\iota_C} (\iota_{C*} G) (c, a)). \]
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{opp_karoubi}]
   The formation of the opposite category commutes with the formation of the Karoubi envelope.
 \end{lemma}
 \begin{proof}

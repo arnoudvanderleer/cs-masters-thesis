@@ -33,7 +33,7 @@ This definition is more general than the definition of algebraic theory in Secti
   A \iindex{Lawvere theory}, or \textit{one-sorted algebraic theory} is a category $ L $, with $ L_0 = \{ 0, 1, \dots \} $, such that $ n = 1^n $, the $ n $-fold product.
 \end{definition}
 
-\begin{lemma}\label{lem:lawvere-clone}
+\begin{lemma}[One direction: \coqident{AlgebraicTheories.AlgebraicTheoryToLawvereTheory}{algebraic_theory_to_lawvere}]\label{lem:lawvere-clone}
   There is an equivalence between abstract clones and Lawvere theories.
 \end{lemma}
 \begin{proof}
@@ -60,7 +60,7 @@ This definition is more general than the definition of algebraic theory in Secti
 
 \subsection{Presheaves for Lawvere Theories}
 
-\begin{lemma}\label{lem:lawvere-presheaf}
+\begin{lemma}[\coqident{AlgebraicTheories.AlgebraicTheoryToLawvereTheory}{algebraic_presheaf_weq_lawere_presheaf}]\label{lem:lawvere-presheaf}
   Let $ C $ be an abstract clone, and $ L $ be its associated Lawvere theory by the equivalence given above. A $ C $-presheaf is equivalent to a presheaf over $ L $.
 \end{lemma}
 \begin{proof}

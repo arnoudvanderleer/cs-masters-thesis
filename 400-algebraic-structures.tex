@@ -35,6 +35,10 @@ Together, these form the category of algebraic theories \iindex{$ \AlgTh $} (\co
   In the same way, the category of algebraic theories has all limits.
 \end{remark}
 
+\begin{remark}[\coqident{AlgebraicTheories.AlgebraicTheoryCategory}{is_univalent_algebraic_theory_cat}]
+  Since an isomorphism of algebraic theories $ S \simeq T $ consists of pointwise isomorphisms $ f_n: S_n \simeq T_n $ that respect the variables and substitution, the category of algebraic theories is univalent.
+\end{remark}
+
 Later on, we will see an example of a trivial algebraic theory (the terminal theory) $ T $, in which every $ T_n $ only contains one element. However, we can say a bit about nontrivial algebraic theories.
 \begin{lemma}\label{lem:nontrivial-algebraic-theory}
   Let $ T $ be an algebraic theory, such that $ T_n $ has at least two distinct elements for some $ n $. Then for all $ 1 \leq i, j \leq m $ with $ i \not = j $, we have $ x_{m, i} \not = x_{m, j} $.
@@ -72,6 +76,10 @@ Together, these form the category of $ T $-algebras \iindex{$ \Alg T $} (\coqide
 
 \begin{remark}
   The category of algebras has all limits. The set of a limit of algebras is the limit of the underlying sets.
+\end{remark}
+
+\begin{remark}[\coqident{AlgebraicTheories.AlgebraCategory}{is_univalent_algebra_cat}]
+  Note that just like with algebraic theories, the category of $ T $-algebras is univalent because its (iso)morphisms preserve $ \bullet $.
 \end{remark}
 
 \begin{remark}
@@ -178,6 +186,10 @@ Together, these form the category of $ T $-presheaves \iindex{$ \Pshf T $} (\coq
   The category of presheaves has all limits. The $ n $th set $ \overline{P}_n $ of a limit $ \overline{P} $ of presheaves $ P_i $ is the limit of the $ n $th sets $ P_{i, n} $ of the presheaves in the limit diagram.
 \end{remark}
 
+\begin{remark}[\coqident{AlgebraicTheories.AlgebraCategory}{is_univalent_algebra_cat}]
+  Note that just like with algebraic theories and algebras, the category of $ T $-presheaves is univalent because its (iso)morphisms preserve $ \bullet $.
+\end{remark}
+
 An analogue to Lemma \ref{lem:algebra-fibration} shows that, like with algebras, the total category of presheaves is fibered over the category of algebraic theories (\coqident{AlgebraicTheories.PresheafCategory}{presheaf_fibration}).
 
 \section{\texorpdfstring{$ \lambda $-}{lambda-}theories}
@@ -224,6 +236,10 @@ Together, these form the category of $ \lambda $-theories \iindex{$ \LamTh $} (\
 
 \begin{remark}[\coqident{AlgebraicTheories.LambdaTheoryCategory}{limits_lambda_theory_cat}]
   The category of lambda theories has all limits, with the underlying algebraic theory of a limit being the limit of the underlying algebraic theories.
+\end{remark}
+
+\begin{remark}[\coqident{AlgebraicTheories.LambdaTheoryCategory}{is_univalent_lambda_theory_cat}]
+  Note that just like with algebraic theories, the category of $ \lambda $-theories is univalent because its (iso)morphisms preserve $ \rho $ and $ \lambda $.
 \end{remark}
 
 \begin{definition}

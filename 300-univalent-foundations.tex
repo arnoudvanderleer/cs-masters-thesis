@@ -78,7 +78,7 @@ Also, if $ A $ is univalent, any full subcategory $ B \subseteq A $ is also univ
 \end{proof}
 We call such a univalent category a \iindex{Rezk completion} of $ C $.
 
-\begin{remark}
+\begin{remark}[\coqident{Bicategories.RezkCompletions.Uniqueness}{rezk_completion_unique}]
   We can call it \textit{the} Rezk completion, since it is unique: Precomposition with the weak equivalence $ \iota: C \hookrightarrow D $ gives an adjoint equivalence on the functor categories $ [D, E] \simeq [C, E] $ for any univalent category $ E $. From this, it follows that $ \iota $ is the ``initial functor'' from $ C $: any functor from $ C $ to a univalent category factors uniquely through $ \iota $.
 
   Now, two initial functors $ F : C \to D $ and $ F^\prime : C \to D^\prime $ factor uniquely through each other:

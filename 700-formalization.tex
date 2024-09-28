@@ -22,7 +22,7 @@ The formalized parts of Hyland's paper are collected in a package in the library
 % FreeTheory.v LambdaCalculus.v OnePointTheory.v ProjectionsTheory.v TheoryAlgebra.v
   \item The terminal algebraic theory, the free algebraic theory on a set, with as a special case the initial algebraic theory, the $ \lambda $-theory $ \Lambda $, the $ T $-presheaf structure on $ T $ and the $ T $-algebra structure on $ T_n $.
 % FreeMonoidTheory.v FreeObjectTheory.v
-  \item The `free object' algebraic theory with a functor from $ C $ to its algebras. Also the equivalence between the `free monoid' algebraic theory $ T $, together with a proof that the functor from monoids to $ T $-algebras is an equivalence.
+  \item The `free object' algebraic theory $ T $ with a functor from $ C $ to $ \Alg T $. Also, for the special case where $ C $ is the category of monoids, a proof that this functor $ C \to \Alg T $ is an equivalence.
 % EndomorphismTheory.v
   \item The construction of the endomorphism theory $ E(X) $ for some object $ X : C $ in a category $ C $ with finite products.
 % Combinators.v CategoryOfRetracts.v OriginalRepresentationTheorem.v
@@ -40,21 +40,20 @@ The formalized parts of Hyland's paper are collected in a package in the library
 
 Since Hyland's paper uses a lot of general category theory, formalizing it entailed adding the preliminaries that had not yet been formalized to the library. Among these are:
 \begin{itemize}
-  \item Univalence of the Sigma displayed category.
-  \item The Sigma displayed category creates limits.
+  \item Univalence of the Sigma displayed category (\coqident{CategoryTheory.DisplayedCats.Examples.Sigma}{is_univalent_sigma_disp}).
+  \item The Sigma displayed category creates limits (\coqident{CategoryTheory.DisplayedCats.Examples.Sigma}{creates_limits_sigma_disp_cat}).
   \item The definitions $ \overline C $ and $ \hat C $ for the Karoubi envelope and their preliminaries.
   \item The contents of Section \ref{sec:monoid-category}: The construction of a one-object category from a monoid, the equivalence between it's presheaves and sets with a right monoid action, properties of the category of sets with a monoid action and restriction and extension of scalars.
   \item The Yoneda embedding preserves exponential objects.
   \item The uniqueness of the Rezk completion.
 % FundamentalTheorem/SurjectivePrecomposition.v
   \item If $ F : C \to C^\prime $ is a fully faithful functor, and $ D $ is a category with colimits, then the precomposition functor $ F \bullet - : [C^\prime, D] \to [C, D] $ is split essentially surjective.
-  A precomposition functor is equivalent if ...
   \item A proof of a generalized version of Lemma \ref{lem:equivalent-presheaf-cats}, showing that if $ F : C \to C^\prime $ is a functor, if $ F^\prime : C^\prime \to C^{\prime \prime} $ is a fully faithful functor, if $ D $ is a category with colimits and if the precomposition $ (F \bullet F^\prime) \bullet - : [C^{\prime \prime}, D] \to [C, D] $ is an adjoint equivalence, then $ F^\prime \bullet - $ and $ F^\prime \bullet - $ are adjoint equivalences too.
 % FiniteSetSkeleton.v
   \item The skeleton category $ F $ of finite sets, with
   \[ F_0 = \{ 0, 1, \dots \} \quad \text{and} \quad F(m, n) = \SET(\{ 1, \dots, n \}, \{ 1, \dots, m \}). \]
 % IndexedSetCategory.v
-  \item The univalent category $ \SET^A $ of indexed sets $ (X_a)_a $ over a type $ A $, which can be defined formally as
+  \item The univalent category $ \SET^A $ of indexed sets $ (X_a)_a $ over a type $ A $ (\coqident{AlgebraicTheories.IndexedSetCategory}{is_univalent_indexed_set_cat}, \coqident{AlgebraicTheories.IndexedSetCategory}{limits_indexed_set_cat}), which can be defined formally as
   \[ \SET^A_0 = (A \to \SET) \quad \text{and} \quad \SET^A(X, Y) = \prod_a X_a \to Y_a. \]
 \end{itemize}
 
