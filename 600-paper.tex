@@ -1,5 +1,4 @@
-\chapter{Hyland's paper}\label{ch:the-paper}
-
+\chapter{Hyland's Paper}\label{ch:the-paper}
 
 \section{Scott's Representation Theorem}
 
@@ -23,7 +22,7 @@ This proof is particularly nice, because it does not require $ \beta $- or $ \et
   Note, however, that this is technically not an answer to Scott's original theorem, because the original formulation asks for a cartesian closed category with a reflexive object, whereas here we only have a reflexive object in a weak cartesian closed category. Even so, it is an answer to the core of the question, which is about whether we can represent any $ \lambda $-theory as the sets of morphisms $ C(U^n, U) $ for some $ U : C $.
 \end{remark}
 
-\section{Relations between the categories}
+\section{Relations Between the Categories}
 
 As mentioned before, we have a fully faithful embedding of $ \R $ into $ \Pshf L $.
 
@@ -92,7 +91,7 @@ The two equivalences in this diagram are due to Lemma \ref{lem:lawvere-presheaf}
   are in fact given by the substitution operations $ \bullet $ in $ E(U) $ and $ L $. Since Scott's representation theorem shows that $ E(U) $ is isomorphic to $ L $ as a $ \lambda $-theory, these substitutions are compatible with the $ \varphi_n $, which shows naturality in $ n $.
 \end{proof}
 
-\section{Locally cartesian closedness of the category of retracts}\label{sec:locally-cartesian-closed}
+\section{Relative Cartesian Closedness of the Category of Retracts}\label{sec:relatively-cartesian-closed}
 
 Recall that in the last chapter, we saw that Paul Taylor shows that the category of retracts $ \R $, studied by Scott, is not only cartesian closed, but also `relatively cartesian closed'. To make his proof work in univalent foundations, we need the axiom of choice. The category in question is the Karoubi envelope of the category $ C_{L_0} $ associated to the monoid $ (L_0, \circ) $.
 
@@ -345,7 +344,8 @@ Now, Hyland shows the following:
 %   Therefore, in univalent foundations, the relative cartesian closedness is not a corollary of Theorem \ref{thm:restrict-sum-product}.
 % \end{remark}
 
-\section{An elementary proof of the `Fundamental Theorem'}\label{sec:elementary-fundamental-theorem}
+\section{An Elementary Proof of the `Fundamental Theorem'}\label{sec:elementary-fundamental-theorem}
+
 The final theorem that Hyland works towards in his paper constructs an equivalence between two ways to reason about the $ \lambda $-calculus using these tools from universal algebra: $ \lambda $-theories and $ \Lambda $-algebras. In this section, we will provide an elementary proof of this theorem. Then, in the next section, we will give Hyland's original proof, which uses more high-level categorical reasoning.
 
 We will assume that $ \Lambda $ (and therefore, any $ \lambda $-theory) satisfies $ \beta $-equality.
@@ -470,7 +470,7 @@ Summarizing,
   By Lemma \ref{lem:elementary-full} and Lemma \ref{lem:elementary-faithful}, the functor is fully faithful. By Lemma \ref{lem:elementary-essentially-surjective}, it is essentially surjective, so it is a weak equivalence. Since $ \LamTh $ and $ \Alg{\Lambda} $ are univalent categories, Lemma \ref{lem:univalen-category-equivalence} shows that $ F $ is an adjoint equivalence.
 \end{proof}
 
-\section{Hyland's proof}
+\section{Hyland's Proof}
 
 Hyland gives a more category theoretical proof. That means that there is more high-level intuition why things work the way they work, but on the flip side, there is a lot more details to check.
 
@@ -961,7 +961,7 @@ By Lemma 3.2 in \autocite{nlab:adjoint_equivalence} and Lemma \ref{lem:zigzag}, 
   % \end{align*}
 \end{remark}
 
-\section{Theory of extensions}
+\section{The Theory of Extensions}
 
 The fundamental theorem of the $ \lambda $-calculus that Hyland shows is actually not of the form shown above. To get there, we first need to show that the category of $ T $-algebras for an algebraic theory $ T $ has coproducts, and define the `theory of extensions'.
 

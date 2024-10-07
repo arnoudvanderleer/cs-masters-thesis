@@ -42,7 +42,7 @@ There is also the dual concept: a universal arrow $ (X, f) $ from a functor $ F 
   \end{tikzcd}
 \end{center}
 
-\section{Adjunctions and equivalences}
+\section{Adjunctions and Equivalences}
 
 Recall that an \iindex{adjunction} $ L \dashv R $ is a pair of functors
 \begin{center}
@@ -266,7 +266,7 @@ Let $ P : \E \to \B $ be a functor. In this case, we will view this as the categ
   \end{center}
 \end{definition}
 
-\section{(Co)slice categories}
+\section{(Co)slice Categories}
 Given an object in a category $ X: \C $, the morphisms to and from $ X $ constitute the slice and coslice categories
 \begin{definition}
   The \iindex{slice category} $ \C \downarrow X $ is the category with as objects the morphisms to $ X $:
@@ -352,7 +352,7 @@ In fact, $ \Delta_X : \C \to (\C \downarrow X) $ is a functor, with $ \Delta_X(f
   \end{align*}
 \end{proof}
 
-\section{Dependent products and sums}\label{sec:dependent-products}
+\section{Dependent Products and Sums}\label{sec:dependent-products}
 The following is based loosely on Section 4.1 of \autocite{taylor}.
 
 Take a category $ \C $. To talk about dependent sums $ \sum_{x: X} Y_x $ and products $ \prod_{x: X} Y_x $ in $ \C $, we first need some way to construct the family of objects $ (Y_x)_x $. Of course, we can do this \textit{externally} using a set $ X $, and picking an object $ Y_x : \C $ for every element $ x : X $. We then have a category of such families $ \C^X $, with objects $ (Y_x)_x $ and morphisms $ (f_x)_x: \C^X((Y_x)_x, (Z_x)_x) $, with $ f_x: Y_x \to Z_x $. We write $ \C^X $ because we can view this as just the $ X $-fold power of $ \C $. Now, this assignment of categories $ X \mapsto \C^X $ can be turned into a contravariant (pseudo)functor of $ 2 $-categories $ \op \SET \to \Cat $. It sends a morphism $ f: X_1 \to X_2 $ to the `relabeling' or `substitution' functor $ \C^{X_2} \to \C^{X_1} $, $ (Y_x)_x \mapsto (Y_{f(x)})_x $.
@@ -480,7 +480,7 @@ Apart from having dependent sums and products, there also is the following theor
 \end{proof}
 
 
-\section{(Weakly) terminal objects}
+\section{(Weakly) Terminal Objects}
 \begin{definition}
   If a category has an object $ I $, such that there is a (not necessarily unique) morphism to it from every other object in the category, $ I $ is said to be a \iindex{weakly terminal object}.
 \end{definition}
@@ -620,7 +620,7 @@ In this thesis, we will encounter co-ends a couple of times, so we will introduc
 \end{remark}
 
 
-\section{Monoids as categories}\label{sec:monoid-category}
+\section{Monoids as Categories}\label{sec:monoid-category}
 Take a monoid $ M $.
 \begin{definition}[\coqident{CategoryTheory.Categories.MonoidToCategory}{monoid_to_category_ob}]
   We can construct a category $ \C_M $ with $ \C_{M0} = \{ \star \} $, $ \C_M(\star, \star) = M $. The identity morphism on $ \star $ is the identity $ 1: M $. The composition is given by multiplication $ g \cdot_{\C_M} f = f \cdot_M g $.
@@ -757,7 +757,7 @@ and
 \end{proof}
 
 
-\section{The Karoubi envelope}
+\section{The Karoubi Envelope}
 Let $ \C $ be a category and $ X, Y : \C $ objects. We will denote the type of section-retraction pairs of $ Y $ onto $ X $ with
 \[ X \triangleleft Y := \sum_{r : \C(Y, X)} \sum_{s : \C(X, Y)} s \cdot r = \id X. \]
 Now, note that for $ (r, s) : X \triangleleft Y $, $ r \cdot s: \C(Y, Y) $ is an idempotent morphism, since $ r \cdot s \cdot r \cdot s = r \cdot s $. We can also wonder whether for an idempotent morphism $ f: \C(X, X) $, we can find some $ Y : \C $ and some $ (r, s) : X \triangleleft Y $ such that $ f = r \cdot s $. If this is the case, we say that the idempotent $ f $ \textit{splits}\index{split idempotent}. If $ f $ does not split, we can wonder whether we can find an embedding $ \iota_\C : \C \hookrightarrow \overline \C $ into some category $ \overline \C $ such that the idempotent $ \iota_\C(f): \overline \C(\iota_\C(X), \iota_\C(X)) $ does split. This is one way to arrive at the \textit{Karoubi envelope}:

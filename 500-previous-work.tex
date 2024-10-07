@@ -1,4 +1,4 @@
-\chapter{Previous work in categorical semantics}\label{ch:previous-work}
+\chapter{Previous Work in Categorical Semantics}\label{ch:previous-work}
 
 % \begin{tabular}{|c|c|c|}\hline
 %   $ K $ & $ \lambda xy.x $ & constant \\\hline
@@ -13,7 +13,7 @@
 %   $ 1 $ & $ \lambda xy.y = KI $ & right projection \\\hline
 % \end{tabular}
 
-\section{The correspondence between categories and typed \texorpdfstring{$ \lambda $}{lambda}-calculi}\label{sec:lambek-correspondence}
+\section{The Correspondence Between Categories and Typed \texorpdfstring{$ \lambda $}{lambda}-calculi}\label{sec:lambek-correspondence}
 In \autocite{curry}, page 413, Scott and Lambek argue that there is a correspondence between simply typed $ \lambda $-calculi and cartesian closed categories (categories with products and `function objects').
 
 Types in the $ \lambda $-calculus correspond to objects in the category.
@@ -36,7 +36,7 @@ Given a term $ s: B_1 \to B_2 $ and a term $ t: B_1 $, both with free variables 
 Given a term $ t: B $ with free variables $ x_1: A_1, \dots, x_n: A_n $, the abstraction $ (\lambda x_n, t): A_n \to B $ corresponds to using the adjunction corresponding to the exponential object of $ A_n $:
 \[ C(A_1 \times \dots \times A_{n-1} \times A_n, B) \simeq C(A_1 \times \dots \times A_{n-1}, B^{A_n}). \]
 
-\section{The category of retracts}\label{sec:retracts-category}
+\section{The Category of Retracts}\label{sec:retracts-category}
 
 The next sections make extensive use of a category called $ \R $, which Hyland calls the `category of retracts'. In this section, we will define the category, and show some properties about it.
 
@@ -505,7 +505,7 @@ This brings us to the main theorem of this section (\autocite{taylor}, 5.1.8).
   (notice the redundant usage of $ B $) is not idempotent.
 \end{remark}
 
-\section{The \texorpdfstring{$ \lambda $}{lambda}-calculus is algebraic}
+\section{The \texorpdfstring{$ \lambda $}{lambda}-calculus is Algebraic}
 As we mentioned in Remark \ref{rem:lambda-theory-or-algebra}, using tools from universal algebra, there are two approaches to study $ \lambda $-calculus-like structures. One can either study $ \lambda $-theories or algebras for the algebraic theory $ \Lambda $. We will see that Hyland shows that these are equivalent.
 
 In his proof, he refers to the 2002 paper `The lambda calculus is algebraic' by Peter Selinger \autocite{selinger-lambda-calculus-algebraic}. We will not study this paper in detail, but it is interesting to have a quick look at it, because it seems that Hyland took some inspiration from it.

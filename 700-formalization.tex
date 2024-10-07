@@ -1,15 +1,16 @@
 % 996 0; 447 37; 1383 1017; 26 26; 6313 889; 2562 2332; 1255 326; 3015 1; 4206 1668; 940 48; 9 5; 508 4; 1701 1267; Total: 23361 7620
 % 434 292; 1144 58; 96 0; 469 113; 145 42; 495 90; 508 221; Total: 3291 816
-\chapter{The formalization}\label{ch:the-formalization}
+\chapter{The Formalization}\label{ch:the-formalization}
+
 In addition to the reading, investigating and writing mathematics that lead up to the previous chapters, this thesis project also had a formalization component. Parts of Hyland's paper were carefully written out in detail in a proof assistant and added to a library of formalized mathematics with the univalent point of view, called \textit{UniMath}.
 
 This chapter will give an overview of what was formalized, as well as point out and evaluate a couple of design decisions that were made.
 
 
-\section{Some numbers}
+\section{Some Numbers}
 The code for this project was written over the course of about 18 months, spread over \href{https://github.com/UniMath/UniMath/pulls?q=is%3Apr+author%3Aarnoudvanderleer+is%3Aclosed}{20 pull requests}: 13 with content about Hyland's paper, adding 23.361 and removing 7.620 lines of code, and 7 with only some missing category theoretical preliminaries, adding 3.291 and removing 816 lines.
 
-\section{Overview of the formalized material}
+\section{Overview of the Formalized Material}
 The material that was formalized can be subdivided into material that is introduced or described in Hyland's paper, and category theoretical preliminaries that are necessary to make the proofs in Hyland's paper work.
 
 The formalized parts of Hyland's paper are collected in a package in the library called \textit{algebraic theories}. This package now consists of over 14.000 lines of code, and contains
@@ -68,7 +69,7 @@ An example of this is the proof that for the algebraic $ T $ where $ T_n $ is th
 
 In general, the formalization is the cleanest and the easiest when we use equality for elements of homotopy sets (morphisms, or terms in an algebraic theory, for example), isomorphisms for objects in a category and adjoint equivalences for categories themselves.
 
-\section{Displayed categories}\label{sec:displayed-categories}
+\section{Displayed Categories}\label{sec:displayed-categories}
 
 \index{displayed category}\textit{Displayed categories} (introduced in \autocite{displayed-categories}) are a mathematical idea which provides a great tool in formalizing categories. One of the motivations behind displayed categories is the fact that mathematicians often define a category in terms of another: a monoid is a set together with a binary operation, a group is a monoid in which every element has an inverse, a topological space is a set together with a chosen collection of subsets.
 
@@ -177,7 +178,7 @@ in the definitions of, respectively, the displayed identity and composition. In 
 
 The second approach is by constructing the displayed category $ D $ directly, setting $ D_c = C^\prime $ and $ c \to_f c^\prime = C^\prime(c, c^\prime) $. This is slightly more work, because we do it in an elementary way instead of using category theoretical machinery. In return, this approach gives cleaner definitions in practice for the identity and composition morphisms of the total category. Therefore, halfway during the project, a switch was made from the first to the second approach.
 
-\section{Duplication in definitions}
+\section{Duplication in Definitions}
 One of the adages in software engineering is `DRY': ``Don't Repeat Yourself'': Long expressions and blocks of code that occur multiple times throughout the program should usually be abstracted into a separate function. One of the reasons for this is that it is easier to change code in this function, than to change every instance of the repeated expression or block of code. When writing mathematics, such functions are usually called `lemmas'. However, in this project there was also another example of duplication, which occurred in statements of definitions and lemmas. For example, in the definition of the displayed category of algebraic theories, the displayed object type over a sequence of sets $ T_n $ is
 \[ \left(\prod_n \prod_{i : \{ 1, \dots, n \}} T_n \right) \times \left( \prod_{m, n} T_m \times T_n^m \to T_n \right), \]
 corresponding to the variables and the substitution. Then, the constructor of an algebraic theory takes arguments
@@ -281,7 +282,7 @@ such that the following diagrams commute:
 \end{center}
 Such a generalization of a monoid to a general category is called an \index{monoid!internal}\textit{internal monoid}. In a similar way, sets with a monoid action can be generalized. However, this all would be a lot of work, and elementary reasoning about internal monoids of $ \SET $ is still much more cumbersome than for the ordinary set-based monoids. Also, for the fundamental theorem we only need the ordinary set-based monoids. Therefore, this generalization was not pursued any further.
 
-\section{The formalization of the \texorpdfstring{$ \lambda $}{lambda}-calculus} \label{sec:axiomatic-lambda-calculus}
+\section{The Formalization of the \texorpdfstring{$ \lambda $}{lambda}-calculus} \label{sec:axiomatic-lambda-calculus}
 One of the important classes of objects in this thesis is the class of $ \Lambda $-algebras: algebras for the initial $ \lambda $-theory $ \Lambda $, corresponding to the `pure' $ \lambda $-calculus. Therefore, much of this project required the pure $ \lambda $-calculus to be formalized. Now, in this thesis, it is defined as a quotient of an inductive type. However, in the UniMath library, the use of inductive types (other than a handful of basic ones like \texttt{empty}, \texttt{bool}, \texttt{nat} and \texttt{coprod}) is prohibited
 \footnote{This is because allowing inductive types requires a much larger trusted codebase of the proof assistant, and because most of mathematics can be formalized with $ \sum $-types or using initial algebras of functors, instead of inductive and record types.}. Also, as we saw in section \ref{sec:quotients}, working with quotients can be somewhat complicated.
 
@@ -378,7 +379,7 @@ is added. Progressing through the file, the same is done for combinators like th
 
 It would be interesting to see whether parts of these tactics can be generalized. For example, whether it is possible to create an extensible tactic which shows that some type is a homotopy set, or a mere proposition, and prints the coq statements that can replace the tactic call. Or whether it would be possible to generalize \texttt{generate\_refine} to very qukickly generate very fast and precise rewrite statements for large and complicated goals.
 
-\section{The learning curve}
+\section{The Learning Curve}
 Let me conclude this chapter with a more personal note about formalization. In the past fifteen years, I have worked with a plethora of different programming languages, and I would like to think that in all this time, I have learned a great deal about programming. When I start working with a new language, it takes me a couple of minutes to figure things out, and within an hour, I can probably get a small program up and running, with some help from google. However, when I started working with coq and UniMath, I kind of had to start from scratch again. As it turns out, the naive or direct approach is often not the right one when working with a proof assistant, and of the code that I wrote in the first months, almost nothing remains. Even though every programming language has some sort of learning curve, formalizing in a proof assistant is especially unforgiving: You often have to change an old definition, or start over when you are halfway through a proof, because your current approach gets bogged down further and further with, for example, unintelligible transports. For every line of code that ends up in a pull request, many lines are written and erased again.
 
 For example, if we want to show that two types $ X $ and $ Y $ are equivalent, we need to construct an equivalence, which has the following type:

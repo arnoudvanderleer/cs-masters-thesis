@@ -1,6 +1,6 @@
 \chapter{Univalent Foundations}\label{ch:univalent-foundations}
 
-\section{Dependent type theory}
+\section{Dependent Type Theory}
 Univalent foundations takes place in a framework of type theory. In this section, we will quickly introduce some topics that we will need in subsequent sections.
 
 First of all, \iindex{type theory} is the study of `type systems'. A \iindex{type system} is a collection of \textit{terms} or \textit{elements}, each of which has a corresponding type. A type is much like a set in set theory in that it has elements (for example, $ \mathrm{true}: \mathrm{Bool} $ or $ 1: \mathbb N $), but there are important differences. First of all, in type theory, terms are declared together with their type, so every term has exactly one type, whereas in set theory, something can be an element of multiple sets, like $ 5 \in \mathbb N $ and $ 5 \in \mathbb R $. Secondly, equality in type theory can work a bit differently than in set-based mathematics, but I will cover this in the next section.
@@ -40,7 +40,7 @@ If we think of types as propositions, the question whether some axiom is assumed
     is inhabited. This axiom (or actually more of a theorem) is called the \index{axiom of choice!type theoretic}\textit{type theoretic axiom of choice}.
 \end{itemize}
 
-\section{The univalence principle}\label{sec:univalence-principle}
+\section{The Univalence Principle}\label{sec:univalence-principle}
 \enquote{\textit{Isomorphic objects are equivalent.}}
 
 This principle is visible in most of mathematics: Sets with a bijection have the same number of elements, isomorphic groups have the same properties, and since the universal property of limits makes them ``unique up to unique isomorphism'', we can talk about `the' limit of some diagram in a category.
@@ -89,7 +89,7 @@ We call such a univalent category a \iindex{Rezk completion} of $ C $.
   \[ (D, F) = (D^\prime, F^\prime). \]
 \end{remark}
 
-\section{The univalence axiom}
+\section{The Univalence Axiom}
 Now, even for a basic category, like the category of types, it seems impossible to prove that the univalence principle holds. However, this is no surprise: It turns out that there is a model in set theory for Martin-Löf type theory with univalence \autocite{simplicial-set-model}, but also for Martin-Löf type theory with proof irrelevance \autocite{proof-irrelevant-model}. In the latter, the type $ x = y $ has at most one element for all $ x, y : T $ and all types $ T $, which contradicts univalence. Therefore, univalence is independent of the axioms of Martin-Löf type theory: both univalence or its negation cannot be proved, but either can be assumed as an axiom.
 
 As mentioned before, univalent foundations attempts to develop as much of mathematics as possible along the univalence principle. Therefore, we assume as our first axiom the \iindex{univalence axiom}:
@@ -121,7 +121,7 @@ Lastly, a result about univalent categories that we will use a couple of times i
   See \autocite{univalent-categories}, Lemma 6.8.
 \end{proof}
 
-\section{hProps and hSets}\label{sec:homotopy-props-sets}
+\section{Propositions and Sets}\label{sec:homotopy-props-sets}
 If we have a type $ T $ and objects $ x $ and $ y $, we can wonder how many elements $ x = y $ has. In set-based mathematics, this would be a nonsensical question: two elements of a set are either equal or not equal. Therefore, we can expect the answer to be that $ x = y $ has at most one element. And indeed, if we do not assume the univalence axiom, we can assume another axiom, called `uniqueness of identity proofs', which states that for $ p, q: x = y $, we have a proof of equality $ h: p = q $.
 
 On the other hand, suppose that we do assume the univalence axiom. Consider the two-element type $ T = \{ -1, 1 \} $. We can construct two different equivalences $ \id T, \sigma: T \simeq T $:
@@ -144,7 +144,7 @@ Since the identity types for a homotopy set are mere propositions, a homotopy se
 
 For similar reasons, we restrict the hom-types $ C(c, d) $ of categories to be sets. Note that $ \TYPE $ is not a category under this definition (it is a `precategory', for some definition of precategory), because in general, the type of functions between sets $ S \to T $ is not a set.
 
-\section{Truncation and (mere) existence}
+\section{Truncation and (Mere) Existence}
 As mentioned before, if we want to do mathematics in a dependent type theory, we can `encode' propositions as types. The elements of the type correspond to the proofs that the proposition is true, see for example the identity types. However, we need to be careful here about the distinction between types in general and mere propositions:
 
 A proof that a type $ T $ is nonempty usually consists of giving an element $ t : T $. If we encode the statement ``$ T $ is nonempty'' as $ T $, and if $ T $ is not a mere proposition, then ``$ T $ is nonempty'' is not a mere proposition, so it has multiple distinct proofs. In some cases, this is exactly what we want, because we want to retrieve the chosen element of $ T $. However, in some cases, we want the fact that a set is nonempty (or any statement in general) to be a mere proposition, to avoid having to carry around a specific element and having to prove equality of two specific elements. For such cases, we have the `propositional truncation':
@@ -166,7 +166,7 @@ For example, if we have objects in a category $ c, d: C $ and we want to talk ab
 
 Note that for the Curry-Howard correspondence, the product or conjunction $ A \land B = A \times B $ of two mere propositions is again a mere proposition. However, the union $ A \sqcup B $ is not necessarily a mere proposition. To make it into a mere proposition, we need to take the propositional truncation $ A \lor B = \Vert A \sqcup B \Vert $.
 
-\section{Equality and homotopy}
+\section{Equality and Homotopy}
 Univalent Foundations is often mentioned together with Homotopy Type Theory, because they are related but distinct concepts. Therefore, we will mention it here.
 
 As we saw before, if we do not assume uniqueness of identity proofs, given two elements $ x, y: T $, we can have multiple distinct proofs that $ x = y $, which is counterintuitive. One way to think about this, is the perspective of homotopy type theory. In homotopy type theory, one considers a type $ T $ to be a `space', intuitively similar to a topological space, but without an explicit topology. The elements $ t : T $ are then the points of the space. Elements of the identity type $ (s = t) $ are interpreted as `paths' from $ s $ to $ t $. That is why the induction principle of $ (s = t) $ is called `path induction'. Of course, we can go higher: for $ p, q : x = y $, the elements $ (p = q) $ are `paths between paths', (path) `homotopies', `sheets' or `1-cells', for homotopies $ h, h^\prime: p = q $, the elements of $ h = h^\prime $ are paths between paths between paths, `volumes' or `2-cells' etc.
