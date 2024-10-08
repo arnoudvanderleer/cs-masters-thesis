@@ -149,18 +149,17 @@
 % Theorem environments
 \usepackage{amsthm}
 
-\newtheorem{lemma}{Lemma}
-\newtheorem{theorem}{Theorem}
-\newtheorem{corollary}{Corollary}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
 \newtheorem*{axiom}{Axiom}
 
 \theoremstyle{definition}
-\newtheorem{definition}{Definition}
+\newtheorem{definition}[theorem]{Definition}
 
 \theoremstyle{remark}
-\newtheorem{remark}{Remark}
-\newtheorem{example}{Example}
-
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
 
 % Todo's and Notes
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}

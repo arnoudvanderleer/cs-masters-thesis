@@ -358,7 +358,7 @@ We will use Lemma \ref{lem:univalen-category-equivalence}, by showing that $ -_0
 
 First of all, let $ A $ be an algebra for the initial $ \lambda $-theory $ \Lambda $.
 
-The $ \Lambda $-algebra structure gives the terms of $ A $ quite a lot of interesting behaviour. For example, we can define `function application' and composition as
+The $ \Lambda $-algebra structure gives the terms of $ A $ a lot of interesting behaviour. For example, we can define `function application' and composition as
 \[ a b = (x_1 x_2) \bullet (a, b) \quad \text{and} \quad a \circ b = (x_1 \circ x_2) \bullet (a, b), \]
 and the same for the other constructions at the start of Section \ref{sec:retracts-category}.
 
@@ -532,13 +532,13 @@ Recall that we have an equivalence $ [\op{C_{A_1}}, \SET] \cong \RAct{A_1} $.
   \end{center}
   Explicitly, this gives the embedding $ \R_A(\mathbf 1_1, -): \R_A \hookrightarrow \RAct{A_1} $ given by
   \[ X \mapsto \R_A(\mathbf 1_1, X) = \{ x : A \mid X \circ x = x \}. \]
-  Also, note that if $ A = L_0 $ for some $ \lambda $-theory $ L $, then the monoid $ A_1 $ is equivalent to the monoid $ L_1 $, and $ \R_A $ is equivalent to our familiar category of retracts $ \R $. Using \ref{lem:equivalent-presheaf-cats}, we have the following 2-commutative diagram:
+  Also, note that if $ A = L_0 $ for some $ \lambda $-theory $ L $, then the monoid $ A_1 $ is equivalent to the monoid $ L_1 $, and $ \R_A $ is equivalent to our familiar category of retracts $ \R $. Using Lemma \ref{lem:equivalent-presheaf-cats}, we have the following 2-commutative diagram:
   \begin{center}
     \begin{tikzcd}
       &
-      C_{{L_0}_1} \arrow[dd, "\yo" description, hook] \arrow[rrr, "\iota_{C_{{L_0}_1}}" description, hook] \arrow[rd, "\sim" description, no head] & & & \R_{L_0} \arrow[dd, "\yo" description, hook] \arrow[rd, "\sim" description, no head] & & \\
+      C_{{L_0}_1} \arrow[dd, "\yo" description, near start, hook] \arrow[rrr, "\iota_{C_{{L_0}_1}}" description, hook] \arrow[rd, "\sim" description, no head] & & & \R_{L_0} \arrow[dd, "\yo" description, near start, hook] \arrow[rd, "\sim" description, no head] & & \\
       &
-      & C_{L_1} \arrow[dd, "\yo" description, hook] \arrow[r, hook] & \mathbf L \arrow[rr, hook] \arrow[dd, "\yo" description, hook] & & \mathbf R \arrow[dd, "\yo" description, hook] \arrow[rdd, hook] & \\
+      & C_{L_1} \arrow[dd, "\yo" description, near start, hook] \arrow[r, hook] & \mathbf L \arrow[rr, hook] \arrow[dd, "\yo" description, near start, hook] & & \mathbf R \arrow[dd, "\yo" description, near start, hook] \arrow[rdd, hook] & \\
       \RAct{{L_0}_1} &
       P C_{{L_0}_1} \arrow[l, "\sim"'] \arrow[rd, "\sim" description, no head] & & & P \R_{L_0} \arrow[lll, "\sim" description] \arrow[rd, "\sim" description, no head] & & \\
       &
@@ -906,7 +906,7 @@ Now, finally, we are ready to show that $ \epsilon $ is an isomorphism of $ \Lam
 
 \subsection{The equivalence}
 
-By Lemma 3.2 in \autocite{nlab:adjoint_equivalence} and Lemma \ref{lem:zigzag}, $ \eta $ and $ \epsilon $ satisfy both zigazg identities, and we can state the fundamental theorem of the $ \lambda $-calculus:
+By Lemma 3.2 in \autocite{nlab:adjoint_equivalence} and Lemma \ref{lem:zigzag}, $ \eta $ and $ \epsilon $ satisfy both zigzag identities, and we can state the fundamental theorem of the $ \lambda $-calculus:
 \begin{theorem}\label{thm:Hyland-fundamental-theorem}
   There is an adjoint equivalence $ \LamTh \cong \Alg{\Lambda} $, sending a $ \lambda $-theory $ L $ to the $ \Lambda $-algebra $ L_0 $, with an inverse functor that sends a $ \Lambda $-algebra $ A $ to the theory $ E_{\RAct{A_1}}(U_A) $.
 \end{theorem}

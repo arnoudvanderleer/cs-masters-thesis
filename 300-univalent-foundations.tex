@@ -53,7 +53,7 @@ Univalent foundations seeks to be a foundation for mathematics that is in line w
 
 It is important to note that Martin-Löf type theory has \textit{identity types}: given a type $ T $ and elements $ x, y: T $, we have a type $ \mathrm{Id}_T(x, y) $ (note that this is a dependent type), which we will usually denote with $ x = y $. An element $ p: x = y $ is a proof that $ x $ is `equal' to $ y $. This type comes with an interesting induction principle called \iindex{path induction}: we can show any statement about paths $ p: x = y $ for generic $ x $ and $ y $, if we can show it about the `trivial' path $ \mathrm{refl}: x = x $ for generic $ x $. For example, symmetry of the equality boils down to a function $ \prod_{x y : T} x = y \to y = x $. We construct this using path induction with the function that sends $ \mathrm{refl}: x = x $ to itself. For more information, see \autocite{hottbook}, Section 1.12.1.
 
-In set-theoretic mathematics, there is the concept of a `bijection' $ S \simeq T $ of sets (or an isomorphism in the category $ \SET $), which is often treated as an equivalence. It consists of functions $ f: S \to T $ and $ g: T \to S $ with $ f \cdot g = \id S $ and $ g \cdot f = \id T $. In type theory, we have a similar concept, which is called `equivalence' (of types) $ S \simeq T $. Since bijections are not well-behaved for types that are not sets (see \ref{sec:homotopy-props-sets}), because in those cases, a function $ f: S \to T $ can have multiple distinct inverses. Therefore, we define $ S \simeq T := \sum_{f: S \to T} \mathrm{isequiv}(f) $, for some predicate $ \mathrm{isequiv}: (S \to T) \to \TYPE $ (see \autocite{hottbook}, Equation 2.4.10). However, intuitively we can still think of these as bijections.
+In set-theoretic mathematics, there is the concept of a `bijection' $ S \simeq T $ of sets (or an isomorphism in the category $ \SET $), which is often treated as an equivalence. It consists of functions $ f: S \to T $ and $ g: T \to S $ with $ f \cdot g = \id S $ and $ g \cdot f = \id T $. In type theory, we have a similar concept, which is called `equivalence' (of types) $ S \simeq T $. Since bijections are not well-behaved for types that are not sets (see Section \ref{sec:homotopy-props-sets}), because in those cases, a function $ f: S \to T $ can have multiple distinct inverses. Therefore, we define $ S \simeq T := \sum_{f: S \to T} \mathrm{isequiv}(f) $, for some predicate $ \mathrm{isequiv}: (S \to T) \to \TYPE $ (see \autocite{hottbook}, Equation 2.4.10). However, intuitively we can still think of these as bijections.
 
 Using the identity type, we can make our statement of the univalence principle more precise (and a bit stronger). For types, we can construct a function
 \[ \mathrm{idtoequiv}: \prod_{S, T: \TYPE} (S = T) \to (S \simeq T). \]
@@ -65,7 +65,7 @@ using path induction with the identity isomorphism $ \prod_{c: C} \id c: (c \con
 
 A category that adheres to the univalence principle is called a \iindex{univalent category}.
 
-Note that if $ B $ is a univalent category and $ A $ is any cateory, the functor category $ [A, B] = B^A $ is univalent as well. In particular, the presheaf category $ P A = [\op A, \SET] $ is univalent.
+Note that if $ B $ is a univalent category and $ A $ is any category, the functor category $ [A, B] = B^A $ is univalent as well. In particular, the presheaf category $ P A = [\op A, \SET] $ is univalent.
 
 Also, if $ A $ is univalent, any full subcategory $ B \subseteq A $ is also univalent, because isomorphisms and equalities of objects in $ B $ can be shown to be the `the same' as their isomorphisms and equalities in $ A $.
 
@@ -76,18 +76,20 @@ Also, if $ A $ is univalent, any full subcategory $ B \subseteq A $ is also univ
 \begin{proof}
   One construction takes $ D $ to be the full subcategory of the presheaf category $ PC $ of objects that are isomorphic (there \textit{merely exists} an isomorphism) to the Yoneda embedding $ \yo(X) $ of some object $ X : C $. See \autocite{univalent-categories}, Theorem 8.5.
 \end{proof}
-We call such a univalent category a \iindex{Rezk completion} of $ C $.
-
-\begin{remark}[\coqident{Bicategories.RezkCompletions.Uniqueness}{rezk_completion_unique}]
-  We can call it \textit{the} Rezk completion, since it is unique: Precomposition with the weak equivalence $ \iota: C \hookrightarrow D $ gives an adjoint equivalence on the functor categories $ [D, E] \simeq [C, E] $ for any univalent category $ E $. From this, it follows that $ \iota $ is the ``initial functor'' from $ C $: any functor from $ C $ to a univalent category factors uniquely through $ \iota $.
+We call such a univalent category a \iindex{Rezk completion} of $ C $. Actually, we can call it \textit{the} Rezk completion:
+\begin{lemma}[\coqident{Bicategories.RezkCompletions.Uniqueness}{rezk_completion_unique}]
+  A Rezk completion is unique.
+\end{lemma}
+\begin{proof}
+  Precomposition with the weak equivalence $ \iota: C \hookrightarrow D $ gives an adjoint equivalence on the functor categories $ [D, E] \simeq [C, E] $ for any univalent category $ E $. From this, it follows that $ \iota $ is the ``initial functor'' from $ C $: any functor from $ C $ to a univalent category factors uniquely through $ \iota $.
 
   Now, two initial functors $ F : C \to D $ and $ F^\prime : C \to D^\prime $ factor uniquely through each other:
   \[ F^\prime = F \bullet G \quad \text{and} \quad F = F^\prime \bullet G^\prime \]
-  for some functors $ G $ and $ G^\prime $ and we can show that
+  for two functors $ G $ and $ G^\prime $ and since $ F $ and $ F^\prime $ also factor uniquely through themselves, we have
   \[ G \bullet G^\prime = \id D \quad \text{and} \quad G^\prime \bullet G = \id{D^\prime}. \]
   From this, we can construct an equivalence $ D \cong D^\prime $. Since $ D $ and $ D^\prime $ are univalent, this equivalence gives an equality of categories, and because $ F \bullet G = F^\prime $, we have an equality of pairs
   \[ (D, F) = (D^\prime, F^\prime). \]
-\end{remark}
+\end{proof}
 
 \section{The Univalence Axiom}
 Now, even for a basic category, like the category of types, it seems impossible to prove that the univalence principle holds. However, this is no surprise: It turns out that there is a model in set theory for Martin-Löf type theory with univalence \autocite{simplicial-set-model}, but also for Martin-Löf type theory with proof irrelevance \autocite{proof-irrelevant-model}. In the latter, the type $ x = y $ has at most one element for all $ x, y : T $ and all types $ T $, which contradicts univalence. Therefore, univalence is independent of the axioms of Martin-Löf type theory: both univalence or its negation cannot be proved, but either can be assumed as an axiom.
@@ -115,7 +117,7 @@ The last structure in this section for which we want to consider the univalence 
 
 Lastly, a result about univalent categories that we will use a couple of times in this thesis:
 \begin{lemma}\label{lem:univalen-category-equivalence}
-  For a functor between univalent categories $ F: A \to B $, the types `$ F $ is an adjoint equivalence' and `$ F $ is a weak equivalence' are equivalent propositions (see \ref{sec:homotopy-props-sets}).
+  For a functor between univalent categories $ F: A \to B $, the types `$ F $ is an adjoint equivalence' and `$ F $ is a weak equivalence' are equivalent propositions (see Section \ref{sec:homotopy-props-sets}).
 \end{lemma}
 \begin{proof}
   See \autocite{univalent-categories}, Lemma 6.8.
@@ -140,7 +142,7 @@ To deal with this, we need the concepts of mere propositions and (homotopy) sets
   A \iindex{homotopy set} is a type $ T $ such that for all $ x, y: T $, $ x = y $ is a mere proposition.
 \end{definition}
 
-Since the identity types for a homotopy set are mere propositions, a homotopy set mimicks a set in set theory, where equality between elements `is' or `is not'. If we restrict the underlying type of a group to be a homotopy set, it can be shown that $ \prod_{x, y: H} f_1(x \circ y) = f_1(x) \circ f_1(y) $ is a mere proposition, so $ f_2 = g_2 $ trivially. This is often true when translating definitions from set theory to univalent foundations: if we base our objects on homotopy sets instead of types, we only have to worry about equality of `data', the equality of `properties' follows automatically.
+Since the identity types for a homotopy set are mere propositions, a homotopy set mimics a set in set theory, where equality between elements `is' or `is not'. If we restrict the underlying type of a group to be a homotopy set, it can be shown that $ \prod_{x, y: H} f_1(x \circ y) = f_1(x) \circ f_1(y) $ is a mere proposition, so $ f_2 = g_2 $ trivially. This is often true when translating definitions from set theory to univalent foundations: if we base our objects on homotopy sets instead of types, we only have to worry about equality of `data', the equality of `properties' follows automatically.
 
 For similar reasons, we restrict the hom-types $ C(c, d) $ of categories to be sets. Note that $ \TYPE $ is not a category under this definition (it is a `precategory', for some definition of precategory), because in general, the type of functions between sets $ S \to T $ is not a set.
 
@@ -255,4 +257,4 @@ This example involves proofs:
   \item $ r : \mathrm{transport}_{(p, q)}(x_3) = x^\prime_3 $, which can be simplified to $ \mathrm{transportf}_p(x_3) = x^\prime_3 $, since $ x_3 $ does not depend on $ x_2 $
   \item and finally $ s: \mathrm{transport}_{((p, q), r)}(x_4) = x^\prime_4 $.
 \end{itemize}
-In general, these latter proofs $ r $ and $ s $ are very challenging and best avoided whenever possible. The situation in which one has to work with such complicated transports, which make a proof (seemingly unnecesarily) complicated is called \iindex{transport hell}. Some mathematical tools have been developed (see for example \ref{sec:displayed-categories} about displayed categories) that help avoid transport hell in some cases. Additionally, the structure or `strategy' of a proof can sometimes be changed in order to avoid the worst of the transports. However, it is often not possible to avoid transports altogether, and this is one of the reasons why proving something in a proof assistant takes a lot more work than proving it on paper.
+In general, these latter proofs $ r $ and $ s $ are very challenging and best avoided whenever possible. The situation in which one has to work with such complicated transports, which make a proof (seemingly unnecesarily) complicated is called \iindex{transport hell}. Some mathematical tools have been developed (see for example Section \ref{sec:displayed-categories} about displayed categories) that help avoid transport hell in some cases. Additionally, the structure or `strategy' of a proof can sometimes be changed in order to avoid the worst of the transports. However, it is often not possible to avoid transports altogether, and this is one of the reasons why proving something in a proof assistant takes a lot more work than proving it on paper.

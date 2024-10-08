@@ -3,7 +3,7 @@
 I will assume a familiarity with the category-theoretical concepts presented in \autocite{CT4P}. These include categories, functors, isomorphisms, natural transformations, adjunctions, equivalences and limits.
 
 \section{Notation}
-Throughout this thesis, objects of a homotopy set, for example morphisms, will usually be denoted with lowercase letters like $ f, g, h $ and sometimes with greek letters like $ \epsilon, \eta, \varphi, \psi $. Objects of a homotopy $ 1 $-type, like objects in a category, will usually be denoted with capital letters like $ X, Y, Z $. Lastly, (displayed) (bi)categories themselves will usually be denoted with boldface capital letters like $ \SET $ or $ \D $.
+Throughout this thesis, objects of a homotopy set, for example morphisms, will usually be denoted with lowercase letters like $ f, g, h $ and sometimes with Greek letters like $ \epsilon, \eta, \varphi, \psi $. Objects of a homotopy $ 1 $-type, like objects in a category, will usually be denoted with capital letters like $ X, Y, Z $. Lastly, (displayed) (bi)categories themselves will usually be denoted with boldface capital letters like $ \SET $ or $ \D $.
 
 Throughout this thesis, an object $ X $ in a category $ \C $ will be denoted by $ X : \C $. A morphism $ f $ between objects $ X $ and $ Y $ in a category $ \C $ will be denoted by $ f: \C(X, Y) $ or sometimes $ f: X \to Y $. Composition of morphisms $ f: \C(X, Y) $ and $ g: \C(Y, Z) $ will be denoted by $ f \cdot g $. And composition of functors $ F: \A \to \B $ and $ G: \B \to \C $ will be denoted by $ F \bullet G $.
 
@@ -50,7 +50,7 @@ Recall that an \iindex{adjunction} $ L \dashv R $ is a pair of functors
     \D \arrow[r, bend right, "R"'{name=R}] & \C \arrow[l, bend right, "L"'{name=L}]
   \end{tikzcd}
 \end{center}
-with natural transformations (the unit and counit)
+with natural transformations (the unit and co-unit)
 \[ \eta: \id \C \Rightarrow L \bullet R \quad \text{and} \quad \epsilon: R \bullet L \Rightarrow \id \D \]
 such that the diagrams
 \begin{center}
@@ -80,11 +80,12 @@ Lastly, one can construct an adjunction using universal arrows. This lends itsel
 \end{proof}
 
 \subsection{Adjoint equivalences}
-An (adjoint) equivalence of categories has multiple definitions. The one we will use here is the following:
-
+An (adjoint) equivalence of categories has two equivalent definitions, that only differ in which notion they take as the base. In this case, we will use the definition that is based on adjunctions:
 \begin{definition}\label{def:equivalence-of-categories}
-  An \iindex{adjoint equivalence} between categories $ \C $ and $ \D $ is a pair of adjoint functors $ L \dashv R $ like above such that the unit $ \eta: \id{\C} \Rightarrow L \bullet R $ and counit $ \epsilon: R \bullet L \Rightarrow \id{\D} $ are isomorphisms of functors.
+  An \iindex{adjoint equivalence} between categories $ \C $ and $ \D $ is a pair of adjoint functors $ L \dashv R $ like above such that the unit $ \eta: \id{\C} \Rightarrow L \bullet R $ and co-unit $ \epsilon: R \bullet L \Rightarrow \id{\D} $ are isomorphisms of functors.
 \end{definition}
+
+The alternative is to define an adjoint equivalence as an equivalence of categories (a tuple $ (L, R, \eta, \epsilon) $ of two functors and two natural transformations, where $ \eta $ and $ \epsilon $ are isomorphisms of functors) that additionally satisfies the zigzag identities.
 
 \subsection{Weak equivalences}
 There is also the notion of `weak equivalence'. In some cases, this is equivalent to an adjoint equivalence (for example, when its domain is univalent, see Section \ref{sec:univalence-principle}).
@@ -136,7 +137,9 @@ However, as with exponential object, sometimes we have a forgetful functor $ F: 
 \end{remark}
 
 \section{Yoneda}
-We can embed a category $ \C $ fully faithfully into the functor category $ P \C = [\op \C, \SET] $ as follows (see \autocite{Kashiwara}, Section 1.4):
+Let $ \C $ be a category. One of the categories that is often important in the study of $ \C $ is its \iindex{presheaf category} $ P \C = [\op \C, \SET] $. Its objects are the functors from $ \op C $ to $ \SET $ and its morphisms are the natural transformations between the functors.
+
+We can embed $ \C $ fully faithfully into $ P \C $ as follows (see \autocite{Kashiwara}, Section 1.4):
 \begin{definition}\label{def:Yoneda-embedding}
   The \iindex{Yoneda embedding} $ \yo : \C \hookrightarrow P \C $ is given on objects by $ \yo(Y) = \C(-, Y) $:
   \[ \yo(Y)(X) = \C(X, Y) \quad \text{and} \quad \yo(Y)(f)(g) = f \cdot g \]
@@ -154,7 +157,7 @@ Now, this embedding has a couple of properties:
 \end{proof}
 
 \begin{remark}
-  For any category $ \D $, the category $ [\C, \D] $ has (co)limits of some kind (terminal or initial object, (co)products, (co)equalizers) iff $ \D $ does. These (co)limits are computed pointwise: for example, for binary products, $ (F \times G)(X) = F(X) \times G(X) $. In particular $ P \C $ has all limits and colimits because $ \SET $ has all limits and colimits.
+  For any category $ \D $, the category $ [\C, \D] $ has (co)limits of some kind (terminal or initial object, (co)products, (co)equalizers) if and only if $ \D $ does. These (co)limits are computed pointwise: for example, for binary products, $ (F \times G)(X) = F(X) \times G(X) $. In particular $ P \C $ has all limits and colimits because $ \SET $ has all limits and colimits.
 \end{remark}
 
 \begin{remark}
@@ -437,7 +440,7 @@ We will close this section with a name for a category that has all dependent pro
 
 Apart from having dependent sums and products, there also is the following theorem that shows the significance of locally cartesian closedness:
 \begin{lemma}\label{lem:locally-cartesian-closed}
-  A category $ \C $ is locally cartesian closed iff $ (\C \downarrow X) $ is cartesian closed for each $ X : \C $.
+  A category $ \C $ is locally cartesian closed if and only if $ (\C \downarrow X) $ is cartesian closed for each $ X : \C $.
 \end{lemma}
 \begin{proof}
   See the end of Section 1.3 of \autocite{freyd}.
@@ -539,7 +542,7 @@ If a category has limits (resp. colimits), we can construct the right (resp. lef
   \[ \eta_G(Y) : \C(G(Y), \Lan F G (F(Y))), \]
   the latter being equal to $ (\Lan F {} \bullet F_*)(G)(Y) $.
 
-  The counit of the adjunction is a natural transformation $ \epsilon: F_* \bullet \Lan F {} \Rightarrow \id{[\B, \C]} $. We will also define this pointwise, for $ G: [\B, \C] $ and $ X: \B $. The diagram for $ \Lan F (F_* G)(X) $ consists of $ G(F(Y)) $ for all $ f: \B(F(Y), X) $. Then, by the universal property of the colimit, the morphisms $ G(f): \C(G(F(Y)), G(X)) $ induce a morphism
+  The co-unit of the adjunction is a natural transformation $ \epsilon: F_* \bullet \Lan F {} \Rightarrow \id{[\B, \C]} $. We will also define this pointwise, for $ G: [\B, \C] $ and $ X: \B $. The diagram for $ \Lan F (F_* G)(X) $ consists of $ G(F(Y)) $ for all $ f: \B(F(Y), X) $. Then, by the universal property of the colimit, the morphisms $ G(f): \C(G(F(Y)), G(X)) $ induce a morphism
   \[ \epsilon_G(X) : \C(\Lan F (F_* G)(X), G(X)). \]
 \end{proof}
 
@@ -807,17 +810,21 @@ This category is called the \iindex{Karoubi envelope}, the \textit{idempotent co
   because $ f \cdot f = f = \id{(Y, f)} $. Also, $ f = f \cdot f $, so $ f $ is split.
 \end{proof}
 
-\begin{remark}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_envelope_inclusion_fully_faithful}]
-  Note that $ \iota_\C $ is fully faithful, since
+\begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_envelope_inclusion_fully_faithful}]
+  $ \iota_\C $ is fully faithful.
+\end{lemma}
+\begin{proof}
+  This follows immediately from the fact that
   \[ \overline \C((X, \id X), (Y, \id Y)) = \{ f: \C(X, Y) \mid \id X \cdot f \cdot \id Y = f \} = \C(X, Y). \]
-\end{remark}
+\end{proof}
 
-\begin{remark}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{retract_functor_is_equalizer}, \coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{retract_functor_is_coequalizer}]\label{rem:retract-coequalizer}
+\begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{retract_functor_is_equalizer}, \coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{retract_functor_is_coequalizer}]\label{rem:retract-coequalizer}
   Let $ \D $ be a category and suppose that we have two objects $ X, Y : \D $ and a retraction
   \[ (r, s) : Y \triangleleft X. \]
   Then $ Y $ is the equalizer of \begin{tikzcd}
-    X \arrow[r, shift left, "\id X"] \arrow[r, shift right, "r \cdot s"'] & X \end{tikzcd} in the following way:
-
+    X \arrow[r, shift left, "\id X"] \arrow[r, shift right, "r \cdot s"'] & X \end{tikzcd}.
+\end{lemma}
+\begin{proof}
   Suppose that we have an object $ Z: \D $ and a morphism $ f $ with $ (r \cdot s) \cdot f = f $. Then $ f $ factors as $ r \cdot (s \cdot f) $. Also, for any $ g: \D(Y, Z) $ with $ r \cdot g = f $, we have $ g = s \cdot r \cdot g = s \cdot f $:
   \begin{center}
     \begin{tikzcd}
@@ -836,7 +843,7 @@ This category is called the \iindex{Karoubi envelope}, the \textit{idempotent co
       X & X \arrow[l, shift left, "\id X"] \arrow[l, shift right, "b"'] & Y \arrow[l]
     \end{tikzcd}
   \end{center}
-\end{remark}
+\end{proof}
 
 Besides $ \overline \C $, there is also another (classically equivalent) definition of the Karoubi envelope. An object in this alternative category is a presheaf $ F : P\C $ that is a retract of the Yoneda embedding $ \yo(X) $ of an object $ X : \C $. Note that there are two different ways to translate this to univalent foundations. We can either interpret the existence of the object $ X $ and the retraction $ (r, s) : F \triangleleft \yo(X) $ as additional \textit{structure} on $ F $, or we can treat it as a \textit{property} and ask for \textit{mere existence} (see Definition \ref{def:mere-existence}) of $ X $, $ r $ and $ s $. This gives rise to two different categories:
 
@@ -913,11 +920,14 @@ This all leads up to:
 
 Even though univalence and the Rezk completion in general will be covered in Section \ref{sec:univalence-principle}, we will study univalence of the Karoubi envelope here:
 
-\begin{remark}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_univalence}]
+\begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_univalence}]
+  If $ \overline \C $ is univalent, $ \C $ is univalent as well.
+\end{lemma}
+\begin{proof}
   The fully faithful embedding $ \iota_\C : \C \hookrightarrow \overline \C $ induces equivalences $ (X \cong Y) \simeq (\iota_\C(X) \cong \iota_\C(Y)) $. We also have an equivalence $ (X = Y) \simeq (\iota_\C(X) = \iota_\C(Y)) $, because, as it turns out, any equality between $ X $ and $ Y $ also preserves the identity of $ X $. Therefore, if $ \overline \C $ is univalent, we have a chain of equivalences
   \[ (X = Y) \simeq (\iota_\C(X) = \iota_\C(Y)) \simeq (\iota_\C(X) \cong \iota_\C(Y)) \simeq (X \cong Y), \]
   which shows that $ \C $ is univalent as well.
-\end{remark}
+\end{proof}
 
 \begin{remark}
   Note that the converse does not necessarily hold. Consider the commutative monoid consisting of the three matrices

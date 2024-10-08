@@ -1,10 +1,10 @@
 \chapter{Weak Cartesian Closed Categories}\label{ch:weak-cartesian-closed-categories}
 In Definition \ref{def:endomorphism-theory}, we defined the endomorphism $ \lambda $-theory of a reflexive object in a cartesian closed category. However, as it turns out, we do not need all of the properties of a cartesian closed category. It suffices to consider a \textit{weak} cartesian closed category. In fact, even a `semi cartesian closed category' will suffice, but in this section, we will restrict ourselves to a weak cartesian closed category, as this notion suits our purposes well enough.
 
-It seems that semi cartesian closed categories were first defined in \cite{hayashi-1985-semifunctors} and then \cite{hoofman-1993-semi-cartesian-closed} gave a slightly different definition, as well as the very related definition of a weak cartesian closed category. The latter paper also contains the construction of the endomorphism $ \lambda $-theory.
+It seems that semi cartesian closed categories were first defined in \autocite{hayashi-1985-semifunctors} and then \autocite{hoofman-1993-semi-cartesian-closed} gave a slightly different definition, as well as the very related definition of a weak cartesian closed category. The latter paper also contains the construction of the endomorphism $ \lambda $-theory.
 
 \begin{definition}
-  Let $ C $ be a category with binary products (we will call the projections $ \pi_1 $ and $ \pi_2 $), and take $ A, B : C $. A \iindex{semi-exponential object} is an object $ A^B : C $, with a morphism $ \mathrm{ev}: C(A^B \times B \to A) $ and a hayashi-1985-semifunctorsfunction
+  Let $ C $ be a category with binary products (we will call the projections $ \pi_1 $ and $ \pi_2 $), and take $ A, B : C $. A \iindex{semi-exponential object} is an object $ A^B : C $, with a morphism $ \mathrm{ev}: C(A^B \times B \to A) $ and a function
   \[ \mathrm{cur}_X: C(X \times B \to A) \to C(X, A^B) \]
   for all $ X $, such that
   \[ \langle g \cdot \mathrm{cur}_X(f), h \rangle \cdot \mathrm{ev} = \langle g, h \rangle \cdot f \quad \text{and} \quad \mathrm{cur}_Y((g \times \id B) \cdot f) = g \cdot \mathrm{cur}_X(f) \]
@@ -16,7 +16,7 @@ It seems that semi cartesian closed categories were first defined in \cite{hayas
 \end{definition}
 
 \begin{remark}
-  Since the requirements for semi-exponential objects do not involve the usual universal properties, a weak cartesian closed structure (or a semi-exponential object) is not unique up to isomorphism. For example, see example 2.1 and 2.2 in \cite{hoofman-1993-semi-cartesian-closed} for two distinct weak cartesian closed structures on a category.
+  Since the requirements for semi-exponential objects do not involve the usual universal properties, a weak cartesian closed structure (or a semi-exponential object) is not unique up to isomorphism. For example, see example 2.1 and 2.2 in \autocite{hoofman-1993-semi-cartesian-closed} for two distinct weak cartesian closed structures on a category.
 \end{remark}
 
 \begin{definition}

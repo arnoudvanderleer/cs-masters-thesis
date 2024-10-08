@@ -29,15 +29,17 @@
 
 Together, these form the category of algebraic theories \iindex{$ \AlgTh $} (\coqident{AlgebraicTheories.AlgebraicTheoryCategoryCore}{algebraic_theory_cat}).
 
-\begin{remark}[\coqident{AlgebraicTheories.AlgebraicTheoryCategory}{limits_algebraic_theory_cat}]\label{rem:algebraic-theory-limits}
+\begin{lemma}[\coqident{AlgebraicTheories.AlgebraicTheoryCategory}{limits_algebraic_theory_cat}]\label{rem:algebraic-theory-limits}
   We can construct binary products of algebraic theories, with sets $ (T \times T^\prime)_n = T_n \times T^\prime_n $, variables $ (x_i, x_i) $ and substitution
   \[ (f, f^\prime) \bullet (g, g^\prime) = (f \bullet g, f^\prime \bullet g^\prime). \]
   In the same way, the category of algebraic theories has all limits.
-\end{remark}
 
-\begin{remark}[\coqident{AlgebraicTheories.AlgebraicTheoryCategory}{is_univalent_algebraic_theory_cat}]
+  Note that the forgetful functor $ F: \AlgTh \to \SET^{\mathbb N} $ creates limits, since any diagram $ d $ has a limit and the underlying set of the limit of $ d $ is the limit of the underlying sets of the objects in $ d $.
+\end{lemma}
+
+\begin{lemma}[\coqident{AlgebraicTheories.AlgebraicTheoryCategory}{is_univalent_algebraic_theory_cat}]
   Since an isomorphism of algebraic theories $ S \simeq T $ consists of pointwise isomorphisms $ f_n: S_n \simeq T_n $ that respect the variables and substitution, the category of algebraic theories is univalent.
-\end{remark}
+\end{lemma}
 
 Later on, we will see an example of a trivial algebraic theory (the terminal theory) $ T $, in which every $ T_n $ only contains one element. However, we can say a bit about nontrivial algebraic theories.
 \begin{lemma}\label{lem:nontrivial-algebraic-theory}
@@ -75,12 +77,12 @@ Later on, we will see an example of a trivial algebraic theory (the terminal the
 Together, these form the category of $ T $-algebras \iindex{$ \Alg T $} (\coqident{AlgebraicTheories.AlgebraCategoryCore}{algebra_cat}).
 
 \begin{remark}
-  The category of algebras has all limits. The set of a limit of algebras is the limit of the underlying sets.
+  The category of algebras has all limits. The set of a limit of algebras is the limit of the underlying sets, so the forgetful functor to the category of sets creates limits.
 \end{remark}
 
-\begin{remark}[\coqident{AlgebraicTheories.AlgebraCategory}{is_univalent_algebra_cat}]
+\begin{lemma}[\coqident{AlgebraicTheories.AlgebraCategory}{is_univalent_algebra_cat}]
   Note that just like with algebraic theories, the category of $ T $-algebras is univalent because its (iso)morphisms preserve $ \bullet $.
-\end{remark}
+\end{lemma}
 
 \begin{remark}
   The notions of algebraic theories and their algebras stem from the field of \iindex{universal algebra}. In universal algebra, one studies the `collections of algebraic structures'. For example, the collection of monoids: a monoid is a set with an associative binary operation and an identity element. Other examples of collections are those of abelian monoids, (abelian) groups or (commutative) rings. As we will see in Example \ref{ex:free-monoid-theory}, one can construct an algebraic theory $ T $ such that the category of monoids is equivalent to $ \Alg T $, and we can do very similar things for the other structures mentioned. Therefore, one could say that universal algebra studies algebraic theories and their algebras (or `models').
@@ -182,13 +184,13 @@ We then have a functor $ P: C \to \AlgTh $, projecting onto the first coordinate
 
 Together, these form the category of $ T $-presheaves \iindex{$ \Pshf T $} (\coqident{AlgebraicTheories.PresheafCategoryCore}{presheaf_cat}).
 
-\begin{remark}[\coqident{AlgebraicTheories.PresheafCategory}{limits_presheaf_cat}]
-  The category of presheaves has all limits. The $ n $th set $ \overline{P}_n $ of a limit $ \overline{P} $ of presheaves $ P_i $ is the limit of the $ n $th sets $ P_{i, n} $ of the presheaves in the limit diagram.
-\end{remark}
+\begin{lemma}[\coqident{AlgebraicTheories.PresheafCategory}{limits_presheaf_cat}]
+  The category of presheaves has all limits. The $ n $th set $ \overline{P}_n $ of a limit $ \overline{P} $ of presheaves $ P_i $ is the limit of the $ n $th sets $ P_{i, n} $ of the presheaves in the limit diagram. So just like with algebraic theories and algebras, the forgetful functor from the category of presheaves to the category of indexed sets creates limits.
+\end{lemma}
 
-\begin{remark}[\coqident{AlgebraicTheories.AlgebraCategory}{is_univalent_algebra_cat}]
+\begin{lemma}[\coqident{AlgebraicTheories.AlgebraCategory}{is_univalent_algebra_cat}]
   Note that just like with algebraic theories and algebras, the category of $ T $-presheaves is univalent because its (iso)morphisms preserve $ \bullet $.
-\end{remark}
+\end{lemma}
 
 An analogue to Lemma \ref{lem:algebra-fibration} shows that, like with algebras, the total category of presheaves is fibered over the category of algebraic theories (\coqident{AlgebraicTheories.PresheafCategory}{presheaf_fibration}).
 
@@ -220,7 +222,7 @@ For tuples $ x : X^m $ and $ y: X^n $, let $ x + y $ denote the tuple $ (x_1, \d
   Lastly, if $ L $ has both $ \beta $- and $ \eta $-equality, the weak cartesian closed structure becomes a cartesian closed structure, which is unique, so in that case, giving an algebraic theory $ L $ a $ \lambda $-theory structure with $ \beta $- and $ \eta $-equality is the same as giving its associated Lawvere theory a cartesian closed category structure.
 \end{remark}
 
-\begin{definition}[\coqident{AlgebraicTheories.LambdaTheories}{has_β}]
+\begin{definition}[\coqident{AlgebraicTheories.LambdaTheories}{has_β} \coqident{AlgebraicTheories.LambdaTheories}{has_η}]\label{def:beta-equality}
   We say that a $ \lambda $-theory $ L $ satisfies $ \beta $-equality (or that it is a $ \lambda $-theory with $ \beta $) if $ \rho_n \circ \lambda_n = \id{L_n} $ for all $ n $. We say that is satisfies $ \eta $-equality if $ \lambda_n \circ \rho_n = \id{L_{n + 1}} $ for all $ n $.
 \end{definition}
 
@@ -234,13 +236,13 @@ For tuples $ x : X^m $ and $ y: X^n $, let $ x + y $ denote the tuple $ (x_1, \d
 
 Together, these form the category of $ \lambda $-theories \iindex{$ \LamTh $} (\coqident{AlgebraicTheories.LambdaTheoryCategoryCore}{lambda_theory_cat}).
 
-\begin{remark}[\coqident{AlgebraicTheories.LambdaTheoryCategory}{limits_lambda_theory_cat}]
-  The category of lambda theories has all limits, with the underlying algebraic theory of a limit being the limit of the underlying algebraic theories.
-\end{remark}
+\begin{lemma}[\coqident{AlgebraicTheories.LambdaTheoryCategory}{limits_lambda_theory_cat}]
+  The category of lambda theories has all limits, with the underlying algebraic theory of a limit being the limit of the underlying algebraic theories. Therefore, the forgetful functor to the category of algebraic theories creates limits.
+\end{lemma}
 
-\begin{remark}[\coqident{AlgebraicTheories.LambdaTheoryCategory}{is_univalent_lambda_theory_cat}]
+\begin{lemma}[\coqident{AlgebraicTheories.LambdaTheoryCategory}{is_univalent_lambda_theory_cat}]
   Note that just like with algebraic theories, the category of $ \lambda $-theories is univalent because its (iso)morphisms preserve $ \rho $ and $ \lambda $.
-\end{remark}
+\end{lemma}
 
 \begin{definition}
   A $ \lambda $-theory algebra or presheaf is an algebra or presheaf for the underlying algebraic theory.
@@ -253,18 +255,23 @@ Now, for a $ \lambda $-theory $ L $, we have variables $ x_{n, i} : L_n $ and $ 
 \end{definition}
 This means that we can interpret all three operations of the $ \lambda $-calculus in $ L $.
 
-\begin{remark}[\coqident{AlgebraicTheories.LambdaTheories}{beta_equality}]
-  Note that if $ L $ has $ \beta $-equality, we have
+\begin{lemma}[\coqident{AlgebraicTheories.LambdaTheories}{beta_equality}]
+  The definitions for $ \beta $- and $ \eta $-equality in Definition \ref{def:beta-equality} correspond to the usual notions.
+\end{lemma}
+\begin{proof}
+  If $ L $ has $ \beta $-equality, we have
   \[ \lambda(f) g = \rho(\lambda(f)) \bullet (x_1, \dots, x_n, g) = f \bullet (x_1, \dots, x_n, g), \]
   so we have the usual $ \beta $-equality. In the same way $ \eta $-equality of $ L $ gives
   \[ \lambda(\iota_{n, 1}(f) x_{n + 1}) = \lambda(\rho(f)) = f. \]
-\end{remark}
+\end{proof}
+
 \begin{remark}[\coqident{AlgebraicTheories.LambdaTheories}{app_from_app'}]
   Also note that for $ f: L_n $,
   \[ \rho(f) = \rho(x_1 \bullet f) = \iota_{n, 1}(f) x_{n + 1}. \]
   Therefore, we can also think of the application as being the primary operation, from which we derive $ \rho $. In the same way, we have
   \[ \rho^m(f) = \iota_{n, m}(f) x_{n + 1} \dots x_{n + m}. \]
 \end{remark}
+
 \begin{remark}[\coqident{AlgebraicTheories.LambdaTheories}{app}]
   Note that for $ f, g : L_n $,
   \[
@@ -474,7 +481,7 @@ Of course, for many common categories in algebra, where an object of $ C $ is a 
 \end{remark}
 
 \begin{remark}
-  Another counterexample is the category $ \mathbf{Top} $ of topological spaces. We have a forgetful functor $ G: \mathbf{Top} \to \SET $ that just forgets the topology. On the other hand, we have a free functor $ F: \SET \to \mathbf{Top} $ which endows a set with the discrete topology. The construction above yields the inital algebraic theory $ T_n = \{ 1, \dots, n \} $, with an algebra action on every topological space $ i \bullet (a_1, \dots, a_n) = a_i $. Now, note that we can endow the set $ \{ \top, \bot \} $ with four different, nonisomorphic topologies, which all yield the same $ T $-algebra. In other words: the $ T $-algebra structure does not preserve the topological information. Therefore, the functor $ \alpha: \mathbf{Top} \to \Alg T $ is not an equivalence.
+  Another counterexample is the category $ \mathbf{Top} $ of topological spaces. We have a forgetful functor $ G: \mathbf{Top} \to \SET $ that just forgets the topology. On the other hand, we have a free functor $ F: \SET \to \mathbf{Top} $ which endows a set with the discrete topology. The construction above yields the initial algebraic theory $ T_n = \{ 1, \dots, n \} $, with an algebra action on every topological space $ i \bullet (a_1, \dots, a_n) = a_i $. Now, note that we can endow the set $ \{ \top, \bot \} $ with four different, nonisomorphic topologies, which all yield the same $ T $-algebra. In other words: the $ T $-algebra structure does not preserve the topological information. Therefore, the functor $ \alpha: \mathbf{Top} \to \Alg T $ is not an equivalence.
 \end{remark}
 
 \subsection{The terminal theory}
@@ -516,11 +523,14 @@ The proofs that $ E(X) $ is an algebraic theory and a $ \lambda $-theory, use pr
   Let $ T $ be an algebraic theory and $ n $ a natural number. We can endow the $ T_n $ with a $ T $-algebra structure, by taking the substitution operator of $ T $ as the $ T $-action. Since this commutes with the substitution operator and the projections, $ T_n $ is a $ T $-algebra.
 \end{example}
 
-\begin{remark}[\coqident{AlgebraicTheories.Examples.TheoryAlgebra}{theory_algebra_free}]
-  Recall from \ref{lem:lawvere-algebra} that $ T $-algebras are equivalent to finite-product-preserving $ \SET $-valued functors on the Lawvere theory $ \mathbf L $ associated to $ T $. Now, recall from Definition \ref{def:Yoneda-embedding} that we can embed any category $ C $ as $ \op C $ inside its category of $ \SET $-valued functors. This embeds $ n: \mathbf L $ as the theory algebra $ T_n $. Then the Yoneda Lemma gives a bijection
+\begin{lemma}[\coqident{AlgebraicTheories.Examples.TheoryAlgebra}{theory_algebra_free}]
+  $ T_n $ is the free $ T $-algebra on $ n $ generators.
+\end{lemma}
+\begin{proof}
+  Recall from Lemma \ref{lem:lawvere-algebra} that $ T $-algebras are equivalent to finite-product-preserving $ \SET $-valued functors on the Lawvere theory $ \mathbf L $ associated to $ T $. Now, recall from Definition \ref{def:Yoneda-embedding} for any category $ C $, we can embed $ \op C $ inside $ [C, \SET] $, the category of $ \SET $-valued functors on $ C $. This embeds $ n: \mathbf L $ as the theory algebra $ T_n $. Then the Yoneda Lemma gives a bijection
   \[ \Alg T(T_n, A) \cong A^n = \SET(\{ 1, \dots, n \}, A) \]
   natural in $ n $ and $ A $. Explicitly, it sends $ f: \Alg T(T_n, A) $ to $ (f(x_i))_i $ and $ (a_i)_i : A^n $ to $ f \mapsto f \bullet a $. The natural equivalence immediately shows that $ T_n $ is the free $ T $-algebra on $ n $ elements.
-\end{remark}
+\end{proof}
 
 Using some additional machinery, we can combine this with the algebra pullback functor to get another functor:
 \begin{definition}\label{def:theory-algebra-pullback-functor}
@@ -552,11 +562,16 @@ Using some additional machinery, we can combine this with the algebra pullback f
   Let $ T $ be an algebraic theory. We can endow $ T $ with a $ T $-presheaf structure, by taking the substitution operator of $ T $ as the action on $ T $. Since this commutes with the substitution operator and the projections, $ T $ is a $ T $-presheaf.
 \end{example}
 
-\begin{remark}[\coqident{AlgebraicTheories.RepresentationTheorem}{presheaf_to_L}]\label{rem:presheaf-Yoneda}
-  Recall from \ref{lem:lawvere-presheaf} that $ T $-presheaves are equivalent to presheaves on the Lawvere theory $ \mathbf L $ associated to $ T $. Now, recall from Definition \ref{def:Yoneda-embedding} that we can embed any category inside its own category of presheaves. This embeds $ n: \mathbf L $ as the power $ T^n = (T_m^n)_m $ of the theory presheaf. Then the Yoneda Lemma gives a bijection
+\begin{lemma}[\coqident{AlgebraicTheories.RepresentationTheorem}{presheaf_to_L}]\label{rem:presheaf-Yoneda}
+  We have natural bijections
+  \[ \Pshf T(T^n, Q) \cong Q_n \]
+  for $ Q : \Pshf T $.
+\end{lemma}
+\begin{proof}
+  Recall from Lemma \ref{lem:lawvere-presheaf} that $ T $-presheaves are equivalent to presheaves on the Lawvere theory $ \mathbf L $ associated to $ T $. Now, recall from Definition \ref{def:Yoneda-embedding} that we can embed any category inside its own category of presheaves. This embeds $ n: \mathbf L $ as the power $ T^n = (T_m^n)_m $ of the theory presheaf. Then the Yoneda Lemma gives a bijection
   \[ \Pshf T(T^n, Q) \cong Q_n \]
   natural in $ n $ and $ Q $. Explicitly, it sends $ f: \Pshf T(T^n, Q) $ to $ f_n(x_1, \dots, x_n) $ and $ q: Q_n $ to $ (t_i)_i \mapsto q \bullet t $.
-\end{remark}
+\end{proof}
 
 \subsection{The "+l" presheaf}
 
