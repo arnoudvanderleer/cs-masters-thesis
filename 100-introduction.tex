@@ -6,13 +6,22 @@ Later, all kinds of different flavours and extensions of the $ \lambda $-calculu
 
 Even so, the theoretical study of the $ \lambda $-calculus and its extensions continues to this day. For example, in 2017, a paper by Martin Hyland was published\footnote{Note that the paper has been around since 2012, when it was first published as a preprint on arXiv.}, named `classical lambda calculus in modern dress' \autocite{Hyland}. In this paper, Hyland approaches the $ \lambda $-calculus from the viewpoint of universal algebra, using algebraic theories, and more generally category theory, to study it. This way, he obtains two new proofs for old theorems. The paper also contains a theorem that shows that two different ways to study the $ \lambda $-calculus using universal algebra are equivalent.
 
+% <Under construction>
+[Proof assistants]
+
+[Univalent foundations]
+
 In this thesis, we study the paper through the lens of univalent foundations, a foundation of mathematics based on type theory set forth by Vladimir Voevodsky \autocite{voevodsky-univalent-foundations}. We work out the details of the proofs from the paper, see where subtleties arise when converting from set theory to univalent foundations and discuss the formalization of part of the material in the computer proof assistant coq.
 
 The major contributions of this thesis are
 \begin{itemize}
+  \item An analysis of the Karoubi envelope in Univalent foundations.
   \item Of particular interest is the discussion of Hyland's proof of the relative cartesian closedness of a category of retracts (or Karoubi envelope) in Section \ref{sec:relatively-cartesian-closed}, which was proved earlier by Paul Taylor in a different way. It turns out that in the translation from set theory to univalent foundations, the definition of the category of retracts `branches' into two nonequivalent definitions, and that Taylor's proof is about one definition, whereas Hyland's proof is about the other.
-  \item \TODO
+  \item Analysis of Hyland's work in it's historical context
+  \item Alternative proof of the fundamental theorem
+  \item Formalization
 \end{itemize}
+% </Under construction>
 
 % 600-paper.tex
 Now, most of this thesis works towards Chapter \ref{ch:the-paper}, about Hyland's paper.

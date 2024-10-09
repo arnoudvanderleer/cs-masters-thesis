@@ -19,55 +19,54 @@ The formalized parts of Hyland's paper are collected in a package in the library
 % LambdaTheories.v LambdaTheoryCategory.v LambdaTheoryCategoryCore.v LambdaTheoryMorphisms.v
 % AlgebraCategory.v AlgebraCategoryCore.v Algebras.v AlgebraMorphisms.v
 % PresheafCategory.v PresheafCategoryCore.v PresheafMorphisms.v Presheaves.v
-  \item Definitions for algebraic theories, $ \lambda $-theories, algebras and presheaves of algebraic theories, together with their morphisms and their categories. Proofs that the categories are univalent, that the categories of algebraic theories, $ \lambda $-theories and presheaves have limits and that the categories of algebras and presheaves are fibered over the category of algebraic theories.
+  \item Definitions for algebraic theories (\coqident{AlgebraicTheories.AlgebraicTheories}{algebraic_theory}), $ \lambda $-theories (\coqident{AlgebraicTheories.LambdaTheories}{lambda_theory}), algebras (\coqident{AlgebraicTheories.Algebras}{algebra}) and presheaves (\coqident{AlgebraicTheories.Presheaves}{presheaf}) of algebraic theories, together with their morphisms and their categories. Proofs that the categories are univalent, that the categories of algebraic theories, $ \lambda $-theories and presheaves have limits and that the categories of algebras and presheaves are fibered over the category of algebraic theories.
 % FreeTheory.v LambdaCalculus.v OnePointTheory.v ProjectionsTheory.v TheoryAlgebra.v
-  \item The terminal algebraic theory, the free algebraic theory on a set, with as a special case the initial algebraic theory, the $ \lambda $-theory $ \Lambda $, the $ T $-presheaf structure on $ T $ and the $ T $-algebra structure on $ T_n $.
+  \item The terminal algebraic theory (\coqident{AlgebraicTheories.Examples.OnePointTheory}{one_point_theory}), the free algebraic theory on a set (\coqident{AlgebraicTheories.Examples.FreeTheory}{free_functor}), with as a special case the initial algebraic theory (\coqident{AlgebraicTheories.Examples.ProjectionsTheory}{projections_theory}), the $ \lambda $-theory $ \Lambda $ (\coqident{AlgebraicTheories.Examples.LambdaCalculus}{lambda_calculus_lambda_theory}), the $ T $-presheaf structure on $ T $ and the $ T $-algebra structure on $ T_n $.
 % FreeMonoidTheory.v FreeObjectTheory.v
-  \item The `free object' algebraic theory $ T $ with a functor from $ C $ to $ \Alg T $. Also, for the special case where $ C $ is the category of monoids, a proof that this functor $ C \to \Alg T $ is an equivalence.
+  \item The `free object' algebraic theory $ T $ (\coqident{AlgebraicTheories.Examples.FreeObjectTheory}{free_object_theory}) with a functor from $ \C $ to $ \Alg T $ (\coqident{AlgebraicTheories.Examples.FreeObjectTheory}{free_object_algebra_functor}). Also, for the special case where $ \C $ is the category of monoids, a proof that this functor $ \C \to \Alg T $ is an equivalence (\coqident{AlgebraicTheories.Examples.FreeMonoidTheory}{monoid_algebra_equivalence}).
 % EndomorphismTheory.v
-  \item The construction of the endomorphism theory $ E(X) $ for some object $ X : C $ in a category $ C $ with finite products.
+  \item The construction of the endomorphism theory $ E(X) $ for some object $ X : \C $ in a category $ \C $ with finite products (\coqident{AlgebraicTheories.Examples.EndomorphismTheory}{endomorphism_lambda_theory}).
 % Combinators.v CategoryOfRetracts.v OriginalRepresentationTheorem.v
-  \item The original version of Scott's representation theorem.
+  \item The original version of Scott's representation theorem (\coqident{AlgebraicTheories.OriginalRepresentationTheorem}{representation_theorem_iso}).
 % Plus1Presheaf.v RepresentationTheorem.v
-  \item Hyland's version of Scott's representation theorem, including the construction of the presheaf $ A(P, 1) $ and the proof that it is the exponential object $ P^T $.
+  \item Hyland's version of Scott's representation theorem (\coqident{AlgebraicTheories.RepresentationTheorem}{presheaf_lambda_theory_iso}), including the construction of the presheaf $ A(P, 1) $ (\coqident{AlgebraicTheories.Examples.Plus1Presheaf}{plus_1_presheaf}) and the proof that it is the exponential object $ P^T $ (\coqident{AlgebraicTheories.RepresentationTheorem}{theory_presheaf_exponentiable}).
 % AlgebraToTheory.v
-  \item The construction of a $ \lambda $-theory from a $ \Lambda $-algebra $ A $ as the endomorphism theory $ E_{\RAct{A_1}}(U_A) $ (Definition \ref{def:lambda-algebra-to-lambda-theory}).
+  \item The construction of a $ \lambda $-theory from a $ \Lambda $-algebra $ A $ as the endomorphism theory $ E_{\RAct{A_1}}(U_A) $, as discussed in Definition \ref{def:lambda-algebra-to-lambda-theory} (\coqident{AlgebraicTheories.FundamentalTheorem.AlgebraToTheory}{lambda_algebra_theory}).
 % AlgebraicTheoryToLawvereTheory.v
-  \item The construction of a Lawvere theory $ L $ from an algebraic theory $ T $, and the equivalence between the presheaf category $ PL $ and the presheaf category $ \Pshf T $.
-% ExtensionsTheory.v LambdaCalculus.v
-  \item The theory of extensions $ T_A $ of a $ T $-algebra.
-  \item An axiomatic definition of the pure $ \lambda $-calculus (see Section \ref{sec:axiomatic-lambda-calculus}).
+  \item The construction of a Lawvere theory $ \cat L $ from an algebraic theory $ T $ (\coqident{AlgebraicTheories.AlgebraicTheoryToLawvereTheory}{algebraic_theory_to_lawvere}), and the equivalence between the presheaf category $ PL $ and the presheaf category $ \Pshf T $ (\coqident{AlgebraicTheories.AlgebraicTheoryToLawvereTheory}{algebraic_presheaf_weq_lawere_presheaf}).
+% ExtensionsTheory.v
+  \item The theory of extensions $ T_A $ of a $ T $-algebra (\coqident{AlgebraicTheories.Examples.ExtensionsTheory}{extensions_theory}), the equivalence between $ \Alg {T_A} $ and $ A \downarrow \Alg T $ (\coqident{AlgebraicTheories.Examples.ExtensionsTheory}{algebra_coslice_equivalence}) and the factorization of every theory morphism $ f: S \to T $ through $ S_{f^*(T_0)} $ (\coqident{AlgebraicTheories.Examples.ExtensionsTheory}{factorization}).
+% LambdaCalculus.v
+  \item An axiomatic definition of the pure $ \lambda $-calculus as discussed in Section \ref{sec:axiomatic-lambda-calculus} (\coqident{AlgebraicTheories.LambdaCalculus}{lambda_calculus}).
 \end{itemize}
 
 Since Hyland's paper uses a lot of general category theory, formalizing it entailed adding the preliminaries that had not yet been formalized to the library. Among these are:
 \begin{itemize}
   \item Univalence of the Sigma displayed category (\coqident{CategoryTheory.DisplayedCats.Examples.Sigma}{is_univalent_sigma_disp}).
   \item The Sigma displayed category creates limits (\coqident{CategoryTheory.DisplayedCats.Examples.Sigma}{creates_limits_sigma_disp_cat}).
-  \item The definitions $ \overline C $ and $ \hat C $ for the Karoubi envelope and their preliminaries.
-  \item The contents of Section \ref{sec:monoid-category}: The construction of a one-object category from a monoid, the equivalence between it's presheaves and sets with a right monoid action, properties of the category of sets with a monoid action and restriction and extension of scalars.
-  \item The Yoneda embedding preserves exponential objects.
-  \item The uniqueness of the Rezk completion.
+  \item The definitions $ \overline \C $ (\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_envelope}) and $ \tilde \C $ (\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_envelope'}) for the Karoubi envelope, together with some properties and their equivalence (\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_equivalence}).
+  \item The contents of Section \ref{sec:monoid-category}: The functorial construction of a one-object category from a monoid (\coqident{CategoryTheory.Categories.MonoidToCategory}{monoid_to_category}), the equivalence between it's presheaves and sets with a right monoid action (\coqident{CategoryTheory.Categories.MonoidToCategory}{monoid_presheaf_action_equivalence}), properties of the category of sets with a monoid action and restriction and extension of scalars (\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.MonoidActions}{scalar_restriction_functor}, \coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.MonoidActions}{scalar_extension_functor}).
+  \item The Yoneda embedding preserves exponential objects (\coqident{CategoryTheory.YonedaExponentials}{yoneda_preserves_exponentials}).
+  \item The uniqueness of the Rezk completion (\coqident{Bicategories.RezkCompletions.Uniqueness}{rezk_completion_unique}).
 % FundamentalTheorem/SurjectivePrecomposition.v
-  \item If $ F : C \to C^\prime $ is a fully faithful functor, and $ D $ is a category with colimits, then the precomposition functor $ F \bullet - : [C^\prime, D] \to [C, D] $ is split essentially surjective.
-  \item A proof of a generalized version of Lemma \ref{lem:equivalent-presheaf-cats}, showing that if $ F : C \to C^\prime $ is a functor, if $ F^\prime : C^\prime \to C^{\prime \prime} $ is a fully faithful functor, if $ D $ is a category with colimits and if the precomposition $ (F \bullet F^\prime) \bullet - : [C^{\prime \prime}, D] \to [C, D] $ is an adjoint equivalence, then $ F^\prime \bullet - $ and $ F^\prime \bullet - $ are adjoint equivalences too.
-% FiniteSetSkeleton.v
-  \item The skeleton category $ F $ of finite sets, with
-  \[ F_0 = \{ 0, 1, \dots \} \quad \text{and} \quad F(m, n) = \SET(\{ 1, \dots, n \}, \{ 1, \dots, m \}). \]
+  \item If $ F : \C_1 \to \C_2 $ is a fully faithful functor, and $ \D $ is a category with colimits, then the precomposition functor $ F \bullet - : [\C_2, \D] \to [\C_1, \D] $ is split essentially surjective (\coqident{AlgebraicTheories.FundamentalTheorem.SurjectivePrecomposition}{pre_comp_split_essentially_surjective}).
+  \item A proof of a generalized version of Lemma \ref{lem:equivalent-presheaf-cats}, showing that if $ F_1 : \C_1 \to \C_2 $ is a functor, if $ F_2 : \C_2 \to \C_3 $ is a fully faithful functor, if $ \D $ is a category with colimits and if the precomposition $ (F_1 \bullet F_2) \bullet - : [\C_3, \D] \to [\C_1, \D] $ is an adjoint equivalence, then $ F_1 \bullet - $ and $ F_2 \bullet - $ are adjoint equivalences too (\coqident{CategoryTheory.Equivalences.EquivalenceFromComp}{adjoint_equivalence_1_from_comp}).
 % IndexedSetCategory.v
-  \item The univalent category $ \SET^A $ of indexed sets $ (X_a)_a $ over a type $ A $ (\coqident{AlgebraicTheories.IndexedSetCategory}{is_univalent_indexed_set_cat}, \coqident{AlgebraicTheories.IndexedSetCategory}{limits_indexed_set_cat}), which can be defined formally as
-  \[ \SET^A_0 = (A \to \SET) \quad \text{and} \quad \SET^A(X, Y) = \prod_a X_a \to Y_a. \]
+  \item The univalent category $ \SET^A $ of indexed sets $ (X_a)_a $ over a type $ A $ (\coqident{AlgebraicTheories.IndexedSetCategory}{indexed_set_cat}), which can be defined formally as
+  \[ \SET^A_0 = (A \to \SET) \quad \text{and} \quad \SET^A(X, Y) = \prod_a X_a \to Y_a \]
+  that is univalent (\coqident{AlgebraicTheories.IndexedSetCategory}{is_univalent_indexed_set_cat}) and has limits (\coqident{AlgebraicTheories.IndexedSetCategory}{limits_indexed_set_cat}).
 \end{itemize}
 
 \section{Equality, Isomorphisms and Equivalences}
-One of the lessons during this project was that for formalizing, it is always important to choose te right equality for the job. For example, for two categories $ C $ and $ C^\prime $, one can aim to prove either that $ C = C^\prime $ or that we have a functor $ F : C \to C^\prime $ that has a right and left inverse, or that we have a functor $ F : C \to C^\prime $ that is an adjoint equivalence. Even though for univalent categories, these three notions all coincide, in practice it is really hard to show equality of categories directly: To show $ C = C^\prime $, we would need to show that we have an equality $ H : C_0 = C_0^\prime $, and then that for all $ c, c^\prime : C $
-\[ (C(\mathrm{transport}_H(c), \mathrm{transport}_H(c^\prime))) = C^\prime(c, c^\prime). \]
+One of the lessons during this project was that for formalizing, it is always important to choose te right equality for the job. For example, for two categories $ \C $ and $ \D $, one can aim to prove either that $ \C = \D $ or that we have a functor $ F : \C \to \D $ that has a right and left inverse, or that we have a functor $ F : \C \to \D $ that is an adjoint equivalence. Even though for univalent categories, these three notions all coincide, in practice it is really hard to show equality of categories directly: To show $ \C = \D $, we would need to show that we have an equality $ H : \C_0 = \C_0^\prime $, and then that for all $ c, c^\prime : \C $
+\[ (\C(\mathrm{transport}_H(c), \mathrm{transport}_H(c^\prime))) = \D(c, c^\prime). \]
 It is usually much easier to show that there exists a functor $ F $ with an inverse, because then we do not have to show these equalities of types, but can suffice with maps between the types and equalities of the objects and morphisms that are mapped. However, for the morphisms we still have transports.
 
 The easiest option is usually to show that we have an adjoint equivalence. That way, we do not have to show equality of objects, but only isomorphism (even though in a univalent category, that is of course the same). Then we only have to show equality of morphisms, and this is usually very doable.
 
-An example of this is the proof that for the algebraic $ T $ where $ T_n $ is the free monoid on $ \{ x_1, \dots, x_n \} $, the $ T $-algebras are equivalent to monoids. Initially, this was a proof about (weak) equivalence (so under univalence, equality) of the object types, but of course, this says nothing about morphisms, so it is incomplete. However, it was possible to remove parts of the proof, and use the rest to construct an adjoint equivalence.
+An example of this is the proof that for the algebraic $ T $ where $ T_n $ is the free monoid on $ \{ x_1, \dots, x_n \} $, the $ T $-algebras are equivalent to monoids. Initially, this was a proof about (weak) equivalence (so under univalence, equality) of the object types, but of course, this says nothing about morphisms, so it is incomplete. However, it was possible to remove parts of the proof, and use the rest to construct an adjoint equivalence. Since the category in question is univalent, this adjoint equivalence gives us an equivalence of the object types for free.
 
-In general, the formalization is the cleanest and the easiest when we use equality for elements of homotopy sets (morphisms, or terms in an algebraic theory, for example), isomorphisms for objects in a category and adjoint equivalences for categories themselves.
+In general, the formalization is the cleanest and the easiest when we use equality for elements of homotopy sets (morphisms, or terms in an algebraic theory for example), isomorphisms for objects in a category and adjoint equivalences for categories themselves.
 
 \section{Displayed Categories}\label{sec:displayed-categories}
 
