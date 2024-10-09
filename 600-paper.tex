@@ -295,7 +295,7 @@ Now, Hyland shows the following:
   By Lemma \ref{lem:sum-postcomposition}, the functor $ \sum_{p_1} $ is given by postcomposition, so $ \sum_{p_1} \Delta_{X \times L} L \cong \Delta_X (L \times L) $. As we saw earlier, we have $ L \triangleleft L \times L $, which completes the proof that $ \sum_f $ restricts to a functor from $ (\hat \R \downarrow_D Y) $ to $ (\hat \R \downarrow_D X) $.
 \end{proof}
 
-\begin{corollary}
+\begin{corollary}\label{cor:relatively-cartesian-closed}
   Since the $ (\hat \R \downarrow_D X) $ are full subcategories of the $ (\Pshf L \downarrow X) $, so we can restrict the adjunction $ f^* \dashv \prod_f $ to an adjunction $ \bar f^* \dashv \bar \prod_f $ between $ (\hat \R \downarrow_D X) $ and $ (\hat \R \downarrow_D Y) $, which shows that $ \hat \R $ is cartesian closed relative to the class $ D $ of display maps.
 \end{corollary}
 
@@ -303,7 +303,7 @@ Now, Hyland shows the following:
   It is a nice feature of Hyland's approach that in univalent foundations, the proofs that $ D $ is a class of display maps and that we can restrict $ \prod_f $ and $ \sum_f $ work without the axiom of choice.
 \end{remark}
 
-\begin{remark}
+\begin{remark}\label{rem:difference-Taylor-Hyland}
   Recall that to make sure that $ D(Y, X) $ is a subset of $ \hat \R(Y, X) $, we had no choice but to take the propositional truncation of the $ (Y, f) \triangleleft \Delta_X L $. Coincidentally, for $ \hat \R $ we also took the propositional truncation of the $ X \triangleleft L $.
 
   In the proofs that $ D $ is a class of display maps, and that we can restrict $ \prod_f $, this worked out great. A couple of times, we first did a construction on the presheaves, ignoring the mere existence of the retractions, and then we showed mere existence of one or two retractions, for which we were allowed to assume that we actually had concrete retractions from $ L $ or $ \Delta_X L $.
@@ -463,7 +463,7 @@ Now, we only have to show:
 \end{proof}
 
 Summarizing,
-\begin{theorem}
+\begin{theorem}\label{thm:elementary-fundamental-theorem}
   The functor that sends $ L : \LamTh $ to $ L_0 : \Alg{\Lambda} $, is an adjoint equivalence.
 \end{theorem}
 \begin{proof}
@@ -911,7 +911,7 @@ By Lemma 3.2 in \autocite{nlab:adjoint_equivalence} and Lemma \ref{lem:zigzag}, 
   There is an adjoint equivalence $ \LamTh \cong \Alg{\Lambda} $, sending a $ \lambda $-theory $ L $ to the $ \Lambda $-algebra $ L_0 $, with an inverse functor that sends a $ \Lambda $-algebra $ A $ to the theory $ E_{\RAct{A_1}}(U_A) $.
 \end{theorem}
 
-\begin{remark}
+\begin{remark}\label{rem:alternative-algebra-to-theory}
   Hyland remarks that the isomorphism $ U_A^{U_A} \cong A_2 $ can be generalized to isomorphisms $ U_A^{U_A^n} \cong A_{n + 1} $.
   \begin{align*}
     \RAct{A_1}(U_A^n, U_A)
@@ -1276,7 +1276,7 @@ Now, to show that we can replace the functor $ A \mapsto E_{\R_A}(U) $ by $ A \m
 \end{remark}
 
 The final form of Hyland's representation theorem is the following:
-\begin{theorem}
+\begin{theorem}\label{thm:final-fundamental-theorem}
   The functor that sends a $ \lambda $-theory $ L $ to the $ \Lambda $-algebra $ L_0 $ and the functor that sends a $ \Lambda $-algebra $ A $ to the theory of extensions $ \Lambda_A $ form an adjoint equivalence
   \[ \LamTh \cong \Alg \Lambda. \]
 \end{theorem}

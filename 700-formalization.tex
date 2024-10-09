@@ -84,17 +84,23 @@ One of the reasons why displayed categories are so useful when formalizing, is t
 
 Here is a diagram of the displayed structure of the categories of algebraic theories, $ \lambda $-theories, algebraic theory algebras and algebraic theory presheaves, every arrow denotes that a category is displayed over the total category of the next one.
 \begin{center}
-  \begin{tikzcd}
-    \text{algebra} \arrow[d] & \lambda\text{-theory} \arrow[d] & \text{presheaf} \arrow[d] \\
-    \text{algebra data} \arrow[d] & \lambda \text{-theory data} \arrow[d] & \text{presheaf data} \arrow[d] \\
-    {\text{(algebraic theory, set)}} \arrow[r] & \text{algebraic theory} \arrow[d] & {\text{(algebraic theory, indexed set)}} \arrow[l] \\
-    & \text{algebraic theory data}\arrow[d] &\\
-    & \text{indexed set} &
+  \begin{tikzcd}[math mode=false]
+    \coqident{AlgebraicTheories.AlgebraCategoryCore}{algebra_cat} \arrow[d]
+    & \coqident{AlgebraicTheories.LambdaTheoryCategoryCore}{lambda_theory_cat} \arrow[d]
+    & \coqident{AlgebraicTheories.PresheafCategoryCore}{presheaf_cat} \arrow[d]
+    \\ \coqident{AlgebraicTheories.AlgebraCategoryCore}{algebra_data_full_cat} \arrow[d]
+    & \coqident{AlgebraicTheories.LambdaTheoryCategoryCore}{lambda_theory_data_cat} \arrow[d]
+    & \coqident{AlgebraicTheories.PresheafCategoryCore}{presheaf_data_cat} \arrow[d]
+    \\ \begin{tabular}{c}\coqident{AlgebraicTheories.AlgebraicTheoryCategoryCore}{algebraic_theory_cat} \\ $ \times $ \coqident{CategoryTheory.Categories.HSET.Core}{hset_category} \end{tabular} \arrow[r]
+    & \coqident{AlgebraicTheories.AlgebraicTheoryCategoryCore}{algebraic_theory_cat} \arrow[d]
+    & \begin{tabular}{c}\coqident{AlgebraicTheories.AlgebraicTheoryCategoryCore}{algebraic_theory_cat} \\ $ \times $ \coqident{AlgebraicTheories.IndexedSetCategory}{indexed_set_cat} \end{tabular} \arrow[l]
+    \\ & \coqident{AlgebraicTheories.AlgebraicTheoryCategoryCore}{algebraic_theory_data_cat} \arrow[d] &
+    \\ & \coqident{AlgebraicTheories.IndexedSetCategory}{indexed_set_cat} &
   \end{tikzcd}
 \end{center}
 In the end, they all derive from the category of indexed sets over the natural numbers (or equivalently, the category of sequences of sets).
 
-Note that every `relevant' category is constructed in two stages: in the first step, in a category called `\dots data', the displayed objects give the structure (the algebraic theory variables and substitution, the algebra action or the presheaf action) of the objects in question, and the displayed morphisms preserve this structure. In the second step, we take the full subcategory, consisting of the objects that satisfy the right properties. For algebraic theories, these properties are the axioms about interplay between the substitution and the variables.
+Note that every category here is constructed in two layers: in the first layer the `data category', the displayed objects give the structure (the algebraic theory variables and substitution, the algebra action or the presheaf action) of the objects in question, and the displayed morphisms preserve this structure. In the second step, we take the full subcategory, consisting of the objects that satisfy the right properties. For algebraic theories, these properties are the axioms about the interaction between the substitution and the variables.
 
 Note that the algebra data and presheaf data categories are displayed over a product category, which is displayed over the category of algebraic theories (see Subsection \ref{subsec:displayed-product}).
 
