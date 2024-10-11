@@ -760,7 +760,7 @@ and
 \end{proof}
 
 
-\section{The Karoubi Envelope}
+\section{The Karoubi Envelope}\label{sec:karoubi-envelope}
 Let $ \C $ be a category and $ X, Y : \C $ objects. We will denote the type of section-retraction pairs of $ Y $ onto $ X $ with
 \[ X \triangleleft Y := \sum_{r : \C(Y, X)} \sum_{s : \C(X, Y)} s \cdot r = \id X. \]
 Now, note that for $ (r, s) : X \triangleleft Y $, $ r \cdot s: \C(Y, Y) $ is an idempotent morphism, since $ r \cdot s \cdot r \cdot s = r \cdot s $. We can also wonder whether for an idempotent morphism $ f: \C(X, X) $, we can find some $ Y : \C $ and some $ (r, s) : X \triangleleft Y $ such that $ f = r \cdot s $. If this is the case, we say that the idempotent $ f $ \textit{splits}\index{split idempotent}. If $ f $ does not split, we can wonder whether we can find an embedding $ \iota_\C : \C \hookrightarrow \overline \C $ into some category $ \overline \C $ such that the idempotent $ \iota_\C(f): \overline \C(\iota_\C(X), \iota_\C(X)) $ does split. This is one way to arrive at the \textit{Karoubi envelope}:
