@@ -41,18 +41,18 @@ Together, these form the category of algebraic theories \iindex{$ \AlgTh $} (\co
   Since an isomorphism of algebraic theories $ S \simeq T $ consists of pointwise isomorphisms $ f_n: S_n \simeq T_n $ that respect the variables and substitution, the category of algebraic theories is univalent.
 \end{lemma}
 
-Later on, we will see an example of a trivial algebraic theory (the terminal theory) $ T $, in which every $ T_n $ only contains one element. However, we can say a bit about nontrivial algebraic theories.
+Later on, we will see an example of a trivial algebraic theory (the terminal theory) $ T $, in which every $ T_n $ only contains one element. Now, there are many different nontrivial algebraic theories, and it is not easy to find properties that every algebraic theory must satisfy. However, we can show that their variables are distinct, and so every $ T_n $ has at least $ n $ distinct elements, so no nontrivial algebraic theory is `almost trivial', if almost trivial means having some $ N $ such that every $ T_n $ has at most $ N $ elements.
 \begin{lemma}\label{lem:nontrivial-algebraic-theory}
   Let $ T $ be an algebraic theory, such that $ T_n $ has at least two distinct elements for some $ n $. Then for all $ 1 \leq i, j \leq m $ with $ i \not = j $, we have $ x_{m, i} \not = x_{m, j} $.
 \end{lemma}
 \begin{proof}
-  We can also formulate the statement as: If there exist $ 1 \leq i, j \leq m $ with $ i \not = j $ such that $ x_{m, i} = x_{m, j} $, then all $ L_n $ contain at most one distinct element.
+  We can also formulate the statement as: If there exist $ 1 \leq i, j \leq m $ with $ i \not = j $ such that $ x_{m, i} = x_{m, j} $, then all $ T_n $ contain at most one distinct element.
 
   So, suppose that $ x_{m, i} = x_{m, j} $ for some $ i \not = j $. For $ a, b : L_n $, we define $ v : L_n^m $ as
   \[ v_k = \left\{\begin{array}{ll} a & k = i\\ b & k \not = i \end{array}\right., \]
   so in particular, $ v_j = b $. Then we have
   \[ a = v_i = x_{m, i} \bullet v = x_{m, j} \bullet v = v_j = b, \]
-  so $ L_n $ contains at most one distinct element.
+  so every $ T_n $ contains exactly one element, and $ T $ is trivial.
 \end{proof}
 
 \section{Algebras}
