@@ -3,9 +3,9 @@
 \section{Algebraic Theories}\label{sec:algebraic-theories}
 
 \begin{definition}[\coqident{AlgebraicTheories.AlgebraicTheories}{algebraic_theory}]
-  We define an \iindex{algebraic theory} $ T $ to be a sequence of sets $ T_n $ indexed over $ \mathbb N $ with for all $ 1 \leq i \leq n $ elements ("variables" or "projections") $ x_{n, i}: T_n $ (we usually leave $ n $ implicit), together with a substitution operation
+  We define an \iindex{algebraic theory} $ T $ to be a sequence of sets $ T_n $ indexed over $ \mathbb N $ with for all $ 1 \leq i \leq n $ elements ("variables" or "projections") $ x_{n, i}: T_n $ (we often leave $ n $ implicit and write $ x_i $), together with a substitution operation
   \[ \_ \bullet \_: T_m \times T_n^m \to T_n \]
-  for all $ m, n $, such that
+  for all $ m $ and $ n $, such that
   \begin{align*}
     x_j \bullet g &= g_j\\
     f \bullet (x_{l, i})_i &= f\\
@@ -19,41 +19,43 @@
 \end{remark}
 
 \begin{definition}[\coqident{AlgebraicTheories.AlgebraicTheoryMorphism}{algebraic_theory_morphism}]
-  A \textit{morphism}\index{algebraic theory!morphism} $ f $ between algebraic theories $ T $ and $ T^\prime $ is a sequence of functions $ f_n: T_n \to T^\prime_n $ (we usually leave the $ n $ implicit) such that
+  A \textit{morphism}\index{algebraic theory!morphism} $ f $ between algebraic theories $ T $ and $ T^\prime $ is a sequence of functions $ f_n: T_n \to T^\prime_n $ (we usually leave the $ n $ implicit and just write $ f $ if the context is clear) such that
   \begin{align*}
     f_n(x_j) &= x_j\\
-    f_n(f \bullet g) &= f_m(f) \bullet (f_n(g_i))_i
+    f_n(s \bullet t) &= f_m(s) \bullet (f_n(t_i))_i
   \end{align*}
-  for all $ 1 \leq j \leq n $, $ f: T_m $ and $ g: T_n^m $.
+  for all $ 1 \leq j \leq n $, $ s: T_m $ and $ t: T_n^m $.
 \end{definition}
 
 Together, these form the category of algebraic theories \iindex{$ \AlgTh $} (\coqident{AlgebraicTheories.AlgebraicTheoryCategoryCore}{algebraic_theory_cat}).
 
 \begin{lemma}[\coqident{AlgebraicTheories.AlgebraicTheoryCategory}{limits_algebraic_theory_cat}]\label{rem:algebraic-theory-limits}
-  We can construct binary products of algebraic theories, with sets $ (T \times T^\prime)_n = T_n \times T^\prime_n $, variables $ (x_i, x_i) $ and substitution
+  We can construct binary products of algebraic theories, with sets $ (T \times T^\prime)_n = T_n \times T^\prime_n $, variables $ (x_i, x^\prime_i) $ and substitution
   \[ (f, f^\prime) \bullet (g, g^\prime) = (f \bullet g, f^\prime \bullet g^\prime). \]
   In the same way, the category of algebraic theories has all limits.
 
-  Note that the forgetful functor $ F: \AlgTh \to \SET^{\mathbb N} $ creates limits, since any diagram $ d $ has a limit and the underlying set of the limit of $ d $ is the limit of the underlying sets of the objects in $ d $.
+  Note that the forgetful functor $ F: \AlgTh \to \SET^{\mathbb N} $ (where $ \SET^{\mathbb N} $ is the category of `sequences of sets' $ (T_n)_n $) creates limits, since any diagram $ D $ has a limit and the underlying set of the limit of $ D $ is the limit of the underlying sets of the objects in $ D $.
 \end{lemma}
 
 \begin{lemma}[\coqident{AlgebraicTheories.AlgebraicTheoryCategory}{is_univalent_algebraic_theory_cat}]
   Since an isomorphism of algebraic theories $ S \simeq T $ consists of pointwise isomorphisms $ f_n: S_n \simeq T_n $ that respect the variables and substitution, the category of algebraic theories is univalent.
 \end{lemma}
 
-Later on, we will see an example of a trivial algebraic theory (the terminal theory) $ T $, in which every $ T_n $ only contains one element. Now, there are many different nontrivial algebraic theories, and it is not easy to find properties that every algebraic theory must satisfy. However, we can show that their variables are distinct, and so every $ T_n $ has at least $ n $ distinct elements, so no nontrivial algebraic theory is `almost trivial', if almost trivial means having some $ N $ such that every $ T_n $ has at most $ N $ elements.
+Later on, we will see an example of a trivial algebraic theory (the terminal theory) $ T $, in which every $ T_n $ only contains one element. Now, there are many different nontrivial algebraic theories, and it is not easy to find properties that every algebraic theory must satisfy. However, to explore their general structure a little bit, we can show that their variables are distinct, and so every $ T_n $ has at least $ n $ distinct elements. Therefore, no nontrivial algebraic theory is `almost trivial', if almost trivial means having some $ N $ such that every $ T_n $ has at most $ N $ elements.
 \begin{lemma}\label{lem:nontrivial-algebraic-theory}
-  Let $ T $ be an algebraic theory, such that $ T_n $ has at least two distinct elements for some $ n $. Then for all $ 1 \leq i, j \leq m $ with $ i \not = j $, we have $ x_{m, i} \not = x_{m, j} $.
+  Let $ T $ be an algebraic theory, such that $ T_n $ has at least two distinct elements for some $ n $. Then for all $ 1 \leq i, j \leq m $ with $ i \not = j $, we have $ x_i \not = x_j $.
 \end{lemma}
 \begin{proof}
-  We can also formulate the statement as: If there exist $ 1 \leq i, j \leq m $ with $ i \not = j $ such that $ x_{m, i} = x_{m, j} $, then all $ T_n $ contain at most one distinct element.
+  We can also formulate the statement as: If there exist $ 1 \leq i, j \leq m $ with $ i \not = j $ such that $ x_i = x_j $, then every $ T_n $ contains at most one distinct element.
 
-  So, suppose that $ x_{m, i} = x_{m, j} $ for some $ i \not = j $. For $ a, b : L_n $, we define $ v : L_n^m $ as
+  So, suppose that $ x_i = x_j $ for some $ i \not = j $. For $ a, b : T_n $, we define $ v : T_n^m $ as
   \[ v_k = \left\{\begin{array}{ll} a & k = i\\ b & k \not = i \end{array}\right., \]
   so in particular, $ v_j = b $. Then we have
-  \[ a = v_i = x_{m, i} \bullet v = x_{m, j} \bullet v = v_j = b, \]
+  \[ a = v_i = x_i \bullet v = x_j \bullet v = v_j = b, \]
   so every $ T_n $ contains exactly one element, and $ T $ is trivial.
 \end{proof}
+
+Now, there are also a lot of other, equivalent ways to define the objects that we call `algebraic theories' here. For a couple of these alternative definitions, see Chapter \ref{ch:alternative-definitions}. In particular, an algebraic theory is equivalent to a category $ \L $ with $ \L_0 = \mathbb N $ where the object $ n $ is $ 1^n $, the $ n $-fold product of $ 1 $.
 
 \section{Algebras}
 
@@ -81,13 +83,15 @@ Together, these form the category of $ T $-algebras \iindex{$ \Alg T $} (\coqide
 \end{remark}
 
 \begin{lemma}[\coqident{AlgebraicTheories.AlgebraCategory}{is_univalent_algebra_cat}]
-  Note that just like with algebraic theories, the category of $ T $-algebras is univalent because its (iso)morphisms preserve $ \bullet $.
+  Just like with algebraic theories, the category of $ T $-algebras is univalent because its (iso)morphisms preserve $ \bullet $.
 \end{lemma}
 
 \begin{remark}
   The notions of algebraic theories and their algebras stem from the field of \iindex{universal algebra}. In universal algebra, one studies the `collections of algebraic structures'. For example, the collection of monoids: a monoid is a set with an associative binary operation and an identity element. Other examples of collections are those of abelian monoids, (abelian) groups or (commutative) rings. As we will see in Example \ref{ex:free-monoid-theory}, one can construct an algebraic theory $ T $ such that the category of monoids is equivalent to $ \Alg T $, and we can do very similar things for the other structures mentioned. Therefore, one could say that universal algebra studies algebraic theories and their algebras (or `models').
 
   Any category that is equivalent to $ \Alg T $ for some algebraic theory $ T $ is called \iindex{algebraic}. For example, in Remark \ref{rem:free-theory-algebra-set}, we will see that $ \SET $ is algebraic. By the remark above, an algebraic category has all limits. It turns out that it also has all colimits (see Lemma \ref{lem:algebra-coproducts} for binary coproducts, or \autocite{algebraic-theories-2010}, Part 1, Theorem 4.5 for general colimits). Note, however, that the proof for colimits is a lot more complicated than the proof for limits, just like colimits of algebraic objects usually are more complicated than limits. For example, consider (binary) products and coproducts of groups.
+
+  Note that this means that any category that does not have all limits or colimits, is not algebraic. For example, the category of fields (commutative rings that also have a division operation) is not algebraic: the product $ \mathbb Q \times \mathbb F_p $ does not exist, because there is no (product) field that has morphisms to fields of different characteristic.
 \end{remark}
 
 \begin{definition}[\coqident{AlgebraicTheories.AlgebraCategory}{algebra_pullback}]\label{def:algebra-pullback}
@@ -113,11 +117,11 @@ Actually, we can recover some information about the algebraic theory morphism fr
 
   Note that to show that $ f $ is an isomorphism, we only need to show that the $ f_n $ are bijections. From the fact that we have inverse functions $ g_n : \SET(T, T^\prime) $ for the $ f_n $, and the fact that $ f $ is an algebraic theory morphism, we know that $ (g_n)_n $ is an algebraic theory morphism as well, and that it is the inverse of $ f $.
 
-  First of all, note that for all $ n : \mathbb N $ and $ B : \Alg T $, the following diagram in $ \SET $ commutes:
+  First of all, note that for all $ n : \mathbb N $ and $ A : \Alg T $, the following diagram in $ \SET $ commutes:
   \begin{center}
     \begin{tikzcd}
-      \Alg T(T_n, B) \arrow[r, "f^*"] \arrow[d, "\sim"] & \Alg{T^\prime}(f^* T_n, f^* B) \arrow[d, "\bar f_n \cdot -"]\\
-      B^n \arrow[r, "\sim"] & \Alg{T^\prime}(T^\prime_n, f^* B)
+      \Alg T(T_n, A) \arrow[r, "f^*"] \arrow[d, "\sim"] & \Alg{T^\prime}(f^* T_n, f^* A) \arrow[d, "\bar f_n \cdot -"]\\
+      A^n \arrow[r, "\sim"] & \Alg{T^\prime}(T^\prime_n, f^* A)
     \end{tikzcd}
   \end{center}
   % \[ (g : T_n \to B) \mapsto (g: T_n \to B) \mapsto (f \cdot g : T^\prime_n \to B) \]
@@ -128,7 +132,7 @@ Actually, we can recover some information about the algebraic theory morphism fr
   %   = g(f(s) \bullet (x_i)_i)
   %   = g(f(s))
   % \]
-  with $ \bar f_n: T^\prime_n \to f^* T_n $ the $ T^\prime $-algebra morphism with underlying function $ f_n $. Note that $ f^* $ is fully faithful, so the function at the top is a bijection, and so precomposition by $ \bar f_n $ is a bijection as well. Since $ f^* $ is essentially surjective, we have for all $ A : \Alg T^\prime $, some $ B : \Alg T $ and an isomorphism $ h: f^* B \xrightarrow \sim A $, which gives the following commutative diagram:
+  with $ \bar f_n: T^\prime_n \to f^* T_n $ the $ T^\prime $-algebra morphism with underlying function $ f_n $. Note that $ f^* $ is fully faithful, so the function at the top of the diagram is a bijection, and so precomposition by $ \bar f_n $ is a bijection as well. Since $ f^* $ is essentially surjective, we have for all $ A : \Alg T^\prime $, some $ B : \Alg T $ and an isomorphism $ h: f^* B \xrightarrow \sim A $, which gives the following commutative diagram:
   \begin{center}
     \begin{tikzcd}
       \Alg{T^\prime}(f^* T_n, f^* B) \arrow[d, "\bar f_n \cdot -", "\sim"'] \arrow[r, "- \cdot h"', "\sim"] & \Alg{T^\prime}(f^* T_n, A) \arrow[d, "\bar f_n \cdot -"]\\
@@ -150,17 +154,17 @@ Actually, we can recover some information about the algebraic theory morphism fr
   Since the Yoneda embedding is fully faithful, this shows that $ \bar f_n $ is an isomorphism of $ T^\prime $-algebras, so in particular, it is a bijection.
 \end{remark}
 
-Note that besides the categories $ \Alg T $, we can also consider the category of `all' algebraic theory algebras together (\coqident{AlgebraicTheories.AlgebraCategoryCore}{algebra_full_cat}). That is, the category $ C $ with $ C_0 = \sum_{T : \AlgTh}, \Alg T $ and $ C((T, A), (T^\prime, A^\prime)) $ consisting of pairs $ (f, f^\prime): \AlgTh(T, T^\prime) \times \SET(A, A^\prime) $ such that for all $ t: T_n $ and $ a: A^n $,
+Note that besides the categories $ \Alg T $, we can also consider the category of `all' algebraic theory algebras together (\coqident{AlgebraicTheories.AlgebraCategoryCore}{algebra_full_cat}). That is, the category $ \int_T \Alg T $ with $ (\int_T \Alg T)_0 = \sum_{T : \AlgTh}, \Alg T $ and $ (\int_T \Alg T)((S, A), (T, B)) $ consisting of pairs $ (f, f^\prime): \AlgTh(S, T) \times \SET(A, B) $ such that for all $ t: S_n $ and $ a: A^n $,
 \[ f^\prime(t \bullet a) = f(t) \bullet (f^\prime(a_i))_i. \]
-We then have a functor $ P: C \to \AlgTh $, projecting onto the first coordinate.
+We then have a functor $ P: \int \Alg T \to \AlgTh $, projecting onto the first coordinate.
 
 \begin{lemma}[\coqident{AlgebraicTheories.AlgebraCategory}{algebra_fibration}]\label{lem:algebra-fibration}
   $ P $ is a fibration.
 \end{lemma}
 \begin{proof}
-  Given an algebraic theory morphism $ f: \AlgTh(S, T) $ and a $ T $-algebra $ A_T $, Definition \ref{def:algebra-pullback} gives an $ S $-algebra $ A_S $ with underlying set $ A_T $. The cartesian morphism is $ (f, \id{A_T}): C((S, A_S), (T, A_T)) $.
+  Given an algebraic theory morphism $ f: \AlgTh(S, T) $ and a $ T $-algebra $ A $, Definition \ref{def:algebra-pullback} gives an $ S $-algebra $ f^* A $ with underlying set $ A $. The cartesian morphism is $ (f, \id A): (\int \Alg T)((S, f^* A), (T, A)) $.
 
-  It is cartesian because for $ (R, A_R): C $ and $ (g, g^\prime): C((R, A_R), (T, A_T)) $ and $ h: \AlgTh(R, S) $ with $ h \cdot f = g $, the required morphism $ C((R, A_R), (S, A_S)) $ is given by $ g^\prime: \SET(A_R, A_S) $.
+  It is cartesian because for $ (R, B): \int \Alg T $ and $ (g, g^\prime): (\int \Alg T)((R, B), (T, A)) $ and $ h: \AlgTh(R, S) $ with $ h \cdot f = g $, the required morphism over $ h $ is given by $ g^\prime: \SET(B, A) $.
 \end{proof}
 
 \section{Presheaves}
@@ -177,7 +181,7 @@ We then have a functor $ P: C \to \AlgTh $, projecting onto the first coordinate
 \end{definition}
 
 \begin{definition}[\coqident{AlgebraicTheories.PresheafMorphisms}{presheaf_morphism}]
-  For an algebraic theory $ T $, a \textit{morphism}\index{presheaf!morphism} $ f $ between $ T $-presheaves $ P $ and $ P^\prime $ is a sequence of functions $ f_n: P_n \to P^\prime_n $ such that
+  For an algebraic theory $ T $, a \textit{morphism}\index{presheaf!morphism} $ f $ between $ T $-presheaves $ P $ and $ Q $ is a sequence of functions $ f_n: P_n \to Q_n $ such that
   \[ f_n(t \bullet f) = f_m(t) \bullet f \]
   for all $ t: P_m $ and $ f: T_n^m $.
 \end{definition}
@@ -194,12 +198,14 @@ Together, these form the category of $ T $-presheaves \iindex{$ \Pshf T $} (\coq
 
 An analogue to Lemma \ref{lem:algebra-fibration} shows that, like with algebras, the total category of presheaves is fibered over the category of algebraic theories (\coqident{AlgebraicTheories.PresheafCategory}{presheaf_fibration}).
 
+The equivalence between algebraic theories and Lawvere theories gives an equivalence between the presheaf category $ \Pshf T $ of an algebraic theory, and the presheaf category $ P \L_T = [\op{\L_T}, \SET] $ of its associated Lawvere theory (see Lemma \ref{lem:lawvere-presheaf}).
+
 \section{\texorpdfstring{$ \lambda $-}{lambda-}theories}
 
-Let \index{$ \iota_{m, n} $}$ \iota_{m, n} : T_m \to T_{m + n} $ be the function that sends $ f $ to $ f \bullet (x_{m + n, 1}, \dots, x_{m + n, m}) $. Note that
-\[ \iota_{m, n}(f) \bullet g = f \bullet (g_i)_{i \leq m} \quad \text{and} \quad \iota_{m, n}(f \bullet g) = f \bullet (\iota_{m, n}(g_i))_i. \]
+Now we get to the core definition: $ \lambda $-theories. It is what allows us to use algebraic theories to reason about the $ \lambda $-calculus.
 
-For tuples $ x : X^m $ and $ y: X^n $, let $ x + y $ denote the tuple $ (x_1, \dots, x_m, y_1, \dots, y_n) : X^{m + n} $.
+Let \index{$ \iota_{m, n} $}$ \iota_{m, n} : T_m \to T_{m + n} $ be the `inflation' function that sends $ f $ to $ f \bullet (x_{m + n, 1}, \dots, x_{m + n, m}) $. Note that
+\[ \iota_{m, n}(f) \bullet g = f \bullet (g_i)_{i \leq m} \quad \text{and} \quad \iota_{m, n}(f \bullet g) = f \bullet (\iota_{m, n}(g_i))_i. \]
 
 \begin{definition}[\coqident{AlgebraicTheories.LambdaTheories}{lambda_theory}]
   A \iindex{$ \lambda $-theory} is an algebraic theory $ L $, together with sequences of functions $ \lambda_n: L_{n + 1} \to L_n $ and $ \rho_n: L_n \to L_{n + 1} $, such that
@@ -208,6 +214,10 @@ For tuples $ x : X^m $ and $ y: X^n $, let $ x + y $ denote the tuple $ (x_1, \d
     \rho_n(g \bullet h) &= \rho_m(g) \bullet ((\iota_{n, 1}(h_i))_i + (x_{n + 1}))
   \end{align*}
   for all $ f: L_{m + 1} $, $ g: L_m $ and $ h: L_n^m $.
+\end{definition}
+
+\begin{definition}[\coqident{AlgebraicTheories.LambdaTheories}{has_β} \coqident{AlgebraicTheories.LambdaTheories}{has_η}]\label{def:beta-equality}
+  We say that a $ \lambda $-theory $ L $ satisfies $ \beta $-equality (or that it is a $ \lambda $-theory with $ \beta $) if $ \rho_n \circ \lambda_n = \id{L_n} $ for all $ n $. We say that is satisfies $ \eta $-equality if $ \lambda_n \circ \rho_n = \id{L_{n + 1}} $ for all $ n $.
 \end{definition}
 
 \begin{remark}
@@ -222,11 +232,8 @@ For tuples $ x : X^m $ and $ y: X^n $, let $ x + y $ denote the tuple $ (x_1, \d
   Lastly, if $ L $ has both $ \beta $- and $ \eta $-equality, the weak cartesian closed structure becomes a cartesian closed structure, which is unique, so in that case, giving an algebraic theory $ L $ a $ \lambda $-theory structure with $ \beta $- and $ \eta $-equality is the same as giving its associated Lawvere theory a cartesian closed category structure.
 \end{remark}
 
-\begin{definition}[\coqident{AlgebraicTheories.LambdaTheories}{has_β} \coqident{AlgebraicTheories.LambdaTheories}{has_η}]\label{def:beta-equality}
-  We say that a $ \lambda $-theory $ L $ satisfies $ \beta $-equality (or that it is a $ \lambda $-theory with $ \beta $) if $ \rho_n \circ \lambda_n = \id{L_n} $ for all $ n $. We say that is satisfies $ \eta $-equality if $ \lambda_n \circ \rho_n = \id{L_{n + 1}} $ for all $ n $.
-\end{definition}
-
-\begin{definition}[\coqident{AlgebraicTheories.LambdaTheoryMorphisms}{lambda_theory_morphism}] \textit{morphism}\index{$ \lambda $-theory!morphism} $ f $ between $ \lambda $-theories $ L $ and $ L^\prime $ is an algebraic theory morphism $ f $ such that
+\begin{definition}[\coqident{AlgebraicTheories.LambdaTheoryMorphisms}{lambda_theory_morphism}]
+  A \textit{morphism}\index{$ \lambda $-theory!morphism} $ f $ between $ \lambda $-theories $ L $ and $ L^\prime $ is an algebraic theory morphism $ f $ such that
   \begin{align*}
     f_n(\lambda_n(s)) &= \lambda_n(f_{n + 1}(s))\\
     \rho_n(f_n(t)) &= f_{n + 1}(\rho_n(t))
@@ -249,11 +256,21 @@ Together, these form the category of $ \lambda $-theories \iindex{$ \LamTh $} (\
 \end{definition}
 
 \subsection{The $ \lambda $-calculus operations}\label{subsec:lambda-calculus-operations}
-Now, for a $ \lambda $-theory $ L $, we have variables $ x_{n, i} : L_n $ and $ \lambda $-abstraction $ f \mapsto \lambda(f) $. We will sometimes denote $ \lambda(f) $ as $ \lambda x_{n + 1}, f $ for $ f: L_{n + 1} $. Now, consider the element $ \rho(x_{1, 1}) : L_2 $.
+For a $ \lambda $-theory $ L $, we have variables $ x_{n, i} : L_n $ and $ \lambda $-abstraction $ f \mapsto \lambda(f) $. We will sometimes denote $ \lambda(f) $ as $ \lambda x_{n + 1}, f $ for $ f: L_{n + 1} $. Now, consider the element $ \rho(x_{1, 1}) : L_2 $.
 \begin{definition}[\coqident{AlgebraicTheories.LambdaTheories}{app'}]
   Using the substitution, we have binary operations on the $ L_n $, sending $ (f, g) : L_n \times L_n $ to $ \rho(x_{1, 1}) \bullet (f, g) : L_n $. We will denote $ \rho(x_{1, 1}) \bullet (f, g) $ as $ f g $, and this gives us our application operation.
 \end{definition}
-This means that we can interpret all three operations of the $ \lambda $-calculus in $ L $.
+This means that we can interpret all three operations (\texttt{var}, \texttt{app} and \texttt{abs}) of the $ \lambda $-calculus in $ L $.
+
+\begin{remark}[\coqident{AlgebraicTheories.LambdaTheories}{app}]
+  Note that for $ f, g : L_n $,
+  \[
+    \rho(f) \bullet (x_1, \dots, x_n, g)
+    = \rho(x_1) \bullet (\iota_{n, 1}(f), x_{n + 1}) \bullet (x_1, \dots, x_n, g)
+    = \rho(x_1) \bullet (\iota_{n, 1}(f), g),
+  \]
+  so we could also define the application as $ f g = \rho(f) \bullet (x_1, \dots, x_n, g) $, although that is more complicated.
+\end{remark}
 
 \begin{lemma}[\coqident{AlgebraicTheories.LambdaTheories}{beta_equality}]
   The definitions for $ \beta $- and $ \eta $-equality in Definition \ref{def:beta-equality} correspond to the usual notions.
@@ -272,25 +289,15 @@ This means that we can interpret all three operations of the $ \lambda $-calculu
   \[ \rho^m(f) = \iota_{n, m}(f) x_{n + 1} \dots x_{n + m}. \]
 \end{remark}
 
-\begin{remark}[\coqident{AlgebraicTheories.LambdaTheories}{app}]
-  Note that for $ f, g : L_n $,
-  \[
-    \rho(f) \bullet (x_1, \dots, x_n, g)
-    = \rho(x_1) \bullet (\iota_{n, 1}(f), x_{n + 1}) \bullet (x_1, \dots, x_n, g)
-    = \rho(x_1) \bullet (\iota_{n, 1}(f), g),
-  \]
-  so we could also define the application as $ f g = \rho(f) \bullet (x_1, \dots, x_n, g) $, although that is more complicated.
-\end{remark}
-
 \begin{remark}\label{rem:lambda-theory-or-algebra}
-  Now, there are two ways to study $ \lambda $-calculus-like structures using the tools given here. We can study $ \lambda $-theories, which by the reasoning above have a $ \lambda $-calculus structure. Alternatively, we can try to study the $ \lambda $-calculus-like structures as algebras for some algebraic theory $ \Lambda $. However, it is not clear beforehand that this will succeed, because there is no reason why this category should be algebraic. In particular, $ \lambda $-abstraction causes problems, because it is not an algebraic operation. Of course, we can still do exactly the same as in Example \ref{ex:free-monoid-theory}: We can let $ \Lambda_n $ be the set of $ \Lambda $-terms with constants $ x_1, \dots, x_n $, which we can also regard as free variables (see Definition \ref{def:pure-lambda-calculus}), and study the category $ \Alg \Lambda $.
+  Now, there are two ways to study $ \lambda $-calculus-like structures using the tools given here. We can study $ \lambda $-theories, which by the reasoning above have a $ \lambda $-calculus structure. Alternatively, we can try to study the $ \lambda $-calculus-like structures as algebras for some algebraic theory $ \Lambda $. However, it is not clear beforehand that this will succeed, because there is no reason why the category of $ \lambda $-calculus-like structures should be algebraic. In particular, $ \lambda $-abstraction causes problems, because it is not an algebraic operation. Of course, we can still do exactly the same as in Example \ref{ex:free-monoid-theory}: We can let $ \Lambda_n $ be the set of $ \Lambda $-terms with constants $ x_1, \dots, x_n $, which we can also regard as free variables (see Definition \ref{def:pure-lambda-calculus}), and study the category $ \Alg \Lambda $.
 
   Later on, we will see that these two ways of studying $ \lambda $-calculus-like structures do coincide: we will see that the category $ \LamTh $ is indeed algebraic, and moreover, that the objects of $ \Alg \Lambda $ are equivalent to $ \lambda $-theories.
 \end{remark}
 
 \section{Examples}
 
-There is a lot of different examples of algebraic theories and their algebras. Some of these even turn out to be $ \lambda $-theories. In this section, we will discuss a couple of these.
+There are a lot of different examples of algebraic theories and $ \lambda $-theories and their algebras. In this section, we will discuss a couple of these examples.
 
 \subsection{The free algebraic theory on a set}
 \begin{example}[\coqident{AlgebraicTheories.Examples.FreeTheory}{free_functor}]
@@ -309,7 +316,7 @@ There is a lot of different examples of algebraic theories and their algebras. S
   Also, $ F $ obviously respects the identity and substitution morphisms, so it is a functor.
 \end{example}
 
-Note that we have a forgetful functor $ (\cdot)_0 $ that sends a morphism of algebraic theories $ g: T \to T^\prime $ to the function $ f_0: T_0 \to T^\prime_0 $.
+Note that we have a forgetful functor $ (\cdot)_0 $ that sends a morphism of algebraic theories $ g: T \to T^\prime $ to the function $ g_0: T_0 \to T^\prime_0 $.
 
 \begin{lemma}[\coqident{AlgebraicTheories.Examples.FreeTheory}{free_functor_is_free}]
   The algebraic theory $ F(S) $ defined above, is the free algebraic theory on the set $ S $.
@@ -323,7 +330,7 @@ Note that we have a forgetful functor $ (\cdot)_0 $ that sends a morphism of alg
   \end{align*}
 \end{proof}
 
-The proofs that $ F(S) $ is an algebraic theory and that $ F(f) $ and $ g $ are algebraic theory morphisms is an easy exercise in case distinction.
+The proofs that $ F(S) $ is an algebraic theory and that $ F(f) $ and $ g $ are algebraic theory morphisms are easy exercises in case distinction.
 
 \begin{corollary}[\coqident{AlgebraicTheories.Examples.ProjectionsTheory}{projections_theory}]
   $ F(\emptyset) $ is the initial algebraic theory.
@@ -347,7 +354,7 @@ The proofs that $ F(S) $ is an algebraic theory and that $ F(f) $ and $ g $ are 
   Lastly, the functor is essentially surjective, since we can lift an object $ f: S \to X $ to a $ F(S) $-algebra $ X $, with action
   \[ i \bullet x = x_i \quad \text{and} \quad s \bullet x = f(s). \]
 
-  Therefore, the functor $ \Alg{F(S)} \to S \downarrow \SET $ is an adjoint equivalence.
+  Therefore, the functor $ \Alg{F(S)} \to (S \downarrow \SET) $ is an adjoint equivalence.
 
   The proofs of these facts work by simple case distinction, and by using the properties of the coslice and algebra morphisms.
 \end{proof}
@@ -357,24 +364,24 @@ The proofs that $ F(S) $ is an algebraic theory and that $ F(f) $ and $ g $ are 
 \end{remark}
 
 \begin{remark}\label{rem:free-theory-algebra-set}
-  Note that the category of $ F(\emptyset) $-algebras is equivalent to the coslice-category $ (\emptyset \downarrow \SET) $, which, since $ \emptyset $ is the initial set, is just equivalent to $ \SET $.
+  Note that the category of $ F(\emptyset) $-algebras is equivalent to the coslice-category $ (\emptyset \downarrow \SET) $, which, since $ \emptyset $ is the initial set, is just equivalent to $ \SET $. Therefore, $ \SET $ is algebraic.
 \end{remark}
 
 \subsection{The free \texorpdfstring{$ \lambda $}{lambda}-theory on a set}
 
 In this subsection, we will use the $ \lambda $-calculus operations defined in Subsection \ref{subsec:lambda-calculus-operations}.
 
-Like with the free algebraic theory, we will construct the free $ \lambda $-theory as the smallest nontrivial $ \lambda $-theory (which is the $ \lambda $-calculus) with some additional constants.
+Like with the free algebraic theory, we will construct the free $ \lambda $-theory as the `pure', inductive $ \lambda $-calculus, with some additional constants.
 
-Let $ S $ be a set. Consider the sequence of inductive types $ (\Lambda(S)_n)_n $ with the following constructors:
+Let $ S $ be a set. Consider the sequence of inductive types $ X_n $ with the following constructors:
 \begin{align*}
-  \mathtt{Var}_n &: \{ 1, \dots, n \} \to \Lambda(S)_n;\\
-  \mathtt{App}_n &: \Lambda(S)_n \to \Lambda(S)_n \to \Lambda(S)_n;\\
-  \mathtt{Abs}_n &: \Lambda(S)_{n + 1} \to \Lambda(S)_n;\\
-  \mathtt{Con}_n &: S \to \Lambda(S)_n.\\
+  \mathtt{Var}_n &: \{ 1, \dots, n \} \to X_n;\\
+  \mathtt{App}_n &: X_n \to X_n \to X_n;\\
+  \mathtt{Abs}_n &: X_{n + 1} \to X_n;\\
+  \mathtt{Con}_n &: S \to X_n.\\
 \end{align*}
 
-Define a substitution operator $ \bullet: \Lambda(S)_m \times \Lambda(S)_n^m \to \Lambda(S)_n $ by induction on the first argument:
+Define a substitution operator $ \bullet: X_m \times X_n^m \to X_n $ by induction on the first argument:
 \begin{align*}
   \mathtt{Var}_m(i) \bullet g &= g_i;\\
   \mathtt{App}_m(a, b) \bullet g &= \mathtt{App}_n(a \bullet g, b \bullet g);\\
@@ -382,12 +389,12 @@ Define a substitution operator $ \bullet: \Lambda(S)_m \times \Lambda(S)_n^m \to
   \mathtt{Con}_m(s) \bullet g &= \mathtt{Con}_n(s).
 \end{align*}
 
-And then quotient $ \Lambda(S) $ by the relation generated by
+And then quotient $ X $ by the relation generated by
 \[ \mathtt{App}_m(\mathtt{Abs}_m(f), g) \sim f \bullet ((x_{n, i})_i + (g)) \]
-for all $ f: \Lambda(S)_{n + 1} $ and $ g: \Lambda(S)_n $.
+for all $ f: X_{n + 1} $ and $ g: X_n $. This gives a sequence of sets $ (\Lambda(S)_n)_n $.
 
 \begin{example}\label{ex:free-lambda-theory}
-  We can give the sequence of sets $ \Lambda(S) $ an algebraic theory structure with variables $ x_{m, i} = \mathtt{Var}_m(i) $ and the substitution operator $ \bullet $ defined above. We can give $ \Lambda(S) $ a $ \lambda $-theory structure with $ \beta $-equality by taking
+  We can give $ \Lambda(S) $ an algebraic theory structure with variables $ x_{m, i} = \mathtt{Var}_m(i) $ and the substitution operator $ \bullet $ defined above. We can give $ \Lambda(S) $ a $ \lambda $-theory structure with $ \beta $-equality by taking
   \[ \lambda_n(f) = \mathtt{Abs}_n(f) \quad \text{and} \quad \rho_n(f) = \mathtt{App}_{n + 1}(f \bullet (\mathtt{Var}_{n + 1}(i))_i, \mathtt{Var}_{n + 1}(n + 1)). \]
 
   Now, given a function $ S \to S^\prime $, we define a morphism $ \LamTh(\Lambda(S), \Lambda(S^\prime)) $ by induction, sending $ \mathtt{Var}(i) $, $ \mathtt{App}(a, b) $ and $ \mathtt{Abs}(a) $ in $ \Lambda(S) $ to their corresponding elements in $ \Lambda(S^\prime) $ and sending $ \mathtt{Con}(s) $ to $ \mathtt{Con}(f(s)) $.
@@ -446,26 +453,26 @@ The proofs that $ \Lambda(S) $ is indeed a $ \lambda $-theory and that $ \Lambda
 \subsection{The free object algebraic theory}
 
 \begin{example}[\coqident{AlgebraicTheories.Examples.FreeObjectTheory}{free_object_theory}, \coqident{AlgebraicTheories.Examples.FreeObjectTheory}{free_object_algebra_functor}]
-  Take a category $ C $, with a forgetful functor $ G: C \to \SET $ and a free functor $ F: \SET \to C $. Let $ \eta: \id \SET \Rightarrow F \bullet G $ be the unit of the adjunction and let $ \varphi: C(F(c), d) \cong \SET(c, G(d)) $ be the natural equivalence of homsets.
+  Take a category $ \C $, with a forgetful functor $ G: \C \to \SET $ and a free functor $ F: \SET \to \C $. Let $ \eta: \id \SET \Rightarrow F \bullet G $ be the unit of the adjunction and let $ \varphi: \C(F(X), Y) \cong \SET(X, G(Y)) $ be the natural equivalence of homsets.
 
-  We define an algebraic theory $ T $ with $ T_n = G(F(\{ 1, \dots, n \})) $, projections $ x_{n, i} = \eta_{\{1, \dots, n\}}(i) $. For the substitution, note that we take $ t_1, \dots, t_m: T_n $, so we have $ t: \{ 1, \dots, m \} \to G(F(\{ 1, \dots, n \})) $. We then take
+  We define an algebraic theory $ T $ with $ T_n = G(F(\{ 1, \dots, n \})) $, projections $ x_{n, i} = \eta_{\{1, \dots, n\}}(i) $. For the substitution, note that we can view $ t: T_n^m $ as a function $ t: \{ 1, \dots, m \} \to G(F(\{ 1, \dots, n \})) $. We then take
   \[ s \bullet t = G(\varphi^{-1}(t))(s). \]
 
-  Now, given an object $ c: C $, we can create a $ T $-algebra $ \alpha(c) $, with set $ G(c) $ and action
+  Now, given an object $ X: \C $, we can give $ G(X) $ a $ T $-algebra structure, with action
   \[ s \bullet t = G(\varphi^{-1}(t))(s). \]
-  Also, given a morphism $ f: C(c, d) $. This gives a morphism $ G(f): \alpha(c) \to \alpha(d) $. Therefore, $ \alpha: C \to \Alg T $ is a functor.
+  Also, for a morphism $ f: \C(X, Y) $, we get a $ T $-algebra morphism $ G(f): G(X) \to G(Y) $. Therefore, we can view $ G $ as a functor $ G: \C \to \Alg T $.
 \end{example}
 
-The proofs that $ T $ is an algebraic theory, that $ G(c) $ is an algebra and that $ G(f) $ is an algebra morphism mainly rely on the fact that $ \varphi $ is natural.
+The proofs that $ T $ is an algebraic theory, that $ G(X) $ is an algebra and that $ G(f) $ is an algebra morphism mainly rely on the fact that $ \varphi $ is natural.
 
-So we have a functor from $ C $ to the category of $ T $-algebras. One can wonder whether there also is a functor the other way, or whether $ \alpha $ is even an equivalence. If $ \alpha $ is an equivalence, $ C $ is trivially an algebraic category, but the question for which algebraic categories $ \alpha $ is an equivalence is harder to answer.
+So we have a functor from $ \C $ to the category of $ T $-algebras. One can wonder whether there also is a functor the other way, or whether $ G: \C \to \Alg T $ is even an equivalence. If the latter is true, $ \C $ is trivially an algebraic category, but the question for which algebraic categories $ G $ is an equivalence is harder to answer.
 
-Of course, for many common categories in algebra, where an object of $ C $ is a set with some operations between its elements, one can carefully choose some elements of $ T_0 $, $ T_1 $, $ T_2 $ etc., which act on an algebra like the specified operations, which turns $ \alpha $ into an equivalence.
+Of course, for many common categories in algebra, where an object of $ \C $ is a set with some operations between its elements, one can carefully choose some elements of $ T_0 $, $ T_1 $, $ T_2 $ etc., which act on an algebra like the specified operations, which turns $ G $ into an equivalence.
 
 \begin{example}[\coqident{AlgebraicTheories.Examples.FreeMonoidTheory}{monoid_algebra_equivalence}]\label{ex:free-monoid-theory}
-  For $ C $ the category of monoids, $ \alpha: C \to \Alg T $ is an adjoint equivalence.
+  For $ \C $ the category of monoids, $ G: \C \to \Alg T $ is an adjoint equivalence.
 
-  Note that $ T_n $ is the free monoid on $ n $ elements. Its elements can be viewed as strings $ (x_1 x_5 x_3 x_{18} \dots x_7) $ with the characters $ x_1, \dots, x_n $, with the $ x_i $ the generators of the monoid, acting as the projections of the algebraic theory.
+  Note that $ T_n $ is the free monoid on $ n $ elements. Its elements can be viewed as strings with the characters $ x_1, \dots, x_n $ (for example, $ x_1 x_5 x_3 x_{18} \dots x_7 $), with the $ x_i $ the generators of the monoid, acting as the projections of the algebraic theory.
 
   Let $ A $ be a $ T $-algebra. We can give $ A $ a monoid structure by taking, for $ a, b: A $,
   \[ a b = (x_1 x_2) \bullet (a, b) \]
@@ -473,7 +480,7 @@ Of course, for many common categories in algebra, where an object of $ C $ is a 
   \[ 1 = () \bullet (). \]
   Then the laws like associativity follow from those laws on the monoid and from the fact that the action on the algebra commutes with the substitution:
   \[ a (b c) = (x_1 (x_2 x_3)) \bullet (a, b, c) = ((x_1 x_2) x_3) \bullet (a, b, c) = (a b) c. \]
-  Note that if we take a monoid, turn it into a $ T $-algebra and then into a monoid again, we still have the same underlying set, and it turns out that the monoid operation and unit element are equal to the original monoid operation and unit element. Therefore, $ \alpha $ is essentially surjective. It is also fully faithful, since any $ T $-algebra morphism respects the action of $ T $, which makes it into a monoid morphism. Therefore, $ \alpha $ is an adjoint equivalence.
+  Note that if we take a monoid, turn it into a $ T $-algebra and then into a monoid again, we still have the same underlying set, and it turns out that the monoid operation and unit element are equal to the original monoid operation and unit element. Therefore, $ G $ is essentially surjective. It is also fully faithful, since any $ T $-algebra morphism respects the action of $ T $, which makes it into a monoid morphism. Therefore, $ G $ is an adjoint equivalence.
 \end{example}
 
 \begin{remark}
@@ -481,14 +488,14 @@ Of course, for many common categories in algebra, where an object of $ C $ is a 
 \end{remark}
 
 \begin{remark}
-  Another counterexample is the category $ \mathbf{Top} $ of topological spaces. We have a forgetful functor $ G: \mathbf{Top} \to \SET $ that just forgets the topology. On the other hand, we have a free functor $ F: \SET \to \mathbf{Top} $ which endows a set with the discrete topology. The construction above yields the initial algebraic theory $ T_n = \{ 1, \dots, n \} $, with an algebra action on every topological space $ i \bullet (a_1, \dots, a_n) = a_i $. Now, note that we can endow the set $ \{ \top, \bot \} $ with four different, nonisomorphic topologies, which all yield the same $ T $-algebra. In other words: the $ T $-algebra structure does not preserve the topological information. Therefore, the functor $ \alpha: \mathbf{Top} \to \Alg T $ is not an equivalence.
+  Another counterexample is the category $ \mathbf{Top} $ of topological spaces. We have a forgetful functor $ G: \mathbf{Top} \to \SET $ that just forgets the topology. On the other hand, we have a free functor $ F: \SET \to \mathbf{Top} $ which endows a set with the discrete topology. The construction above yields the initial algebraic theory $ T_n = \{ 1, \dots, n \} $, with an algebra action on every topological space $ i \bullet (a_1, \dots, a_n) = a_i $. Now, note that we can endow the set $ \{ \top, \bot \} $ with four different, nonisomorphic topologies, which all yield the same $ T $-algebra. In other words: the $ T $-algebra structure does not preserve the topological information. Therefore, the functor $ G: \mathbf{Top} \to \Alg T $ is not an equivalence.
 \end{remark}
 
 \subsection{The terminal theory}
 \begin{example}[\coqident{AlgebraicTheories.Examples.OnePointTheory}{one_point_theory}]
-  We can create a (somewhat trivial) algebraic theory $ T $ by taking $ T_n = \{ \star \} $, with projections $ x_i = \star $ and substitution $ \star \bullet \star = \star $. Taking $ \lambda(\star) = \star $ and $ \rho(\star) = \star $, we give it a $ \lambda $-theory structure (with $ \beta $ and $ \eta $-equality). Checking that this is indeed an algebraic theory and even a $ \lambda $-theory is trivial.
+  We can create the trivial algebraic theory $ T $ by taking $ T_n = \{ \star \} $, with projections $ x_i = \star $ and substitution $ \star \bullet \star = \star $. Taking $ \lambda(\star) = \star $ and $ \rho(\star) = \star $, we give it a $ \lambda $-theory structure (with $ \beta $ and $ \eta $-equality). Checking that this is indeed an algebraic theory and even a $ \lambda $-theory is trivial.
 
-  Now, given any other algebraic theory $ T^\prime $, there exists a unique function $ T^\prime_n \to T_n $ for every $ n $, sending everything to $ \star $. These functions actually constitute an algebraic theory morphism $ T^\prime \to T $. If $ T^\prime $ is a $ \lambda $-theory, the algebraic theory morphism is actually a $ \lambda $-theory morphism. Again, checking this is trivial.
+  Now, given any other algebraic theory $ S $, there exists a unique function $ S_n \to T_n $ for every $ n $, sending everything to $ \star $. These functions actually constitute an algebraic theory morphism $ S \to T $. If $ S $ is a $ \lambda $-theory, the algebraic theory morphism is actually a $ \lambda $-theory morphism. Again, checking this is trivial.
 
   Therefore, $ T $ is the terminal algebraic theory and $ \lambda $-theory.
 \end{example}
@@ -497,24 +504,29 @@ Of course, for many common categories in algebra, where an object of $ C $ is a 
   $ \{ \star \} $ is the only algebra of the terminal theory.
 \end{lemma}
 \begin{proof}
-  Let $ A $ be a $ T $-algebra. First of all, we have an element $ \star_A = \star_T \bullet_{0} () $. Secondly, for all elements $ \star, \star^\prime: A $, we have
-  \[ \star = x_1 \bullet (\star, \star^\prime) = \star \bullet (\star, \star^\prime) = x_2 \bullet (\star, \star^\prime) = \star^\prime. \]
-  Therefore, $ A = \{ \star \} $, which allows exactly one possible $ T $-action:
+  Let $ A $ be a $ T $-algebra. First of all, we have an element $ \star_A = \star_T \bullet_{0} () $. Secondly, for all elements $ a: A $, we have
+  \[ a = x_1 \bullet (a, \star) = \star \bullet (a, \star) = x_2 \bullet (a, \star) = \star. \]
+  Therefore, the set of $ A $ is $ \{ \star \} $, which can have only one $ T $-action:
   \[ \star \bullet (\star, \dots, \star) = \star. \]
 \end{proof}
 
 \subsection{The endomorphism theory}
 
 \begin{definition}[\coqident{AlgebraicTheories.Examples.EndomorphismTheory}{endomorphism_algebraic_theory}]\label{def:endomorphism-theory}
-  Suppose that we have a category $ C $ and an object $ X: C $, such that all powers $ X^n $ of $ X $ are also in $ C $.
-  The \iindex{endomorphism theory} $ E(X) $ of $ X $ is the algebraic theory given by $ E(X)_n = C(X^n, X) $ with projections as variables $ x_{n, i}: X^n \to X $ and a substitution that sends $ f: X^m \to X $ and $ g_1, \dots, g_m: X^n \to X $ to $ f \circ \langle g_i \rangle_i: X^n \to X^m \to X $.
+  Suppose that we have a category $ \C $ and an object $ X: \C $, such that all powers $ X^n $ of $ X $ are also in $ \C $.
+  The \iindex{endomorphism theory} $ E(X) $ of $ X $ is the algebraic theory given by $ E(X)_n = \C(X^n, X) $ with projections as variables $ x_{n, i}: X^n \to X $ and a substitution that sends $ f: X^m \to X $ and $ g_1, \dots, g_m: X^n \to X $ to $ \langle g_i \rangle_i \cdot f: X^n \to X $.
 \end{definition}
 
 \begin{definition}[\coqident{AlgebraicTheories.Examples.EndomorphismTheory}{endomorphism_lambda_theory}]
-  Now, suppose that the exponential object $ X^X $ exists, and that we have morphisms back and forth $ abs: X^X \to X $ and $ app: X \to X^X $. Let, for $ Y: C $, $ \varphi_Y $ be the isomorphism $ C(X \times Y, X) \xrightarrow{\sim} C(Y, X^X) $.
+  Now, suppose that the exponential object $ X^X $ exists, and that we have morphisms back and forth $ \mathrm{abs}: X^X \to X $ and $ \mathrm{app}: X \to X^X $. Let $ \varphi_Y $ be the isomorphism $ \C(X \times Y, X) \xrightarrow{\sim} \C(Y, X^X) $ for $ Y: \C $.
   We can give $ E(X) $ a $ \lambda $-theory structure by setting, for $ f: E(X)_{n + 1} $ and $ g: E(X)_n $,
-  \[ \lambda(f) = abs \circ \varphi_{X^n}(f) \qquad \rho(g) = \varphi_{X^n}^{-1}(app \circ g). \]
+  \[ \lambda(f) = \varphi_{X^n}(f) \cdot \mathrm{abs} \qquad \rho(g) = \varphi_{X^n}^{-1}(g \cdot \mathrm{app}). \]
 \end{definition}
+
+\begin{remark}[\coqident{AlgebraicTheories.Examples.EndomorphismTheory}{endomorphism_theory_has_β} \coqident{AlgebraicTheories.Examples.EndomorphismTheory}{endomorphism_theory_has_eta}]
+  From the definition of $ \lambda $ and $ \rho $, it follows immediately that $ E(X) $ has $ \beta $-equality if $ \mathrm{abs} \cdot \mathrm{app} = \id{X^X} $.
+  In the same way, if $ \mathrm{app} \cdot \mathrm{abs} = \id X $, then $ E(X) $ has $ \eta $-equality.
+\end{remark}
 
 The proofs that $ E(X) $ is an algebraic theory and a $ \lambda $-theory, use properties of the product, and naturality of the isomorphism $ \varphi_Y $.
 
@@ -527,14 +539,14 @@ The proofs that $ E(X) $ is an algebraic theory and a $ \lambda $-theory, use pr
   $ T_n $ is the free $ T $-algebra on $ n $ generators.
 \end{lemma}
 \begin{proof}
-  Recall from Lemma \ref{lem:lawvere-algebra} that $ T $-algebras are equivalent to finite-product-preserving $ \SET $-valued functors on the Lawvere theory $ \mathbf L $ associated to $ T $. Now, recall from Definition \ref{def:Yoneda-embedding} for any category $ C $, we can embed $ \op C $ inside $ [C, \SET] $, the category of $ \SET $-valued functors on $ C $. This embeds $ n: \mathbf L $ as the theory algebra $ T_n $. Then the Yoneda Lemma gives a bijection
+  In Lemma \ref{lem:lawvere-algebra}, it is shown that $ T $-algebras are equivalent to finite-product-preserving $ \SET $-valued functors on the Lawvere theory $ \mathbf L $ associated to $ T $. Now, recall from Definition \ref{def:Yoneda-embedding} for any category $ C $, we can embed $ \op C $ inside $ [C, \SET] $, the category of $ \SET $-valued functors on $ C $. This embeds $ n: \mathbf L $ as the theory algebra $ T_n $. Then the Yoneda lemma gives a bijection
   \[ \Alg T(T_n, A) \cong A^n = \SET(\{ 1, \dots, n \}, A) \]
   natural in $ n $ and $ A $. Explicitly, it sends $ f: \Alg T(T_n, A) $ to $ (f(x_i))_i $ and $ (a_i)_i : A^n $ to $ f \mapsto f \bullet a $. The natural equivalence immediately shows that $ T_n $ is the free $ T $-algebra on $ n $ elements.
 \end{proof}
 
 Using some additional machinery, we can combine this with the algebra pullback functor to get another functor:
 \begin{definition}\label{def:theory-algebra-pullback-functor}
-  Take a nonnegative integer $ n $. Take an object $ S : \AlgTh $. For every object $ T : \AlgTh $, we can take the $ T $-algebra $ T_n $. Then every morphism $ f: \AlgTh(S, T) $ gives an $ S $-algebra $ f^* T_n $. In fact, this is a functor from $ (S \downarrow \AlgTh) $ to $ \Alg S $: We send a morphism $ g: (S \downarrow \AlgTh)((T, f), (T^\prime, f^\prime)) $ to
+  Take a nonnegative integer $ n $. Take $ S : \AlgTh $. For every $ T : \AlgTh $, we can take the $ T $-algebra $ T_n $. Then every morphism $ f: \AlgTh(S, T) $ gives an $ S $-algebra $ f^* T_n $. In fact, this is a functor from $ (S \downarrow \AlgTh) $ to $ \Alg S $: We send a morphism $ g: (S \downarrow \AlgTh)((T, f), (T^\prime, f^\prime)) $ to
   \[ g_n: f^* T_n \to (f^\prime)^* T^\prime_n. \]
   This is an algebra morphism because it commutes with $ f $, $ f^\prime $ and the substitution of $ T $ and $ T^\prime $: For $ s: S_m $ and $ t: (f^* T_n)^m $, we have
   \[
@@ -568,27 +580,27 @@ Using some additional machinery, we can combine this with the algebra pullback f
   for $ Q : \Pshf T $.
 \end{lemma}
 \begin{proof}
-  Recall from Lemma \ref{lem:lawvere-presheaf} that $ T $-presheaves are equivalent to presheaves on the Lawvere theory $ \mathbf L $ associated to $ T $. Now, recall from Definition \ref{def:Yoneda-embedding} that we can embed any category inside its own category of presheaves. This embeds $ n: \mathbf L $ as the power $ T^n = (T_m^n)_m $ of the theory presheaf. Then the Yoneda Lemma gives a bijection
+  Lemma \ref{lem:lawvere-presheaf} shows that $ T $-presheaves are equivalent to presheaves on the Lawvere theory $ \mathbf L $ associated to $ T $. Now, recall from Definition \ref{def:Yoneda-embedding} that we can embed any category inside its own category of presheaves. This embeds $ n: \mathbf L $ as the power $ T^n = (T_m^n)_m $ of the theory presheaf. Then the Yoneda lemma gives a bijection
   \[ \Pshf T(T^n, Q) \cong Q_n \]
   natural in $ n $ and $ Q $. Explicitly, it sends $ f: \Pshf T(T^n, Q) $ to $ f_n(x_1, \dots, x_n) $ and $ q: Q_n $ to $ (t_i)_i \mapsto q \bullet t $.
 \end{proof}
 
-\subsection{The "+l" presheaf}
+\subsection{The ``+\texorpdfstring{$ \ell $}{l}'' presheaf}
 
-\begin{example}[\coqident{AlgebraicTheories.Examples.Plus1Presheaf}{plus_1_presheaf}][The `+l' presheaf]
-  Given a $ T $-presheaf $ Q $, we can construct a presheaf $ A(Q, l) $ with $ A(Q, l)_n = Q_{n + l} $ and, for $ q: A(Q, l)_m $ and $ f: T_n^m $, action
-  \[ q \bullet_{A(Q, l)} f = q \bullet_Q ((\iota_{n, l} (f_i))_i + (x_{n + i})_i). \]
+\begin{example}[\coqident{AlgebraicTheories.Examples.Plus1Presheaf}{plus_1_presheaf}]
+  Given a $ T $-presheaf $ Q $, we can construct a presheaf $ A(Q, \ell) $ with $ A(Q, \ell)_n = Q_{n + \ell} $ and, for $ q: A(Q, \ell)_m $ and $ f: T_n^m $, action
+  \[ q \bullet_{A(Q, \ell)} f = q \bullet_Q ((\iota_{n, \ell} (f_i))_i + (x_{n + i})_i). \]
 \end{example}
 
 \begin{lemma}[\coqident{AlgebraicTheories.RepresentationTheorem}{theory_presheaf_exponentiable}]
-  For all $ l $ and $ T $-presheaves $ Q $, $ A(Q, l) $ is the exponential object $ Q^{T^l} $.
+  For all $ m $ and all $ T $-presheaves $ Q $, $ A(Q, m) $ is the exponential object $ Q^{T^m} $.
 \end{lemma}
 \begin{proof}
-  We will show that $ A(-, l) $ constitutes a right adjoint to the functor $ - \times T^l $. We will do this using universal arrows.
+  We will show that $ A(-, m) $ constitutes a right adjoint to the functor $ - \times T^m $. We will do this using universal arrows.
 
-  For $ Q $ a $ T $-presheaf, take the arrow $ \varphi: A(Q, l) \times T^l \to Q $ given by $ \varphi(q, t) = q \bullet_Q ((x_{n, i})_i + t) $ for $ q: A(Q, l)_n = Q_{n + l} $ and $ t: T^l_n $.
+  For $ Q $ a $ T $-presheaf, take the arrow $ \varphi: A(Q, m) \times T^m \to Q $ given by $ \varphi(q, t) = q \bullet_Q ((x_{n, i})_i + t) $ for $ q: A(Q, m)_n = Q_{n + m} $ and $ t: T^m_n $.
 
-  Now, given a $ T $-presheaf $ Q^\prime $ and a morphism $ \psi: Q^\prime \times T^l \to Q $. Define $ \tilde \psi: Q^\prime_n \to A(Q, l)_n $ by $ \tilde \psi(q) = \psi(\iota_{n, l}(q), (x_{n + i})_i) $.
+  Now, given a $ T $-presheaf $ Q^\prime $ and a morphism $ \psi: Q^\prime \times T^m \to Q $. Define $ \tilde \psi: Q^\prime_n \to A(Q, m)_n $ by $ \tilde \psi(q) = \psi(\iota_{n, m}(q), (x_{n + i})_i) $.
 
-  Then $ \psi $ factors as $ \varphi \circ (\tilde \psi \times \id{T^l}) $. Also, some equational reasoning shows that $ \tilde \psi $ is unique, which proves that $ \varphi $ indeed is a universal arrow.
+  Then $ \psi $ factors as $ (\tilde \psi \times \id{T^m}) \cdot \varphi $. Also, some equational reasoning shows that $ \tilde \psi $ is unique, which proves that $ \varphi $ indeed is a universal arrow.
 \end{proof}
