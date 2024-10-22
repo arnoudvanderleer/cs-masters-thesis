@@ -404,7 +404,7 @@ The following lemma shows that our functor is essentially surjective:
     &= (\iota_{0, n}(\iota_\Lambda(f)) (x_i c_n)_i) \bullet_A a\\
     &= (\iota_{0, n}(\iota_\Lambda(f)) (x_i)_i) \bullet_A (\epsilon(a_i))_i,
   \end{align*}
-  and we want this to equal $ f \bullet_A (\epsilon(a_i))_i $. Leaving out the $ \iota_{0, n} $, all we need to do is show that for all $ f: \Lambda_n $, we have $ \iota_\Lambda(f) (x_i)_i = f $. We will do this by structural induction on $ f $.
+  and we want this to equal $ f \bullet_A (\epsilon(a_i))_i $. Leaving out the $ \iota_{0, n} $, all we need to do is show that for all $ f: \Lambda_n $, we have $ \iota_\Lambda(f) (x_i)_i = f $. We will do this by structural induction on $ f $:
   \begin{itemize}
     \item If $ f = x_{n, i} $, we have $ \iota_\Lambda(f) = \pi_{n, i} $, and
       \[ \iota_\Lambda(f) (x_i)_i = \pi_{n, i} (x_{n, i})_i = x_{n, i}. \]
@@ -973,7 +973,7 @@ Let $ \llbracket n \rrbracket $ denote the finite set $ \{ 1, 2, \dots, n \} $. 
 \begin{proof}
   This is shown in \autocite{algebraic-theories-2010}, in the lemmas leading up to Theorem 4.5.
 
-  Explicitly, we can express the coproduct of algebras, and especially its set, as the following coend (\autocite{Hyland}, Proposition 2.5) (see also Section \ref{sec:coends} for more on coends)
+  Explicitly, we can express the coproduct of algebras, and especially its set, as the following coend \autocite[][Proposition 2.5]{Hyland} (see also Section \ref{sec:coends} for more on coends)
   \[ A + B = \int^{(m, n) : \mathbf L \times \mathbf L} T_{m^\prime + n^\prime} \times A^m \times B^n, \]
   considering $ A $ as a covariant functor on $ \mathbf L $ (see Lemma \ref{lem:lawvere-algebra}) and the theory presheaf $ T $ as a presheaf (see Lemma \ref{lem:lawvere-presheaf}).
 

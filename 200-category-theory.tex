@@ -70,7 +70,7 @@ such that the diagrams
 \end{center}
 commute (these are called the \iindex{triangle identities} or \iindex{zigzag identities}). Here the natural transformation $ \eta \bullet L: L \bullet R \bullet L $ is the natural transformation $ \eta $ whiskered on the right by $ L $, and the other whiskered transformations are similar.
 
-An alternative characterization (see \autocite{MacLane}, chapter IV.1, Theorem 2) of an adjunction $ L \dashv R $ is as a natural bijection
+An alternative characterization \autocite[][Chapter IV.1, Theorem 2]{MacLane} of an adjunction $ L \dashv R $ is as a natural bijection
 \[ \varphi: \D(L(X), Y) \xrightarrow{\sim} \C(X, R(Y)). \]
 Naturality means that for all $ f: \C(X^\prime, X) $, $ g: \D(Y, Y^\prime) $ and $ h: \D(L(X), Y) $,
 \[ \varphi(L(f) \cdot h \cdot g) = f \cdot \varphi(h) \cdot R(g). \]
@@ -143,7 +143,7 @@ However, as with exponential object, sometimes we have a forgetful functor $ F: 
 \section{Yoneda}
 Let $ \C $ be a category. One of the categories that is often important in the study of $ \C $ is its \iindex{presheaf category} $ P \C = [\op \C, \SET] $. Its objects are the functors from $ \op C $ to $ \SET $ and its morphisms are the natural transformations between the functors.
 
-We can embed $ \C $ fully faithfully into $ P \C $ as follows (see \autocite{Kashiwara}, Section 1.4):
+We can embed $ \C $ fully faithfully into $ P \C $ as follows \autocite[][Section 1.4]{Kashiwara}:
 \begin{definition}\label{def:Yoneda-embedding}
   The \iindex{Yoneda embedding} $ \yo : \C \hookrightarrow P \C $ is given on objects by $ \yo(Y) = \C(-, Y) $:
   \[ \yo(Y)(X) = \C(X, Y) \quad \text{and} \quad \yo(Y)(f)(g) = f \cdot g \]
@@ -157,7 +157,7 @@ Now, this embedding has a couple of properties:
   For any $ Y: \C $ and $ F : P \C $, we have an equivalence $ P \C(\yo(Y), F) \simeq F(Y) $, and this equivalence is natural in $ Y $ and $ F $.
 \end{lemma}
 \begin{proof}
-  It sends a natural transformation $ a: P \C(\yo(Y), F) $ to the element $ a_Y(\id Y) $. Conversely, it sends an element $ X : P(Y) $ to the natural transformation $ a $ given by $ a_X(f) = P(f)(X) $ for all $ f: \yo(Y)(X) = \C(X, Y) $. For more details, see \autocite{Kashiwara}, Proposition 1.4.3.
+  It sends a natural transformation $ a: P \C(\yo(Y), F) $ to the element $ a_Y(\id Y) $. Conversely, it sends an element $ X : P(Y) $ to the natural transformation $ a $ given by $ a_X(f) = P(f)(X) $ for all $ f: \yo(Y)(X) = \C(X, Y) $. For more details, see \autocite[][Proposition 1.4.3]{Kashiwara}.
 \end{proof}
 
 \begin{remark}
@@ -167,7 +167,7 @@ Now, this embedding has a couple of properties:
 \begin{remark}
   Also, for any small category $ \C $ (small means that the collection of objects is a type in our type universe. For example: for a fixed universe of types, $ \TYPE $ or $ \SET $ are not small categories, the universe of types is not contained in itself), the presheaf category $ P \C $ has exponential objects, given by
   \[ (F^G)(X) = P\C(\yo(X) \times G, F), \]
-  the natural transformations from the product functor of the Yoneda embedding of $ X $ and $ G $, to $ F $ (see \autocite{MacLane-Moerdijk}, Section I.6, Proposition 1).
+  the natural transformations from the product functor of the Yoneda embedding of $ X $ and $ G $, to $ F $ \autocite[][Section I.6, Proposition 1]{MacLane-Moerdijk}.
 \end{remark}
 
 \begin{definition}
@@ -554,7 +554,7 @@ If a category has limits (resp. colimits), we can construct the right (resp. lef
   If $ F : \A \to \B $ is a fully faithful functor, and $ \C $ is a category with colimits, $ \eta: \id{[\A, \C]} \Rightarrow \Lan F {} \bullet F_* $ is a natural isomorphism.
 \end{lemma}
 \begin{proof}
-  To show that $ \eta $ is a natural isomorphism, we have to show that $ \eta_G(Y): G(Y) \Rightarrow \Lan F G(F(Y)) $ is an isomorphism for all $ G: [\A, \C] $ and $ Y: \A $. Since a left adjoint is unique up to natural isomorphism (\autocite{CT4P}, Exercise 153), we can assume that $ \Lan F G(F(Y)) $ is given by
+  To show that $ \eta $ is a natural isomorphism, we have to show that $ \eta_G(Y): G(Y) \Rightarrow \Lan F G(F(Y)) $ is an isomorphism for all $ G: [\A, \C] $ and $ Y: \A $. Since a left adjoint is unique up to natural isomorphism \autocite[][Exercise 153]{CT4P}, we can assume that $ \Lan F G(F(Y)) $ is given by
   \[ \text{colim} ((F \downarrow F(Y)) \to \A \xrightarrow G \C). \]
   Now, the diagram for this colimit consists of $ G(X) $ for each arrow $ f: \B(F(X), F(Y)) $. Since $ F $ is fully faithful, we have $ f = F(\overline f) $ for some $ \overline f: \A(X, Y) $. If we now take the arrows $ G(\overline f): \C(G(X), G(Y)) $, the universal property of the colimit gives an arrow
   \[ \varphi: \C(\Lan F G(F(Y)), G(Y)) \]
