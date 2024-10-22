@@ -35,7 +35,7 @@ Alternatively, we can characterize universal arrows by their action on hom-sets:
   that is natural in $ Z $ arises in this way from some universal arrow $ f: \D(X, F(Y)) $.
 \end{lemma}
 \begin{proof}
-  See \autocite{MacLane}, Chapter III.2, Proposition 1.
+  See \autocite[][Chapter III.2, Proposition 1]{MacLane}.
 \end{proof}
 
 There is also the dual concept: a universal arrow $ (X, f) $ from a functor $ F $ to an object $ Y: \C $. Its universal property can be summarized in the following diagram:
@@ -80,7 +80,7 @@ Lastly, one can construct an adjunction using universal arrows. This lends itsel
   One can construct an adjunction $ (L, R, \eta, \epsilon) $ as above from only the functor $ L: \C \to \D $ and, for each $ X: \C $, a universal arrow $ (R(X), \epsilon_X) $ from $ L $ to $ X $.
 \end{lemma}
 \begin{proof}
-  See \autocite{MacLane}, Chapter IV.1, Theorem 2 (iv).
+  See \autocite[][Chapter IV.1, Theorem 2 (iv)]{MacLane}.
 \end{proof}
 
 \subsection{Adjoint equivalences}
@@ -190,7 +190,7 @@ Now, this embedding has a couple of properties:
   The Yoneda embedding preserves limits.
 \end{lemma}
 \begin{proof}
-  See \autocite{borceux}, Volume 1, Proposition 2.15.5 for the full proof, but note that for binary products, we have bijections
+  See \autocite[][Volume 1, Proposition 2.15.5]{borceux} for the full proof, but note that for binary products, we have bijections
   \[ \yo(X \times Y)(Z) \xrightarrow \sim \yo(X)(Z) \times \yo(Y)(Z) \]
   sending $ f : \C(Z, X \times Y) $ to the pair $ (f \cdot \pi_1, f \cdot \pi_2) $ and conversely, sending a pair $ (g_1, g_2) : \C(Z, X) \times \C(Z, Y) $ to the product morphism $ \langle g_1, g_2 \rangle : \yo(Z, X \times Y) $. This idea is also the core of the proof about general limits.
 \end{proof}
@@ -350,7 +350,7 @@ In fact, $ \Delta_X : \C \to (\C \downarrow X) $ is a functor, with $ \Delta_X(f
   $ \Delta_X $ preserves exponential objects:
 \end{lemma}
 \begin{proof}
-  See \autocite{borceux}, Volume 3, Lemma 5.8.2. This lemma shows this via the following equivalences:
+  See \autocite[][Volume 3, Lemma 5.8.2]{borceux}. There, the following equivalences are used for the proof:
   \begin{align*}
     (\C \downarrow X)((W, f), \Delta_X Y^Z) &\cong \C(W, Y^Z)\\
     &\cong \C(W \times Z, Y)\\
