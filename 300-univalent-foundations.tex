@@ -1,6 +1,10 @@
 \chapter{Univalent Foundations}\label{ch:univalent-foundations}
 
-\section{Dependent Type Theory}
+Since this thesis is, among other things, a case study in translating mathematics from set theory to univalent foundations, this chapter will give an introduction to univalent foundations and introduce some of the relevant concepts. It will also point out some issues that can arise in such a translation, like the difference between existence and mere existence (Section \ref{sec:truncation-mere-existence}).
+
+First, we will introduce dependent type theory (Section \ref{sec:dependent-type-theory}). After this, we will talk about the univalence principle (Section \ref{sec:univalence-principle}), and introduce the univalence axiom (Section \ref{sec:univalence-axiom}). Then we will discuss how propositions and sets show up in univalent foundations (Section \ref{sec:homotopy-props-sets}) and introduce the related notions of propositional truncation and `mere existence' (Section \ref{sec:truncation-mere-existence}). After this, we will discuss the relation between equality and homotopy, which is a central idea in homotpy type theory (Section \ref{sec:equality-homotopy}), and lastly, we will talk about transport over equalities (Section \ref{sec:transports}).
+
+\section{Dependent Type Theory}\label{sec:dependent-type-theory}
 Univalent foundations takes place in a framework of type theory. In this section, we will quickly introduce some topics that we will need in subsequent sections.
 
 First of all, \iindex{type theory} is the study of `type systems'. A \iindex{type system} is a collection of \textit{terms} or \textit{elements}, each of which has a corresponding type. A type is much like a set in set theory in that it has elements (for example, $ \mathrm{true}: \mathrm{Bool} $ or $ 1: \mathbb N $), but there are important differences. First of all, in type theory, terms are declared together with their type, so every term has exactly one type, whereas in set theory, something can be an element of multiple sets, like $ 5 \in \mathbb N $ and $ 5 \in \mathbb R $. Secondly, equality in type theory can work a bit differently than in set-based mathematics, but I will cover this in the next section.
@@ -91,7 +95,7 @@ We call such a univalent category a \iindex{Rezk completion} of $ C $. Actually,
   \[ (D, F) = (D^\prime, F^\prime). \]
 \end{proof}
 
-\section{The Univalence Axiom}
+\section{The Univalence Axiom}\label{sec:univalence-axiom}
 Now, even for a basic category, like the category of types, it seems impossible to prove that the univalence principle holds. However, this is no surprise: It turns out that there is a model in set theory for Martin-Löf type theory with univalence \autocite{simplicial-set-model}, but also for Martin-Löf type theory with proof irrelevance \autocite{proof-irrelevant-model}. In the latter, the type $ x = y $ has at most one element for all $ x, y : T $ and all types $ T $, which contradicts univalence. Therefore, univalence is independent of the axioms of Martin-Löf type theory: both univalence or its negation cannot be proved, but either can be assumed as an axiom.
 
 As mentioned before, univalent foundations attempts to develop as much of mathematics as possible along the univalence principle. Therefore, we assume as our first axiom the \iindex{univalence axiom}:
@@ -146,7 +150,7 @@ Since the identity types for a homotopy set are mere propositions, a homotopy se
 
 For similar reasons, we restrict the hom-types $ C(c, d) $ of categories to be sets. Note that $ \TYPE $ is not a category under this definition (it is a `precategory', for some definition of precategory), because in general, the type of functions between sets $ S \to T $ is not a set.
 
-\section{Truncation and (Mere) Existence}
+\section{Truncation and (Mere) Existence}\label{sec:truncation-mere-existence}
 As mentioned before, if we want to do mathematics in a dependent type theory, we can `encode' propositions as types. The elements of the type correspond to the proofs that the proposition is true, see for example the identity types. However, we need to be careful here about the distinction between types in general and mere propositions:
 
 A proof that a type $ T $ is nonempty usually consists of giving an element $ t : T $. If we encode the statement ``$ T $ is nonempty'' as $ T $, and if $ T $ is not a mere proposition, then ``$ T $ is nonempty'' is not a mere proposition, so it has multiple distinct proofs. In some cases, this is exactly what we want, because we want to retrieve the chosen element of $ T $. However, in some cases, we want the fact that a set is nonempty (or any statement in general) to be a mere proposition, to avoid having to carry around a specific element and having to prove equality of two specific elements. For such cases, we have the `propositional truncation':
@@ -168,7 +172,7 @@ For example, if we have objects in a category $ c, d: C $ and we want to talk ab
 
 Note that for the Curry-Howard correspondence, the product or conjunction $ A \land B = A \times B $ of two mere propositions is again a mere proposition. However, the union $ A \sqcup B $ is not necessarily a mere proposition. To make it into a mere proposition, we need to take the propositional truncation $ A \lor B = \Vert A \sqcup B \Vert $.
 
-\section{Equality and Homotopy}
+\section{Equality and Homotopy}\label{sec:equality-homotopy}
 Univalent Foundations is often mentioned together with Homotopy Type Theory, because they are related but distinct concepts. Therefore, we will mention it here.
 
 As we saw before, if we do not assume uniqueness of identity proofs, given two elements $ x, y: T $, we can have multiple distinct proofs that $ x = y $, which is counterintuitive. One way to think about this, is the perspective of homotopy type theory. In homotopy type theory, one considers a type $ T $ to be a `space', intuitively similar to a topological space, but without an explicit topology. The elements $ t : T $ are then the points of the space. Elements of the identity type $ (s = t) $ are interpreted as `paths' from $ s $ to $ t $. That is why the induction principle of $ (s = t) $ is called `path induction'. Of course, we can go higher: for $ p, q : x = y $, the elements $ (p = q) $ are `paths between paths', (path) `homotopies', `sheets' or `1-cells', for homotopies $ h, h^\prime: p = q $, the elements of $ h = h^\prime $ are paths between paths between paths, `volumes' or `2-cells' etc.
@@ -210,7 +214,7 @@ As a third example, consider a type $ T $ in which any two elements $ x, y : T $
 
 This is the lens through which homotopy type theory studies types.
 
-\section{Transport}
+\section{Transport}\label{sec:transports}
 
 \begin{figure}
   \begin{subfigure}{.45\textwidth}

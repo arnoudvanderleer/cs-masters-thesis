@@ -1,6 +1,12 @@
 \chapter{Hyland's Paper}\label{ch:the-paper}
 
-\section{Scott's Representation Theorem}
+In this chapter, we will cover the main results from Hyland's paper. We work out the proofs in more detail, and point out where subtleties arise when translating them from set theory to univalent foundations.
+
+The chapter starts with a new proof for Scott's representation theorem (Section \ref{sec:hyland-scott}). The sections after this deal with a lot of different categories and Section \ref{sec:hyland-categories} discusses the relations between these categories. Section \ref{sec:relatively-cartesian-closed} gives Hyland's proof of the result by Paul Taylor that was covered in the previous chapter. Here, the bifurcation of the Karoubi envelope in univalent foundations, as mentioned in Remark \ref{rem:karoubi-candidate-choice}, means that Hyland's result is about a different category than Taylor's result (Remark \ref{rem:difference-Taylor-Hyland}).
+
+In the last part of this chapter, we cover Hyland's fundamental theorem about the equivalence between $ \lambda $-theories and $ \Lambda $-algebras. There are multiple ways to construct a $ \lambda $-theory from a $ \Lambda $-algebra, and these give rise to slightly different proofs. We will consecutively cover a very elementary version (Section \ref{sec:elementary-fundamental-theorem}), Hyland's first version, which uses the endomorphism theory (Section \ref{sec:hyland-fundamental-theorem}), and Hyland's second version, which uses the theory of extensions (Section \ref{sec:theory-of-extentions}).
+
+\section{Scott's Representation Theorem}\label{sec:hyland-scott}
 
 Now, Scott's representation theorem, which asks whether we can represent any $ \lambda $-theory as the endomorphism theory of some reflexive object in some cartesian closed category, can be answered using the presheaf category.
 \begin{theorem}[\coqident{AlgebraicTheories.RepresentationTheorem}{representation_theorem_iso}]\label{thm:representation-theorem}
@@ -22,7 +28,7 @@ This proof is particularly nice, because it does not require $ \beta $- or $ \et
   Note, however, that this is technically not an answer to Scott's original theorem, because the original formulation asks for a cartesian closed category with a reflexive object, whereas here we only have a reflexive object in a weak cartesian closed category. Even so, it is an answer to the core of the question, which is about whether we can represent any $ \lambda $-theory as the sets of morphisms $ C(U^n, U) $ for some $ U : C $.
 \end{remark}
 
-\section{Relations Between the Categories}
+\section{Relations Between the Categories}\label{sec:hyland-categories}
 
 As mentioned before, we have a fully faithful embedding of $ \R $ into $ \Pshf L $.
 
@@ -470,7 +476,7 @@ Summarizing,
   By Lemma \ref{lem:elementary-full} and Lemma \ref{lem:elementary-faithful}, the functor is fully faithful. By Lemma \ref{lem:elementary-essentially-surjective}, it is essentially surjective, so it is a weak equivalence. Since $ \LamTh $ and $ \Alg{\Lambda} $ are univalent categories, Lemma \ref{lem:univalen-category-equivalence} shows that $ F $ is an adjoint equivalence.
 \end{proof}
 
-\section{Hyland's Proof}
+\section{Hyland's Proof}\label{sec:hyland-fundamental-theorem}
 
 Hyland gives a more category theoretical proof. That means that there is more high-level intuition why things work the way they work, but on the flip side, there is a lot more details to check.
 
@@ -961,7 +967,7 @@ By Lemma 3.2 in \autocite{nlab:adjoint_equivalence} and Lemma \ref{lem:zigzag}, 
   % \end{align*}
 \end{remark}
 
-\section{The Theory of Extensions}
+\section{The Theory of Extensions}\label{sec:theory-of-extentions}
 
 The fundamental theorem of the $ \lambda $-calculus that Hyland shows is actually not of the form shown above. To get there, we first need to show that the category of $ T $-algebras for an algebraic theory $ T $ has coproducts, and define the `theory of extensions'.
 

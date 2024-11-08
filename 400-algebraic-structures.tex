@@ -1,5 +1,7 @@
 \chapter{Algebraic Structures}\label{ch:algebraic-structures}
 
+In his paper, Hyland uses concepts from universal algebra to study the $ \lambda $-calculus. This chapter introduces these concepts: it consecutively introduces algebraic theories (Section \ref{sec:algebraic-theories}), algebras (Section \ref{sec:algebras}), presheaves (Section \ref{sec:presheaves}) and $ \lambda $-theories (Section \ref{sec:lambda-theories}). The last part of this chapter, Section \ref{sec:algebraic-theory-examples}, is devoted to examples, so it may be useful to skip back and forth a couple of times to get a better understanding of what the definitions are about.
+
 \section{Algebraic Theories}\label{sec:algebraic-theories}
 
 \begin{definition}[\coqident{AlgebraicTheories.AlgebraicTheories}{algebraic_theory}]
@@ -57,7 +59,7 @@ Later on, we will see an example of a trivial algebraic theory (the terminal the
 
 Now, there are also a lot of other, equivalent ways to define the objects that we call `algebraic theories' here. For a couple of these alternative definitions, see Chapter \ref{ch:alternative-definitions}. In particular, an algebraic theory is equivalent to a category $ \L $ with $ \L_0 = \mathbb N $ where the object $ n $ is $ 1^n $, the $ n $-fold product of $ 1 $.
 
-\section{Algebras}
+\section{Algebras}\label{sec:algebras}
 
 \begin{definition}[\coqident{AlgebraicTheories.Algebras}{algebra}]
   An \iindex{algebra} $ A $ for an algebraic theory $ T $ is a set $ A $, together with an action
@@ -167,7 +169,7 @@ We then have a functor $ P: \int \Alg T \to \AlgTh $, projecting onto the first 
   It is cartesian because for $ (R, B): \int \Alg T $ and $ (g, g^\prime): (\int \Alg T)((R, B), (T, A)) $ and $ h: \AlgTh(R, S) $ with $ h \cdot f = g $, the required morphism over $ h $ is given by $ g^\prime: \SET(B, A) $.
 \end{proof}
 
-\section{Presheaves}
+\section{Presheaves}\label{sec:presheaves}
 
 \begin{definition}[\coqident{AlgebraicTheories.Presheaves}{presheaf}]
   A \iindex{presheaf} $ P $ for an algebraic theory $ T $ is a sequence of sets $ P_n $ indexed over $ \mathbb N $, together with an action
@@ -200,7 +202,7 @@ An analogue to Lemma \ref{lem:algebra-fibration} shows that, like with algebras,
 
 The equivalence between algebraic theories and Lawvere theories gives an equivalence between the presheaf category $ \Pshf T $ of an algebraic theory, and the presheaf category $ P \L_T = [\op{\L_T}, \SET] $ of its associated Lawvere theory (see Lemma \ref{lem:lawvere-presheaf}).
 
-\section{\texorpdfstring{$ \lambda $-}{lambda-}theories}
+\section{\texorpdfstring{$ \lambda $-}{lambda-}theories}\label{sec:lambda-theories}
 
 Now we get to the core definition: $ \lambda $-theories. It is what allows us to use algebraic theories to reason about the $ \lambda $-calculus.
 
@@ -295,7 +297,7 @@ This means that we can interpret all three operations (\texttt{var}, \texttt{app
   Later on, we will see that these two ways of studying $ \lambda $-calculus-like structures do coincide: we will see that the category $ \LamTh $ is indeed algebraic, and moreover, that the objects of $ \Alg \Lambda $ are equivalent to $ \lambda $-theories.
 \end{remark}
 
-\section{Examples}
+\section{Examples}\label{sec:algebraic-theory-examples}
 
 There are a lot of different examples of algebraic theories and $ \lambda $-theories and their algebras. In this section, we will discuss a couple of these examples.
 

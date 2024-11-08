@@ -1,17 +1,8 @@
 \chapter{Previous Work in Categorical Semantics}\label{ch:previous-work}
 
-% \begin{tabular}{|c|c|c|}\hline
-%   $ K $ & $ \lambda xy.x $ & constant \\\hline
-%   $ S $ & $ \lambda xyz.xz(yz) $ & \\\hline
-%   $ I $ & $ \lambda x.x = SKK $ & identity \\\hline
-%   $ Y $ & $ \lambda f.(\lambda x.f (xx))(\lambda x.f (xx)) $ & ﬁxpoint \\\hline
-%   $ \bot $ & $ (\lambda x.xx)(\lambda x.xx) = (SII)(SII) = YI $ & bottom \\\hline
-%   $ P $ & $ \lambda f gx.g(f x) = S(K(S(S(KS)K)))K $ & composition \\\hline
-%   $ Q $ & $ \lambda f gax.ga(f ax) $ & ﬁbred composition \\\hline
-%   $ \langle \rangle $ & $ \lambda xyz.zxy $ & pairing \\\hline
-%   $ 0 $ & $ \lambda xy.x = K $ & left projection \\\hline
-%   $ 1 $ & $ \lambda xy.y = KI $ & right projection \\\hline
-% \end{tabular}
+Hyland, like every scientist, stands on the shoulder of giants. As we saw in the last chapter, he borrows concepts from universal algebra to study the $ \lambda $-calculus. Furthermore, two main theorems in his paper have been proven by others before him, although in a different way. This chapter strives to improve the understanding of Hyland's work by expositing the work of those who came before.
+
+To understand what categorical semantics for the untyped $ \lambda $-calculus is about, we first briefly take a look at categorical semantics for the simply typed $ \lambda $-calculus (Section \ref{sec:lambek-correspondence}). After this, we provide Scott's result about categorical semantics for the untyped $ \lambda $-calculus (Section \ref{sec:scott}), for which we first study the `category of retracts' (Section \ref{sec:retracts-category}). We then discuss Paul Taylor's result about the structure of this category of retracts (Section \ref{sec:taylor}), which says something about its internal logic. Lastly, we briefly discuss a result of Peter Selinger (Section \ref{sec:selinger}), which seems to have inspired Hyland's fundamental theorem of the $ \lambda $-calculus.
 
 \section{The Correspondence Between Categories and Typed \texorpdfstring{$ \lambda $}{lambda}-calculi}\label{sec:lambek-correspondence}
 In \autocite{curry}, page 413, Scott and Lambek argue that there is a correspondence between simply typed $ \lambda $-calculi and cartesian closed categories (categories with products and `function objects').
@@ -206,7 +197,7 @@ In particular, for any two objects $ A, A^\prime: \R $, since we have $ A \circ 
 \[ \R(A^\prime, A) \simeq \R(I \times A^\prime, A) \simeq \R(I, A^{A^\prime}) \simeq \{ \star \}, \]
 so $ \R $ is the trivial category and $ L $ is trivial.
 
-\section{Scott's Representation Theorem}
+\section{Scott's Representation Theorem}\label{sec:scott}
 The correspondence in Section \ref{sec:lambek-correspondence} between simply-typed $ \lambda $-calculi and cartesian closed categories raises a question whether such a correspondence also exists for untyped $ \lambda $-calculi. Definition \ref{def:endomorphism-theory} shows that in fairly general circumstances we can take one object $ c $ in a category $ C $ and consider the morphisms $ t: C(c^n, c) $ as terms in an untyped $ \lambda $-calculus. Hyland calls this the `endomorphism theory' of $ c $.
 
 \begin{remark}
@@ -250,7 +241,7 @@ Since Lambek showed an equivalence between simply typed $ \lambda $-calculi and 
   for $ f: E(U)_m $, $ g: E(U)_n^m $, $ h: E(U)_{n + 1} $ and $ h^\prime : E(U)_n $. Therefore, $ \psi $ is an isomorphism of $ \lambda $-theories.
 \end{proof}
 
-\section{The Taylor Fibration}
+\section{The Taylor Fibration}\label{sec:taylor}
 
 In his dissertation, Paul Taylor shows that $ \R $ is not only cartesian closed, but also \iindex{relatively cartesian closed}. Recall we have chosen to interpret $ \R $ as the category $ \overline C_{L_0} $, constructed using idempotents, because both Scott's and Taylor's proof are very syntactical in nature.
 
@@ -509,7 +500,7 @@ This brings us to the main theorem of this section \autocite[][\S 5.1.8]{taylor}
   (notice the redundant usage of $ B $) is not idempotent.
 \end{remark}
 
-\section{The \texorpdfstring{$ \lambda $}{lambda}-calculus is Algebraic}
+\section{The \texorpdfstring{$ \lambda $}{lambda}-calculus is Algebraic}\label{sec:selinger}
 As we mentioned in Remark \ref{rem:lambda-theory-or-algebra}, using tools from universal algebra, there are two approaches to study $ \lambda $-calculus-like structures. One can either study $ \lambda $-theories or algebras for the algebraic theory $ \Lambda $. We will see that Hyland shows that these are equivalent.
 
 In his proof, he refers to the 2002 paper `The lambda calculus is algebraic' by Peter Selinger \autocite{selinger-lambda-calculus-algebraic}. We will not study this paper in detail, but it is interesting to have a quick look at it, because it seems that Hyland took some inspiration from it.
