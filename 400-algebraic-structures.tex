@@ -202,7 +202,7 @@ An analogue to Lemma \ref{lem:algebra-fibration} shows that, like with algebras,
 
 The equivalence between algebraic theories and Lawvere theories gives an equivalence between the presheaf category $ \Pshf T $ of an algebraic theory, and the presheaf category $ P \L_T = [\op{\L_T}, \SET] $ of its associated Lawvere theory (see Lemma \ref{lem:lawvere-presheaf}).
 
-\section{\texorpdfstring{$ \lambda $-}{lambda-}theories}\label{sec:lambda-theories}
+\section{\texorpdfstring{$ \lambda $-}{lambda-}Theories}\label{sec:lambda-theories}
 
 Now we get to the core definition: $ \lambda $-theories. It is what allows us to use algebraic theories to reason about the $ \lambda $-calculus.
 
@@ -257,7 +257,7 @@ Together, these form the category of $ \lambda $-theories \iindex{$ \LamTh $} (\
   A $ \lambda $-theory algebra or presheaf is an algebra or presheaf for the underlying algebraic theory.
 \end{definition}
 
-\subsection{The $ \lambda $-calculus operations}\label{subsec:lambda-calculus-operations}
+\subsection{The $ \lambda $-Calculus Operations}\label{subsec:lambda-calculus-operations}
 For a $ \lambda $-theory $ L $, we have variables $ x_{n, i} : L_n $ and $ \lambda $-abstraction $ f \mapsto \lambda(f) $. We will sometimes denote $ \lambda(f) $ as $ \lambda x_{n + 1}, f $ for $ f: L_{n + 1} $. Now, consider the element $ \rho(x_{1, 1}) : L_2 $.
 \begin{definition}[\coqident{AlgebraicTheories.LambdaTheories}{app'}]
   Using the substitution, we have binary operations on the $ L_n $, sending $ (f, g) : L_n \times L_n $ to $ \rho(x_{1, 1}) \bullet (f, g) : L_n $. We will denote $ \rho(x_{1, 1}) \bullet (f, g) $ as $ f g $, and this gives us our application operation.
@@ -301,7 +301,7 @@ This means that we can interpret all three operations (\texttt{var}, \texttt{app
 
 There are a lot of different examples of algebraic theories and $ \lambda $-theories and their algebras. In this section, we will discuss a couple of these examples.
 
-\subsection{The free algebraic theory on a set}
+\subsection{The Free Algebraic Theory on a Set}
 \begin{example}[\coqident{AlgebraicTheories.Examples.FreeTheory}{free_functor}]
   Let $ S $ be a set. We can construct an algebraic theory $ F(S) $ by taking $ F(S)_n = S \sqcup \{ 1, \dots, n \} $ with projections $ x_i = i $ and substitution
   \begin{align*}
@@ -369,7 +369,7 @@ The proofs that $ F(S) $ is an algebraic theory and that $ F(f) $ and $ g $ are 
   Note that the category of $ F(\emptyset) $-algebras is equivalent to the coslice-category $ (\emptyset \downarrow \SET) $, which, since $ \emptyset $ is the initial set, is just equivalent to $ \SET $. Therefore, $ \SET $ is algebraic.
 \end{remark}
 
-\subsection{The free \texorpdfstring{$ \lambda $}{lambda}-theory on a set}
+\subsection{The Free \texorpdfstring{$ \lambda $}{lambda}-Theory on a Set}
 
 In this subsection, we will use the $ \lambda $-calculus operations defined in Subsection \ref{subsec:lambda-calculus-operations}.
 
@@ -433,7 +433,7 @@ The proofs that $ \Lambda(S) $ is indeed a $ \lambda $-theory and that $ \Lambda
   $ \Lambda $ is the initial $ \lambda $-theory.
 \end{corollary}
 
-\subsubsection{About $ \Lambda $-algebra morphisms}
+\subsubsection{About $ \Lambda $-Algebra Morphisms}
 
 \begin{lemma}\label{lem:make-is-lambda-algebra-morphism}
   Let $ A $ and $ B $ be $ \Lambda $-algebras and let $ f: \SET(A, B) $ be a function that preserves the application and the $ \Lambda $-definable constants:
@@ -452,7 +452,7 @@ The proofs that $ \Lambda(S) $ is indeed a $ \lambda $-theory and that $ \Lambda
   so $ f $ is a $ \Lambda $-algebra morphism.
 \end{proof}
 
-\subsection{The free object algebraic theory}
+\subsection{The Free Object Algebraic Theory}
 
 \begin{example}[\coqident{AlgebraicTheories.Examples.FreeObjectTheory}{free_object_theory}, \coqident{AlgebraicTheories.Examples.FreeObjectTheory}{free_object_algebra_functor}]
   Take a category $ \C $, with a forgetful functor $ G: \C \to \SET $ and a free functor $ F: \SET \to \C $. Let $ \eta: \id \SET \Rightarrow F \bullet G $ be the unit of the adjunction and let $ \varphi: \C(F(X), Y) \cong \SET(X, G(Y)) $ be the natural equivalence of homsets.
@@ -493,7 +493,7 @@ Of course, for many common categories in algebra, where an object of $ \C $ is a
   Another counterexample is the category $ \mathbf{Top} $ of topological spaces. We have a forgetful functor $ G: \mathbf{Top} \to \SET $ that just forgets the topology. On the other hand, we have a free functor $ F: \SET \to \mathbf{Top} $ which endows a set with the discrete topology. The construction above yields the initial algebraic theory $ T_n = \{ 1, \dots, n \} $, with an algebra action on every topological space $ i \bullet (a_1, \dots, a_n) = a_i $. Now, note that we can endow the set $ \{ \top, \bot \} $ with four different, nonisomorphic topologies, which all yield the same $ T $-algebra. In other words: the $ T $-algebra structure does not preserve the topological information. Therefore, the functor $ G: \mathbf{Top} \to \Alg T $ is not an equivalence.
 \end{remark}
 
-\subsection{The terminal theory}
+\subsection{The Terminal Theory}
 \begin{example}[\coqident{AlgebraicTheories.Examples.OnePointTheory}{one_point_theory}]
   We can create the trivial algebraic theory $ T $ by taking $ T_n = \{ \star \} $, with projections $ x_i = \star $ and substitution $ \star \bullet \star = \star $. Taking $ \lambda(\star) = \star $ and $ \rho(\star) = \star $, we give it a $ \lambda $-theory structure (with $ \beta $ and $ \eta $-equality). Checking that this is indeed an algebraic theory and even a $ \lambda $-theory is trivial.
 
@@ -512,7 +512,7 @@ Of course, for many common categories in algebra, where an object of $ \C $ is a
   \[ \star \bullet (\star, \dots, \star) = \star. \]
 \end{proof}
 
-\subsection{The endomorphism theory}
+\subsection{The Endomorphism Theory}
 
 \begin{definition}[\coqident{AlgebraicTheories.Examples.EndomorphismTheory}{endomorphism_algebraic_theory}]\label{def:endomorphism-theory}
   Suppose that we have a category $ \C $ and an object $ X: \C $, such that all powers $ X^n $ of $ X $ are also in $ \C $.
@@ -532,7 +532,7 @@ Of course, for many common categories in algebra, where an object of $ \C $ is a
 
 The proofs that $ E(X) $ is an algebraic theory and a $ \lambda $-theory, use properties of the product, and naturality of the isomorphism $ \varphi_Y $.
 
-\subsection{The theory algebra}
+\subsection{The Theory Algebra}
 \begin{example}[\coqident{AlgebraicTheories.Examples.TheoryAlgebra}{theory_algebra}]\label{ex:theory-algebra}
   Let $ T $ be an algebraic theory and $ n $ a natural number. We can endow the $ T_n $ with a $ T $-algebra structure, by taking the substitution operator of $ T $ as the $ T $-action. Since this commutes with the substitution operator and the projections, $ T_n $ is a $ T $-algebra.
 \end{example}
@@ -559,7 +559,7 @@ Using some additional machinery, we can combine this with the algebra pullback f
   The functor obviously preserves the identity morphisms and composition of morphisms, so it is indeed a functor.
 \end{definition}
 
-\subsection{The initial presheaf}
+\subsection{The Initial Presheaf}
 \begin{example}
   Let $ T $ be an algebraic theory. We can construct a $ T $-presheaf $ P $, with $ P_n = \emptyset $. Then $ \bullet : P_m \times T_n^m \to P_m $ is trivial, and the presheaf laws hold trivially.
 \end{example}
@@ -571,7 +571,7 @@ Using some additional machinery, we can combine this with the algebra pullback f
   Let $ Q $ be a $ T $-presheaf. For all $ n $, since $ P_n $ is empty, there is only one possible function $ P_n \to Q_n $. These functions trivially satisfy the presheaf morphism laws, so they constitute the unique presheaf morphism $ P \to Q $.
 \end{proof}
 
-\subsection{The theory presheaf}
+\subsection{The Theory Presheaf}
 \begin{example}[\coqident{AlgebraicTheories.Presheaves}{theory_presheaf}]
   Let $ T $ be an algebraic theory. We can endow $ T $ with a $ T $-presheaf structure, by taking the substitution operator of $ T $ as the action on $ T $. Since this commutes with the substitution operator and the projections, $ T $ is a $ T $-presheaf.
 \end{example}
@@ -587,22 +587,22 @@ Using some additional machinery, we can combine this with the algebra pullback f
   natural in $ n $ and $ Q $. Explicitly, it sends $ f: \Pshf T(T^n, Q) $ to $ f_n(x_1, \dots, x_n) $ and $ q: Q_n $ to $ (t_i)_i \mapsto q \bullet t $.
 \end{proof}
 
-\subsection{The ``+\texorpdfstring{$ \ell $}{l}'' presheaf}
+\subsection{The `\texorpdfstring{$ n + p $}{n + p}'-Presheaf}
 
 \begin{example}[\coqident{AlgebraicTheories.Examples.Plus1Presheaf}{plus_1_presheaf}]
-  Given a $ T $-presheaf $ Q $, we can construct a presheaf $ A(Q, \ell) $ with $ A(Q, \ell)_n = Q_{n + \ell} $ and, for $ q: A(Q, \ell)_m $ and $ f: T_n^m $, action
-  \[ q \bullet_{A(Q, \ell)} f = q \bullet_Q ((\iota_{n, \ell} (f_i))_i + (x_{n + i})_i). \]
+  Given a $ T $-presheaf $ Q $, we can construct a presheaf $ A(Q, p) $ with $ A(Q, p)_n = Q_{n + p} $ and, for $ q: A(Q, p)_m $ and $ f: T_n^m $, action
+  \[ q \bullet_{A(Q, p)} f = q \bullet_Q ((\iota_{n, p} (f_i))_i + (x_{n + i})_i). \]
 \end{example}
 
 \begin{lemma}[\coqident{AlgebraicTheories.RepresentationTheorem}{theory_presheaf_exponentiable}]
-  For all $ m $ and all $ T $-presheaves $ Q $, $ A(Q, m) $ is the exponential object $ Q^{T^m} $.
+  For all $ p $ and all $ T $-presheaves $ Q $, $ A(Q, p) $ is the exponential object $ Q^{T^p} $.
 \end{lemma}
 \begin{proof}
-  We will show that $ A(-, m) $ constitutes a right adjoint to the functor $ - \times T^m $. We will do this using universal arrows.
+  We will show that $ A(-, p) $ constitutes a right adjoint to the functor $ - \times T^p $. We will do this using universal arrows.
 
-  For $ Q $ a $ T $-presheaf, take the arrow $ \varphi: A(Q, m) \times T^m \to Q $ given by $ \varphi(q, t) = q \bullet_Q ((x_{n, i})_i + t) $ for $ q: A(Q, m)_n = Q_{n + m} $ and $ t: T^m_n $.
+  For $ Q $ a $ T $-presheaf, take the arrow $ \varphi: A(Q, p) \times T^p \to Q $ given by $ \varphi(q, t) = q \bullet_Q ((x_{n, i})_i + t) $ for $ q: A(Q, p)_n = Q_{n + p} $ and $ t: T^p_n $.
 
-  Now, given a $ T $-presheaf $ Q^\prime $ and a morphism $ \psi: Q^\prime \times T^m \to Q $. Define $ \tilde \psi: Q^\prime_n \to A(Q, m)_n $ by $ \tilde \psi(q) = \psi(\iota_{n, m}(q), (x_{n + i})_i) $.
+  Now, given a $ T $-presheaf $ Q^\prime $ and a morphism $ \psi: Q^\prime \times T^p \to Q $. Define $ \tilde \psi: Q^\prime_n \to A(Q, p)_n $ by $ \tilde \psi(q) = \psi(\iota_{n, p}(q), (x_{n + i})_i) $.
 
-  Then $ \psi $ factors as $ (\tilde \psi \times \id{T^m}) \cdot \varphi $. Also, some equational reasoning shows that $ \tilde \psi $ is unique, which proves that $ \varphi $ indeed is a universal arrow.
+  Then $ \psi $ factors as $ (\tilde \psi \times \id{T^p}) \cdot \varphi $. Also, some equational reasoning shows that $ \tilde \psi $ is unique, which proves that $ \varphi $ indeed is a universal arrow.
 \end{proof}

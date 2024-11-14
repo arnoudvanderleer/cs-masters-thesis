@@ -85,7 +85,7 @@ Lastly, one can construct an adjunction using universal arrows. This lends itsel
   See \autocite[][Chapter IV.1, Theorem 2 (iv)]{MacLane}.
 \end{proof}
 
-\subsection{Adjoint equivalences}
+\subsection{Adjoint Equivalences}
 An (adjoint) equivalence of categories has two equivalent definitions, that only differ in which notion they take as the base. In this case, we will use the definition that is based on adjunctions:
 \begin{definition}\label{def:equivalence-of-categories}
   An \iindex{adjoint equivalence} between categories $ \C $ and $ \D $ is a pair of adjoint functors $ L \dashv R $ like above such that the unit $ \eta: \id{\C} \Rightarrow L \bullet R $ and co-unit $ \epsilon: R \bullet L \Rightarrow \id{\D} $ are isomorphisms of functors.
@@ -93,13 +93,13 @@ An (adjoint) equivalence of categories has two equivalent definitions, that only
 
 The alternative is to define an adjoint equivalence as an equivalence of categories (a tuple $ (L, R, \eta, \epsilon) $ of two functors and two natural transformations, where $ \eta $ and $ \epsilon $ are isomorphisms of functors) that additionally satisfies the zigzag identities.
 
-\subsection{Weak equivalences}
+\subsection{Weak Equivalences}
 There is also the notion of `weak equivalence'. In some cases, this is equivalent to an adjoint equivalence (for example, when its domain is univalent, see Section \ref{sec:univalence-principle}).
 \begin{definition}
   A functor $ F: \C \to \D $ is called a \iindex{weak equivalence} if it is essentially surjective and fully faithful.
 \end{definition}
 
-\subsection{Exponential objects}
+\subsection{Exponential Objects}
 Note that in the category of sets, for all $ X, Y: \SET $, we have a set of functions $ (X \to Y) $. Also, for all $ X, Y, Z $, there is a (natural) bijection
 \[ (X \times Y \to Z) \cong (X \to (Y \to Z)) \]
 which we can also write as
@@ -115,7 +115,7 @@ In other words, we have functors $ X \mapsto X \times Y $ and $ Z \mapsto (Y \to
   that is natural in $ X^\prime $. Then $ Y^X $ is still called an exponential object.
 \end{remark}
 
-\subsection{Forgetful functors and free objects}
+\subsection{Forgetful Functors and Free Objects}
 
 In mathematics, we often deal with objects that are `based on' other objects. For example, a ring is a set with some additional structure. Often, this is a relation between the respective categories (for example, in the case of a displayed category, see Section \ref{sec:displayed-categories}), and such a relation gives rise to a \iindex{forgetful functor}, that `forgets' about the additional structure. In the examples of rings and sets, the forgetful functor sends a ring to its underlying set, and a ring morphism to the function between the sets. However, note that there is no formal definition of forgetful functors. The name is more of a way to talk about the perceived relation between the categories.
 
@@ -691,7 +691,7 @@ Note that the terminal set with $ M $-action is $ \{ \star \} $, with action $ \
   We can view $ M $ as a set $ U_M $ with right $ M $-action $ m n = m \cdot n $ for $ m: U_M $ and $ n: M $. Note that $ U_M $ is the Yoneda embedding of the object $ \star : \C_M $.
 \end{definition}
 
-\subsection{Extension and restriction of scalars}
+\subsection{Extension and Restriction of Scalars}
 
 Let $ f: M \to N $ be a morphism of monoids.
 

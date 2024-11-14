@@ -480,7 +480,7 @@ Summarizing,
 
 Hyland gives a more category theoretical proof. That means that there is more high-level intuition why things work the way they work, but on the flip side, there is a lot more details to check.
 
-\subsection{Terms of a \texorpdfstring{$ \Lambda $}{Lambda}-algebra}
+\subsection{Terms of a \texorpdfstring{$ \Lambda $}{Lambda}-Algebra}
 
 \begin{definition}
   Take $ \mathbf 1_n = (\lambda x_1 \dots x_n, x_1 \dots x_n) \bullet () : A $.
@@ -553,7 +553,7 @@ Recall that we have an equivalence $ [\op{C_{A_1}}, \SET] \cong \RAct{A_1} $.
   \end{center}
 \end{remark}
 
-\subsection{Constructing a theory from an algebra}
+\subsection{Constructing a Theory From an Algebra}
 
 \begin{definition}
   Composition $ \circ $ gives a right $ A_1 $-action on the $ A_n $, so we have $ A_n : \RAct{A_1} $. In particular, $ A_1 $ acts on itself, and we will call this set with right $ A_1 $-action $ U_A $.
@@ -597,7 +597,7 @@ Recall that we have an equivalence $ [\op{C_{A_1}}, \SET] \cong \RAct{A_1} $.
   The cartesian closed embedding of $ \R_A $ into $ \RAct{A_1} $ sends $ U $ to $ U_A $. It sends the retraction $ U^U: \R_A(U, U^U) $ exactly to the retraction $ a \mapsto \mathbf 1_2 \circ a: \RAct{A_1}(U_A, A_2) $. Therefore, we have a $ \lambda $-theory isomorphism $ E_{\R_A}(U) \cong E_{\RAct{A_1}}(U_A) $.
 \end{remark}
 
-\subsection{Constructing a theory morphism from an algebra morphism}
+\subsection{Constructing a Theory Morphism From an Algebra Morphism}
 
 Take a morphism $ F: \Alg{\Lambda}(A, B) $. Note that $ F $ preserves $ \circ $ and the $ \mathbf 1_n $. Therefore, it induces a monoid morphism $ A_1 \to B_1 $, which gives a functor $ C_{A_1} \to C_{B_1} $. Precomposing with this, we get a functor $ \RAct{B_1} \to \RAct{A_1} $.
 
@@ -741,7 +741,7 @@ Now, we can start defining our lift of $ F $:
   Since $ F $ preserves all the structure of $ \R_A $, as do the embeddings of $ \R_A $ and $ \R_B $ into $ \RAct{A_1} $ and $ \RAct{B_1} $, one would expect $ F_* $ to preserves the structure of the full subcategory $ \R_A $ of $ \RAct{A_1} $, including $ U_A $, its finite products and their exponentials. This is another way to argue that $ \bar F $ is indeed a morphism of $ \lambda $-theories.
 \end{remark}
 
-\subsection{The unit}
+\subsection{The Unit}
 
 Definining the unit of the adjunction boils down to a version of Scott's representation theorem.
 
@@ -803,7 +803,7 @@ Definining the unit of the adjunction boils down to a version of Scott's represe
   and by Lemma \ref{lem:elementary-full}, this concludes the proof.
 \end{proof}
 
-\subsection{The counit}
+\subsection{The Counit}
 
 \begin{definition}
   For $ A : \Alg \Lambda $, we define a bijection $ \epsilon_A : E_{\RAct{A_1}}(U_A)_0 \cong A $ as
@@ -910,7 +910,7 @@ Now, finally, we are ready to show that $ \epsilon $ is an isomorphism of $ \Lam
   which concludes the proof.
 \end{proof}
 
-\subsection{The equivalence}
+\subsection{The Equivalence}
 
 By Lemma 3.2 in \autocite{nlab:adjoint_equivalence} and Lemma \ref{lem:zigzag}, $ \eta $ and $ \epsilon $ satisfy both zigzag identities, and we can state the fundamental theorem of the $ \lambda $-calculus:
 \begin{theorem}\label{thm:Hyland-fundamental-theorem}

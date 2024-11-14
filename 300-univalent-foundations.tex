@@ -243,7 +243,7 @@ For example, this allows us to transfer an element from $ \mathtt{array}(T, n + 
 Another place where transports occur frequently is when proving equality $ (x, y) = (x^\prime, y^\prime) $ of elements of a dependent sum $ \sum_{a: A} B(a) $. We can start componentwise by proving $ p: x = x^\prime $, but after this, we cannot directly prove $ q: y = y^\prime $, because these two live in different types: $ B(x) $ and $ B(x^\prime) $ respectively. Therefore, we need to transport, and then prove
 \[ \mathrm{transport}_p(y) = y^\prime: B(x^\prime). \]
 
-\subsection{Caution: `transport hell'}
+\subsection{Caution: `Transport Hell'}
 Now, it seems that we can transport all properties and data along equalities. And of course, that is true, but some caution needs to be taken with this when working with a proof assistant.
 
 For example, consider the situation in Example \ref{ex:transport-array}. As mentioned, we can transport $ x $ to get an element $ y := \mathrm{transport}_p(x) $, which is an element of $ B(a^\prime) $, but now suppose that we want to compute something using its first coefficient $ y_1 $. Of course, on paper it quickly becomes clear that $ y_1 = 1 $, but in practice, it takes quite some work to convince a proof assistant of that fact. Of course, we could write a lemma which states that for any array $ x $, any equivalence $ \overline p $ with corresponding equality $ p $, and any index $ i $,
