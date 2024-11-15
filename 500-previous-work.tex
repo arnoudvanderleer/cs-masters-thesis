@@ -107,9 +107,17 @@ It turns out that this is an embedding:
 \end{remark}
 
 \begin{remark}
-  Note that if $ L $ is a nontrivial $ \lambda $-theory, $ \R $ is not a univalent category. To see this, note, for example, that we have an object $ X := \langle \pi_1, \pi_2 \rangle : \R $ (corresponding to the type of `pairs' of $ \lambda $-terms). Since $ L_0 $ is a set, $ X = X $ is a proposition. However, $ X $ has (at least) two automorphisms:
+  As we saw in Remarks \ref{rem:karoubi-univalent} and \ref{rem:karoubi-not-univalent}, the Karoubi envelope can only be univalent if the original category is univalent, and even then it is not always univalent. In the case of $ \R $, if $ L $ is a nontrivial $ \lambda $-theory, $ \R $ is not a univalent category. To see this, note, for example, that we have an object $ X := \langle \pi_1, \pi_2 \rangle : \R $ (corresponding to the type of `pairs' of $ \lambda $-terms). Since $ L_0 $ is a set, $ X = X $ is a proposition. However, $ X $ has (at least) two automorphisms:
   \[ \langle \pi_1, \pi_2 \rangle \quad \text{and} \quad \langle \pi_2, \pi_1 \rangle. \]
   These are the identity, and the automorphism (of order 2) that swaps the elements of the pair. To see that these are indeed different morphisms, note that applying them (or their lifted versions) to $ (x_{2, 1}, x_{2, 2}) $ gives respectively $ x_{2, 1} $ and $ x_{2, 2} $, which are distinct elements by Lemma \ref{lem:nontrivial-algebraic-theory}.
+\end{remark}
+
+\begin{remark}
+  In some cases, we can already conclude that $ \R $ is not univalent because $ L_0 $ is not univalent. For example, if $ L_0 $ has $ \eta $-equality, the single object $ \star : L_0 $ has a nontrivial automorphism given by
+  \[ \lambda x_1 x_2 x_3, x_1 x_3 x_2, \]
+  so $ L_0 $ is not univalent, so $ \R $ is not univalent.
+
+  On the other hand, if $ L $ is the pure $ \lambda $-calculus with $ \beta $-equality, I believe we can use structural induction to show that $ \star : L_0 $ has no nontrivial automorphisms, so $ L_0 $ is univalent. However, as shown above, $ \R $ is still not univalent.
 \end{remark}
 
 In the next chapter, the `universal object' $ U : \R $, given by the identity $ \lambda x_1, x_1 $ (\coqident{AlgebraicTheories.CategoryOfRetracts}{U}), plays a major role. Note that for all $ A: \R $, we have morphisms $ A: \R(U, A) $ and $ A: \R(A, U) $, which exhibit $ A $ as a retract of $ U $ (\coqident{AlgebraicTheories.CategoryOfRetracts}{R_retraction_is_retraction}). Also note that $ \varphi(U) = L $.

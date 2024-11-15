@@ -932,7 +932,7 @@ This all leads up to:
 
 Even though univalence and the Rezk completion in general will be covered in Section \ref{sec:univalence-principle}, we will study univalence of the Karoubi envelope here:
 
-\begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_univalence}]
+\begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_univalence}]\label{rem:karoubi-univalent}
   If $ \overline \C $ is univalent, $ \C $ is univalent as well.
 \end{lemma}
 \begin{proof}
@@ -941,7 +941,7 @@ Even though univalence and the Rezk completion in general will be covered in Sec
   which shows that $ \C $ is univalent as well.
 \end{proof}
 
-\begin{remark}
+\begin{remark}\label{rem:karoubi-not-univalent}
   Note that the converse does not necessarily hold. Consider the commutative monoid consisting of the three matrices
   \[
     a = \begin{pmatrix}
