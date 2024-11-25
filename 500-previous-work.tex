@@ -25,7 +25,7 @@ Given a term $ s: B_1 \to B_2 $ and a term $ t: B_1 $, both with free variables 
 \end{center}
 
 Given a term $ t: B $ with free variables $ x_1: A_1, \dots, x_n: A_n $, the abstraction $ (\lambda x_n, t): A_n \to B $ corresponds to using the adjunction corresponding to the exponential object of $ A_n $:
-\[ C(A_1 \times \dots \times A_{n-1} \times A_n, B) \simeq C(A_1 \times \dots \times A_{n-1}, B^{A_n}). \]
+\[ C(A_1 \times \dots \times A_{n-1} \times A_n, B) \cong C(A_1 \times \dots \times A_{n-1}, B^{A_n}). \]
 
 \section{The Category of Retracts}\label{sec:retracts-category}
 
@@ -202,7 +202,7 @@ Now, for any object $ A: \R $ and any two global elements $ f, g: I \to A $, we 
 and we have
 \[ f = [f, g] \circ \bot = [f, g] \circ \top = g. \]
 In particular, for any two objects $ A, A^\prime: \R $, since we have $ A \circ A^\prime : \R(A^\prime, A) $, so $ \R(A^\prime, A) $ is nonempty, we have
-\[ \R(A^\prime, A) \simeq \R(I \times A^\prime, A) \simeq \R(I, A^{A^\prime}) \simeq \{ \star \}, \]
+\[ \R(A^\prime, A) \cong \R(I \times A^\prime, A) \cong \R(I, A^{A^\prime}) \cong \{ \star \}, \]
 so $ \R $ is the trivial category and $ L $ is trivial.
 
 \section{Scott's Representation Theorem}\label{sec:scott}
@@ -231,7 +231,7 @@ Since Lambek showed an equivalence between simply typed $ \lambda $-calculi and 
 
   We have $ E(U)_n = \R(U^n, U) = \{ f: L_0 \mid U \circ f \circ U^n = f \} $. The variables of $ E(U) $ are the projections $ \pi_{n, i} $ of $ U^n $. The substitution is given by composition with the product morphism:
   \[ f \bullet g = f \circ \langle \langle \langle I, g_1 \rangle, \dots \rangle, g_n \rangle. \]
-  We have $ U^U = \lambda f, U \circ f \circ U = \lambda x_1 x_2, x_1 x_2 $. Using the equivalence $ \R(U^n \times U, U) \simeq \R(U^n, U^U) $ and the retraction $ U^U: U \to U^U $, the abstraction and application $ \lambda $ and $ \rho $ are given by
+  We have $ U^U = \lambda f, U \circ f \circ U = \lambda x_1 x_2, x_1 x_2 $. Using the bijection $ \R(U^n \times U, U) \cong \R(U^n, U^U) $ and the retraction $ U^U: U \to U^U $, the abstraction and application $ \lambda $ and $ \rho $ are given by
   \[ \lambda(f) = \lambda x_1 x_2, \iota_{0, 2}(f)(x_1, x_2), \quad \rho(g) = \lambda x_1, \iota_{0, 1}(g) (\pi_1 x_1) (\pi_2 x_1). \]
   for $ f: \R(U^{n + 1}, U) $ and $ g: \R(U^n, U) $.
 
@@ -350,9 +350,9 @@ Taylor shows that these display maps indeed satisfy the three properties mention
         A
       \end{tikzcd}
     \end{center}
-    Intuitively, $ \sum_B Y \cong \sum_A Z $ represents
-    \[ \sum_{b: \sum_{a: A} X a} Y b \cong \sum_{a: A} \sum_{x: X a} Y(a, x), \]
-    by the isomorphism that relates $ ((a, x), y) $ to $ (a, (x, y)) $. Therefore, consider
+    Intuitively, the isomorphism $ \sum_B Y \cong \sum_A Z $ represents a bijection
+    \[ \sum_{b: \sum_{a: A} X a} Y b \cong \sum_{a: A} \sum_{x: X a} Y (a, x), \]
+    relating $ ((a, x), y) $ to $ (a, (x, y)) $. Therefore, consider
     \[ Z = \lambda x_1 x_2, (X x_1 (\pi_1 x_2), Y (s^{-1} (x_1, \pi_1 x_2)) (\pi_2 x_2)): \R^A. \]
     we have an isomorphism $ u: \sum_B Y \xrightarrow \sim \sum_A Z $ given by:
     \[ u = \lambda x_1, (A a, (X a x, Y b y)) \]

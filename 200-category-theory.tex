@@ -9,6 +9,8 @@ Throughout this thesis, objects of a homotopy set, for example morphisms, will u
 
 Throughout this thesis, an object $ X $ in a category $ \C $ will be denoted by $ X : \C $. A morphism $ f $ between objects $ X $ and $ Y $ in a category $ \C $ will be denoted by $ f: \C(X, Y) $ or sometimes $ f: X \to Y $. Composition of morphisms $ f: \C(X, Y) $ and $ g: \C(Y, Z) $ will be denoted by $ f \cdot g $. And composition of functors $ F: \A \to \B $ and $ G: \B \to \C $ will be denoted by $ F \bullet G $.
 
+Throughout this thesis, we will use the notation $ A \cong B $ for an isomorphism of objects in a category, or of categories themselves. We will use the notation $ A \simeq B $ for an equivalence of types or of categories. If $ A $ and $ B $ are sets or univalent categories, $ A \cong B $ is equivalent to $ A \simeq B $. We will often, instead of $ A \cong B $ or $ A \simeq B $ just write $ f: A \xrightarrow \sim B $, giving the isomorphism or equivalence a name.
+
 In this thesis, we will often work with `tuples': elements of $ S^n $ for some set $ S $ and some natural number $ n $. We will denote
 \[ (s_i)_i = (s_1, s_2, \dots, s_n) \quad \text{and} \quad s + t = (s_1, \dots, s_n, t_1, \dots, t_m) : S^{n + m} \]
 for $ s : S^n $ and $ t : S^m $.
@@ -29,7 +31,7 @@ One concept in category theory that can be used to describe a lot of limits and 
 Alternatively, we can characterize universal arrows by their action on hom-sets:
 \begin{lemma}
   Let $ F: \C \to \D $ be a functor and $ X: \D $ an object. An object $ Y: \C $ and an arrow $ f: \D(X, F(Y)) $ form a universal arrow from $ X $ to $ F $ if and only if the function
-  \[ (g \mapsto f \cdot F(g)) : \C(Y, x) \cong \D(X, F(x)) \]
+  \[ (g \mapsto f \cdot F(g)) : \C(Y, x) \to \D(X, F(x)) \]
   is a bijection.
 
   Conversely, for all $ Y: \C $ and $ X: \D $, every bijection
@@ -156,7 +158,7 @@ We can embed $ \C $ fully faithfully into $ P \C $ as follows \autocite[][Sectio
 
 Now, this embedding has a couple of properties:
 \begin{lemma}
-  For any $ Y: \C $ and $ F : P \C $, we have an equivalence $ P \C(\yo(Y), F) \simeq F(Y) $, and this equivalence is natural in $ Y $ and $ F $.
+  For any $ Y: \C $ and $ F : P \C $, we have a bijection $ P \C(\yo(Y), F) \cong F(Y) $, and this bijection is natural in $ Y $ and $ F $.
 \end{lemma}
 \begin{proof}
   It sends a natural transformation $ a: P \C(\yo(Y), F) $ to the element $ a_Y(\id Y) $. Conversely, it sends an element $ X : P(Y) $ to the natural transformation $ a $ given by $ a_X(f) = P(f)(X) $ for all $ f: \yo(Y)(X) = \C(X, Y) $. For more details, see \autocite[][Proposition 1.4.3]{Kashiwara}.
@@ -332,7 +334,7 @@ Now, the slice categories inherit some structure from the original category:
 
 For a category $ \C $ with products, Hyland introduces the notation $ \Delta_X Y $ for the element $ (X \times Y, p_1) : (\C \downarrow X) $, and we will follow his example in this.
 
-In fact, $ \Delta_X : \C \to (\C \downarrow X) $ is a functor, with $ \Delta_X(f) = \id X \times f $ for $ f: \C(Y, Y^\prime) $. This functor preserves the terminal object, products and pullbacks:
+In fact, $ \Delta_X : \C \to (\C \downarrow X) $ is a functor, with $ \Delta_X(f) = \id X \times f $ for $ f: \C(Y, Y^\prime) $. If $ \C $ has a terminal object $ T $ and we identify $ \C $ with $ (\C \downarrow T) $, then $ \Delta_X $ is the pullback functor along $ (\C \downarrow T) \to (\C \downarrow X) $ along the morphism $ !: X \to T $. This functor preserves the terminal object, products and pullbacks:
 \begin{lemma}\label{lem:delta-limits}
   $ \Delta_X $ preserves all limits.
 \end{lemma}
@@ -352,7 +354,7 @@ In fact, $ \Delta_X : \C \to (\C \downarrow X) $ is a functor, with $ \Delta_X(f
   $ \Delta_X $ preserves exponential objects:
 \end{lemma}
 \begin{proof}
-  See \autocite[][Volume 3, Lemma 5.8.2]{borceux}. There, the following equivalences are used for the proof:
+  See \autocite[][Volume 3, Lemma 5.8.2]{borceux}. There, the following isomorphisms are used for the proof:
   \begin{align*}
     (\C \downarrow X)((W, f), \Delta_X Y^Z) &\cong \C(W, Y^Z)\\
     &\cong \C(W \times Z, Y)\\
@@ -386,11 +388,11 @@ Now, in $ \SET $, for a family $ (Y_x)_x $, consider the dependent product $ \pr
     & X
   \end{tikzcd}
 \end{center}
-These are morphisms in $ (\SET \downarrow X) $ from $ (X, \id X) $ to $ (\sum_{x : X} Y_x, \pi_1) $. Note that for the terminal morphism $ f: X \to \{ \star \} $, we have $ (X, \id X) = f^*(\{\star\}, \id{\{\star\}}) $. To summarize, we have an equivalence
-\[ (\SET \downarrow X)\left(f^*(\{ \star \}, \id{\{\star\}}), (Y_x)_x \right) \simeq (\SET \downarrow {\{\star\}})\left( (\{\star\}, \id{\{ \star \}}), \left( \prod_{x : X} Y_x, ! \right) \right) \]
-for $ ! $ the terminal morphism. Now, for an internal indexed family $ f : Y \to X $ and given a family of families $ ((Z_y)_{y : Y_x})_{x : X} $, we can wonder whether we can construct the family of dependent products $ (\prod_{y : Y_x} Z_y)_x $. In $ \SET $, this is definitely possible, and from this, we get an equivalence again
-\[ \left(\SET \downarrow \sum_{x : X} Y_x \right)\left(f^*(X, \id X), (Z_y)_{x, y} \right) \simeq (\SET \downarrow X)\left((X, \id X), \left(\prod_{y : Y_x} Z_y\right)_x\right). \]
-with $ p : \sum_{x : X} \sum_{y : Y_x} Z_y \to \sum_{x : X} Y_x $ defined as $ p(x, y, z) = (x, y) $. These equivalences suggest an adjunction $ f^* \dashv \prod_{\dots} $. We can use this to define in general
+These are morphisms in $ (\SET \downarrow X) $ from $ (X, \id X) $ to $ (\sum_{x : X} Y_x, \pi_1) $. Note that for the terminal morphism $ f: X \to \{ \star \} $, we have $ (X, \id X) = f^*(\{\star\}, \id{\{\star\}}) $. To summarize, we have a bijection
+\[ (\SET \downarrow X)\left(f^*(\{ \star \}, \id{\{\star\}}), (Y_x)_x \right) \cong (\SET \downarrow {\{\star\}})\left( (\{\star\}, \id{\{ \star \}}), \left( \prod_{x : X} Y_x, ! \right) \right) \]
+for $ ! $ the terminal morphism. Now, for an internal indexed family $ f : Y \to X $ and given a family of families $ ((Z_y)_{y : Y_x})_{x : X} $, we can wonder whether we can construct the family of dependent products $ (\prod_{y : Y_x} Z_y)_x $. In $ \SET $, this is definitely possible, and from this, we get a bijection again
+\[ \left(\SET \downarrow \sum_{x : X} Y_x \right)\left(f^*(X, \id X), (Z_y)_{x, y} \right) \cong (\SET \downarrow X)\left((X, \id X), \left(\prod_{y : Y_x} Z_y\right)_x\right). \]
+with $ p : \sum_{x : X} \sum_{y : Y_x} Z_y \to \sum_{x : X} Y_x $ defined as $ p(x, y, z) = (x, y) $. These bijections suggest an adjunction $ f^* \dashv \prod_{\dots} $. We can use this to define in general
 \begin{definition}
   For a category $ \C $ and a morphism $ f: Y \to X $, the \iindex{dependent product} along $ f $ is, if it exists, the right adjoint to the pullback functor:
   \begin{center}
@@ -405,8 +407,8 @@ with $ p : \sum_{x : X} \sum_{y : Y_x} Z_y \to \sum_{x : X} Y_x $ defined as $ p
   As argued above, we can recover the familiar dependent product $ \prod_{x : X} Y_x $ of a family $ (Y_x)_x $ as the dependent product $ \prod_f (\sum_x Y_x, \pi_1) $ along the terminal morphism $ f: X \to I $. Here we use the equivalence between $ (\C \downarrow I) $ and $ \C $.
 \end{remark}
 
-Now we turn our attention to dependent sums. In $ \SET $, let $ (Y_x)_x $ and $ (Y^\prime_x)_x $ be two families over $ X $ and let $ ((Z_y)_{y : Y_x})_{x : X} $ be a family of families. Let $ f: \sum_{x : X} Y_x \to X $ be the internal representation of $ (Y_x)_x $. A family of maps $ g_x : (\sum_{y : Y_x} Z_y)_x \to Y^\prime_x $ consists of maps $ Z_y \to Y^\prime_x $ for all $ y : Y_x $, so these are maps $ g_y : Z_y \to Y^\prime_{f(y)} $. This gives an equivalence
-\[ (\SET \downarrow X)\left(\left( \sum_{y : Y_x} Z_y \right)_x, (Y^\prime_x)_x \right) \simeq \left(\SET \downarrow \left(\sum_{x : X} Y_x \right) \right)((Z_y)_y, f^*((Y^\prime_x)_x)). \]
+Now we turn our attention to dependent sums. In $ \SET $, let $ (Y_x)_x $ and $ (Y^\prime_x)_x $ be two families over $ X $ and let $ ((Z_y)_{y : Y_x})_{x : X} $ be a family of families. Let $ f: \sum_{x : X} Y_x \to X $ be the internal representation of $ (Y_x)_x $. A family of maps $ g_x : (\sum_{y : Y_x} Z_y)_x \to Y^\prime_x $ consists of maps $ Z_y \to Y^\prime_x $ for all $ y : Y_x $, so these are maps $ g_y : Z_y \to Y^\prime_{f(y)} $. This gives a bijection
+\[ (\SET \downarrow X)\left(\left( \sum_{y : Y_x} Z_y \right)_x, (Y^\prime_x)_x \right) \cong \left(\SET \downarrow \left(\sum_{x : X} Y_x \right) \right)((Z_y)_y, f^*((Y^\prime_x)_x)). \]
 This, again, suggests an adjunction which we will use as a definition.
 \begin{definition}
   For a category $ \C $ and a morphism $ f: Y \to X $, the \iindex{dependent sum} along $ f $ is, if it exists, the left adjoint to the pullback functor:
@@ -431,8 +433,8 @@ However, note that the conversion from an external to an internal representation
       & Y \arrow[r, "f"'] & X
     \end{tikzcd}
   \end{center}
-  gives an equivalence between morphisms $ \varphi: W \to f^* Z $ that commute with $ h $ and $ f^* g $, and morphisms $ \psi: W \to Z $ that commute with $ h $, $ g $ and $ f $. In other words:
-  \[ (\C \downarrow X)(h \cdot f, g) \simeq (\C \downarrow Y)(h, f^*(g)), \]
+  gives a bijection between morphisms $ \varphi: W \to f^* Z $ that commute with $ h $ and $ f^* g $, and morphisms $ \psi: W \to Z $ that commute with $ h $, $ g $ and $ f $. In other words:
+  \[ (\C \downarrow X)(h \cdot f, g) \cong (\C \downarrow Y)(h, f^*(g)), \]
   which shows the adjunction.
 \end{proof}
 
@@ -841,8 +843,9 @@ This category is called the \iindex{Karoubi envelope}, the \textit{idempotent co
 
   In a similar way, $ Y $ is also the coequalizer of the given diagram.
 
-  Now, note that if we have a coequalizer $ W $ of $ \id Z $ and $ a $, and an equalizer $ Y $ of $ \id X $ and $ b $ (in particular, if $ W $ and $ Y $ are retracts), the universal properties of these give an equivalence
-  \[ \D(W, Y) \cong \{ f: \D(Z, Y) \mid a \cdot f = f \} \cong \{ f: \D(Z, X) \mid a \cdot f = f = f \cdot b \}. \]
+  Now, note that if we have a coequalizer $ W $ of $ \id Z $ and $ a $, and an equalizer $ Y $ of $ \id X $ and $ b $ (in particular, if $ W $ and $ Y $ are retracts), the universal properties of these give a bijection
+  \[ \D(W, Y) \cong \{ f: \D(Z, Y) \mid a \cdot f = f \} \cong \{ f: \D(Z, X) \mid a \cdot f = f = f \cdot b \}, \]
+  which exactly describes the morphisms in $ \bar C $.
   \begin{center}
     \begin{tikzcd}
       Z \arrow[r, shift left, "\id Z"] \arrow[r, shift right, "a"'] & Z \arrow[r] \arrow[d] \arrow[rd] & W \arrow[d]\\
@@ -1005,5 +1008,5 @@ For convenience, the lemma below works very abstractly with pointwise left Kan e
 
 \begin{corollary}\label{cor:karoubi-presheaf}
   As the category $ \SET $ is cocomplete, we have an equivalence between the category of presheaves on $ \C $ and the category of presheaves on $ \overline \C $:
-  \[ [\op \C, \SET] \cong [\overline{\op \C}, \SET] \cong [\op{\overline \C}, \SET]. \]
+  \[ [\op \C, \SET] \simeq [\overline{\op \C}, \SET] \simeq [\op{\overline \C}, \SET]. \]
 \end{corollary}

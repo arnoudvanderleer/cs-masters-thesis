@@ -40,7 +40,7 @@ Together, these form the category of algebraic theories \iindex{$ \AlgTh $} (\co
 \end{lemma}
 
 \begin{lemma}[\coqident{AlgebraicTheories.AlgebraicTheoryCategory}{is_univalent_algebraic_theory_cat}]
-  Since an isomorphism of algebraic theories $ S \simeq T $ consists of pointwise isomorphisms $ f_n: S_n \simeq T_n $ that respect the variables and substitution, the category of algebraic theories is univalent.
+  Since an isomorphism of algebraic theories $ S \cong T $ consists of pointwise bijections $ f_n: S_n \cong T_n $ that respect the variables and substitution, the category of algebraic theories is univalent.
 \end{lemma}
 
 Later on, we will see an example of a trivial algebraic theory (the terminal theory) $ T $, in which every $ T_n $ only contains one element. Now, there are many different nontrivial algebraic theories, and it is not easy to find properties that every algebraic theory must satisfy. However, to explore their general structure a little bit, we can show that their variables are distinct, and so every $ T_n $ has at least $ n $ distinct elements. Therefore, no nontrivial algebraic theory is `almost trivial', if almost trivial means having some $ N $ such that every $ T_n $ has at most $ N $ elements.
@@ -324,7 +324,7 @@ Note that we have a forgetful functor $ (\cdot)_0 $ that sends a morphism of alg
   The algebraic theory $ F(S) $ defined above, is the free algebraic theory on the set $ S $.
 \end{lemma}
 \begin{proof}
-  Let $ T $ be an algebraic theory. We have an equivalence
+  Let $ T $ be an algebraic theory. We have a bijection
   \[ \AlgTh(F(S), T) \cong \SET(S, T_0), \]
   sending $ f: \AlgTh(F(S), T) $ to $ f_0: S = S \sqcup \emptyset \to T_0 $ (this is trivially natural in $ S $ and $ T $) and $ f: \SET(S, T_0) $ to the functions $ g_n: F(S)_n \to T_n $ given by
   \begin{align*}
@@ -338,7 +338,7 @@ The proofs that $ F(S) $ is an algebraic theory and that $ F(f) $ and $ g $ are 
   $ F(\emptyset) $ is the initial algebraic theory.
 \end{corollary}
 \begin{proof}
-  For $ S = \emptyset $, the equivalence of hom-sets becomes
+  For $ S = \emptyset $, the bijection of hom-sets becomes
   \[ \AlgTh(F(\emptyset), T) \cong \SET(\emptyset, T_0) \]
   and the latter has exactly one element.
 \end{proof}
@@ -408,7 +408,7 @@ Note that, like with the previous example, we have a forgetful functor $ (\dot)_
   $ \Lambda(S) $ is the free $ \lambda $-theory on $ S $.
 \end{lemma}
 \begin{proof}
-  Let $ L $ be a $ \lambda $-theory. We have an equivalence
+  Let $ L $ be a $ \lambda $-theory. We have a bijection
   \[ \LamTh(\Lambda(S), L) \cong \SET(S, L_0), \]
   sending $ f: \LamTh(\Lambda(S), L) $ to $ f_0 \vert_S: S \to L_0 $ (again, trivially natural in $ S $ and $ L $) and conversely, $ g: \SET(S, L_0) $ to the inductively defined $ f: \LamTh(\Lambda(S), L) $ given by
   \begin{align*}
@@ -455,7 +455,7 @@ The proofs that $ \Lambda(S) $ is indeed a $ \lambda $-theory and that $ \Lambda
 \subsection{The Free Object Algebraic Theory}
 
 \begin{example}[\coqident{AlgebraicTheories.Examples.FreeObjectTheory}{free_object_theory}, \coqident{AlgebraicTheories.Examples.FreeObjectTheory}{free_object_algebra_functor}]
-  Take a category $ \C $, with a forgetful functor $ G: \C \to \SET $ and a free functor $ F: \SET \to \C $. Let $ \eta: \id \SET \Rightarrow F \bullet G $ be the unit of the adjunction and let $ \varphi: \C(F(X), Y) \cong \SET(X, G(Y)) $ be the natural equivalence of homsets.
+  Take a category $ \C $, with a forgetful functor $ G: \C \to \SET $ and a free functor $ F: \SET \to \C $. Let $ \eta: \id \SET \Rightarrow F \bullet G $ be the unit of the adjunction and let $ \varphi: \C(F(X), Y) \cong \SET(X, G(Y)) $ be the natural bijection of homsets.
 
   We define an algebraic theory $ T $ with $ T_n = G(F(\{ 1, \dots, n \})) $, projections $ x_{n, i} = \eta_{\{1, \dots, n\}}(i) $. For the substitution, note that we can view $ t: T_n^m $ as a function $ t: \{ 1, \dots, m \} \to G(F(\{ 1, \dots, n \})) $. We then take
   \[ s \bullet t = G(\varphi^{-1}(t))(s). \]
