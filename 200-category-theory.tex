@@ -98,7 +98,13 @@ The alternative is to define an adjoint equivalence as an equivalence of categor
 \subsection{Weak Equivalences}
 There is also the notion of `weak equivalence'. In some cases, this is equivalent to an adjoint equivalence (for example, when its domain is univalent, see Section \ref{sec:univalence-principle}).
 \begin{definition}
-  A functor $ F: \C \to \D $ is called a \iindex{weak equivalence} if it is essentially surjective and fully faithful.
+  A functor $ F: \C \to \D $ is called a \iindex{weak equivalence} if it is essentially surjective and fully faithful. We will sometimes denote a weak equivalence with
+  \begin{center}
+    \begin{tikzcd}
+      \C \arrow[r, hook, two heads] & \D
+    \end{tikzcd}
+  \end{center}
+  because intuitively it is injective and surjective, up to isomorphism.
 \end{definition}
 
 \subsection{Exponential Objects}
@@ -510,7 +516,7 @@ In this thesis, we will use left Kan extension a handful of times. It comes in h
 
 Let $ \A $, $ \B $ and $ \C $ be categories and let $ F : \A \to \B $ be a functor.
 \begin{definition}
-  Precomposition gives a functor between functor categories $ F_* : [\B, \C] \to [\A, \C] $. If $ F_* $ has a left adjoint, we will denote call this adjoint functor the \textit{left Kan extension}\index{Kan extension!left} along $ F $ and denote it $ \mathrm{Lan}_F : [\A, \C] \to [\B, \C] $.
+  Precomposition gives a functor between functor categories $ F_* : [\B, \C] \to [\A, \C] $. If $ F_* $ has a left adjoint, we will call this adjoint functor the \textit{left Kan extension}\index{Kan extension!left} along $ F $ and denote it $ \mathrm{Lan}_F : [\A, \C] \to [\B, \C] $.
 
   \begin{center}
     \begin{tikzcd}
@@ -928,7 +934,7 @@ This all leads up to:
 \end{corollary}
 
 \begin{remark}\label{rem:karoubi-classical}
-  The situation in classical mathematics is very similar to the situation above: We can define a category $ \bar \D $ which is defined using idempotents, a category $ \tilde \D $ which consists of presheaves with chosen retractions, and a category $ \hat \D $ which is the image of $ \tilde \D $ under the forgetful functor $ F : \hat \D \to P \C $. More specifically, $ \hat \D $ is the full subcategory of $ P \C $, which we get if we only select the presheaves $ F $ such that we can find some $ X : \C $ and some retraction $ (r, s) : F \triangleleft \yo(X) $. We again have an adjoint equivalence $ \bar \D \simeq \tilde \D $ and a fully faithful, essentially surjective functor $ F : \tilde \D \to \hat \D $.
+  The situation in classical mathematics is very similar to the situation above: We can define a category $ \bar \D $ which is defined using idempotents, a category $ \tilde \D $ which consists of presheaves with chosen retractions, and a category $ \hat \D $ which is the image of $ \tilde \D $ under the forgetful functor $ F : \hat \D \to P \C $. To be more precise, $ \hat \D $ is the full subcategory of $ P \C $, which we get if we only select the presheaves $ F $ such that we can find some $ X : \C $ and some retraction $ (r, s) : F \triangleleft \yo(X) $. We again have an adjoint equivalence $ \bar \D \simeq \tilde \D $ and a fully faithful, essentially surjective functor $ F : \tilde \D \to \hat \D $.
 
   However, in classical mathematics we have something even stronger: unlike in univalent foundations, we can use the axiom of choice to turn the weak equivalence into an adjoint equivalence $ F : \tilde \D \xrightarrow \sim \hat \D $, choosing an object $ X : \C $ and a retraction $ (r, s) : F \triangleleft \yo(X) $ for every $ F : \tilde \D $. This means that classically, the different definitions of the Karoubi envelope all coincide.
 \end{remark}
@@ -978,9 +984,9 @@ The remainder of this section works towards the adjoint equivalence between $ P\
 
 Since a functor preserves retracts, and since every object of $ \overline \C $ is a retract of an object in $ \C $, we can generalize the construction of the functor that we do in Lemma \ref{lem:karoubi-equivalence} for the functor $ \yo: \C \to P\C $, to general functors $ F: \C \to \D $, if $ \D $ has (co)equalizers.
 
-For convenience, the lemma below works very abstractly with pointwise left Kan extension using colimits, but one could also prove this using just (co)equalizers (or right Kan extension using limits).
+For convenience, the lemma below works very abstractly with pointwise left Kan extension using colimits, but one could also prove this using just (co)equalizers (or right Kan extension using $ \C $-small limits).
 \begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_pullback_equivalence}]
-  Let $ \D $ be a category with colimits. We have an adjoint equivalence between $ [\C, \D] $ and $ [\overline \C, \D] $.
+  Let $ \D $ be a category with $ \C $-small colimits. We have an adjoint equivalence between $ [\C, \D] $ and $ [\overline \C, \D] $.
 \end{lemma}
 \begin{proof}
   We already have an adjunction $ \Lan {\iota_\C} {} \dashv \iota_{\C*} $. Also, since $ \iota_\C $ is fully faithful, we know that $ \eta $ is a natural isomorphism. Therefore, we only have to show that $ \epsilon $ is a natural isomorphism. That is, we need to show that $ \epsilon_G(X, a): \D(\Lan {\iota_\C} (\iota_{\C*} G) (X, a), G(X, a)) $ is an isomorphism for all $ G: [\overline \C, \D] $ and $ (X, a): \overline \C $.
