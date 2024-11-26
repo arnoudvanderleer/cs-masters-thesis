@@ -860,7 +860,27 @@ This category is called the \iindex{Karoubi envelope}, the \textit{idempotent co
   \end{center}
 \end{proof}
 
-Besides $ \overline \C $, there is also another (classically equivalent) definition of the Karoubi envelope. An object in this alternative category is a presheaf $ F : P\C $ that is a retract of the Yoneda embedding $ \yo(X) $ of an object $ X : \C $. Note that there are two different ways to translate this to univalent foundations. We can either interpret the existence of the object $ X $ and the retraction $ (r, s) : F \triangleleft \yo(X) $ as additional \textit{structure} on $ F $, or we can treat it as a \textit{property} and ask for \textit{mere existence} (see Definition \ref{def:mere-existence}) of $ X $, $ r $ and $ s $. This gives rise to two different categories:
+\begin{remark}\label{rem:classical-karoubi-universal}
+  In this section, we have shown a couple of properties which classically are used as a `universal property' to characterize the Karoubi envelope:
+  \begin{itemize}
+    \item In $ \bar \C $, every idempotent splits.
+    \item We have a fully faithful embedding $ \iota_\C : \C \to \bar \C $;
+    \item Every object in $ \bar \C $ is a retract of an object in $ \C $.
+  \end{itemize}
+  Classically, one can show that if two categories $ \D $ and $ \E $ satisfy the three properties above, then we have an adjoint equivalence $ \D \xrightarrow \sim \E $. This uses the axiom of choice to select, for every object in $ \D $ and $ \E $, a retraction from an object in $ \C $.
+
+  There is another construction that yields a category with the properties listed above. An object in this alternative category is a presheaf $ F : P\C $ that is a retract of the Yoneda embedding $ \yo(X) $ of an object $ X : \C $. Because it satisfies the universal property, it is classically equivalent to $ \bar \C $.
+\end{remark}
+
+\begin{remark}
+  In classical mathematics, the only structure of a category is that of the objects and morphisms. Therefore, the properties in Remark \ref{rem:classical-karoubi-universal} characterize a classical category uniquely up to adjoint equivalence. However, in univalent foundations, categories have additional structure, which is given by identities between objects. Therefore, there can be structurally different categories which satisfy this universal property and we need an additional constraint to single out the `right' one. However, there are actually two branches of category theory in univalent foundations, each giving its own constraint.
+
+  One branch is the theory of setcategories, where every identity type between two objects is a mere proposition. For this branch, the universal property of the Karoubi envelope gets the additional constraint that it must be a setcategory. Then we have exactly the classical situation: using the axiom of choice, we can show that any two categories satisfying the universal property are equivalent.
+
+  The other branch is the theory of univalent categories, where the identity type between two objects is equivalent to the isomorphism type between them. In this branch, the Karoubi envelope must be a univalent category. In this case, we can show that any two categories satisfying the universal property are equivalent without using the axiom of choice.
+\end{remark}
+
+Note that there are two different ways to translate the definition at the end of Remark \ref{rem:classical-karoubi-universal} to univalent foundations. We can either interpret the existence of the object $ X $ and the retraction $ (r, s) : F \triangleleft \yo(X) $ as additional \textit{structure} on $ F $, or we can treat it as a \textit{property} and ask for \textit{mere existence} (see Definition \ref{def:mere-existence}) of $ X $, $ r $ and $ s $. This gives rise to two different categories:
 
 \begin{definition}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_envelope'}]\label{def:karoubi'}
   We define the category $ \tilde \C $ in which every object is a presheaf $ F : P \C $, together with an object $ X : \C $ and a retraction-section pair $ (r, s) : F \triangleleft \yo (X) $. The morphisms from $ (F_1, X_1, r_1, s_1) $ to $ (F_2, X_2, r_2, s_2) $ are just the presheaf morphisms $ f: P\C(F_1, F_2) $. This can be summarized in the following diagram:
@@ -885,8 +905,9 @@ Besides $ \overline \C $, there is also another (classically equivalent) definit
     \end{tikzcd}
   \end{center}
 \end{definition}
+Because it is a full subcategory of a presheaf category (which is univalent), $ \hat \C $ is univalent.
 
-This gives us what we need to translate the classical equivalence between the two notions of Karoubi envelope to type theory:
+Now classically, $ \bar \C $ is equivalent to $ \tilde \C $ or $ \hat \C $. In general, this does not work for $ \hat \C $, but it does work for $ \tilde \C $:
 \begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_equivalence}]\label{lem:karoubi-equivalence}
   We have an adjoint equivalence $ \overline \C \xrightarrow \sim \tilde \C $.
 \end{lemma}
@@ -933,12 +954,6 @@ This all leads up to:
   The fact that $ \hat \C $ is univalent, and has weak equivalences from $ \overline \C $ and $ \tilde \C $ exhibits $ \hat \C $ as the Rezk completion of $ \overline \C $ and $ \tilde \C $.
 \end{corollary}
 
-\begin{remark}\label{rem:karoubi-classical}
-  The situation in classical mathematics is very similar to the situation above: We can define a category $ \bar \D $ which is defined using idempotents, a category $ \tilde \D $ which consists of presheaves with chosen retractions, and a category $ \hat \D $ which is the image of $ \tilde \D $ under the forgetful functor $ F : \hat \D \to P \C $. To be more precise, $ \hat \D $ is the full subcategory of $ P \C $, which we get if we only select the presheaves $ F $ such that we can find some $ X : \C $ and some retraction $ (r, s) : F \triangleleft \yo(X) $. We again have an adjoint equivalence $ \bar \D \simeq \tilde \D $ and a fully faithful, essentially surjective functor $ F : \tilde \D \to \hat \D $.
-
-  However, in classical mathematics we have something even stronger: unlike in univalent foundations, we can use the axiom of choice to turn the weak equivalence into an adjoint equivalence $ F : \tilde \D \xrightarrow \sim \hat \D $, choosing an object $ X : \C $ and a retraction $ (r, s) : F \triangleleft \yo(X) $ for every $ F : \tilde \D $. This means that classically, the different definitions of the Karoubi envelope all coincide.
-\end{remark}
-
 Even though univalence and the Rezk completion in general will be covered in Section \ref{sec:univalence-principle}, we will study univalence of the Karoubi envelope here:
 
 \begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_univalence}]\label{rem:karoubi-univalent}
@@ -967,17 +982,33 @@ Even though univalence and the Rezk completion in general will be covered in Sec
 
   When we construct the Karoubi envelope $ \overline \C_M $, we get a category with objects $ a $ and $ b $. Now, note that since $ M $ is a set, $ b = b $ still has one inhabitant. Of course, $ b \cong b $ contains the identity automorphism. However, since
   \[ b \cdot c = c \quad \text{and} \quad c \cdot c = b, \]
-  $ c $ is also an automorphism of $ b $. Therefore, $ \overline \C_M $ is not univalent.
+  $ c $ is also an automorphism of $ b $. Therefore, $ \overline \C_M $ is not univalent and $ \overline \C $ is usually more pathological than $ \C $ itself.
+\end{remark}
 
-  In a somewhat more complicated way, we can show that $ \tilde \C_M $ is not univalent either: the counterpart of $ b $ in that category has two automorphisms, corresponding to $ b $ and $ c $, but only one equality, which is the identity. This is because isomorphisms only have to respect the presheaf structure, whereas equalities also have to respect the section (and retraction). Note that presheaves are univalent, so equality of presheaves is equivalent to isomorphism of presheaves.
+\begin{remark}
+  We will also briefly study the identity types of $ \tilde \C $. Take $ P = (F_1, X_1, r_1, s_1) $ and $ Q = (F_2, X_2, r_2, s_2) $ as objects of $ \tilde \C $. The identity type $ P = Q $ is equivalent to
+  \[ \prod_{f : F_1 = F_2} \prod_{g: X_1 = X_2} r_1 \cdot \mathrm{idtoiso}(f) = \yo(\mathrm{idtoiso}(g)) \cdot r_2 \land s_1 \cdot \yo(\mathrm{idtoiso}(g)) = \mathrm{idtoiso}(f) \cdot s_2. \]
+  \begin{center}
+    \begin{tikzcd}
+      F_1 \arrow[d, "\mathrm{idtoiso}(f)"'] \arrow[r, "s_1", shift left] & \yo(X_1) \arrow[d, "\yo(\mathrm{idtoiso}(g))"] \arrow[l, "r_1", shift left] \\
+      F_2 \arrow[r, "s_2", shift left] & \yo(X_2) \arrow[l, "r_2", shift left]
+    \end{tikzcd}
+  \end{center}
+  Since $ P \C $ is univalent,
+  \[ f = \mathrm{isotoid}(\mathrm{idtoiso}(f)) = \mathrm{isotoid}(s_1 \cdot \yo(\mathrm{idtoiso}(g)) \cdot r_2). \]
+  Since morphisms in $ \C $ form a set, the identities on the $ r_i $ and $ s_i $ are mere propositions, and the only `structure' of the identity type is the equality $ X_1 = X_2 $. Therefore, if $ \C $ is a setcategory, $ \tilde \C $ is a setcategory as well.
 
-  Therefore, $ \overline \C $ and $ \tilde \C $ are usually more pathological than $ \C $ itself. On the other hand, since $ \hat \C $ is a full subcategory of $ P\C $, it is univalent.
+  Since $ \tilde \C $ has the same isomorphisms as $ \bar \C $, $ \tilde \C_M $ is not univalent for $ M $ as in the remark above.
 \end{remark}
 
 \begin{remark}\label{rem:karoubi-candidate-choice}
-  As we saw in this section, there are multiple candidates for the `Karoubi envelope' of a category $ \C $: $ \bar \C $ (Definition \ref{def:karoubi}), $ \tilde \C $ (Definition \ref{def:karoubi'}) and $ \hat \C $ (Definition \ref{def:karoubi''}). In classical mathematics, these are all equivalent to each other (Remark \ref{rem:karoubi-classical}), but in univalent foundations $ \hat \C $ is usually not equivalent to $ \bar \C $ and $ \tilde \C $ (Corollary \ref{cor:karoubi-candidates}).
+  As mentioned in Remark \ref{rem:classical-karoubi-universal}, in univalent foundations, there are two different Karoubi envelopes: one that is a setcategory and one that is univalent. As we have seen above, if $ \C $ is a setcategory, both $ \bar \C $ and $ \tilde \C $ are setcategories, so they are the Karoubi envelopes in the theory of setcategories. Also, since $ \hat \C $ is univalent, it is the Karoubi envelope in the theory of univalent categories.
 
-  Therefore, we need to be careful which definition we choose, because this choice has consequences. On one hand, $ \hat \C $ is univalent, but very abstract. In this category, there are classical constructions that we cannot do, because for every object, we only have mere existence of an idempotent morphism, and because the objects of $ \hat \C $ do not form a set, we cannot use the axiom of choice to pick an idempotent morphism. On the other hand, $ \overline \C $ and $ \tilde \C $ are very elementary and concrete, which sometimes helps when doing constructions. However, they are not univalent, which makes working with them complicated in a different way.
+  As mentioned before, in univalent foundations $ \hat \C $ is usually not equivalent to $ \bar \C $ and $ \tilde \C $ (Corollary \ref{cor:karoubi-candidates}), because they are the answer to different questions. In practice, we need to be careful which definition we choose, because this choice has consequences.
+
+  On one hand, $ \hat \C $ is univalent, but very abstract. In this category, there are classical constructions that we cannot do, because for every object, we only have mere existence of an idempotent morphism, and because the objects of $ \hat \C $ do not form a set, we cannot use the axiom of choice to pick an idempotent morphism.
+
+  On the other hand, $ \overline \C $ and $ \tilde \C $ are very elementary and concrete, which sometimes helps when doing constructions. However, they are not univalent, which makes working with them complicated in a different way.
 \end{remark}
 
 The remainder of this section works towards the adjoint equivalence between $ P\C $ and $ P \overline \C $.
