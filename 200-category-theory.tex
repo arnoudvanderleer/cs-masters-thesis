@@ -985,8 +985,12 @@ Even though univalence and the Rezk completion in general will be covered in Sec
   $ c $ is also an automorphism of $ b $. Therefore, $ \overline \C_M $ is not univalent and $ \overline \C $ is usually more pathological than $ \C $ itself.
 \end{remark}
 
-\begin{remark}
-  We will also briefly study the identity types of $ \tilde \C $. Take $ P = (F_1, X_1, r_1, s_1) $ and $ Q = (F_2, X_2, r_2, s_2) $ as objects of $ \tilde \C $. The identity type $ P = Q $ is equivalent to
+We will also briefly study the identity types of $ \tilde \C $.
+\begin{lemma}\label{lem:isaset-karoubi'}
+  If $ \C $ is a setcategory, $ \tilde \C $ is a setcategory as well.
+\end{lemma}
+\begin{proof}
+  Take $ P = (F_1, X_1, r_1, s_1) $ and $ Q = (F_2, X_2, r_2, s_2) $ as objects of $ \tilde \C $. The identity type $ P = Q $ is equivalent to
   \[ \prod_{f : F_1 = F_2} \prod_{g: X_1 = X_2} r_1 \cdot \mathrm{idtoiso}(f) = \yo(\mathrm{idtoiso}(g)) \cdot r_2 \land s_1 \cdot \yo(\mathrm{idtoiso}(g)) = \mathrm{idtoiso}(f) \cdot s_2. \]
   \begin{center}
     \begin{tikzcd}
@@ -997,9 +1001,8 @@ Even though univalence and the Rezk completion in general will be covered in Sec
   Since $ P \C $ is univalent,
   \[ f = \mathrm{isotoid}(\mathrm{idtoiso}(f)) = \mathrm{isotoid}(s_1 \cdot \yo(\mathrm{idtoiso}(g)) \cdot r_2). \]
   Since morphisms in $ \C $ form a set, the identities on the $ r_i $ and $ s_i $ are mere propositions, and the only `structure' of the identity type is the equality $ X_1 = X_2 $. Therefore, if $ \C $ is a setcategory, $ \tilde \C $ is a setcategory as well.
-
-  Since $ \tilde \C $ has the same isomorphisms as $ \bar \C $, $ \tilde \C_M $ is not univalent for $ M $ as in the remark above.
-\end{remark}
+\end{proof}
+Since $ \tilde \C $ has the same isomorphisms as $ \bar \C $, $ \tilde \C_M $ is not univalent for $ M $ as in Remark \ref{rem:karoubi-not-univalent}.
 
 \begin{remark}\label{rem:karoubi-candidate-choice}
   As mentioned in Remark \ref{rem:classical-karoubi-universal}, in univalent foundations, there are two different Karoubi envelopes: one that is a setcategory and one that is univalent. As we have seen above, if $ \C $ is a setcategory, both $ \bar \C $ and $ \tilde \C $ are setcategories, so they are the Karoubi envelopes in the theory of setcategories. Also, since $ \hat \C $ is univalent, it is the Karoubi envelope in the theory of univalent categories.
