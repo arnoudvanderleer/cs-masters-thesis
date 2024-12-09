@@ -485,13 +485,13 @@ The following shows that `functions in $ n $ variables' are indeed all in $ A_n 
   We make $ A_1 $, the `functional elements' of $ A $, into a monoid under composition $ \circ $ with unit $ \mathbf 1_1 $. The fact that this is a monoid follows from the remarks above.
 \end{definition}
 
-Recall that we have an equivalence $ [\op{C_{A_1}}, \SET] \simeq \RAct{A_1} $.
+Recall that we have an equivalence $ [\op{\C_{A_1}}, \SET] \simeq \RAct{A_1} $.
 
 \begin{remark}\label{rem:ract-presheaf-equivalence}
   Note that, like in the last chapter, $ \R_A $ pops up as the Karoubi envelope of the monoid category $ \C_{A_1} $, and fits into the following diagram:
   \begin{center}
     \begin{tikzcd}
-      & \C_{A_1} \arrow[d, hookrightarrow, "\yo"] \arrow[r, hookrightarrow, "\iota_{C_{A_1}}"] & \R_A \arrow[d, hookrightarrow, "\yo"]\\
+      & \C_{A_1} \arrow[d, hookrightarrow, "\yo"] \arrow[r, hookrightarrow, "\iota_{\C_{A_1}}"] & \R_A \arrow[d, hookrightarrow, "\yo"]\\
       \RAct{A_1} & P \C_{A_1} \arrow[l, "\sim"] & P \R_A \arrow[l, "\sim"]
     \end{tikzcd}
   \end{center}
@@ -501,13 +501,36 @@ Recall that we have an equivalence $ [\op{C_{A_1}}, \SET] \simeq \RAct{A_1} $.
   \begin{center}
     \begin{tikzcd}
       &
-      \C_{{L_0}_1} \arrow[dd, "\yo" description, near start, hook] \arrow[rrr, "\iota_{C_{{L_0}_1}}" description, hook] \arrow[rd, "\sim" description, no head] & & & \R_{L_0} \arrow[dd, "\yo" description, near start, hook] \arrow[rd, "\sim" description, no head] & & \\
-      &
-      & \C_{L_1} \arrow[dd, "\yo" description, near start, hook] \arrow[r, hook] & \mathbf L \arrow[rr, hook] \arrow[dd, "\yo" description, near start, hook] & & \mathbf R \arrow[dd, "\yo" description, near start, hook] \arrow[rdd, hook] & \\
+      \C_{{L_0}_1}
+        \arrow[dd, "\yo" description, near start, hook]
+        \arrow[rrr, "\iota_{\C_{{L_0}_1}}" description, hook]
+        \arrow[rd, "\sim" description, no head] & & &
+      \R_{L_0}
+        \arrow[dd, "\yo" description, near start, hook]
+        \arrow[rd, "\sim" description, no head] & & \\ & &
+      \C_{L_1}
+        \arrow[r, hook] &
+      \L & &
+      \R
+        \arrow[from=ll, hook, crossing over]
+        \arrow[dd, "\yo" description, near start, hook]
+        \arrow[rdd, hook] & \\
       \RAct{{L_0}_1} &
-      P \C_{{L_0}_1} \arrow[l, "\sim"'] \arrow[rd, "\sim" description, no head] & & & P \R_{L_0} \arrow[lll, "\sim" description] \arrow[rd, "\sim" description, no head] & & \\
-      &
-      & P \C_{L_1} & P \mathbf L \arrow[l, "\sim" description] & & P \R \arrow[ll, "\sim" description] & \Pshf L \arrow[lll, "\sim" description, bend left]
+      P \C_{{L_0}_1}
+        \arrow[l, "\sim"']
+        \arrow[rd, "\sim" description, no head] & & &
+      P \R_{L_0}
+        \arrow[lll, "\sim" description]
+        \arrow[rd, "\sim" description, no head] & & \\ & &
+      P \C_{L_1}
+        \arrow[from=uu, "\yo" description, near start, hook, crossing over] &
+      P \mathbf L
+        \arrow[from=uu, "\yo" description, near start, hook, crossing over]
+        \arrow[l, "\sim" description] & &
+      P \R
+        \arrow[ll, "\sim" description] &
+      \Pshf L
+        \arrow[lll, "\sim" description, bend left]
     \end{tikzcd}
   \end{center}
 \end{remark}

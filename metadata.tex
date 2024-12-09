@@ -15,13 +15,36 @@
       sep=scriptsize
     ]
       \&
-      C_{{L_0}_1} \arrow[dd, "\yo" description, near start, hook] \arrow[rrr, "\iota_{C_{{L_0}_1}}" description, hook] \arrow[rd, "\sim" description, no head] \& \& \& \R_{L_0} \arrow[dd, "\yo" description, near start, hook] \arrow[rd, "\sim" description, no head] \& \& \\
-      \&
-      \& C_{L_1} \arrow[dd, "\yo" description, near start, hook] \arrow[r, hook] \& \mathbf L \arrow[rr, hook] \arrow[dd, "\yo" description, near start, hook] \& \& \mathbf R \arrow[dd, "\yo" description, near start, hook] \arrow[rdd, hook] \& \\
+      \C_{{L_0}_1}
+        \arrow[dd, "\yo" description, near start, hook]
+        \arrow[rrr, "\iota_{\C_{{L_0}_1}}" description, hook]
+        \arrow[rd, "\sim" description, no head] \& \& \&
+      \R_{L_0}
+        \arrow[dd, "\yo" description, near start, hook]
+        \arrow[rd, "\sim" description, no head] \& \& \\ \& \&
+      \C_{L_1}
+        \arrow[r, hook] \&
+      \L \& \&
+      \R
+        \arrow[from=ll, hook, crossing over]
+        \arrow[dd, "\yo" description, near start, hook]
+        \arrow[rdd, hook] \& \\
       \RAct{{L_0}_1} \&
-      P C_{{L_0}_1} \arrow[l, "\sim"'] \arrow[rd, "\sim" description, no head] \& \& \& P \R_{L_0} \arrow[lll, "\sim" description] \arrow[rd, "\sim" description, no head] \& \& \\
-      \&
-      \& P C_{L_1} \& P \mathbf L \arrow[l, "\sim" description] \& \& P \R \arrow[ll, "\sim" description] \& \Pshf L \arrow[lll, "\sim" description, bend left]
+      P \C_{{L_0}_1}
+        \arrow[l, "\sim"']
+        \arrow[rd, "\sim" description, no head] \& \& \&
+      P \R_{L_0}
+        \arrow[lll, "\sim" description]
+        \arrow[rd, "\sim" description, no head] \& \& \\ \& \&
+      P \C_{L_1}
+        \arrow[from=uu, "\yo" description, near start, hook, crossing over] \&
+      P \mathbf L
+        \arrow[from=uu, "\yo" description, near start, hook, crossing over]
+        \arrow[l, "\sim" description] \& \&
+      P \R
+        \arrow[ll, "\sim" description] \&
+      \Pshf L
+        \arrow[lll, "\sim" description, bend left]
     \end{tikzcd}
   }
 }
