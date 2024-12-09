@@ -461,35 +461,35 @@ This brings us to the main theorem of this section \autocite[][\S 5.1.8]{taylor}
   To show that $ (\alpha \cdot -) \dashv \alpha_* $, we need to show that for all $ Y : \R^B $, $ (\alpha_* Y, \epsilon_Y) $ is a universal arrow from $ (\alpha \cdot -) $ to $ Y $. Recall the following diagram:
   \begin{center}
     \begin{tikzcd}
-      Z \circ \alpha \arrow[rd, "f"'] \arrow[r, "{\hat f \circ \alpha}", dashed] & (\alpha_* Y) \circ \alpha \arrow[d, "{\epsilon_Y}"]\\
+      Z \circ \alpha \arrow[rd, "f"'] \arrow[r, "{\widehat f \circ \alpha}", dashed] & (\alpha_* Y) \circ \alpha \arrow[d, "{\epsilon_Y}"]\\
       & Y
     \end{tikzcd}
   \end{center}
   Now, suppose that we have some $ Z : \R^A $ and some $ f: \R^B(Z \circ \alpha, Y) $. We define
-  \[ \hat f = \lambda x_1 x_2 x_3, f(g^{-1}(x_1, x_3)) (Z x_1 x_2): \R^A(Z, \alpha_* Y) \]
-  and we have $ ((\hat f) \circ \alpha) \cdot \epsilon_Y = f $.
+  \[ \widehat f = \lambda x_1 x_2 x_3, f(g^{-1}(x_1, x_3)) (Z x_1 x_2): \R^A(Z, \alpha_* Y) \]
+  and we have $ ((\widehat f) \circ \alpha) \cdot \epsilon_Y = f $.
   % \begin{align*}
-  %   (((\alpha \cdot -) \hat f) \cdot \epsilon_Y) b z
-  %   &= \epsilon_Y b ((\hat f (\alpha b)) z)\\
+  %   (((\alpha \cdot -) \widehat f) \cdot \epsilon_Y) b z
+  %   &= \epsilon_Y b ((\widehat f (\alpha b)) z)\\
   %   &= \epsilon_Y b (\lambda x_3, f (g^{-1} ((\alpha b), x_3)) (Z (\alpha b) z))\\
   %   &= Y b ((\lambda x_3, f (g^{-1} ((\alpha b), x_3)) (Z (\alpha b) z)) (\pi_2 (g b)))\\
   %   &= Y b (f (g^{-1} ((\alpha b), \pi_2 (g b))) (Z (\alpha b) z))\\
   %   &= Y b (f (g^{-1} (g b)) (Z (\alpha b) z))\\
   %   &= f b z.
   % \end{align*}
-  Now, suppose that we have some (other) $ \hat f^\prime : \R^A(Z, \alpha_*(Y)) $ such that $ (\hat f^\prime \circ \alpha) \cdot \epsilon_Y = f $. Then substituting $ (\hat f^\prime \circ \alpha) \cdot \epsilon_Y $ for $ f $ in $ \hat f $ yields
-  \[ \hat f = \lambda x_1, (\alpha_* Y x_1) \circ (\hat f^\prime x_1) = \hat f^\prime, \]
-  so $ \hat f $ is unique and $ (\alpha_* Y, \epsilon_Y) $ is a universal arrow, which concludes the proof that $ (\alpha \cdot -) \dashv \alpha_* $ and we see that $ \R $ is cartesian closed relative to the given class of display maps.
+  Now, suppose that we have some (other) $ \widehat f^\prime : \R^A(Z, \alpha_*(Y)) $ such that $ (\widehat f^\prime \circ \alpha) \cdot \epsilon_Y = f $. Then substituting $ (\widehat f^\prime \circ \alpha) \cdot \epsilon_Y $ for $ f $ in $ \widehat f $ yields
+  \[ \widehat f = \lambda x_1, (\alpha_* Y x_1) \circ (\widehat f^\prime x_1) = \widehat f^\prime, \]
+  so $ \widehat f $ is unique and $ (\alpha_* Y, \epsilon_Y) $ is a universal arrow, which concludes the proof that $ (\alpha \cdot -) \dashv \alpha_* $ and we see that $ \R $ is cartesian closed relative to the given class of display maps.
   % \begin{align*}
-  %   \hat f
+  %   \widehat f
   %   &= \lambda x_1 x_2 x_3, f (g^{-1} (x_1, x_3))(Z x_1 x_2)\\
-  %   &= \lambda x_1 x_2 x_3, ((\epsilon_Y (g^{-1} (x_1, x_3))) \circ ((\hat f^\prime \circ \alpha) (g^{-1} (x_1, x_3)))) (Z x_1 x_2)\\
-  %   &= \lambda x_1 x_2 x_3, (\epsilon_Y (g^{-1} (x_1, x_3))) (\hat f^\prime (\alpha (g^{-1} (x_1, x_3))) (Z x_1 x_2))\\
-  %   &= \lambda x_1 x_2 x_3, (\epsilon_Y (g^{-1} (x_1, x_3))) (\hat f^\prime x_1 x_2)\\
-  %   &= \lambda x_1 x_2 x_3, Y (g^{-1} (x_1, x_3)) (\hat f^\prime x_1 x_2 (\pi_2 (g (g^{-1} (x_1, x_3)))))\\
-  %   &= \lambda x_1 x_2 x_3, Y (g^{-1} (x_1, x_3)) (\hat f^\prime x_1 x_2 (X x_1 x_3))\\
-  %   &= \lambda x_1 x_2, \alpha_* Y x_1 (\hat f^\prime x_1 (Z x_1 x_2))\\
-  %   &= \hat f^\prime
+  %   &= \lambda x_1 x_2 x_3, ((\epsilon_Y (g^{-1} (x_1, x_3))) \circ ((\widehat f^\prime \circ \alpha) (g^{-1} (x_1, x_3)))) (Z x_1 x_2)\\
+  %   &= \lambda x_1 x_2 x_3, (\epsilon_Y (g^{-1} (x_1, x_3))) (\widehat f^\prime (\alpha (g^{-1} (x_1, x_3))) (Z x_1 x_2))\\
+  %   &= \lambda x_1 x_2 x_3, (\epsilon_Y (g^{-1} (x_1, x_3))) (\widehat f^\prime x_1 x_2)\\
+  %   &= \lambda x_1 x_2 x_3, Y (g^{-1} (x_1, x_3)) (\widehat f^\prime x_1 x_2 (\pi_2 (g (g^{-1} (x_1, x_3)))))\\
+  %   &= \lambda x_1 x_2 x_3, Y (g^{-1} (x_1, x_3)) (\widehat f^\prime x_1 x_2 (X x_1 x_3))\\
+  %   &= \lambda x_1 x_2, \alpha_* Y x_1 (\widehat f^\prime x_1 (Z x_1 x_2))\\
+  %   &= \widehat f^\prime
   % \end{align*}
 \end{proof}
 
@@ -526,6 +526,6 @@ for $ x : V $, $ f, g : \Lambda_C $ and $ c : C $.
 
 Selinger shows in his paper that the categories of $ \lambda $-algebras and $ \lambda $-theories are equivalent. As we will see in the next chapter, Hyland shows that his own notions of $ \Lambda $-algebras and $ \lambda $-theories are equivalent.
 
-Now, it is not hard to show that Hyland's and Selinger's notions of $ \lambda $-theory are equivalent: If we have one of Selinger's $ \lambda $-theories with a countable set of variables, enumerate the variables as $ x_1, x_2, \dots $ and let $ L_n $ be the set of terms with only the free variables $ x_1, \dots, x_n $. Then, if we quotient by the equivalence relation, we get one of Hyland's $ \lambda $-theories. Conversely, if we start with one of Hyland's $ \lambda $-theories $ L $, we can consider $ L_n $ as a subset of $ L_{n + 1} $ by sending $ x_{n, i} $ to $ x_{n + 1, i} $. If we take the union $ \bar L = \bigcup_n L_n $ (officially, this is a directed limit), we have a function $ f: \Lambda_{\bar L} \to \bar L $, because the constants of $ \Lambda_{\bar L} $ are exactly the terms of $ \bar L $ and because $ \lambda $-theories in Hyland's sense support the operations of the $ \lambda $-calculus (see Subsection \ref{subsec:lambda-calculus-operations}). This gives an equivalence relation on $ \Lambda_{\bar L} $ by taking $ a\ `='\ b $ if $ f(a) = f(b) $.
+Now, it is not hard to show that Hyland's and Selinger's notions of $ \lambda $-theory are equivalent: If we have one of Selinger's $ \lambda $-theories with a countable set of variables, enumerate the variables as $ x_1, x_2, \dots $ and let $ L_n $ be the set of terms with only the free variables $ x_1, \dots, x_n $. Then, if we quotient by the equivalence relation, we get one of Hyland's $ \lambda $-theories. Conversely, if we start with one of Hyland's $ \lambda $-theories $ L $, we can consider $ L_n $ as a subset of $ L_{n + 1} $ by sending $ x_{n, i} $ to $ x_{n + 1, i} $. If we take the union $ \overline L = \bigcup_n L_n $ (officially, this is a directed limit), we have a function $ f: \Lambda_{\overline L} \to \overline L $, because the constants of $ \Lambda_{\overline L} $ are exactly the terms of $ \overline L $ and because $ \lambda $-theories in Hyland's sense support the operations of the $ \lambda $-calculus (see Subsection \ref{subsec:lambda-calculus-operations}). This gives an equivalence relation on $ \Lambda_{\overline L} $ by taking $ a\ `='\ b $ if $ f(a) = f(b) $.
 
 Note, however, that is very hard to show that Hyland's notion of $ \Lambda $-algebra and Selinger's notion of $ \lambda $-algebra are equivalent. If we start with a $ \Lambda $-algebra $ A $, this is already a combinatory algebra, because $ \Lambda $ contains the $ S $ and $ K $ combinators and their image are the designated elements $ s $ and $ k $. However, if we start with a $ \lambda $-algebra and want to turn this into a $ \Lambda $-algebra, we need to give a $ t $-action for every $ t : \Lambda $, not just for $ S $ and $ K $. Therefore, we need to show that any $ \Lambda $-term can be expressed in terms of $ K $, $ S $ and application. However, at that point we are already halfway through a proof that any $ \Lambda $-algebra can be given a $ \lambda $-theory structure.

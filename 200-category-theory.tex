@@ -264,20 +264,20 @@ Note that the arrows in this diagram are functors, so objects in a category, ins
 Let $ P : \E \to \B $ be a functor. In this case, we will view this as the category $ \E $ `lying over' the category $ \B $, with for every point $ X: \B $, a slice $ \E_X = P^{-1}(\B) $ lying `above' $ X $.
 
 \begin{definition}
-  A morphism $ f: \E(Y, Z) $ is called \iindex{cartesian} if for all $ g: \E(X, Z) $ and $ h: \B(P(X), P(Y)) $ with $ h \cdot P(f) = P(g) $, there exists $ \bar h: \E(X, Y) $ such that $ P(\bar h) = h $ and $ \bar h \cdot f = g $, like illustrated in the following diagram from \autocite{nlab:grothendieck_fibration}
+  A morphism $ f: \E(Y, Z) $ is called \iindex{cartesian} if for all $ g: \E(X, Z) $ and $ h: \B(P(X), P(Y)) $ with $ h \cdot P(f) = P(g) $, there exists $ \overline h: \E(X, Y) $ such that $ P(\overline h) = h $ and $ \overline h \cdot f = g $, like illustrated in the following diagram from \autocite{nlab:grothendieck_fibration}
   \begin{center}
     \begin{tikzcd}[sep=large]
-      \E \arrow[d, "P"] &X \arrow[rr, "\forall g", bend left] \arrow[r, "\exists! \bar h"', dashed] & Y \arrow[r, "f"'] & Z\\
+      \E \arrow[d, "P"] &X \arrow[rr, "\forall g", bend left] \arrow[r, "\exists! \overline h"', dashed] & Y \arrow[r, "f"'] & Z\\
       \B & P(X) \arrow[r, "\forall h"'] \arrow[rr, "P(g)", bend left] & P(Y) \arrow[r, "P(f)"'] & P(Z)
     \end{tikzcd}
   \end{center}
 \end{definition}
 
 \begin{definition}
-  $ P $ is a \iindex{fibration} if for all $ Y: \E $ and morphisms $ f: \B(X, P(Y)) $, there exist an object $ \bar X: \E $ and a cartesian morphism $ \bar f: \E(\bar X, Y) $ such that $ P(\bar X) = X $ and $ P(\bar f) = f $:
+  $ P $ is a \iindex{fibration} if for all $ Y: \E $ and morphisms $ f: \B(X, P(Y)) $, there exist an object $ \overline X: \E $ and a cartesian morphism $ \overline f: \E(\overline X, Y) $ such that $ P(\overline X) = X $ and $ P(\overline f) = f $:
   \begin{center}
     \begin{tikzcd}
-      \E \arrow[d, "P"] & \bar X \arrow[r, "\exists \bar f", dashed] & Y\\
+      \E \arrow[d, "P"] & \overline X \arrow[r, "\exists \overline f", dashed] & Y\\
       \B & X \arrow[r, "\forall f"] & P(Y)
     \end{tikzcd}
   \end{center}
@@ -851,7 +851,7 @@ This category is called the \iindex{Karoubi envelope}, the \textit{idempotent co
 
   Now, note that if we have a coequalizer $ W $ of $ \id Z $ and $ a $, and an equalizer $ Y $ of $ \id X $ and $ b $ (in particular, if $ W $ and $ Y $ are retracts), the universal properties of these give a bijection
   \[ \D(W, Y) \cong \{ f: \D(Z, Y) \mid a \cdot f = f \} \cong \{ f: \D(Z, X) \mid a \cdot f = f = f \cdot b \}, \]
-  which exactly describes the morphisms in $ \bar C $.
+  which exactly describes the morphisms in $ \overline C $.
   \begin{center}
     \begin{tikzcd}
       Z \arrow[r, shift left, "\id Z"] \arrow[r, shift right, "a"'] & Z \arrow[r] \arrow[d] \arrow[rd] & W \arrow[d]\\
@@ -863,13 +863,13 @@ This category is called the \iindex{Karoubi envelope}, the \textit{idempotent co
 \begin{remark}\label{rem:classical-karoubi-universal}
   In this section, we have shown a couple of properties which classically are used as a `universal property' to characterize the Karoubi envelope:
   \begin{itemize}
-    \item In $ \bar \C $, every idempotent splits.
-    \item We have a fully faithful embedding $ \iota_\C : \C \to \bar \C $;
-    \item Every object in $ \bar \C $ is a retract of an object in $ \C $.
+    \item In $ \overline \C $, every idempotent splits.
+    \item We have a fully faithful embedding $ \iota_\C : \C \to \overline \C $;
+    \item Every object in $ \overline \C $ is a retract of an object in $ \C $.
   \end{itemize}
   Classically, one can show that if two categories $ \D $ and $ \E $ satisfy the three properties above, then we have an adjoint equivalence $ \D \xrightarrow \sim \E $. This uses the axiom of choice to select, for every object in $ \D $ and $ \E $, a retraction from an object in $ \C $.
 
-  There is another construction that yields a category with the properties listed above. An object in this alternative category is a presheaf $ F : P\C $ that is a retract of the Yoneda embedding $ \yo(X) $ of an object $ X : \C $. Because it satisfies the universal property, it is classically equivalent to $ \bar \C $.
+  There is another construction that yields a category with the properties listed above. An object in this alternative category is a presheaf $ F : P\C $ that is a retract of the Yoneda embedding $ \yo(X) $ of an object $ X : \C $. Because it satisfies the universal property, it is classically equivalent to $ \overline \C $.
 \end{remark}
 
 \begin{remark}
@@ -883,7 +883,7 @@ This category is called the \iindex{Karoubi envelope}, the \textit{idempotent co
 There are two different ways to translate the definition at the end of Remark \ref{rem:classical-karoubi-universal} to univalent foundations. We can either interpret the existence of the object $ X $ and the retraction $ (r, s) : F \triangleleft \yo(X) $ as additional \textit{structure} on $ F $, or we can treat it as a \textit{property} and ask for \textit{mere existence} (see Definition \ref{def:mere-existence}) of $ X $, $ r $ and $ s $. This gives rise to two different categories:
 
 \begin{definition}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_envelope'}]\label{def:karoubi'}
-  We define the category $ \tilde \C $ in which every object is a presheaf $ F : P \C $, together with an object $ X : \C $ and a retraction-section pair $ (r, s) : F \triangleleft \yo (X) $. The morphisms from $ (F_1, X_1, r_1, s_1) $ to $ (F_2, X_2, r_2, s_2) $ are just the presheaf morphisms $ f: P\C(F_1, F_2) $. This can be summarized in the following diagram:
+  We define the category $ \widetilde \C $ in which every object is a presheaf $ F : P \C $, together with an object $ X : \C $ and a retraction-section pair $ (r, s) : F \triangleleft \yo (X) $. The morphisms from $ (F_1, X_1, r_1, s_1) $ to $ (F_2, X_2, r_2, s_2) $ are just the presheaf morphisms $ f: P\C(F_1, F_2) $. This can be summarized in the following diagram:
   \begin{center}
     \begin{tikzcd}
       \yo(X_1) \arrow[r, "r_1", bend left] &
@@ -895,7 +895,7 @@ There are two different ways to translate the definition at the end of Remark \r
 \end{definition}
 
 \begin{definition}\label{def:karoubi''}
-  We define the category $ \hat \C $ as the full subcategory of $ P \C $ consisting of objects $ F : P \C $ such that there merely exist an object $ X: \C $ and a retraction-section pair $ (r, s) : F \triangleleft \yo(X) $, summarized in the following diagram:
+  We define the category $ \widehat \C $ as the full subcategory of $ P \C $ consisting of objects $ F : P \C $ such that there merely exist an object $ X: \C $ and a retraction-section pair $ (r, s) : F \triangleleft \yo(X) $, summarized in the following diagram:
   \begin{center}
     \begin{tikzcd}
       \mathit{\yo(X_1)} \arrow[r, "r_1", bend left, dashed] &
@@ -905,11 +905,11 @@ There are two different ways to translate the definition at the end of Remark \r
     \end{tikzcd}
   \end{center}
 \end{definition}
-Because it is a full subcategory of a presheaf category (which is univalent), $ \hat \C $ is univalent.
+Because it is a full subcategory of a presheaf category (which is univalent), $ \widehat \C $ is univalent.
 
-Now classically, $ \bar \C $ is equivalent to $ \tilde \C $ or $ \hat \C $. In general, this does not work for $ \hat \C $, but it does work for $ \tilde \C $:
+Now classically, $ \overline \C $ is equivalent to $ \widetilde \C $ or $ \widehat \C $. In general, this does not work for $ \widehat \C $, but it does work for $ \widetilde \C $:
 \begin{lemma}[\coqident{AlgebraicTheories.FundamentalTheorem.CommonUtilities.KaroubiEnvelope}{karoubi_equivalence}]\label{lem:karoubi-equivalence}
-  We have an adjoint equivalence $ \overline \C \xrightarrow \sim \tilde \C $.
+  We have an adjoint equivalence $ \overline \C \xrightarrow \sim \widetilde \C $.
 \end{lemma}
 \begin{proof}
   As shown in Remark \ref{rem:retract-coequalizer}, an object $ (X, f) : \overline \C $ is the equalizer of $ \id X $ and $ f $. Therefore, we send it to the equalizer
@@ -921,26 +921,26 @@ Now classically, $ \bar \C $ is equivalent to $ \tilde \C $ or $ \hat \C $. In g
   Note that for $ \yo(f) $, we have $ \yo(f) \cdot \yo(f) = \yo(f) \cdot \id{\yo(X)} $, so the universal property of the equalizer gives a morphism $ r: P\C(\yo(X), F) $ such that $ r \cdot s = \yo(f) $. Using this same universal property, we can show that $ s \cdot r = \id F $.
   We send a morphism $ g: \overline \C((X_1, f_1), (X_2, f_2)) $ to
   \[ s_1 \cdot \yo(g) \cdot r_2 : P\C(F_1, F_2). \]
-  Note that this is an equivalence on the morphisms: For any morphism $ \bar g : P\C(F_1, F_2) $, we have
-  \[ r_1 \cdot \bar g \cdot s_2 : P\C(\yo(X_1), \yo(X_2)). \]
+  Note that this is an equivalence on the morphisms: For any morphism $ \overline g : P\C(F_1, F_2) $, we have
+  \[ r_1 \cdot \overline g \cdot s_2 : P\C(\yo(X_1), \yo(X_2)). \]
   By the fully faithfulness of the Yoneda lemma, this corresponds to a morphism $ g : \C(X_1, X_2) $ and we can show that these two maps between $ \C((X_1, f_1), (X_2, f_2)) $ and $ \overline \C(F_1, F_2) $ are inverses of each other.
   \begin{center}
     \begin{tikzcd}
-      F_1 \arrow[r, shift left, "s_1"] \arrow[d, "\bar g"] & \yo(X_1) \arrow[l, shift left, "r_1"] \arrow[r, shift left, "\id{\yo(X_1)}"] \arrow[r, shift right, "\yo(f_1)"'] \arrow[d, "\yo(g)"] & \yo(X_1)\\
+      F_1 \arrow[r, shift left, "s_1"] \arrow[d, "\overline g"] & \yo(X_1) \arrow[l, shift left, "r_1"] \arrow[r, shift left, "\id{\yo(X_1)}"] \arrow[r, shift right, "\yo(f_1)"'] \arrow[d, "\yo(g)"] & \yo(X_1)\\
       F_2 \arrow[r, shift left, "s_2"] & \yo(X_2) \arrow[l, shift left, "r_2"] \arrow[r, shift left, "\id{\yo(X_2)}"] \arrow[r, shift right, "\yo(f_2)"'] & \yo(X_2)\\
     \end{tikzcd}
   \end{center}
 
-  Now, note that this map is also split essentially surjective. For some $ (F, X, r, s) : \tilde \C $, $ r \cdot s $ is an idempotent morphism on $ \yo(X) $, and by fully faithfulness of the Yoneda Lemma, it corresponds to an idempotent morphism $ f $ on $ X $. We send $ (F, X, r, s) $ to $ (X, f) $. Note that both $ F $ and the image of $ (X, f) $ are equalizers of $ \id{\yo(X)} $ and $ r \cdot s $, so they are isomorphic.
+  Now, note that this map is also split essentially surjective. For some $ (F, X, r, s) : \widetilde \C $, $ r \cdot s $ is an idempotent morphism on $ \yo(X) $, and by fully faithfulness of the Yoneda Lemma, it corresponds to an idempotent morphism $ f $ on $ X $. We send $ (F, X, r, s) $ to $ (X, f) $. Note that both $ F $ and the image of $ (X, f) $ are equalizers of $ \id{\yo(X)} $ and $ r \cdot s $, so they are isomorphic.
 
   The fact that a fully faithful and split essentially surjective functor is an adjoint equivalence concludes the proof.
 \end{proof}
 
 \begin{remark}
-  Note that since the morphism types of $ \tilde \C $ and $ \hat \C $ are the same, and since the objects of $ \hat \C $ are just truncated versions of the objects in $ \tilde \C $, we have a fully faithful embedding
-  \[ \tilde \C \hookrightarrow \hat \C, \]
-  which just forgets the choices for $ X $, $ r $ and $ s $ on the objects. Note that this is also essentially surjective: by definition, for any $ (F, H) : \hat \C $, there merely exist $ X $, $ r $ and $ s $ such that $ (X, r, s) $ truncates to $ H $.
-  Therefore, we have a weak equivalence from $ \tilde \C $ to $ \hat \C $. However, as we will see, $ \tilde \C $ is usually not univalent, so this does not give an adjoint equivalence of categories.
+  Note that since the morphism types of $ \widetilde \C $ and $ \widehat \C $ are the same, and since the objects of $ \widehat \C $ are just truncated versions of the objects in $ \widetilde \C $, we have a fully faithful embedding
+  \[ \widetilde \C \hookrightarrow \widehat \C, \]
+  which just forgets the choices for $ X $, $ r $ and $ s $ on the objects. Note that this is also essentially surjective: by definition, for any $ (F, H) : \widehat \C $, there merely exist $ X $, $ r $ and $ s $ such that $ (X, r, s) $ truncates to $ H $.
+  Therefore, we have a weak equivalence from $ \widetilde \C $ to $ \widehat \C $. However, as we will see, $ \widetilde \C $ is usually not univalent, so this does not give an adjoint equivalence of categories.
 \end{remark}
 
 This all leads up to:
@@ -948,10 +948,10 @@ This all leads up to:
   We have three candidates for the category of retracts, which are related to each other and to $ \C $ and $ P\C $ as follows:
   \begin{center}
     \begin{tikzcd}
-      \C \arrow[r, hook, "\iota_\C"] & \overline \C \arrow[r, "\sim"] & \tilde \C \arrow[r, hook, two heads] & \hat \C \arrow[r, phantom, "\subseteq"] & P\C
+      \C \arrow[r, hook, "\iota_\C"] & \overline \C \arrow[r, "\sim"] & \widetilde \C \arrow[r, hook, two heads] & \widehat \C \arrow[r, phantom, "\subseteq"] & P\C
     \end{tikzcd}
   \end{center}
-  The fact that $ \hat \C $ is univalent, and has weak equivalences from $ \overline \C $ and $ \tilde \C $ exhibits $ \hat \C $ as the Rezk completion of $ \overline \C $ and $ \tilde \C $.
+  The fact that $ \widehat \C $ is univalent, and has weak equivalences from $ \overline \C $ and $ \widetilde \C $ exhibits $ \widehat \C $ as the Rezk completion of $ \overline \C $ and $ \widetilde \C $.
 \end{corollary}
 
 Even though univalence and the Rezk completion in general will be covered in Section \ref{sec:univalence-principle}, we will study univalence of the Karoubi envelope here:
@@ -985,12 +985,12 @@ Even though univalence and the Rezk completion in general will be covered in Sec
   $ c $ is also an automorphism of $ b $. Therefore, $ \overline \C_M $ is not univalent and $ \overline \C $ is usually more pathological than $ \C $ itself.
 \end{remark}
 
-We will also briefly study the identity types of $ \tilde \C $.
+We will also briefly study the identity types of $ \widetilde \C $.
 \begin{lemma}\label{lem:isaset-karoubi'}
-  If $ \C $ is a setcategory, $ \tilde \C $ is a setcategory as well.
+  If $ \C $ is a setcategory, $ \widetilde \C $ is a setcategory as well.
 \end{lemma}
 \begin{proof}
-  Take $ P = (F_1, X_1, r_1, s_1) $ and $ Q = (F_2, X_2, r_2, s_2) $ as objects of $ \tilde \C $. The identity type $ P = Q $ is equivalent to
+  Take $ P = (F_1, X_1, r_1, s_1) $ and $ Q = (F_2, X_2, r_2, s_2) $ as objects of $ \widetilde \C $. The identity type $ P = Q $ is equivalent to
   \[ \prod_{f : F_1 = F_2} \prod_{g: X_1 = X_2} r_1 \cdot \mathrm{idtoiso}(f) = \yo(\mathrm{idtoiso}(g)) \cdot r_2 \land s_1 \cdot \yo(\mathrm{idtoiso}(g)) = \mathrm{idtoiso}(f) \cdot s_2. \]
   \begin{center}
     \begin{tikzcd}
@@ -1000,18 +1000,18 @@ We will also briefly study the identity types of $ \tilde \C $.
   \end{center}
   Since $ P \C $ is univalent,
   \[ f = \mathrm{isotoid}(\mathrm{idtoiso}(f)) = \mathrm{isotoid}(s_1 \cdot \yo(\mathrm{idtoiso}(g)) \cdot r_2). \]
-  Since morphisms in $ \C $ form a set, the identities on the $ r_i $ and $ s_i $ are mere propositions, and the only `structure' of the identity type is the equality $ X_1 = X_2 $. Therefore, if $ \C $ is a setcategory, $ \tilde \C $ is a setcategory as well.
+  Since morphisms in $ \C $ form a set, the identities on the $ r_i $ and $ s_i $ are mere propositions, and the only `structure' of the identity type is the equality $ X_1 = X_2 $. Therefore, if $ \C $ is a setcategory, $ \widetilde \C $ is a setcategory as well.
 \end{proof}
-Since $ \tilde \C $ has the same isomorphisms as $ \bar \C $, $ \tilde \C_M $ is not univalent for $ M $ as in Remark \ref{rem:karoubi-not-univalent}.
+Since $ \widetilde \C $ has the same isomorphisms as $ \overline \C $, $ \widetilde \C_M $ is not univalent for $ M $ as in Remark \ref{rem:karoubi-not-univalent}.
 
 \begin{remark}\label{rem:karoubi-candidate-choice}
-  As mentioned in Remark \ref{rem:classical-karoubi-universal}, in univalent foundations, there are two different Karoubi envelopes: one that is a setcategory and one that is univalent. As we have seen above, if $ \C $ is a setcategory, both $ \bar \C $ and $ \tilde \C $ are setcategories, so they are the Karoubi envelopes in the theory of setcategories. Also, since $ \hat \C $ is univalent, it is the Karoubi envelope in the theory of univalent categories.
+  As mentioned in Remark \ref{rem:classical-karoubi-universal}, in univalent foundations, there are two different Karoubi envelopes: one that is a setcategory and one that is univalent. As we have seen above, if $ \C $ is a setcategory, both $ \overline \C $ and $ \widetilde \C $ are setcategories, so they are the Karoubi envelopes in the theory of setcategories. Also, since $ \widehat \C $ is univalent, it is the Karoubi envelope in the theory of univalent categories.
 
-  As mentioned before, in univalent foundations $ \hat \C $ is usually not equivalent to $ \bar \C $ and $ \tilde \C $ (Corollary \ref{cor:karoubi-candidates}), because they are the answer to different questions. In practice, we need to be careful which definition we choose, because this choice has consequences.
+  As mentioned before, in univalent foundations $ \widehat \C $ is usually not equivalent to $ \overline \C $ and $ \widetilde \C $ (Corollary \ref{cor:karoubi-candidates}), because they are the answer to different questions. In practice, we need to be careful which definition we choose, because this choice has consequences.
 
-  On one hand, $ \hat \C $ is univalent, but very abstract. In this category, there are classical constructions that we cannot do, because for every object, we only have mere existence of an idempotent morphism, and because the objects of $ \hat \C $ do not form a set, we cannot use the axiom of choice to pick an idempotent morphism.
+  On one hand, $ \widehat \C $ is univalent, but very abstract. In this category, there are classical constructions that we cannot do, because for every object, we only have mere existence of an idempotent morphism, and because the objects of $ \widehat \C $ do not form a set, we cannot use the axiom of choice to pick an idempotent morphism.
 
-  On the other hand, $ \overline \C $ and $ \tilde \C $ are very elementary and concrete, which sometimes helps when doing constructions. However, they are not univalent, which makes working with them complicated in a different way.
+  On the other hand, $ \overline \C $ and $ \widetilde \C $ are very elementary and concrete, which sometimes helps when doing constructions. However, they are not univalent, which makes working with them complicated in a different way.
 \end{remark}
 
 The remainder of this section works towards the adjoint equivalence between $ P\C $ and $ P \overline \C $.

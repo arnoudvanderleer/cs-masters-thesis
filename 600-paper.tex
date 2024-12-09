@@ -13,19 +13,19 @@ Now, Scott's representation theorem, which asks whether we can represent any $ \
   Any $ \lambda $-theory $ L $ is isomorphic to the endomorphism $ \lambda $-theory $ E_{\Pshf L}(L) $, with $ L $ viewed as a presheaf.
 \end{theorem}
 \begin{proof}
-  First of all, remember that $ L $ is indeed exponentiable and that $ L^L = A(L, 1) $.
+  First of all, remember that $ L $ is indeed exponentiable and that $ L^L = A(L, 1) $ (Lemma \ref{lem:plus-p-presheaf}).
   Now, since $ L $ is a $ \lambda $-theory, we have sequences of functions back and forth $ \lambda_n: A(L, 1)_n \to L_n $ and $ \rho_n: L_n \to A(L, 1)_n $. These commute with the $ L $-actions, so they constitute presheaf morphisms and $ E(L) $ is indeed a $ \lambda $-theory.
 
-  Remark \ref{rem:presheaf-Yoneda} gives a sequence of bijections $ \varphi_n : \Pshf L(L^n, L) \cong L_n $ for all $ n $, sending $ F: \Pshf L(L^n, L) $ to $ F(x_1, \dots, x_n) $, and conversely sending $ s: L_n $ to $ ((t_1, \dots, t_n) \mapsto s \bullet (t_1, \dots, t_n)) $. It considers $ \lambda $-terms in $ n $ variables as $ n $-ary functions on the $ \lambda $-calculus. Therefore, it should come as no surprise that $ \varphi $ preserves the $ x_i $, $ \bullet $, $ \rho $ and $ \lambda $, which makes it into an isomorphism of $ \lambda $-theories and this concludes the proof.
+  Remark \ref{rem:presheaf-Yoneda} gives a sequence of bijections $ \varphi_n : \Pshf L(L^n, L) \cong L_n $ for all $ n $, sending $ f: \Pshf L(L^n, L) $ to $ f(x_1, \dots, x_n) $, and conversely sending $ s: L_n $ to $ ((t_1, \dots, t_n) \mapsto s \bullet (t_1, \dots, t_n)) $. It considers $ \lambda $-terms in $ n $ variables as $ n $-ary functions on the $ \lambda $-calculus. Therefore, it should come as no surprise that $ \varphi $ preserves the $ x_i $, $ \bullet $, $ \rho $ and $ \lambda $, which makes it into an isomorphism of $ \lambda $-theories and this concludes the proof.
 \end{proof}
 So Hyland shows that the representation theorem follows largely from the fact that the functions from $ L_n $ to itself can be represented by $ L_{n + 1} $, together with the Yoneda lemma for the Lawvere theory associated to $ L $ (Remark \ref{rem:presheaf-Yoneda}).
 
 This proof is particularly nice, because it does not require $ \beta $- or $ \eta $-equality, but if $ L $ has $ \beta $- or $ \eta $-equality, then we can immediately see (even without the isomorphism from the theorem) that the endomorphism theory also has this property.
 
 \begin{remark}
-  Actually, in this thesis we stumbled upon another category with a reflexive object that exhibits $ L $ as its endomorphism theory, provided that $ L $ has $ \beta $-equality: In Appendix \ref{ch:weak-cartesian-closed-categories}, we see that the Lawvere theory $ C $ associated to $ L $ is a weak cartesian closed category, in which $ 1^1 = 1 $. It is then easy to see that the endomorphism theory that we obtain from this reflexive object $ 1 $ is exactly equal to $ L $.
+  Actually, in this thesis we stumbled upon another category with a reflexive object that exhibits $ L $ as its endomorphism theory, provided that $ L $ has $ \beta $-equality: In Appendix \ref{ch:weak-cartesian-closed-categories}, we see that the Lawvere theory $ \L $ associated to $ L $ is a weak cartesian closed category, in which $ 1^1 = 1 $. It is then easy to see that the endomorphism theory that we obtain from this reflexive object $ 1 $ is exactly equal to $ L $.
 
-  Note, however, that this is technically not an answer to Scott's original theorem, because the original formulation asks for a cartesian closed category with a reflexive object, whereas here we only have a reflexive object in a weak cartesian closed category. Even so, it is an answer to the core of the question, which is about whether we can represent any $ \lambda $-theory as the sets of morphisms $ C(U^n, U) $ for some $ U : C $.
+  Note, however, that this is technically not an answer to Scott's original question, because the original formulation asks for a cartesian closed category with a reflexive object, whereas here we only have a reflexive object in a weak cartesian closed category. Even so, it is an answer to the core of the question, which is about whether we can represent any $ \lambda $-theory as the sets of morphisms $ \C(U^n, U) $ for some $ U : \C $.
 \end{remark}
 
 \section{Relations Between the Categories}\label{sec:hyland-categories}
@@ -39,19 +39,19 @@ which immediately shows that this functor is a fully faithful embedding.
 Note that if we consider $ L_1 $ as a monoid, with operation $ \bullet $ and unit $ x_1 $, and if we consider this monoid as a category, we can embed this (fully faithfully) into $ \mathbf L $. This gives the following sequence of embeddings:
 \begin{center}
   \begin{tikzcd}
-    L_1 \arrow[r, hookrightarrow] & \mathbf L \arrow[r, hookrightarrow] & \R \arrow[r, hookrightarrow] & \Pshf L
+    \C_{L_1} \arrow[r, hookrightarrow] & \mathbf L \arrow[r, hookrightarrow] & \R \arrow[r, hookrightarrow] & \Pshf L
   \end{tikzcd}
 \end{center}
 
-Note that the composition of the first two morphisms sends the object of the category $ L_1 $ to $ (\lambda x_1, x_1) : \R $, which is exactly the usual embedding of $ L_1 $ into its Karoubi envelope.
+Note that the composition of the first two morphisms sends the object of the category $ \C_{L_1} $ to $ (\lambda x_1, x_1) : \R $, which is exactly the usual embedding of $ \C_{L_1} $ into its Karoubi envelope.
 
-Write $ i: \op{L_1} \hookrightarrow \op{\mathbf L} $ and $ j: \op{\mathbf L} \hookrightarrow \op \R $ for the embeddings on the opposite categories. By Corollary \ref{cor:surjective-precomposition}, the first two functors in this sequence essentially yield surjective functors on the presheaf categories:
+Write $ i: \op{\C_{L_1}} \hookrightarrow \op{\mathbf L} $ and $ j: \op{\mathbf L} \hookrightarrow \op \R $ for the embeddings on the opposite categories. By Corollary \ref{cor:surjective-precomposition}, the first two functors in this sequence essentially yield surjective functors on the presheaf categories:
 \begin{center}
   \begin{tikzcd}
-    C_{L_1} \arrow[d, "\yo", hook] &
+    \C_{L_1} \arrow[d, "\yo", hook] &
     \mathbf L \arrow[l, "\op i"'] \arrow[d, "yo", hook] &
     \mathbf R \arrow[rd, hook] \arrow[d, "\yo", hook] \arrow[l, "\op j"']\\
-    P C_{L_1} &
+    P \C_{L_1} &
     P \mathbf L \arrow[l, "i_*"', two heads] &
     P \R \arrow[l, "j_*"', two heads] \arrow[ll, "\sim"', bend left] &
     \Pshf L \arrow[ll, "\sim", bend left]
@@ -99,36 +99,36 @@ The two equivalences in this diagram are due to Lemma \ref{lem:lawvere-presheaf}
 
 \section{Relative Cartesian Closedness of the Category of Retracts}\label{sec:relatively-cartesian-closed}
 
-Recall that in the last chapter, we saw that Paul Taylor shows that the category of retracts $ \R $, studied by Scott, is not only cartesian closed, but also `relatively cartesian closed'. To make his proof work in univalent foundations, we need the axiom of choice. The category in question is the Karoubi envelope of the category $ C_{L_0} $ associated to the monoid $ (L_0, \circ) $.
+Recall that in the last chapter, we saw that Paul Taylor shows that the category of retracts $ \R $, studied by Scott, is not only cartesian closed, but also `relatively cartesian closed'. The proof uses the axiom of choice, and works for the setcategory version of the Karoubi envelope $ \overline{\C_{L_0}} $. Here, $ \C_{L_0} $ is the category associated to the monoid $ (L_0, \circ) $.
 
-Now, recall from Chapter \ref{ch:category-theory}, that in univalent foundations there are three different definitions that we can take for the Karoubi envelope, denoted $ \overline C_{L_0} $, $ \tilde C_{L_0} $ and $ \hat C_{L_0} $. There is three of them because in classical category theory there are two definitions that are equivalent, and because for one of the definitions we have to choose whether we interpret the `existence' of a retraction as additional structure (the retraction is given explicitly) or as a property (where we demand `mere existence'). This gives the following diagram (Corollary \ref{cor:karoubi-candidates}):
+Now, recall from Chapter \ref{ch:category-theory}, that in univalent foundations there are three different definitions that we can take for the Karoubi envelope, denoted $ \overline \C_{L_0} $, $ \widetilde \C_{L_0} $ and $ \widehat \C_{L_0} $. There is three of them because in classical category theory there are two definitions that are equivalent, and because for one of the definitions we have to choose whether we interpret the `existence' of a retraction as additional structure (the retraction is given explicitly) or as a property (where we demand `mere existence'). This gives the following diagram (Corollary \ref{cor:karoubi-candidates}):
 \begin{center}
   \begin{tikzcd}
-    C \arrow[r, hook, "\iota_C"] & \overline C \arrow[r, "\sim"] & \tilde C \arrow[r, hook, two heads] & \hat C \arrow[r, phantom, "\subseteq"] & PC
+    \C_{L_0} \arrow[r, hook, "\iota_C"] & \overline \C_{L_0} \arrow[r, "\sim"] & \widetilde \C_{L_0} \arrow[r, hook, two heads] & \widehat \C_{L_0} \arrow[r, phantom, "\subseteq"] & P \C
   \end{tikzcd}
 \end{center}
-where $ \overline C_{L_0} $ and $ \tilde C_{L_0} $ are equivalent to each other, but usually not to $ \hat C_{L_0} $. We saw that $ \hat C_{L_0} $ is the Rezk completion of $ \overline C_{L_0} $ and $ \tilde C_{L_0} $.
+where $ \overline \C_{L_0} $ and $ \widetilde \C_{L_0} $ are equivalent to each other, but usually not to $ \widehat \C_{L_0} $. We saw that $ \widehat \C_{L_0} $ is the Rezk completion of $ \overline \C_{L_0} $ and $ \widetilde \C_{L_0} $.
 
 This is a fine example of a situation where notions that are equivalent in classical mathematics actually diverge in univalent foundations. We might say that this is annoying, because we have to be more careful which definition we pick. On the other hand, this gives `more detail' in some sense: it is interesting to study which proofs work in which context, and this tells us something about the nature of the proofs.
 
-The proofs of Scott and Taylor are about $ \overline C_{L_0} $, because they work explicitly with idempotents. The question whether it is possible to lift the proofs to $ \tilde C_{L_0} $ or $ \hat C_{L_0} $, is left for future research. On the other hand, as we will see, Hyland works with presheaves and in this way, he shows that $ \hat C_{L_0} $ is relatively cartesian closed.
+The proofs of Scott and Taylor are about $ \overline \C_{L_0} $, because they work explicitly with idempotents. The question whether it is possible to lift the proofs to $ \widetilde \C_{L_0} $ or $ \widehat \C_{L_0} $, is left for future research. On the other hand, as we will see, Hyland works with presheaves and in this way, he shows that $ \widehat \C_{L_0} $ is relatively cartesian closed.
 
-Recall that in this thesis, we use the notation $ \Delta_X $ for the functor $ C \to (C \downarrow X) $, sending $ Y $ to $ p_1 : X \times Y \to X $. Also, we use the notation $ X \triangleleft Y $ to denote the type of retraction-section pairs $ r: Y \to X $ and $ s: X \to Y $. We will sometimes not name $ (r, s) : X \triangleleft Y $ explicitly, but just mention that we have $ X \triangleleft Y $, meaning that we have such $ r $ and $ s $.
+Recall that in this thesis, we use the notation $ \Delta_X $ for the functor $ \C \to (\C \downarrow X) $, sending $ Y $ to $ p_1 : X \times Y \to X $. Also, we use the notation $ X \triangleleft Y $ to denote the type of retraction-section pairs $ r: Y \to X $ and $ s: X \to Y $. We will sometimes not name $ (r, s) : X \triangleleft Y $ explicitly, but just mention that we have $ X \triangleleft Y $, meaning that we have such $ r $ and $ s $.
 
-Now, officially, $ \hat C_{L_0} $ is the full subcategory of $ P C_{L_0} $, consisting of all objects $ X : P C_{L_0} $ such that there merely exists $ X \triangleleft \yo(\star) $. However, recall from the previous section that $ P C_{L_0} \simeq P C_{L_1} \simeq \Pshf L $. Under this equivalence, $ \yo(\star) $ is embedded as the theory presheaf $ L $, and we will work in the full subcategory $ \hat \R \subseteq \Pshf L $ of the objects $ X : \Pshf L $ such that there merely exists $ X \triangleleft L $. Of course, then $ \hat \R $ is equivalent to $ \hat C_{L_0} $.
+Now, officially, $ \widehat \C_{L_0} $ is the full subcategory of $ P \C_{L_0} $, consisting of all objects $ X : P \C_{L_0} $ such that there merely exists $ X \triangleleft \yo(\star) $. However, recall from the previous section that $ P \C_{L_0} \simeq P \C_{L_1} \simeq \Pshf L $. Under this equivalence, $ \yo(\star) $ is embedded as the theory presheaf $ L $, and we will work in the full subcategory $ \widehat \R \subseteq \Pshf L $ of the objects $ X : \Pshf L $ such that there merely exists $ X \triangleleft L $. Of course, then $ \widehat \R $ is equivalent to $ \widehat \C_{L_0} $.
 
 \begin{remark}
   There are a couple of tricks that we will use in this section. First of all, note that retractions can be composed. That is, given $ (r, s) : X \triangleleft Y $ and $ (r^\prime, s^\prime) : Y \triangleleft Z $, we have
   \[ (r^\prime \cdot r, s \cdot s^\prime) : X \triangleleft Z. \]
   Therefore, if we need to show that $ X $ is a retract of $ Z $, and we know that $ X $ is a retract of $ Y $, it remains to show that $ Y $ is a retract of $ Z $.
 
-  Also, functors preserve retractions, so if we have a functor $ F : C \to D $ and we have $ (r, s) : X \triangleleft Y $, then we have
+  Also, functors preserve retractions, so if we have a functor $ F : \C \to \D $ and we have $ (r, s) : X \triangleleft Y $, then we have
   \[ (F(r), F(s)) : F(X) \triangleleft F(Y). \]
 
-  Lastly, if we want to show that we can do some construction on some $ X : \hat \R $, we can often borrow the construction from $ \Pshf L $ to get some object $ Y : \Pshf L $. For this part, we cannot use the $ (r, s) : X \triangleleft L $. To show that $ Y $ is indeed in $ \hat \R $, we must show that there merely exist $ (r^\prime, s^\prime) : Y \triangleleft L $. By the recursion principle of the propositional truncation, we can assume that we have a concrete $ (r, s) : X \triangleleft L $ to construct $ r^\prime $ and $ s^\prime $.
+  Lastly, if we want to show that we can do some construction on some $ X : \widehat \R $, we can often borrow the construction from $ \Pshf L $ to get some object $ Y : \Pshf L $ and for this part, we cannot use the $ (r, s) : X \triangleleft L $. Then, to show that $ Y $ is indeed in $ \widehat \R $, we must show that there merely exist $ (r^\prime, s^\prime) : Y \triangleleft L $. By the recursion principle of the propositional truncation, we can assume that we have a concrete $ (r, s) : X \triangleleft L $ to construct $ r^\prime $ and $ s^\prime $.
 \end{remark}
 
-Recall that Paul Taylor's display maps for $ \R $ can be characterized as the retracts of $ \Delta_X U $ (the projection $ p_1: X \times U \to X $) in $ (\R \downarrow X) $. This idea also works for $ \hat \R $, and Hyland defines $ D(Y, X) \subseteq \hat \R(Y, X) $ to consist of the retracts of $ \Delta_X L $ in $ (\hat \R \downarrow X) $. Note that, because $ \hat \R $ is a full subcategory of $ \Pshf L $, $ (\hat \R \downarrow X) $ is equivalent to $ (\Pshf L \downarrow X) $ for $ X : \hat \R $.
+Recall that Paul Taylor's display maps for $ \R $ can be characterized as the retracts of $ \Delta_X U $ in $ (\R \downarrow X) $. This idea also works for $ \widehat \R $, and Hyland defines $ D(Y, X) \subseteq \widehat \R(Y, X) $ to consist of the retracts of $ \Delta_X L $ in $ (\widehat \R \downarrow X) $. Note that, because $ \widehat \R $ is a full subcategory of $ \Pshf L $, $ (\widehat \R \downarrow X) $ is equivalent to $ (\Pshf L \downarrow X) $ for $ X : \widehat \R $.
 
 \begin{remark}
   Again, being a retract of $ \Delta_X L $ is usually not a mere proposition. For example, consider the ways in which $ \Delta_X L $ is a retract of itself:
@@ -144,22 +144,22 @@ Recall that Paul Taylor's display maps for $ \R $ can be characterized as the re
   \[ f = g = \id L \quad \text{or} \quad f_n(t) = t (\lambda x_{n + 1}, x_{n + 1}), \quad g_n(t) = \lambda x_{n + 1}, \iota_{n, 1}(t), \]
   and these options are distinct if $ L $ is nontrivial.
 
-  Therefore, if we want $ D(Y, X) $ to be a subset of $ \hat \R(Y, X) $, we need to take the propositional truncation of the existence of $ r $ and $ s $.
+  Therefore, if we want $ D(Y, X) $ to be a subset of $ \widehat \R(Y, X) $, we need to take the propositional truncation of the existence of $ r $ and $ s $.
 \end{remark}
 
 \begin{remark}
-  Recall that for all $ X : \R $, we have $ X \triangleleft U = \lambda x_1, x_1 $, so by the above, for all $ Y $ in the image of the embedding of $ \R $ into $ \Pshf L $, we have $ Y \triangleleft L $. In particular, $ Y $ is in $ \hat \R $. Actually, we already knew this, because this essentially describes the embedding of $ \R $ into its Rezk completion $ \hat \R $.
+  Recall that for all $ X : \R $, we have $ X \triangleleft U $, where $ U = \lambda x_1, x_1 $, so by the above, for all $ Y $ in the image of the embedding of $ \R $ into $ \Pshf L $, we have $ Y \triangleleft L $. In particular, $ Y $ is in $ \widehat \R $. Actually, we already knew this, because this essentially describes the embedding of $ \R $ into its Rezk completion $ \widehat \R $.
 
   An important example is $ U \times U : \R $, which maps to something isomorphic to $ L \times L $ (because the Yoneda embedding and any adjoint equivalence preserves limits). The retraction $ (r, s) : L \times L \triangleleft L $ is given explicitly by the (pairing and splitting) morphisms
   \[ s_n(a, b) = \lambda x_{n + 1}, x_{n + 1} a b \quad \text{and} \quad r_n(a) = (a (\lambda x_{n + 1} x_{n + 2}, x_{n + 1}), a (\lambda x_{n + 1} x_{n + 2}, x_{n + 2})). \]
   Now, for any $ X, Y : \Pshf L $ and $ f : \Pshf L(Y, X) $, if we have $ (Y, f) \triangleleft \Delta_X L $ in $ \Pshf L $, we have in particular $ Y \triangleleft X \times L $. If we also have $ X \triangleleft L $, we also have $ X \times L \triangleleft L \times L $ because $ - \times L $ is a functor. Then we have
   \[ Y \triangleleft X \times L \triangleleft L \times L \triangleleft L. \]
-  In particular, for any $ X : \hat \R $, if some $ (Y, f) : (\Pshf L \downarrow X) $ is a retract of $ \Delta_X L $, we know that $ Y $ is in $ \hat \R $.
+  In particular, for any $ X : \widehat \R $, if some $ (Y, f) : (\Pshf L \downarrow X) $ is a retract of $ \Delta_X L $, we know that $ Y $ is in $ \widehat \R $.
 \end{remark}
 
-Note that $ D $ is indeed a class of display maps:
+Now we can show that $ D $ is indeed a class of display maps:
 \begin{enumerate}
-  \item Take $ f : D(Y, X) $ and $ g: \hat \R(Z, X) $. We can borrow the pullback from $ \Pshf L $ to get $ g^*(Y, f) : (\Pshf L \downarrow Z) $. We now must show that there merely exists $ g^* (Y, f) \triangleleft \Delta_Z L $ and in this part, we can assume that the mere existences of retractions are actually given by concrete retraction-section pairs.
+  \item Take $ f : D(Y, X) $ and $ g: \widehat \R(Z, X) $. We can borrow the pullback from $ \Pshf L $ to get $ g^*(Y, f) : (\Pshf L \downarrow Z) $. We now must show that there merely exists $ g^* (Y, f) \triangleleft \Delta_Z L $ and in this part, we can assume that the mere existences of retractions are actually given by concrete retraction-section pairs.
 
     Now, note that taking pullbacks gives a functor $ g^* : (\Pshf L \downarrow X) \to (\Pshf L \downarrow Z) $. Now, $ (Y, f) \triangleleft \Delta_X L $, gives $ (g^*Y, g^*f) \triangleleft g^*(\Delta_X L) $:
     \begin{center}
@@ -183,9 +183,9 @@ Note that $ D $ is indeed a class of display maps:
         X &
       \end{tikzcd}
     \end{center}
-    The isomorphism between $ g^*(\Delta_X L) $ and $ \Delta_Z L $ (Remark \ref{rem:pullback-of-projection}) shows that we have $ (g^*Y, g^*f) \triangleleft \Delta_Z L $. From this, it also follows that $ g^* Y $ is in $ \hat \R $.
+    The isomorphism between $ g^*(\Delta_X L) $ and $ \Delta_Z L $ (Remark \ref{rem:pullback-of-projection}) shows that we have $ (g^*Y, g^*f) \triangleleft \Delta_Z L $. From this, it also follows that $ g^* Y $ is in $ \widehat \R $.
 
-    Now, $ g^*Y $ is the pullback of $ f $ and $ g $ in $ \Pshf L $, and $ \hat \R $ is a full subcategory of $ \Pshf L $, so $ g^* Y $ is also the pullback of $ f $ and $ g $ in $ \hat \R $.
+    Now, $ g^*Y $ is the pullback of $ f $ and $ g $ in $ \Pshf L $, and $ \widehat \R $ is a full subcategory of $ \Pshf L $, so $ g^* Y $ is also the pullback of $ f $ and $ g $ in $ \widehat \R $.
 
   \item Take $ f: D(Z, Y) $ and $ g: D(Y, X) $. We have to show that there merely exists $ (Z, f \cdot g) \triangleleft \Delta_X L $. Because this is a proposition, we can assume that we have
   \[ (r_Z, s_Z) : (Z, f) \triangleleft \Delta_Y L \quad \text{and} \quad (r_Y, s_Y) : (Y, g) \triangleleft \Delta_X L. \]
@@ -212,7 +212,7 @@ Note that $ D $ is indeed a class of display maps:
     %   &= f \cdot g\\
     % \end{align*}
 
-  \item Note that $ \Pshf L $ has a terminal presheaf $ I_n = \{ \star \} $. Under the embedding of $ \R $ into $ \Pshf L $, this is (isomorphic to) the image of $ \lambda x_1 x_2, x_2 : \R $, and therefore, it is in $ \hat \R $. Now, given $ Y : \hat \R $, we need to show that the terminal projection $ ! $ is in $ D(Y, I) $. Note that any morphism trivially commutes with the terminal projections. Since $ Y : \hat \R $, we have $ (r, s) : Y \triangleleft L $, and since $ L \cong I \times L $, this means that the terminal projection is indeed in $ D(Y, I) $:
+  \item Note that $ \Pshf L $ has a terminal presheaf $ I_n = \{ \star \} $. Under the embedding of $ \R $ into $ \Pshf L $, this is (isomorphic to) the image of $ \lambda x_1 x_2, x_2 : \R $, and therefore, it is in $ \widehat \R $. Now, given $ Y : \widehat \R $, we need to show that the terminal projection $ ! $ is in $ D(Y, I) $. Note that any morphism trivially commutes with the terminal projections. Since $ Y : \widehat \R $, we have $ (r, s) : Y \triangleleft L $, and since $ L \cong I \times L $, this means that the terminal projection is indeed in $ D(Y, I) $:
     \begin{center}
       \begin{tikzcd}
         Y \arrow[rd, "!"'] \arrow[r, shift left, "s"] & L \arrow[d, "!"] \arrow[l, shift left, "r"] \arrow[r, "\sim"] & I \times L \arrow[ld, "!"]\\
@@ -232,10 +232,10 @@ Recall that $ \Pshf L $ is isomorphic to the presheaf category $ P \mathbf L $, 
 
 Now, Hyland shows the following:
 \begin{theorem}\label{thm:restrict-sum-product}
-  For $ f : D(Y, X) $, we can restrict $ \sum_f $ and $ \prod_f $ to functors from $ (\hat \R \downarrow_D Y) $ to $ (\hat \R \downarrow_D X) $.
+  For $ f : D(Y, X) $, we can restrict $ \sum_f $ and $ \prod_f $ to functors from $ (\widehat \R \downarrow_D Y) $ to $ (\widehat \R \downarrow_D X) $.
 \end{theorem}
 \begin{proof}
-  Given $ (Z, g) : (\Pshf L \downarrow Y) $, for $ \prod_F $ we only have to show that if we have $ (Z, g) \triangleleft \Delta_Y L $, then we have $ \prod_f(Z, g) \triangleleft \Delta_X L $. Note that since $ X $ is in $ \hat \R $, this also shows that $ \prod_f Z $ is in $ \hat \R $. Because functors preserve retractions, it suffices to show that we have $ \prod_f \Delta_Y L \triangleleft \Delta_X L $.
+  Given $ (Z, g) : (\Pshf L \downarrow Y) $, for $ \prod_F $ we only have to show that if we have $ (Z, g) \triangleleft \Delta_Y L $, then we have $ \prod_f(Z, g) \triangleleft \Delta_X L $. Note that since $ X $ is in $ \widehat \R $, this also shows that $ \prod_f Z $ is in $ \widehat \R $. Because functors preserve retractions, it suffices to show that we have $ \prod_f \Delta_Y L \triangleleft \Delta_X L $.
 
   Since $ f : D(Y, X) $, we have a retraction
   \begin{center}
@@ -272,7 +272,7 @@ Now, Hyland shows the following:
       \prod_f \Delta_Y L
     \end{tikzcd}
   \end{center}
-  So it suffices to show that $ \prod_{p_1} \Delta_{X \times L} L $ is a retract of $ \Delta_X L $. By Lemma \ref{lem:constant-dependent-product}, we have $ \prod_{p_1} \Delta_{X \times L} L \cong \Delta_X L^L $. By functoriality of $ \Delta_X $, it suffices to show that $ L^L $ is a retract of $ L $. But we already saw in Theorem \ref{thm:representation-theorem} that $ L^L \cong A(L, 1) $ is a retract of $ L $. This shows that $ \prod_f $ indeed restricts to a functor from $ (\hat \R \downarrow_D Y) $ to $ (\hat \R \downarrow_D X) $.
+  So it suffices to show that $ \prod_{p_1} \Delta_{X \times L} L $ is a retract of $ \Delta_X L $. By Lemma \ref{lem:constant-dependent-product}, we have $ \prod_{p_1} \Delta_{X \times L} L \cong \Delta_X L^L $. By functoriality of $ \Delta_X $, it suffices to show that $ L^L $ is a retract of $ L $. But we already saw in Theorem \ref{thm:representation-theorem} that $ L^L \cong A(L, 1) $ is a retract of $ L $. This shows that $ \prod_f $ indeed restricts to a functor from $ (\widehat \R \downarrow_D Y) $ to $ (\widehat \R \downarrow_D X) $.
 
   The proof for $ \sum_f $ is very similar. $ \sum_f \Delta_Y L $ is a retract of $ \sum_{p_1} \Delta_{X \times L} L $:
   \begin{center}
@@ -290,11 +290,11 @@ Now, Hyland shows the following:
       \sum_f \Delta_Y L
     \end{tikzcd}
   \end{center}
-  By Lemma \ref{lem:sum-postcomposition}, the functor $ \sum_{p_1} $ is given by postcomposition, so $ \sum_{p_1} \Delta_{X \times L} L \cong \Delta_X (L \times L) $. As we saw earlier, we have $ L \triangleleft L \times L $, which completes the proof that $ \sum_f $ restricts to a functor from $ (\hat \R \downarrow_D Y) $ to $ (\hat \R \downarrow_D X) $.
+  By Lemma \ref{lem:sum-postcomposition}, the functor $ \sum_{p_1} $ is given by postcomposition, so $ \sum_{p_1} \Delta_{X \times L} L \cong \Delta_X (L \times L) $. As we saw earlier, we have $ L \triangleleft L \times L $, which completes the proof that $ \sum_f $ restricts to a functor from $ (\widehat \R \downarrow_D Y) $ to $ (\widehat \R \downarrow_D X) $.
 \end{proof}
 
 \begin{corollary}\label{cor:relatively-cartesian-closed}
-  Since the $ (\hat \R \downarrow_D X) $ are full subcategories of the $ (\Pshf L \downarrow X) $, so we can restrict the adjunction $ f^* \dashv \prod_f $ to an adjunction $ \bar f^* \dashv \bar \prod_f $ between $ (\hat \R \downarrow_D X) $ and $ (\hat \R \downarrow_D Y) $, which shows that $ \hat \R $ is cartesian closed relative to the class $ D $ of display maps.
+  Since the $ (\widehat \R \downarrow_D X) $ are full subcategories of the $ (\Pshf L \downarrow X) $, so we can restrict the adjunction $ f^* \dashv \prod_f $ to an adjunction $ \overline f^* \dashv \overline \prod_f $ between $ (\widehat \R \downarrow_D X) $ and $ (\widehat \R \downarrow_D Y) $, which shows that $ \widehat \R $ is cartesian closed relative to the class $ D $ of display maps.
 \end{corollary}
 
 \begin{remark}
@@ -302,11 +302,11 @@ Now, Hyland shows the following:
 \end{remark}
 
 \begin{remark}\label{rem:difference-Taylor-Hyland}
-  Recall that to make sure that $ D(Y, X) $ is a subset of $ \hat \R(Y, X) $, we had no choice but to take the propositional truncation of the $ (Y, f) \triangleleft \Delta_X L $. Coincidentally, for $ \hat \R $ we also took the propositional truncation of the $ X \triangleleft L $.
+  Recall that to make sure that $ D(Y, X) $ is a subset of $ \widehat \R(Y, X) $, we had no choice but to take the propositional truncation of the $ (Y, f) \triangleleft \Delta_X L $. Coincidentally, for $ \widehat \R $ we also took the propositional truncation of the $ X \triangleleft L $.
 
   In the proofs that $ D $ is a class of display maps, and that we can restrict $ \prod_f $, this worked out great. A couple of times, we first did a construction on the presheaves, ignoring the mere existence of the retractions, and then we showed mere existence of one or two retractions, for which we were allowed to assume that we actually had concrete retractions from $ L $ or $ \Delta_X L $.
 
-  Therefore, this only works in $ \hat \R \simeq \hat C_{L_0} $. Suppose that we tried to do this in $ \tilde \R = \tilde C_{L_0} $. Note that this category is equivalent to the category with as objects $ X : \Pshf L $, together with some $ (r, s) : X \triangleleft L $. Trying to define the pullback functor would already cause problems. To define a pullback, we would need to explicitly construct some retraction $ g^* Y \triangleleft L $, for which we would need a retraction $ Z \triangleleft L $. However, we have only mere existence of the latter, so we would only be able to show mere existence of pullbacks, like in Taylor's proof. For $ \R $, we would be able to use the adjoint equivalence between $ \R $ and $ \tilde \R $ to apply Hyland's reasoning with presheaves to $ \R $. Since $ C_{L_0} $ is a setcategory, $ \R $ and $ \tilde \R $ are also setcategories (Lemma \ref{lem:isaset-karoubi'}), so we can use the axiom of choice to show the existence of a pullback functor. However, this approach still gives only mere existence.
+  Therefore, this only works in $ \widehat \R \simeq \widehat \C_{L_0} $. Suppose that we tried to do this in $ \widetilde \R = \widetilde \C_{L_0} $. Note that this category is equivalent to the category with as objects $ X : \Pshf L $, together with some $ (r, s) : X \triangleleft L $. Trying to define the pullback functor would already cause problems. To define a pullback, we would need to explicitly construct some retraction $ g^* Y \triangleleft L $, for which we would need a retraction $ Z \triangleleft L $. However, we have only mere existence of the latter, so we would only be able to show mere existence of pullbacks, like in Taylor's proof. For $ \R $, we would be able to use the adjoint equivalence between $ \R $ and $ \widetilde \R $ to apply Hyland's reasoning with presheaves to $ \R $. Since $ \C_{L_0} $ is a setcategory, $ \R $ and $ \widetilde \R $ are also setcategories (Lemma \ref{lem:isaset-karoubi'}), so we can use the axiom of choice to show the existence of a pullback functor. However, this approach still gives only mere existence.
 \end{remark}
 
 \section{An Elementary Proof of the `Fundamental Theorem'}\label{sec:elementary-fundamental-theorem}
@@ -488,11 +488,11 @@ The following shows that `functions in $ n $ variables' are indeed all in $ A_n 
 Recall that we have an equivalence $ [\op{C_{A_1}}, \SET] \simeq \RAct{A_1} $.
 
 \begin{remark}\label{rem:ract-presheaf-equivalence}
-  Note that, like in the last chapter, $ \R_A $ pops up as the Karoubi envelope of the monoid category $ C_{A_1} $, and fits into the following diagram:
+  Note that, like in the last chapter, $ \R_A $ pops up as the Karoubi envelope of the monoid category $ \C_{A_1} $, and fits into the following diagram:
   \begin{center}
     \begin{tikzcd}
-      & C_{A_1} \arrow[d, hookrightarrow, "\yo"] \arrow[r, hookrightarrow, "\iota_{C_{A_1}}"] & \R_A \arrow[d, hookrightarrow, "\yo"]\\
-      \RAct{A_1} & P C_{A_1} \arrow[l, "\sim"] & P \R_A \arrow[l, "\sim"]
+      & \C_{A_1} \arrow[d, hookrightarrow, "\yo"] \arrow[r, hookrightarrow, "\iota_{C_{A_1}}"] & \R_A \arrow[d, hookrightarrow, "\yo"]\\
+      \RAct{A_1} & P \C_{A_1} \arrow[l, "\sim"] & P \R_A \arrow[l, "\sim"]
     \end{tikzcd}
   \end{center}
   Explicitly, this gives the embedding $ \R_A(\mathbf 1_1, -): \R_A \hookrightarrow \RAct{A_1} $ given by
@@ -501,13 +501,13 @@ Recall that we have an equivalence $ [\op{C_{A_1}}, \SET] \simeq \RAct{A_1} $.
   \begin{center}
     \begin{tikzcd}
       &
-      C_{{L_0}_1} \arrow[dd, "\yo" description, near start, hook] \arrow[rrr, "\iota_{C_{{L_0}_1}}" description, hook] \arrow[rd, "\sim" description, no head] & & & \R_{L_0} \arrow[dd, "\yo" description, near start, hook] \arrow[rd, "\sim" description, no head] & & \\
+      \C_{{L_0}_1} \arrow[dd, "\yo" description, near start, hook] \arrow[rrr, "\iota_{C_{{L_0}_1}}" description, hook] \arrow[rd, "\sim" description, no head] & & & \R_{L_0} \arrow[dd, "\yo" description, near start, hook] \arrow[rd, "\sim" description, no head] & & \\
       &
-      & C_{L_1} \arrow[dd, "\yo" description, near start, hook] \arrow[r, hook] & \mathbf L \arrow[rr, hook] \arrow[dd, "\yo" description, near start, hook] & & \mathbf R \arrow[dd, "\yo" description, near start, hook] \arrow[rdd, hook] & \\
+      & \C_{L_1} \arrow[dd, "\yo" description, near start, hook] \arrow[r, hook] & \mathbf L \arrow[rr, hook] \arrow[dd, "\yo" description, near start, hook] & & \mathbf R \arrow[dd, "\yo" description, near start, hook] \arrow[rdd, hook] & \\
       \RAct{{L_0}_1} &
-      P C_{{L_0}_1} \arrow[l, "\sim"'] \arrow[rd, "\sim" description, no head] & & & P \R_{L_0} \arrow[lll, "\sim" description] \arrow[rd, "\sim" description, no head] & & \\
+      P \C_{{L_0}_1} \arrow[l, "\sim"'] \arrow[rd, "\sim" description, no head] & & & P \R_{L_0} \arrow[lll, "\sim" description] \arrow[rd, "\sim" description, no head] & & \\
       &
-      & P C_{L_1} & P \mathbf L \arrow[l, "\sim" description] & & P \R \arrow[ll, "\sim" description] & \Pshf L \arrow[lll, "\sim" description, bend left]
+      & P \C_{L_1} & P \mathbf L \arrow[l, "\sim" description] & & P \R \arrow[ll, "\sim" description] & \Pshf L \arrow[lll, "\sim" description, bend left]
     \end{tikzcd}
   \end{center}
 \end{remark}
@@ -558,11 +558,11 @@ Recall that we have an equivalence $ [\op{C_{A_1}}, \SET] \simeq \RAct{A_1} $.
 
 \subsection{Constructing a Theory Morphism From an Algebra Morphism}
 
-Take a morphism $ F: \Alg{\Lambda}(A, B) $. Note that $ F $ preserves $ \circ $ and the $ \mathbf 1_n $. Therefore, it induces a monoid morphism $ A_1 \to B_1 $, which gives a functor $ C_{A_1} \to C_{B_1} $. Precomposing with this, we get a functor $ \RAct{B_1} \to \RAct{A_1} $.
+Take a morphism $ F: \Alg{\Lambda}(A, B) $. Note that $ F $ preserves $ \circ $ and the $ \mathbf 1_n $. Therefore, it induces a monoid morphism $ A_1 \to B_1 $, which gives a functor $ \C_{A_1} \to \C_{B_1} $. Precomposing with this, we get a functor $ \RAct{B_1} \to \RAct{A_1} $.
 
 To get a morphism $ E_{\RAct{A_1}}(U_A) \to E_{\RAct{B_1}}(U_B) $ however, we need a functor $ \RAct{A_1} \to \RAct{B_1} $, which we obtain by Left Kan extension: see Lemma \ref{lem:scalar-extension} (the ``tensor product'').
 
-Hyland gives a very high-level argument why $ F_* $ induces a morphism $ \bar F : \LamTh(E_{\RAct{A_1}}(U_A), E_{\RAct{B_1}}(U_B)) $, which we will discuss a bit more here.
+Hyland gives a very high-level argument why $ F_* $ induces a morphism $ \overline F : \LamTh(E_{\RAct{A_1}}(U_A), E_{\RAct{B_1}}(U_B)) $, which we will discuss a bit more here.
 
 \begin{lemma}
   The extension of scalars $ F_* $ sends $ U_A $ to $ U_A $ and preserves finite products.
@@ -587,27 +587,27 @@ Now, we can start defining our lift of $ F $:
 \begin{definition}
   We can send an element $ g: E(U_A)_n = \RAct{A}(U_A^n, U_A) $ to
   \[ F_*(g): \RAct{A^\prime}(f(U_A^n), f(U_A)) \cong \RAct{A^\prime}((U_{A^\prime})^n, U_{A^\prime}) = E(U_{A^\prime})_n \]
-  so we have a morphism $ \bar F: \LamTh(E(U_A), E(U_{A^\prime})) $.
+  so we have a morphism $ \overline F: \LamTh(E(U_A), E(U_{A^\prime})) $.
 \end{definition}
 
 \begin{remark}
-  The fact that $ \bar F $ preserves the variables and substitution is not very hard to show, since these are just defined in terms of finite products of $ U_A $ and $ \bar F $ preserves finite products and $ U_A $.
+  The fact that $ \overline F $ preserves the variables and substitution is not very hard to show, since these are just defined in terms of finite products of $ U_A $ and $ \overline F $ preserves finite products and $ U_A $.
 
   However, showing that it is a $ \lambda $-theory morphism is a different matter. Hyland claims
 
-  \enquote{$ F $ preserves $ \mathbf 1_n $, which determines the function space as a retract of the universal. So $ \bar F $ preserves the retract and the result follows.}
+  \enquote{$ F $ preserves $ \mathbf 1_n $, which determines the function space as a retract of the universal. So $ \overline F $ preserves the retract and the result follows.}
 
   Although this covers the core of the argument, it is very complicated to actually verify that this works, because we need to pass through a lot of isomorphisms, and check that they work nicely together:
   \begin{align*}
     \alpha_A: \RAct{A_1}(X \times Y, Z) &\xrightarrow{\sim} \RAct{A_1}(X, Z^Y);\\
     \beta: F_*(U_A) &\xrightarrow{\sim} U_{A^\prime};\\
-    \bar \gamma: F_*(A \times B) &\xrightarrow{\sim} F_*(A) \times F_*(B);\\
+    \overline \gamma: F_*(A \times B) &\xrightarrow{\sim} F_*(A) \times F_*(B);\\
     \gamma_n: F_*(X^n) &\xrightarrow{\sim} F_*(X)^n;\\
     % \delta: F_*(X^Y) &\xrightarrow{\sim} F_*(X)^{F_*(Y)};\\
     \delta_A: U_A^{U_A} &\xrightarrow{\sim} A_2.
   \end{align*}
   Since we already motivated this in a different way, we will leave it as an exercise for the enthousiastic reader.
-  % with $ \gamma_{n + 1} = \bar{\gamma} \cdot (\gamma_n \times \id X) $.
+  % with $ \gamma_{n + 1} = \overline{\gamma} \cdot (\gamma_n \times \id X) $.
   % Then, for $ s: E(U_A)_{n + 1} $, we have $ \lambda_A(s) = \alpha_A(s) \cdot \delta_A \cdot \pi_A : \RAct{A_1}(U_A^n, U_A) $ for the projection $ \pi_A: A_2 \to U_A $. However, note that $ f^*(\lambda_A(s)): \RAct{A^\prime_1}(f^*(U_{A^\prime}^n), f^*(U_{A^\prime})) $. To compare this to $ \lambda_{A^\prime}(\dots) $, we actually need to take
   % \[ (\beta^{-1})^n \cdot \gamma_n^{-1} \cdot f^*(\lambda_A(s)) \cdot \beta : \RAct{A^\prime_1}(U_A^n, U_A). \]
   % On the other hand, we also have $ f^*(s): \RAct{A^\prime_1}(f^*(U_A^{n + 1}), f^*(U_A)) $ and we cannot apply $ \lambda_{A^\prime} $ directly. Instead, the term that we end up with is
@@ -615,7 +615,7 @@ Now, we can start defining our lift of $ F $:
   % So the equality that we need to prove is (using functoriality of $ f^* $ and naturality of $ \alpha_{A^\prime} $):
   % \begin{align*}
   %   &(\beta^{-1})^n \cdot \gamma_n^{-1} \cdot f^*(\alpha_A(s)) \cdot f^*(\delta_A \cdot \pi_A) \cdot \beta\\
-  %   &= (\beta^{-1})^n \cdot \gamma_n^{-1} \cdot \alpha_{A^\prime}((\id X^n \times \beta^{-1}) \cdot \bar{\gamma}^{-1} \cdot f^*(s)) \cdot \beta^{U_A} \cdot \delta_{A^\prime} \cdot \pi_{A^\prime}.
+  %   &= (\beta^{-1})^n \cdot \gamma_n^{-1} \cdot \alpha_{A^\prime}((\id X^n \times \beta^{-1}) \cdot \overline{\gamma}^{-1} \cdot f^*(s)) \cdot \beta^{U_A} \cdot \delta_{A^\prime} \cdot \pi_{A^\prime}.
   % \end{align*}
   % Because of the complicated definition of each of these terms, I was unable to verify the correctness of this statement (and the similar statement about $ \rho: E(U_A)_n \to E(U_A)_{n + 1} $) within a day, even though I am willing to believe Hyland's claim.
 
@@ -644,38 +644,38 @@ Now, we can start defining our lift of $ F $:
 \end{remark}
 
 \begin{lemma}
-  For $ F = \id A $, we have $ \bar F = \id{E(U_A)} $.
+  For $ F = \id A $, we have $ \overline F = \id{E(U_A)} $.
 \end{lemma}
 \begin{proof}
-  By the reasoning set forth in Lemma \ref{lem:elementary-faithful}, we only need to check $ \bar F_0 $. Given $ s : \RAct{A_1}(I, U_A) $, we have
-  \[ \bar F_0(s) = \gamma^{-1} \cdot F_*(s) \cdot \beta: \RAct{A_1}(I, U_A) \]
+  By the reasoning set forth in Lemma \ref{lem:elementary-faithful}, we only need to check $ \overline F_0 $. Given $ s : \RAct{A_1}(I, U_A) $, we have
+  \[ \overline F_0(s) = \gamma^{-1} \cdot F_*(s) \cdot \beta: \RAct{A_1}(I, U_A) \]
   for $ \gamma: F_*(I) \cong I $ and $ \beta: F_*(U_A) \cong U_A $. Then
   \[
-    \bar{\id A}(s)(\star) = s(\star) \circ ((\lambda x_1 x_2, x_2) \bullet ()) = s(\star \circ ((\lambda x_1 x_2, x_2) \bullet ())),
+    \overline{\id A}(s)(\star) = s(\star) \circ ((\lambda x_1 x_2, x_2) \bullet ()) = s(\star \circ ((\lambda x_1 x_2, x_2) \bullet ())),
   \]
-  so $ \bar{\id A}_0(s) = s $ and we can conclude that $ \bar{\id A} = \id{E(U_A)} $.
+  so $ \overline{\id A}_0(s) = s $ and we can conclude that $ \overline{\id A} = \id{E(U_A)} $.
 \end{proof}
 
 \begin{lemma}
-  For $ F : \Alg{\Lambda}(A, B) $ and $ G: \Alg{\Lambda}(B, C) $, we have $ \bar F \cdot \bar G = \overline{F \cdot G} $.
+  For $ F : \Alg{\Lambda}(A, B) $ and $ G: \Alg{\Lambda}(B, C) $, we have $ \overline F \cdot \overline G = \overline{F \cdot G} $.
 \end{lemma}
 \begin{proof}
   Again, we only have to check at the terms without free variables. Given $ s : \RAct{A_1}(I, U_A) $, we have
-  \[ (\bar F \cdot \bar G)(s) = \gamma_G^{-1} \cdot G_*(\gamma_F^{-1} \cdot F_*(s) \cdot \beta_F) \cdot \beta_G: \RAct{C_1}(I, U_C) \]
+  \[ (\overline F \cdot \overline G)(s) = \gamma_G^{-1} \cdot G_*(\gamma_F^{-1} \cdot F_*(s) \cdot \beta_F) \cdot \beta_G: \RAct{C_1}(I, U_C) \]
   for $ \gamma: F_*(I) \cong I $ and $ \beta: F_*(U_A) \cong U_A $. Then
   \begin{align*}
-    (\bar F \cdot \bar G)(s)(\star)
+    (\overline F \cdot \overline G)(s)(\star)
     &= G(F(s(\star)) \circ ((\lambda x_1 x_2, x_2) \bullet_B ())) \circ ((\lambda x_1 x_2, x_2) \bullet_C ())\\
     &= G(F(s(\star \circ ((\lambda x_1 x_2, x_2) \bullet_A ()) \circ ((\lambda x_1 x_2, x_2) \bullet_A ()))))\\
     &= G(F(s(\star)))\\
     &= (F \cdot G)^{-1}(s(\star \circ ((\lambda x_1 x_2, x_2) \bullet_A ())))\\
     &= \overline(F \cdot G)(s)(\star)
   \end{align*}
-  so $ (\bar F \cdot \bar G)_0(s) = (\overline{F \cdot G})_0(s) $ and we can conclude that $ \bar F \cdot \bar G = \overline{F \cdot G} $.
+  so $ (\overline F \cdot \overline G)_0(s) = (\overline{F \cdot G})_0(s) $ and we can conclude that $ \overline F \cdot \overline G = \overline{F \cdot G} $.
 \end{proof}
 
 \begin{definition}
-  We get a functor from $ \Alg{\Lambda} $ to $ \LamTh $, sending objects $ A $ to $ E_{\RAct{A_1}}(U_A) $ and morphisms $ F: \Alg{\Lambda}(A, B) $ to $ \bar F: E(U_A) \to E(U_B) $.
+  We get a functor from $ \Alg{\Lambda} $ to $ \LamTh $, sending objects $ A $ to $ E_{\RAct{A_1}}(U_A) $ and morphisms $ F: \Alg{\Lambda}(A, B) $ to $ \overline F: E(U_A) \to E(U_B) $.
 \end{definition}
 
 \begin{remark}
@@ -697,7 +697,7 @@ Now, we can start defining our lift of $ F $:
       \RAct{A_1} \arrow[r, "F_*"] & \RAct{B_1}
     \end{tikzcd}
   \end{center}
-  Since $ F $ preserves all the structure of $ \R_A $, as do the embeddings of $ \R_A $ and $ \R_B $ into $ \RAct{A_1} $ and $ \RAct{B_1} $, one would expect $ F_* $ to preserves the structure of the full subcategory $ \R_A $ of $ \RAct{A_1} $, including $ U_A $, its finite products and their exponentials. This is another way to argue that $ \bar F $ is indeed a morphism of $ \lambda $-theories.
+  Since $ F $ preserves all the structure of $ \R_A $, as do the embeddings of $ \R_A $ and $ \R_B $ into $ \RAct{A_1} $ and $ \RAct{B_1} $, one would expect $ F_* $ to preserves the structure of the full subcategory $ \R_A $ of $ \RAct{A_1} $, including $ U_A $, its finite products and their exponentials. This is another way to argue that $ \overline F $ is indeed a morphism of $ \lambda $-theories.
 \end{remark}
 
 \subsection{The Unit}
@@ -710,7 +710,7 @@ Definining the unit of the adjunction boils down to a version of Scott's represe
 \end{lemma}
 \begin{proof}
   Recall from Remark \ref{rem:ract-presheaf-equivalence} that we have a chain of equivalences
-  \[ \Pshf L \xrightarrow \sim P \mathbf L \xrightarrow \sim P C_{L_1} \xrightarrow \sim P C_{{L_0}_1} \xrightarrow \sim \RAct{{L_0}_1}. \]
+  \[ \Pshf L \xrightarrow \sim P \mathbf L \xrightarrow \sim P \C_{L_1} \xrightarrow \sim P \C_{{L_0}_1} \xrightarrow \sim \RAct{{L_0}_1}. \]
   It sends the presheaf $ L^n $ to the set $ L_1^n $ with a right action sending $ s: L_1^n $ and $ t: (L_0)_1 $ to $ (s_i \bullet_L \rho(t))_i : L_1^n $. We have an isomorphism $ s \mapsto (\lambda(s_i))_i: (L_1)^n \to U_{L_0} $, with inverse $ (\rho_i)_i : s \mapsto (\rho(s_i))_i $.
 
   Then $ \eta_L $ arises by combining this with the isomorphism from Scott's representation theorem (Theorem \ref{thm:representation-theorem})
@@ -730,7 +730,7 @@ Definining the unit of the adjunction boils down to a version of Scott's represe
 
 \begin{remark}
   Note that we can do the same with Scott's version of his representation theorem, using the chain of equivalences and an embedding
-  \[ \mathbf R \xrightarrow \sim \mathbf R_{L_0} \xrightarrow{\yo} P \R_{L_0} \xrightarrow \sim P C_{{L_0}_1} \xrightarrow \sim \RAct{{L_0}_1}, \]
+  \[ \mathbf R \xrightarrow \sim \mathbf R_{L_0} \xrightarrow{\yo} P \R_{L_0} \xrightarrow \sim P \C_{{L_0}_1} \xrightarrow \sim \RAct{{L_0}_1}, \]
   Here, it is a bit harder to get an explicit formula for $ \eta $, because we need to do a bit more conversion between $ U_A^n $ and the image of $ U^n $ after the embedding $ \varphi: \mathbb R \hookrightarrow \RAct{{L_0}_1} $. If we quickly define $ \lambda $-terms
   \[ \langle x_i \rangle_i = \langle x_1, \dots, x_n \rangle = \langle \langle \dots \langle (\lambda x_{n + 1} x_{n + 2}, x_{n + 2}), x_1 \rangle, \dots\rangle, x_n \rangle \]
   and corresponding tuples $ (x_i)_i $ and projections $ \pi_i $, we have
@@ -744,16 +744,16 @@ Definining the unit of the adjunction boils down to a version of Scott's represe
   \begin{center}
     \begin{tikzcd}
       L \arrow[r, "F"] \arrow[d, "\eta_L"] & L^\prime \arrow[d, "\eta_{L^\prime}"]\\
-      E_{\RAct{{L_0}_1}}(U_{L_0}) \arrow[r, "\bar{F_0}"] & E_{\RAct{{L^\prime_0}_1}}(U_{L^\prime_0})
+      E_{\RAct{{L_0}_1}}(U_{L_0}) \arrow[r, "\overline{F_0}"] & E_{\RAct{{L^\prime_0}_1}}(U_{L^\prime_0})
     \end{tikzcd}
   \end{center}
 \end{lemma}
 \begin{proof}
   We must show
-  \[ \eta_L \cdot \bar{F_0} = F \cdot \eta_{L^\prime}. \]
+  \[ \eta_L \cdot \overline{F_0} = F \cdot \eta_{L^\prime}. \]
   Note that for all $ s : L_0 $,
   \begin{align*}
-    \bar{F_0}_0(\eta_L(s))
+    \overline{F_0}_0(\eta_L(s))
     &= \gamma_{F_0}^{-1} \cdot {F_0}_*(\star \mapsto (\lambda x_1, \iota_{0, 1}(s))) \cdot \beta_F\\
     &= \star \mapsto F_0(\lambda x_1, \iota_{0, 1}(s)) \circ ((\lambda x_1 x_2, x_2) \bullet ())\\
     &= \star \mapsto (\lambda x_1, \iota_{0, 1}(F_0(s)))\\
@@ -791,7 +791,7 @@ To show that $ \epsilon $ preserves the $ \Lambda $-definable constants, we firs
   $ \epsilon $ is natural in $ A $. That is, for all $ F: \Alg{\Lambda}(A, B) $, the following diagram commutes:
   \begin{center}
     \begin{tikzcd}
-      E(U_A)_0 \arrow[d, "\epsilon_A"] \arrow[r, "\bar F_0"] & E(U_B)_0 \arrow[d, "\epsilon_B"]\\
+      E(U_A)_0 \arrow[d, "\epsilon_A"] \arrow[r, "\overline F_0"] & E(U_B)_0 \arrow[d, "\epsilon_B"]\\
       A \arrow[r, "F"] & B
     \end{tikzcd}
   \end{center}
@@ -801,15 +801,15 @@ To show that $ \epsilon $ preserves the $ \Lambda $-definable constants, we firs
   \[ \beta: F_*(U_A) \xrightarrow \sim U_B \quad \text{and} \quad \gamma: F_*(I) \xrightarrow \sim I, \]
   with
   \[ \beta(a, b) = F(a) \circ b \quad \text{and} \quad \gamma^{-1}(\star) = (\star, (\lambda x_1 x_2, x_2) \bullet ()). \]
-  Then $ \bar F: \RAct{A_1}(I, U_A) \to \RAct{B_1}(I, U_B) $ is given by
+  Then $ \overline F: \RAct{A_1}(I, U_A) \to \RAct{B_1}(I, U_B) $ is given by
   \[
-    \bar F(s)(\star)
+    \overline F(s)(\star)
     = \gamma^{-1} \cdot (s \times \id{B_1}) \cdot \beta
     = (\lambda x_2, x_1 (\lambda x_3, x_3)) \bullet F(s(\star)),
   \]
   so
   \[
-    (\bar F \cdot \epsilon_B)(s)
+    (\overline F \cdot \epsilon_B)(s)
     = (x_1 (\lambda x_2, x_2)) \bullet F(s(\star))
     = (\epsilon_A \cdot F)(s),
   \]
@@ -846,7 +846,7 @@ Now, finally, we are ready to show that $ \epsilon $ is an isomorphism of $ \Lam
   \begin{center}
     \begin{tikzcd}
       E(U_{\Lambda_0})_0
-        \arrow[r, "\bar F_0"]
+        \arrow[r, "\overline F_0"]
         \arrow[d, "\epsilon_{\Lambda_0}"]
       & E(U_A)_0
         \arrow[d, "\epsilon_A"]\\
@@ -858,10 +858,10 @@ Now, finally, we are ready to show that $ \epsilon $ is an isomorphism of $ \Lam
   \end{center}
   By Lemma \ref{lem:counit-natural}, the square commutes and by Lemma \ref{lem:zigzag}, we have $ \eta_0 \cdot \epsilon_{\Lambda_0} = \id{\Lambda_0} $.
 
-  Recall that there exists a unique morphism $ \iota_\Lambda: \LamTh(\Lambda, E(U_A)) $, and that for all $ s: \Lambda_0 $, by definition $ s \bullet_{E(U_A)_0} () = \iota_\Lambda(s) \bullet_{E(U_A)} () = \iota_\Lambda(s) $. Since we have $ \eta \cdot \bar F : \LamTh(\Lambda, E(U_A)) $, we must have $ \iota_\Lambda = \eta \cdot \bar F $ and
+  Recall that there exists a unique morphism $ \iota_\Lambda: \LamTh(\Lambda, E(U_A)) $, and that for all $ s: \Lambda_0 $, by definition $ s \bullet_{E(U_A)_0} () = \iota_\Lambda(s) \bullet_{E(U_A)} () = \iota_\Lambda(s) $. Since we have $ \eta \cdot \overline F : \LamTh(\Lambda, E(U_A)) $, we must have $ \iota_\Lambda = \eta \cdot \overline F $ and
   \begin{align*}
     \epsilon_A(s \bullet_{E(U_A)} ())
-    &= \epsilon_A(\bar{F_0}(\eta_0(s)))\\
+    &= \epsilon_A(\overline{F_0}(\eta_0(s)))\\
     &= F(\epsilon_{\Lambda_0}(\eta_0(s)))\\
     &= F(s)\\
     &= s \bullet_A (),
@@ -1187,17 +1187,17 @@ being an equivalence of categories.
         \arrow[d, "\epsilon_{\iota_\Lambda^* B}", "\sim"'] &
       (a \mapsto \epsilon_A^{-1}(a) \bullet_C ())^* (E_{\R_{\iota_\Lambda^* C}}(U)_0)
         \arrow[d, "\epsilon_{\iota_\Lambda^* C}", "\sim"']\\
-      B \arrow[r, dashed, "\bar h"] & C
+      B \arrow[r, dashed, "\overline h"] & C
     \end{tikzcd}
   \end{center}
   This gives us the lift
-  \[ \bar h = \epsilon_{\iota_\Lambda^* B}^{-1} \cdot (a \mapsto \epsilon_A^{-1}(a) \bullet ())^* h \cdot \epsilon_{\iota_\Lambda^* C} : \Alg{E_{\R_A}(U)}(B, C) \]
+  \[ \overline h = \epsilon_{\iota_\Lambda^* B}^{-1} \cdot (a \mapsto \epsilon_A^{-1}(a) \bullet ())^* h \cdot \epsilon_{\iota_\Lambda^* C} : \Alg{E_{\R_A}(U)}(B, C) \]
 
   Now, when we again pull back this map to
-  \[ [a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n^* \bar h : \Alg{\Lambda_A}([a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n^* B, [a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n^* C). \]
+  \[ [a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n^* \overline h : \Alg{\Lambda_A}([a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n^* B, [a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n^* C). \]
   Note that by naturality of $ \epsilon $, we have
-  \[ \bar h = \epsilon_{\iota_\Lambda^* B}^{-1} \cdot h \cdot \epsilon_{\iota_\Lambda^* C} = \epsilon_{\iota_\Lambda^* B}^{-1} \cdot \epsilon_{\iota_\Lambda^* B} \cdot h = h \]
-  as functions, and therefore $ [a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n^* \bar h = h $, so the pullback is full.
+  \[ \overline h = \epsilon_{\iota_\Lambda^* B}^{-1} \cdot h \cdot \epsilon_{\iota_\Lambda^* C} = \epsilon_{\iota_\Lambda^* B}^{-1} \cdot \epsilon_{\iota_\Lambda^* B} \cdot h = h \]
+  as functions, and therefore $ [a \mapsto \epsilon_A^{-1}(a) \bullet (), \iota_{\Lambda_n}]_n^* \overline h = h $, so the pullback is full.
 \end{proof}
 
 \begin{lemma}

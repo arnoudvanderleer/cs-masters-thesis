@@ -122,7 +122,7 @@ Actually, we can recover some information about the algebraic theory morphism fr
   First of all, note that for all $ n : \mathbb N $ and $ A : \Alg T $, the following diagram in $ \SET $ commutes:
   \begin{center}
     \begin{tikzcd}
-      \Alg T(T_n, A) \arrow[r, "f^*"] \arrow[d, "\sim"] & \Alg{T^\prime}(f^* T_n, f^* A) \arrow[d, "\bar f_n \cdot -"]\\
+      \Alg T(T_n, A) \arrow[r, "f^*"] \arrow[d, "\sim"] & \Alg{T^\prime}(f^* T_n, f^* A) \arrow[d, "\overline f_n \cdot -"]\\
       A^n \arrow[r, "\sim"] & \Alg{T^\prime}(T^\prime_n, f^* A)
     \end{tikzcd}
   \end{center}
@@ -134,26 +134,26 @@ Actually, we can recover some information about the algebraic theory morphism fr
   %   = g(f(s) \bullet (x_i)_i)
   %   = g(f(s))
   % \]
-  with $ \bar f_n: T^\prime_n \to f^* T_n $ the $ T^\prime $-algebra morphism with underlying function $ f_n $. Note that $ f^* $ is fully faithful, so the function at the top of the diagram is a bijection, and so precomposition by $ \bar f_n $ is a bijection as well. Since $ f^* $ is essentially surjective, we have for all $ A : \Alg T^\prime $, some $ B : \Alg T $ and an isomorphism $ h: f^* B \xrightarrow \sim A $, which gives the following commutative diagram:
+  with $ \overline f_n: T^\prime_n \to f^* T_n $ the $ T^\prime $-algebra morphism with underlying function $ f_n $. Note that $ f^* $ is fully faithful, so the function at the top of the diagram is a bijection, and so precomposition by $ \overline f_n $ is a bijection as well. Since $ f^* $ is essentially surjective, we have for all $ A : \Alg T^\prime $, some $ B : \Alg T $ and an isomorphism $ h: f^* B \xrightarrow \sim A $, which gives the following commutative diagram:
   \begin{center}
     \begin{tikzcd}
-      \Alg{T^\prime}(f^* T_n, f^* B) \arrow[d, "\bar f_n \cdot -", "\sim"'] \arrow[r, "- \cdot h"', "\sim"] & \Alg{T^\prime}(f^* T_n, A) \arrow[d, "\bar f_n \cdot -"]\\
+      \Alg{T^\prime}(f^* T_n, f^* B) \arrow[d, "\overline f_n \cdot -", "\sim"'] \arrow[r, "- \cdot h"', "\sim"] & \Alg{T^\prime}(f^* T_n, A) \arrow[d, "\overline f_n \cdot -"]\\
       \Alg{T^\prime}(T^\prime_n, f^* B) \arrow[r, "- \cdot h"', "\sim"] & \Alg{T^\prime}(T^\prime_n, A)
     \end{tikzcd}
   \end{center}
-  so the arrow on the right is an equivalence as well. Taking $ A = T^\prime_n $, there exists some $ g: \Alg{T^\prime}(f^* T_n, T^\prime_n) $ such that $ \bar f_n \cdot g = \id{T^\prime_n} $. Also, note that
-  \[ \bar f_n \cdot g \cdot \bar f_n = \bar f_n \cdot \id{f^* T_n} \]
+  so the arrow on the right is an equivalence as well. Taking $ A = T^\prime_n $, there exists some $ g: \Alg{T^\prime}(f^* T_n, T^\prime_n) $ such that $ \overline f_n \cdot g = \id{T^\prime_n} $. Also, note that
+  \[ \overline f_n \cdot g \cdot \overline f_n = \overline f_n \cdot \id{f^* T_n} \]
   so taking $ A = f^* T_n $, we see that
-  \[ g \cdot \bar f_n = \id{f^* T_n}, \]
-  so $ f_n $, the underlying function of $ \bar f_n $, is a bijection, with inverse $ g $.
+  \[ g \cdot \overline f_n = \id{f^* T_n}, \]
+  so $ f_n $, the underlying function of $ \overline f_n $, is a bijection, with inverse $ g $.
 \end{proof}
 
 \begin{remark}
   Hyland's proof of this fact is almost the same, but in the last part, he uses some category theory. Instead of explicitly constructing the inverse, he notices that the bijection
-  \[ \Alg{T^\prime}(f^* T_n, A) \xrightarrow[\bar f_n \cdot -] \sim \Alg{T^\prime}(T^\prime_n, A) \]
-  is in fact the image of $ \op{\bar f_n} $ under the Yoneda embedding of $ \op{\Alg{T^\prime}} $ (or of $ \bar f_n $ under the covariant Yoneda embedding of $ \Alg{T^\prime} $) into the functor category $ \Alg{T^\prime} \to \SET $:
-  \[ \yo(\bar f_n): \yo(f^* T_n) \to \yo(T^\prime_n). \]
-  Since the Yoneda embedding is fully faithful, this shows that $ \bar f_n $ is an isomorphism of $ T^\prime $-algebras, so in particular, it is a bijection.
+  \[ \Alg{T^\prime}(f^* T_n, A) \xrightarrow[\overline f_n \cdot -] \sim \Alg{T^\prime}(T^\prime_n, A) \]
+  is in fact the image of $ \op{\overline f_n} $ under the Yoneda embedding of $ \op{\Alg{T^\prime}} $ (or of $ \overline f_n $ under the covariant Yoneda embedding of $ \Alg{T^\prime} $) into the functor category $ \Alg{T^\prime} \to \SET $:
+  \[ \yo(\overline f_n): \yo(f^* T_n) \to \yo(T^\prime_n). \]
+  Since the Yoneda embedding is fully faithful, this shows that $ \overline f_n $ is an isomorphism of $ T^\prime $-algebras, so in particular, it is a bijection.
 \end{remark}
 
 Note that besides the categories $ \Alg T $, we can also consider the category of `all' algebraic theory algebras together (\coqident{AlgebraicTheories.AlgebraCategoryCore}{algebra_full_cat}). That is, the category $ \int_T \Alg T $ with $ (\int_T \Alg T)_0 = \sum_{T : \AlgTh}, \Alg T $ and $ (\int_T \Alg T)((S, A), (T, B)) $ consisting of pairs $ (f, f^\prime): \AlgTh(S, T) \times \SET(A, B) $ such that for all $ t: S_n $ and $ a: A^n $,
@@ -594,7 +594,7 @@ Using some additional machinery, we can combine this with the algebra pullback f
   \[ q \bullet_{A(Q, p)} f = q \bullet_Q ((\iota_{n, p} (f_i))_i + (x_{n + i})_i). \]
 \end{example}
 
-\begin{lemma}[\coqident{AlgebraicTheories.RepresentationTheorem}{theory_presheaf_exponentiable}]
+\begin{lemma}[\coqident{AlgebraicTheories.RepresentationTheorem}{theory_presheaf_exponentiable}]\label{lem:plus-p-presheaf}
   For all $ p $ and all $ T $-presheaves $ Q $, $ A(Q, p) $ is the exponential object $ Q^{T^p} $.
 \end{lemma}
 \begin{proof}
@@ -602,7 +602,7 @@ Using some additional machinery, we can combine this with the algebra pullback f
 
   For $ Q $ a $ T $-presheaf, take the arrow $ \varphi: A(Q, p) \times T^p \to Q $ given by $ \varphi(q, t) = q \bullet_Q ((x_{n, i})_i + t) $ for $ q: A(Q, p)_n = Q_{n + p} $ and $ t: T^p_n $.
 
-  Now, given a $ T $-presheaf $ Q^\prime $ and a morphism $ \psi: Q^\prime \times T^p \to Q $. Define $ \tilde \psi: Q^\prime_n \to A(Q, p)_n $ by $ \tilde \psi(q) = \psi(\iota_{n, p}(q), (x_{n + i})_i) $.
+  Now, given a $ T $-presheaf $ Q^\prime $ and a morphism $ \psi: Q^\prime \times T^p \to Q $. Define $ \widetilde \psi: Q^\prime_n \to A(Q, p)_n $ by $ \widetilde \psi(q) = \psi(\iota_{n, p}(q), (x_{n + i})_i) $.
 
-  Then $ \psi $ factors as $ (\tilde \psi \times \id{T^p}) \cdot \varphi $. Also, some equational reasoning shows that $ \tilde \psi $ is unique, which proves that $ \varphi $ indeed is a universal arrow.
+  Then $ \psi $ factors as $ (\widetilde \psi \times \id{T^p}) \cdot \varphi $. Also, some equational reasoning shows that $ \widetilde \psi $ is unique, which proves that $ \varphi $ indeed is a universal arrow.
 \end{proof}

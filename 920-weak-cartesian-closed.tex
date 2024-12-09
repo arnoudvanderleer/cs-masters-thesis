@@ -4,15 +4,15 @@ In Definition \ref{def:endomorphism-theory}, we defined the endomorphism $ \lamb
 It seems that semi cartesian closed categories were first defined in \autocite{hayashi-1985-semifunctors} and then \autocite{hoofman-1993-semi-cartesian-closed} gave a slightly different definition, as well as the very related definition of a weak cartesian closed category. The latter paper also contains the construction of the endomorphism $ \lambda $-theory.
 
 \begin{definition}
-  Let $ C $ be a category with binary products (we will call the projections $ \pi_1 $ and $ \pi_2 $), and take $ A, B : C $. A \iindex{semi-exponential object} is an object $ A^B : C $, with a morphism $ \mathrm{ev}: C(A^B \times B \to A) $ and a function
-  \[ \mathrm{cur}_X: C(X \times B \to A) \to C(X, A^B) \]
+  Let $ \C $ be a category with binary products (we will call the projections $ \pi_1 $ and $ \pi_2 $), and take $ A, B : \C $. A \iindex{semi-exponential object} is an object $ A^B : \C $, with a morphism $ \mathrm{ev}: \C(A^B \times B \to A) $ and a function
+  \[ \mathrm{cur}_X: \C(X \times B, A) \to \C(X, A^B) \]
   for all $ X $, such that
   \[ \langle g \cdot \mathrm{cur}_X(f), h \rangle \cdot \mathrm{ev} = \langle g, h \rangle \cdot f \quad \text{and} \quad \mathrm{cur}_Y((g \times \id B) \cdot f) = g \cdot \mathrm{cur}_X(f) \]
-  for all $ f: C(X \times B, A) $, $ g : C(Y, X) $ and $ h : C(Y, B) $.
+  for all $ f: \C(X \times B, A) $, $ g : \C(Y, X) $ and $ h : \C(Y, B) $.
 \end{definition}
 
 \begin{definition}
-  A \textit{weak cartesian closed category}\index{cartesian closed category!weak} is a category $ C $ with a terminal object and binary products, together with a choice for a semi-exponential object $ A^B $ for all $ A, B : C $.
+  A \textit{weak cartesian closed category}\index{cartesian closed category!weak} is a category $ \C $ with a terminal object and binary products, together with a choice for a semi-exponential object $ A^B $ for all $ A, B : \C $.
 \end{definition}
 
 \begin{remark}
@@ -20,7 +20,7 @@ It seems that semi cartesian closed categories were first defined in \autocite{h
 \end{remark}
 
 \begin{definition}
-  A \iindex{reflexive object} in a category $ C $ with binary products is an object $ U $ with an exponential $ U^U $ and morphisms $ f $ and $ g $, forming the following commutative diagram:
+  A \iindex{reflexive object} in a category $ \C $ with binary products is an object $ U $ with a semi-exponential $ U^U $ and morphisms $ f $ and $ g $, forming the following commutative diagram:
   \begin{center}
     \begin{tikzcd}
       U^U \arrow[dd, "\mathrm{cur}_{U^U}(\mathrm{ev})"'] \arrow[rd, "f"]\\
@@ -31,10 +31,10 @@ It seems that semi cartesian closed categories were first defined in \autocite{h
 \end{definition}
 
 \begin{definition}
-  If we have a reflexive object $ (U, f, g) $ in a category $ C $ with finite products, we can endow the endomorphism algebraic theory $ E_C(U) $ (Definition \ref{def:endomorphism-theory}) with a $ \lambda $-theory structure with $ \beta $-equality, with
-  \[ \rho(s) = ((s \cdot g) \times \id U) \cdot \mathrm{ev} : C(U^{n + 1}, U) \]
+  If we have a reflexive object $ (U, f, g) $ in a category $ \C $ with finite products, we can endow the endomorphism algebraic theory $ E_\C(U) $ (Definition \ref{def:endomorphism-theory}) with a $ \lambda $-theory structure with $ \beta $-equality, with
+  \[ \rho(s) = ((s \cdot g) \times \id U) \cdot \mathrm{ev} : \C(U^{n + 1}, U) \]
   and
-  \[ \lambda(t) = \mathrm{cur}_{U^n}(t) \cdot f : C(U^n, U) \]
+  \[ \lambda(t) = \mathrm{cur}_{U^n}(t) \cdot f : \C(U^n, U) \]
   for $ s: E(U)_n $ and $ t: E(U)_{n + 1} $.
 \end{definition}
 
@@ -42,7 +42,7 @@ It seems that semi cartesian closed categories were first defined in \autocite{h
   The definition above indeed yields a $ \lambda $-theory with $ \beta $-equality.
 \end{lemma}
 \begin{proof}
-  Note that for morphisms $ f: C(U^{m + 1}, U) $ and $ g: C(U^n, U)^m $,
+  Note that for morphisms $ f: \C(U^{m + 1}, U) $ and $ g: \C(U^n, U)^m $,
   \[ (\langle g_i \rangle_i \times \id U) \cdot f = f \bullet (\iota_{n, 1}(g_1), \dots, \iota_{n, 1}(g_m), x_{n + 1}). \]
   Then
   \begin{align*}
@@ -69,47 +69,47 @@ It seems that semi cartesian closed categories were first defined in \autocite{h
 
 We get the following as a special case, in which $ U^U $ is not only a retract of $ U $, but actually equal to $ U $.
 \begin{corollary}
-  Let $ L $ be an algebraic theory. Suppose that its associated Lawvere theory $ C $ is a weak cartesian closed category and suppose that for $ 1 : C $, we have $ 1^1 = 1 $. Then we can give $ L $ a $ \lambda $-theory structure with $ \beta $-equality, given by
+  Let $ L $ be an algebraic theory. Suppose that its associated Lawvere theory $ \C $ is a weak cartesian closed category and suppose that for $ 1 : \C $, we have $ 1^1 = 1 $. Then we can give $ L $ a $ \lambda $-theory structure with $ \beta $-equality, given by
   \[ \lambda_n(s) = \mathrm{cur}_n(s) \quad \text{and} \quad \rho(t) = \mathrm{ev} \bullet ((\iota_{n, 1}(t_i))_i + (x_{n + 1})). \]
 \end{corollary}
 
 Now, we will show that the semi-exponential objects satisfy some properties that justify the use of the exponential notation. These properties allow us to construct semi-exponentials on products from the semi-exponentials of their components.
 \begin{remark}
-  Note that in a category $ C $ with a terminal object $ I $, we have exponential objects
+  Note that in a category $ \C $ with a terminal object $ I $, we have exponential objects
   \[ A^I = A \quad \text{and} \quad I^A = I \]
   for all objects $ A $. Therefore, we get semi-exponential objects for free if we have a terminal object.
 \end{remark}
 
 \begin{lemma}
-  Take $ A, A^\prime, B : C $. If $ A^B $ and $ {A^\prime}^B $ are semi-exponential objects, then $ A^B \times (A^\prime)^B $ is the semi-exponential object $ (A \times A^\prime)^B $.
+  Take $ A, A^\prime, B : \C $. If $ A^B $ and $ {A^\prime}^B $ are semi-exponential objects, then $ A^B \times (A^\prime)^B $ is the semi-exponential object $ (A \times A^\prime)^B $.
 \end{lemma}
 \begin{proof}
   We have
   \begin{align*}
-    \mathrm{ev} : C(A^B \times B \to A) \quad &\text{and} \quad \mathrm{ev}^\prime : C({A^\prime}^B \times B \to A^\prime),\\
-    \mathrm{cur}_X: C(X \times B, A) \to C(X, A^B) \quad &\text{and} \quad \mathrm{cur}^\prime_X: C(X \times B, A^\prime) \to C(X, {A^\prime}^B).
+    \mathrm{ev} : \C(A^B \times B, A) \quad &\text{and} \quad \mathrm{ev}^\prime : \C({A^\prime}^B \times B, A^\prime),\\
+    \mathrm{cur}_X: \C(X \times B, A) \to \C(X, A^B) \quad &\text{and} \quad \mathrm{cur}^\prime_X: \C(X \times B, A^\prime) \to \C(X, {A^\prime}^B).
   \end{align*}
   Define
-  \[ \mathrm{ev}^{\prime \prime} = \langle \langle \pi_1 \cdot \pi_1, \pi_2 \rangle \cdot \mathrm{ev}, \langle \pi_1 \cdot \pi_2, \pi_2 \rangle \cdot \mathrm{ev} \rangle : C(A^B \times {A^\prime}^B, A \times A^\prime) \]
-  and for $ f: C(X \times B, A \times A^\prime) $,
-  \[ \mathrm{cur}^{\prime \prime}_X(f) = \langle \mathrm{cur}_X(f \cdot \pi_1), \mathrm{cur}_X(f \cdot \pi_2) \rangle : C(X, A^B \times A^{B^\prime}). \]
+  \[ \mathrm{ev}^{\prime \prime} = \langle \langle \pi_1 \cdot \pi_1, \pi_2 \rangle \cdot \mathrm{ev}, \langle \pi_1 \cdot \pi_2, \pi_2 \rangle \cdot \mathrm{ev} \rangle : \C(A^B \times {A^\prime}^B, A \times A^\prime) \]
+  and for $ f: \C(X \times B, A \times A^\prime) $,
+  \[ \mathrm{cur}^{\prime \prime}_X(f) = \langle \mathrm{cur}_X(f \cdot \pi_1), \mathrm{cur}_X(f \cdot \pi_2) \rangle : \C(X, A^B \times A^{B^\prime}). \]
   These satisfy the required equations.
 \end{proof}
 
 \begin{lemma}
-  Take $ A, B, B^\prime : C $. If $ A^B $ and $ (A^B)^{B^\prime} $ are semi-exponential objects, then $ (A^B)^{B^\prime} $ is the semi-exponential object $ A^{B \times B^\prime} $.
+  Take $ A, B, B^\prime : \C $. If $ A^B $ and $ (A^B)^{B^\prime} $ are semi-exponential objects, then $ (A^B)^{B^\prime} $ is the semi-exponential object $ A^{B \times B^\prime} $.
 \end{lemma}
 \begin{proof}
   We have
   \begin{align*}
-    \mathrm{ev} : C(A^B \times B \to A) \quad &\text{and} \quad \mathrm{ev}^\prime : : C((A^B)^{B^\prime} \times B^\prime \to A^B),\\
-    \mathrm{cur}_X: C(X \times B, A) \to C(X, A^B) \quad &\text{and} \quad \mathrm{cur}^\prime_X: C(X \times B^\prime, A^B) \to C(X, (A^B)^{B^\prime}).
+    \mathrm{ev} : \C(A^B \times B, A) \quad &\text{and} \quad \mathrm{ev}^\prime : \C((A^B)^{B^\prime} \times B^\prime, A^B),\\
+    \mathrm{cur}_X: \C(X \times B, A) \to \C(X, A^B) \quad &\text{and} \quad \mathrm{cur}^\prime_X: \C(X \times B^\prime, A^B) \to \C(X, (A^B)^{B^\prime}).
   \end{align*}
   Define
-  \[ \mathrm{ev}^{\prime \prime} = \langle (\id {(A^B)^{B^\prime}} \times \pi_2) \cdot \mathrm{ev}^\prime, \pi_2 \cdot \pi_1 \rangle \cdot \mathrm{ev} : C((A^B)^{B^\prime} \times (B \times B^\prime), A) \]
-  and for $ f: C(X \times (B \times B^\prime), A) $,
-  \[ \mathrm{cur}^{\prime \prime}_X(f) = \mathrm{cur}^\prime_X(\mathrm{cur}_{X \times B^\prime}(\langle \pi_1 \cdot \pi_1, \langle \pi_2, \pi_1 \cdot \pi_2 \rangle \rangle \cdot f)) : C(X, (A^B)^{B^\prime}). \]
-  Then, for $ f: C(X \times (B \times B^\prime), A) $, $ g: C(Y, X) $ and $ h: C(Y, B \times B^\prime) $,
+  \[ \mathrm{ev}^{\prime \prime} = \langle (\id {(A^B)^{B^\prime}} \times \pi_2) \cdot \mathrm{ev}^\prime, \pi_2 \cdot \pi_1 \rangle \cdot \mathrm{ev} : \C((A^B)^{B^\prime} \times (B \times B^\prime), A) \]
+  and for $ f: \C(X \times (B \times B^\prime), A) $,
+  \[ \mathrm{cur}^{\prime \prime}_X(f) = \mathrm{cur}^\prime_X(\mathrm{cur}_{X \times B^\prime}(\langle \pi_1 \cdot \pi_1, \langle \pi_2, \pi_1 \cdot \pi_2 \rangle \rangle \cdot f)) : \C(X, (A^B)^{B^\prime}). \]
+  Then, for $ f: \C(X \times (B \times B^\prime), A) $, $ g: \C(Y, X) $ and $ h: \C(Y, B \times B^\prime) $,
   \begin{align*}
     \langle g \cdot \mathrm{cur}^{\prime \prime}_X(f), h \rangle \cdot \mathrm{ev}^{\prime \prime}
     &= \langle \langle g \cdot \mathrm{cur}^\prime_X(\mathrm{cur}_{X \times B^\prime}(\langle \pi_1 \cdot \pi_1, \langle \pi_2, \pi_1 \cdot \pi_2 \rangle \rangle \cdot f)), h \cdot \pi_2 \rangle \cdot \mathrm{ev}^\prime, h \cdot \pi_1 \rangle \cdot \mathrm{ev}\\
@@ -128,28 +128,28 @@ Now, we will show that the semi-exponential objects satisfy some properties that
 
 Now, we can show that giving an algebraic theory a $ \lambda $-theory structure gives its corresponding Lawvere theory (Lemma \ref{lem:lawvere-clone}) a weak cartesian closed structure.
 \begin{lemma}
-  Let $ L $ be a $ \lambda $-theory with $ \beta $-equality. Its corresponding Lawvere theory $ C $ is a weak cartesian closed category.
+  Let $ L $ be a $ \lambda $-theory with $ \beta $-equality. Its corresponding Lawvere theory $ \C $ is a weak cartesian closed category.
 \end{lemma}
 \begin{proof}
-  Note that by definition of a Lawvere theory, every $ n: C $ is the $ n $-fold product of $ 1 $. Therefore, binary products are given by addition on the natural numbers, and $ 0 $ is the terminal object.
+  Note that by definition of a Lawvere theory, every $ n: \C $ is the $ n $-fold product of $ 1 $. Therefore, binary products are given by addition on the natural numbers, and $ 0 $ is the terminal object.
 
   Now, we define $ 1^1 = 1 $, with
-  \[ \mathrm{ev} = \rho(x_1) : C(2, 1) \quad \text{and} \quad \mathrm{cur}_n(f) = \lambda(f) : C(n, 1) \]
-  for $ f: C(n + 1, 1) $. The following shows that this is indeed a semi-exponential object:
+  \[ \mathrm{ev} = \rho(x_1) : \C(2, 1) \quad \text{and} \quad \mathrm{cur}_n(f) = \lambda(f) : \C(n, 1) \]
+  for $ f: \C(n + 1, 1) $. The following shows that this is indeed a semi-exponential object:
   \[ \rho(x_1) \bullet (\lambda(f) \bullet g, h) = \rho(x_1 \bullet \lambda(f)) \bullet (g + (h)) = f \bullet (g + (h)) \]
   and
   \[ \lambda(f \bullet ((\iota_{n, 1}(g_i))_i + (x_{n + 1, n + 1}))) = \lambda(f) \bullet g \]
-  Now, by the remark and the lemmas above, we have for $ m, n: C $ (both nonzero),
-  \[ m^n = (1 \times \dots \times 1)^n = 1^n \times \dots \times 1^n \]
+  Now, by the remark and the lemmas above, we have for $ m, n: \C $ (both nonzero),
+  \[ 1^n = 1^{1 \times \dots \times 1} = (((1^1)^1)\dots)^1 = 1 \]
   and
-  \[ 1^n = 1^{1 \times \dots \times 1} = ((1^1)^1\dots)^1 = 1 \]
-  so $ C $ has semi-exponential objects and it is a weak cartesian closed category.
+  \[ m^n = (1 \times \dots \times 1)^n = 1^n \times \dots \times 1^n = m \]
+  so $ \C $ has semi-exponential objects and it is a weak cartesian closed category.
 \end{proof}
 
 \begin{remark}
   Note that if $ L $ has both $ \beta $- and $ \eta $-equality, then for $ 1^1 $,
-  \[ \mathrm{cur}: C(n + 1, 1) \to C(n, 1), \]
-  which is given by $ \lambda $, has an inverse given by $ \rho $. Furthermore, since $ \lambda $ and $ \rho $ respect substitution, these constitute a natural isomorphism between $ C(- + 1, 1) $ and $ C(-, 1) $, so the semi-exponential object $ 1^1 = 1 $ is in fact an exponential object. Then we have for all $ m $ and $ n $, an exponential object
+  \[ \mathrm{cur}: \C(n + 1, 1) \to \C(n, 1), \]
+  which is given by $ \lambda $, has an inverse given by $ \rho $. Furthermore, since $ \lambda $ and $ \rho $ respect substitution, these constitute a natural isomorphism between $ \C(- + 1, 1) $ and $ \C(-, 1) $, so the semi-exponential object $ 1^1 = 1 $ is in fact an exponential object. Then we have for all $ m $ and $ n $, an exponential object
   \[ m^n = (1 \times \dots \times 1)^{1 \times \dots \times 1} = 1^{1 \times \dots \times 1} \times \dots \times 1^{1 \times \dots \times 1} = 1 \times \dots \times 1 = m, \]
-  so $ C $ is cartesian closed.
+  so $ \C $ is cartesian closed.
 \end{remark}
